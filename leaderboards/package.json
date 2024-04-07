@@ -1,0 +1,15 @@
+{
+  "name": "dauntless-leaderboards",
+  "version": "1.0.0",
+  "description": "Dauntless Gauntlet and Trial leaderboards",
+  "scripts": {
+    "gauntlets": "ts-node src/gauntlets.ts"
+  },
+  "keywords": [],
+  "author": "Pierre-Yves Flamand",
+  "license": "ISC",
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.4"
+  }
+}
