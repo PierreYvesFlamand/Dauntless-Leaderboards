@@ -24,6 +24,15 @@ export type DAUNTLESS_LEADERBOARD_ITEM = {
 }
 
 // APP
+export type ALL_SEASONS = {
+    [key in string]: {
+        startAt: Date,
+        endAt: Date,
+        lastUpdated: Date,
+        leaderboard: Array<LEADERBOARD_ITEM>
+    }
+}
+
 export type SEASON_DETAIL = {
     startAt: Date,
     endAt: Date,

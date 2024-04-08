@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "gauntlets": "ts-node src/gauntlets.ts"
+  },
+  "dependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.4"
+  }
+}
