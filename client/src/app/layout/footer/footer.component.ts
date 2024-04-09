@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 
 type Changelog = Array<{
   version: string,
+  date: string,
   changelogItems: Array<string>
 }>;
 
@@ -12,6 +13,7 @@ type Changelog = Array<{
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
+  public showChangelog: boolean = false;
   public changelog: Changelog = [];
 
   constructor() {

@@ -1,12 +1,15 @@
 [
     {
         "version": "1.1.0",
+        "date": "2024/04/09",
         "changelogItems": [
-            "Add light/dark mode switch"
+            "Add light/dark mode switch",
+            "Add version changelog on version number click"
         ]
     },
     {
         "version": "1.0.0",
+        "date": "2024/04/09",
         "changelogItems": [
             "Very first version",
             "Create Dashboard page",

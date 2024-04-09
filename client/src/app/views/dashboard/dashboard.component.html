@@ -3,8 +3,11 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><i class="nav-icon fa-solid fa-tree mr-2"></i>Gauntlet Season
-                    {{currentSeasonNumber}}<span class="font-weight-light ml-4 h6">End at {{currentSeasonEndAt |
-                        date:'YYYY/MM/dd HH:mm'}}</span></h3>
+                    {{currentSeasonNumber}}</h3>
+                <div class="card-tools">
+                    <span class="badge badge-secondary">End at {{currentSeasonEndAt |
+                        date:'YYYY/MM/dd HH:mm'}}</span>
+                </div>
             </div>
             <div class="card-body p-0">
                 <table class="table">
@@ -23,14 +26,11 @@
                     <tbody>
                         <tr *ngFor="let leaderboardItem of currentSeasonLeaderboard; index as i;">
                             <td>{{i + 1}}.
-                                <i 
-                                    class="fa-solid"
-                                    [class.d-none]="leaderboardItem.positionDirection === undefined"
+                                <i class="fa-solid" [class.d-none]="leaderboardItem.positionDirection === undefined"
                                     [class.fa-caret-up]="!leaderboardItem.positionDirection"
                                     [class.text-success]="!leaderboardItem.positionDirection"
                                     [class.fa-caret-down]="leaderboardItem.positionDirection"
-                                    [class.text-danger]="leaderboardItem.positionDirection"
-                                ></i>
+                                    [class.text-danger]="leaderboardItem.positionDirection"></i>
                             </td>
                             <td>{{leaderboardItem.guildName}} <span
                                     class="font-weight-light h6">[{{leaderboardItem.guildNameplate}}]</span></td>
