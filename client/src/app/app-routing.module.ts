@@ -1,18 +1,26 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, withComponentInputBinding } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { SeasonsComponent } from './views/seasons/seasons.component';
+import { SeasonDetailComponent } from './views/seasons/season-detail/season-detail.component';
+import { GuildsComponent } from './views/guilds/guilds.component';
 import { AboutComponent } from './views/about/about.component';
 import { NotFoundComponent } from './views/404/404.component';
+import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
       { path: '', component: DashboardComponent },
       {
-        path: 'seasons', children: [
-          { path: '', pathMatch: 'full', component: SeasonsComponent }
+        path: 'seasons', component: SeasonsComponent, children: [
+          { path: ':gauntletId', component: SeasonDetailComponent }
+        ]
+      },
+      {
+        path: 'guilds', component: GuildsComponent, children: [
+          { path: ':guildTag', component: GuildDetailComponent }
         ]
       },
       { path: 'about', component: AboutComponent },
@@ -22,7 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { bindToComponentInputs: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

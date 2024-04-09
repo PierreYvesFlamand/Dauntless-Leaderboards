@@ -25,12 +25,7 @@ export type DAUNTLESS_LEADERBOARD_ITEM = {
 
 // APP
 export type ALL_SEASONS = {
-    [key in string]: {
-        startAt: Date,
-        endAt: Date,
-        lastUpdated: Date,
-        leaderboard: Array<LEADERBOARD_ITEM>
-    }
+    [key in string]: SEASON_DETAIL
 }
 
 export type SEASON_DETAIL = {
@@ -51,4 +46,16 @@ export type LEADERBOARD_ITEM = {
     level: number,
     remainingSec: number,
     positionDirection?: LEADERBOARD_POSITION_DIRECTION
+}
+
+export type ALL_GUILDS = Array<GUILD_DETAIL>;
+
+export type GUILD_DETAIL = {
+    guildName: string,
+    guildNameplate: string,
+    leaderboardPositions: Array<LEADERBOARD_POSITION>
+}
+
+export type LEADERBOARD_POSITION = {
+    [key: string]: number
 }
