@@ -1,0 +1,115 @@
+<div class="row">
+    <div class="col-lg-3 order-lg-2">
+        <div class="card">
+            <div class="card-body p-0">
+                <select class="form-control" [ngModel]="currentSeasonId"
+                    (ngModelChange)="onCurrentSeasonIdChange($event)">
+                    <option *ngFor="let seasonId of allSeasonId" [ngValue]="seasonId">Season
+                        {{getSeasonNumber(seasonId)}}</option>
+                </select>
+                <div class="p-3">
+                    <h6 class="font-weight-bold">Start at</h6>
+                    <p>{{currentSeason?.startAt | date:'YYYY/MM/dd HH:mm'}}</p>
+                    <h6 class="font-weight-bold">End at</h6>
+                    <p>{{currentSeason?.endAt | date:'YYYY/MM/dd HH:mm'}}</p>
+                    <ng-container *ngIf="shouldShowLastUpdated()">
+                        <h6 class="font-weight-bold">Last updated</h6>
+                        <p>{{currentSeason?.lastUpdated | date:'YYYY/MM/dd HH:mm'}}</p>
+                    </ng-container>
+                    <ng-container *ngIf="getSeasonNumber(currentSeasonId) >= 11">
+                        <button *ngIf="getSeasonFlourishId()" class="btn btn-primary btn-block"
+                            (click)="showBarChartRaceModal = true">
+                            <i class="fa-solid fa-chart-bar mr-1"></i>
+                            Bar Chart Race
+                        </button>
+
+                        <div class="btn-group btn-block">
+                            <button type="button" class="btn btn-primary btn-block" data-toggle="dropdown"
+                                aria-expanded="false"><i class="fa-solid fa-file-export mr-1"></i> Export
+                                details</button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon"
+                                data-toggle="dropdown" aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" style="">
+                                <a role="button" class="dropdown-item" (click)="onExport('csv')">.csv</a>
+                                <a role="button" class="dropdown-item" (click)="onExport('flourish')">For Flourish</a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class=" col-lg-9 order-lg-1">
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 75vh;">
+                    <table class="table table-head-fixed text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 14px">Rank</th>
+                                <th>Guild</th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Level</div>
+                                </th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Time left</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leaderboardItem of currentSeason?.leaderboard; index as i;">
+                                <td>{{i + 1}}.
+                                    <i class="fa-solid" [class.d-none]="leaderboardItem.positionDirection === undefined"
+                                        [class.fa-caret-up]="!leaderboardItem.positionDirection"
+                                        [class.text-success]="!leaderboardItem.positionDirection"
+                                        [class.fa-caret-down]="leaderboardItem.positionDirection"
+                                        [class.text-danger]="leaderboardItem.positionDirection"></i>
+                                </td>
+                                <td>{{leaderboardItem.guildName}} <span
+                                        class="font-weight-light h6">[{{leaderboardItem.guildNameplate}}]</span>
+                                </td>
+                                <td>
+                                    <div class="text-center">{{leaderboardItem.level}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        {{convertRemainingSec(leaderboardItem.remainingSec)}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" [class.show]="showBarChartRaceModal" [style.display]="showBarChartRaceModal ? 'block' : 'none'"
+    style="background-color: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- <h4 class="modal-title">Warning</h4> -->
+                <button type="button" class="close" (click)="showBarChartRaceModal = false" aria-label="Close">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <iframe *ngIf="showBarChartRaceModal"
+                    [src]="getFlourishUrl()"
+                    title='Interactive or visual content' class='flourish-embed-iframe' frameborder='0' scrolling='no'
+                    style='width:100%;height:600px;'
+                    sandbox='allow-same-origin allow-forms allow-scripts allow-downloads allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation'></iframe>
+            </div>
+            <!-- <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" (click)="showBarChartRaceModal = false">Close</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="showBarChartRaceModal = false; onBarChartRaceConfirm()">Continue</button>
+            </div> -->
+        </div>
+    </div>
+</div>
