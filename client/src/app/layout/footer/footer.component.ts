@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 type Changelog = Array<{
   version: string,
@@ -19,7 +20,7 @@ export class FooterComponent {
   }
 
   public async loadChangelog() {
-    const res = await fetch(`http://localhost:80/data/versions.json`);
+    const res = await fetch(`${environment.backendUrl}/data/versions.json`);
     this.changelog = await res.json();
   }
 }

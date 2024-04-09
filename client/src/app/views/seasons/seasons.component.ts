@@ -7,6 +7,7 @@ import { ALL_SEASONS, SEASON_DETAIL } from '../../types';
 import { ActivatedRoute } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-seasons',
@@ -101,7 +102,7 @@ export class SeasonsComponent implements OnDestroy {
     if (!this.currentSeason) return;
     this.ngxUiLoaderService.start();
 
-    const res = await fetch(`http://localhost:80/data/${this.currentSeasonId}/all-raw.json`);
+    const res = await fetch(`${environment.backendUrl}/data/${this.currentSeasonId}/all-raw.json`);
     const data: ALL_SEASONS = await res.json();
 
     const headers: Array<string> = ['Full date'];
