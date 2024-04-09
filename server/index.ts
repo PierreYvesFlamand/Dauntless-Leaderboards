@@ -7,12 +7,18 @@ const port = 8888;
 
 app.use(cors());
 
-app.use(express.static(path.resolve(__dirname, './public/website/browser')));
-app.use('/assets', express.static(path.resolve(__dirname, './public/website/browser/assets')));
-app.use('/data', express.static(path.resolve(__dirname, './public/data')));
+// app.use(express.static(path.resolve(__dirname, './public/website/browser')));
+// app.use('/assets', express.static(path.resolve(__dirname, './public/website/browser/assets')));
+// app.use('/data', express.static(path.resolve(__dirname, './public/data')));
 
-app.get('*', (_req, res) => {
-    res.sendFile(path.resolve(__dirname, './public/website/browser/index.html'));
+// app.get('*', (_req, res) => {
+//     res.sendFile(path.resolve(__dirname, './public/website/browser/index.html'));
+// });
+
+app.use(express.static(path.join(__dirname, '../public/website/browser')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/website/browser/index.html'));
 });
 
 app.listen(port, () => {
