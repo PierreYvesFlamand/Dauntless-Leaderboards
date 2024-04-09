@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 const KEY_PREFIX = 'settings';
-export type LOCALSTORAGE_KEYS = 'theme';
+export type LOCALSTORAGE_KEYS = 'placeholder';
 
 const defaultSettings = {
-  'theme': 'light'
+  'placeholder': true
 }
 
 @Injectable({
@@ -12,7 +12,7 @@ const defaultSettings = {
 })
 export class LocalstorageService {
   constructor() {
-    this.getByKey('theme');
+    // this.getByKey('placeholder');
   }
 
   public getByKey<T>(key: LOCALSTORAGE_KEYS): T {

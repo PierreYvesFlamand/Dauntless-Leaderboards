@@ -14,6 +14,7 @@ type Changelog = Array<{
 export class FooterComponent {
   public changelog: Changelog = [];
 
+
   constructor() {
     this.loadChangelog();
   }
