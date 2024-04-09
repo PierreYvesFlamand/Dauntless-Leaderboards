@@ -7,6 +7,7 @@ const port = 8888;
 
 app.use(cors());
 
+app.use(express.static(path.resolve(__dirname, './public/website/browser')));
 app.use('/assets', express.static(path.resolve(__dirname, './public/website/browser/assets')));
 app.use('/data', express.static(path.resolve(__dirname, './public/data')));
 
