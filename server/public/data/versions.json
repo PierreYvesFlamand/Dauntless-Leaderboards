@@ -1,9 +1,20 @@
 [
     {
+        "version": "1.1.0",
+        "changelogItems": [
+            "Add light/dark mode switch"
+        ]
+    },
+    {
         "version": "1.0.0",
         "changelogItems": [
-            "Line 1",
-            "Line 2"
+            "Very first version",
+            "Create Dashboard page",
+            "Create Seasons page",
+            "All details export",
+            "Add iframe to flourish bar chart race",
+            "Create About page",
+            "Add link to Discord server"
         ]
     }
 ]
