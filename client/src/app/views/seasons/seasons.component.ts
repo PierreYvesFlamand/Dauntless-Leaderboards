@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { AllSeasonsService } from '../../services/all-seasons.service';
 import { ALL_SEASONS, SEASON_DETAIL } from '../../types';
 import { ActivatedRoute } from '@angular/router';
-import { LocalstorageService } from '../../services/localstorage.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-seasons',
@@ -19,6 +19,8 @@ export class SeasonsComponent implements OnDestroy {
   public currentSeasonId?: string;
   public currentSeason?: SEASON_DETAIL;
 
+  public showBarChartRaceModal: boolean = false;
+
   private allSeasonsSubscription: Subscription;
 
   constructor(
@@ -26,8 +28,8 @@ export class SeasonsComponent implements OnDestroy {
     private activeMenuService: ActiveMenuService,
     private allSeasonsService: AllSeasonsService,
     private activatedRoute: ActivatedRoute,
-    private localstorageService: LocalstorageService,
-    private ngxUiLoaderService: NgxUiLoaderService
+    private ngxUiLoaderService: NgxUiLoaderService,
+    private sanitizer: DomSanitizer
   ) {
     this.titleService.updateTitle('Seasons');
     this.activeMenuService.updateActiveMenu('seasons');
@@ -84,68 +86,81 @@ export class SeasonsComponent implements OnDestroy {
     return this.currentSeason.lastUpdated < this.currentSeason.endAt;
   }
 
-  // Bar chart
-  public showSeasonDetail: boolean = false;
-  public showBigFileLoadWarning: boolean = false;
-  public alwaysAcceptBigFile: boolean = false;
-  public allRawHeaders: Array<string> = [];
-  public allRawLines: Array<Array<any>> = [];
-
-  public onBarChartRaceBtnClick() {
-    this.alwaysAcceptBigFile = false;
-
-    const allowBigFileLoadSettings = this.localstorageService.getByKey('allow-big-file-load');
-    if (allowBigFileLoadSettings) {
-      return;
-    }
-
-    this.showBigFileLoadWarning = true;
+  public getSeasonFlourishId() {
+    if (!this.currentSeasonId) return undefined;
+    return {
+      'gauntlet-season11': 17314108
+    }[this.currentSeasonId] || undefined;
   }
 
-  public async onBarChartRaceConfirm() {
+  public getFlourishUrl(){
+    return this.sanitizer.bypassSecurityTrustResourceUrl(`https://flo.uri.sh/visualisation/${this.getSeasonFlourishId()}/embed`)
+  }
+
+  public async onExport(type: 'csv' | 'flourish') {
     if (!this.currentSeason) return;
-
     this.ngxUiLoaderService.start();
-    this.localstorageService.setByKey('allow-big-file-load', this.alwaysAcceptBigFile);
 
-    const res = await fetch(`http://localhost/data/${this.currentSeasonId}/all-raw.json`);
+    const res = await fetch(`http://localhost:8888/data/${this.currentSeasonId}/all-raw.json`);
     const data: ALL_SEASONS = await res.json();
 
-    this.allRawHeaders = ['Date', ...this.currentSeason.leaderboard.map(l => l.guildName)];
+    const headers: Array<string> = ['Full date'];
+    let lines: any = [];
 
-    for (const key of Object.keys(data).reverse()) {
+    for (const key of Object.keys(data)) {
       const line = [];
-      line.push(new Date(Date.UTC(
+      const seasonAtDate = data[key];
+      const date = new Date(Date.UTC(
         Number(key.split('--')[0].split('-')[0]),
-        Number(key.split('--')[0].split('-')[1]),
+        Number(key.split('--')[0].split('-')[1]) - 1,
         Number(key.split('--')[0].split('-')[2]),
         Number(key.split('--')[1].split('-')[0]),
         Number(key.split('--')[1].split('-')[1])
-      )));
+      ));
 
-      const seasonAtDate = data[key];
+      line.push(`${date.getUTCFullYear()}/${String(date.getUTCMonth() + 1).padStart(2, '0')}/${String(date.getUTCDate()).padStart(2, '0')} ${date.getUTCHours()}:${String(date.getUTCMinutes()).padStart(2, '0')}`);
+
 
       for (const l of seasonAtDate.leaderboard) {
-        if (!this.allRawHeaders.includes(l.guildName)) {
-          this.allRawHeaders.push(l.guildName);
+        if (!headers.includes(`${l.guildName} [${l.guildNameplate}]`)) {
+          headers.push(`${l.guildName} [${l.guildNameplate}]`);
+        }
+
+        if (type === 'flourish') {
+          const guildsToOrder = seasonAtDate.leaderboard.filter(g => g.level === l.level);
+          if (guildsToOrder.length < 2) continue;
+          guildsToOrder.forEach((guildToOrder, index) => {
+            guildToOrder.level += (0.001 * (guildsToOrder.length - index));
+          });
         }
       }
 
-      for (const headers of this.allRawHeaders.slice(1)) {
-        const l = seasonAtDate.leaderboard.find(l => l.guildName === headers);
+      for (const header of headers.slice(1)) {
+        const l = seasonAtDate.leaderboard.find(l => `${l.guildName} [${l.guildNameplate}]` === header);
+
         line.push(l ? l.level : '');
       }
-      this.allRawLines.push(line);
+      lines.push(line);
     }
 
-    for (const line of this.allRawLines) {
-      for (let i = 0; i < this.allRawHeaders.length - line.length; i++) {
-        line.push('');
-      }
+    lines.unshift(headers);
+
+    if (type === 'flourish') {
+      lines = lines[0].map((_: any, colIndex: any) => lines.map((row: any) => row[colIndex]));
     }
 
-    this.titleService.updateTitle(`Season ${this.getSeasonNumber(this.currentSeasonId)} - Detail`);
-    this.showSeasonDetail = true;
+    const linesToText = [];
+    for (const line of lines) {
+      linesToText.push(line.join(','));
+    }
+
+    const link = document.createElement('a');
+    const file = new Blob([linesToText.join('\n')], { type: 'text/plain' });
+    link.href = URL.createObjectURL(file);
+    link.download = 'export.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+
     this.ngxUiLoaderService.stop();
   }
 }

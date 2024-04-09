@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
 const KEY_PREFIX = 'settings';
-export type LOCALSTORAGE_KEYS = 'allow-big-file-load';
+export type LOCALSTORAGE_KEYS = 'placeholder';
 
 const defaultSettings = {
-  'allow-big-file-load': false
+  'placeholder': true
 }
 
 @Injectable({
@@ -12,7 +12,7 @@ const defaultSettings = {
 })
 export class LocalstorageService {
   constructor() {
-    this.setByKey('allow-big-file-load', false);
+    // this.getByKey('placeholder');
   }
 
   public getByKey<T>(key: LOCALSTORAGE_KEYS): T {

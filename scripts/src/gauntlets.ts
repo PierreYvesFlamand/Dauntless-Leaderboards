@@ -109,11 +109,9 @@ async function scrap(): Promise<void> {
     if (fs.existsSync(lastFileNamePath)) {
         const lastLeaderboard: Array<LEADERBOARD_ITEM> = (JSON.parse(fs.readFileSync(lastFileNamePath, 'utf8')) as SEASON_DETAIL).leaderboard;
 
-        console.log(lastLeaderboard);
-
         formatedSeasonData.leaderboard.forEach((leaderboardItem, index) => {
             const lastIndex = lastLeaderboard.findIndex(i => i.guildNameplate === leaderboardItem.guildNameplate);
-            
+
             if (lastIndex === -1) return;
             if (lastIndex < index) {
                 leaderboardItem.positionDirection = LEADERBOARD_POSITION_DIRECTION.GEARTER;
