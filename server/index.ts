@@ -15,10 +15,10 @@ app.use(cors());
 //     res.sendFile(path.resolve(__dirname, './public/website/browser/index.html'));
 // });
 
-app.use(express.static(path.join(__dirname, '../public/website/browser')));
+app.use(express.static(path.join(__dirname, './public/website/browser')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/website/browser/index.html'));
+  res.sendFile(path.join(__dirname, './public/website/browser/index.html'));
 });
 
 app.listen(port, () => {
