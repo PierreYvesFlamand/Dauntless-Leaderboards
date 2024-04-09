@@ -10,7 +10,7 @@ export class AllSeasonsService {
   public allSeasonsObservable = this._allSeasonsObservable.asObservable();
 
   public async fetch(): Promise<void> {
-    const res = await fetch('http://localhost:8888/data/all-seasons.json');
+    const res = await fetch('http://localhost:80/data/all-seasons.json');
     const data: ALL_SEASONS = await res.json();
     this._allSeasonsObservable.next(data);
   }
