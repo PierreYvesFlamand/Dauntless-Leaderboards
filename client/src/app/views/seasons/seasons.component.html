@@ -1,4 +1,4 @@
-<div class="row">
+<div *ngIf="!showSeasonDetail" class="row">
     <div class="col-lg-3 order-lg-2">
         <div class="card">
             <div class="card-body p-0">
@@ -9,14 +9,15 @@
                 </select>
                 <div class="p-3">
                     <h6 class="font-weight-bold">Start at</h6>
-                    <p>{{currentSeason?.startAt| date:'YYYY/MM/dd HH:mm'}}</p>
+                    <p>{{currentSeason?.startAt | date:'YYYY/MM/dd HH:mm'}}</p>
                     <h6 class="font-weight-bold">End at</h6>
-                    <p>{{currentSeason?.endAt| date:'YYYY/MM/dd HH:mm'}}</p>
+                    <p>{{currentSeason?.endAt | date:'YYYY/MM/dd HH:mm'}}</p>
                     <ng-container *ngIf="shouldShowLastUpdated()">
                         <h6 class="font-weight-bold">Last updated</h6>
-                        <p>{{currentSeason?.lastUpdated| date:'YYYY/MM/dd HH:mm'}}</p>
+                        <p>{{currentSeason?.lastUpdated | date:'YYYY/MM/dd HH:mm'}}</p>
                     </ng-container>
-                    <button class="btn btn-primary btn-block" (click)="onBarChartRaceBtnClick()">
+                    <button *ngIf="getSeasonNumber(currentSeasonId) >= 11" class="btn btn-primary btn-block"
+                        (click)="onBarChartRaceBtnClick()">
                         <i class="fa-solid fa-chart-bar mr-3"></i>
                         Bar Chart Race
                     </button>
@@ -24,14 +25,15 @@
             </div>
         </div>
     </div>
+
     <div class="col-lg-9 order-lg-1">
         <div class="card">
             <div class="card-body p-0">
                 <div class="table-responsive" style="max-height: 75vh;">
-                    <table class="table table-head-fixed text-nowrap mb-0">
+                    <table class="table table-head-fixed text-nowrap table-sm table-striped table-hover mb-0">
                         <thead>
                             <tr>
-                                <th style="width: 10px">Rank</th>
+                                <th style="width: 14px">Rank</th>
                                 <th>Guild</th>
                                 <th style="width: 100px">
                                     <div class="text-center">Level</div>
@@ -67,6 +69,34 @@
     </div>
 </div>
 
+<div *ngIf="showSeasonDetail" class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 75vh;">
+                    <table class="table table-head-fixed text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th *ngFor="let header of allRawHeaders">{{header}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let line of allRawLines">
+                                <td *ngFor="let data of line; let first = first">
+                                    <div class="text-center">
+                                        <ng-container *ngIf="first">{{data | date:'YYYY/MM/dd HH:mm'}}</ng-container>
+                                        <ng-container *ngIf="!first">{{data}}</ng-container>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade" [class.show]="showBigFileLoadWarning"
     [style.display]="showBigFileLoadWarning ? 'block' : 'none'" style="background-color: rgba(0, 0, 0, 0.6);">
     <div class="modal-dialog">
@@ -78,14 +108,16 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>You are about to load a huge file from the web.</p>
+                <p>You are about to load a huge file from the web.<br />Are you sure you want to continue ?</p>
                 <div class="form-check">
-                    <label class="form-check-label"><input class="form-check-input" type="checkbox" [(ngModel)]="alwaysAcceptBigFile">Don't ask again</label>
+                    <label class="form-check-label"><input class="form-check-input" type="checkbox"
+                            [(ngModel)]="alwaysAcceptBigFile">Don't ask again</label>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" (click)="showBigFileLoadWarning = false">Close</button>
-                <button type="button" class="btn btn-primary" (click)="showBigFileLoadWarning = false; onBarChartRaceConfirm()">Continue</button>
+                <button type="button" class="btn btn-primary"
+                    (click)="showBigFileLoadWarning = false; onBarChartRaceConfirm()">Continue</button>
             </div>
         </div>
     </div>

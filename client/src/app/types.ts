@@ -1,3 +1,11 @@
-import * as TYPES from "../../../scripts/src/types";
+import {
+    ALL_SEASONS,
+    SEASON_DETAIL,
+    LEADERBOARD_ITEM
+} from "../../../scripts/src/types";
 
-export { TYPES };
+export {
+    ALL_SEASONS,
+    SEASON_DETAIL,
+    LEADERBOARD_ITEM
+};
