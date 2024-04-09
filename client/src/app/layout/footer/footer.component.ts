@@ -19,7 +19,7 @@ export class FooterComponent {
   }
 
   public async loadChangelog() {
-    const res = await fetch(`http://localhost:80/data/versions.json`);
+    const res = await fetch(`http://64.226.105.208/data/versions.json`);
     this.changelog = await res.json();
   }
 }
