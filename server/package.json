@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "server": "ts-node index.ts"
+    "server": "sudo ts-node index.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",

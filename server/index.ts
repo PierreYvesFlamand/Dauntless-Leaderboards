@@ -3,7 +3,7 @@ import cors from 'cors';
 import path from 'path';
 
 const app = express();
-const port = 8888;
+const port = 80;
 
 app.use(cors());
 
