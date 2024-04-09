@@ -10,7 +10,7 @@ export class AllSeasonsService {
   public allSeasonsObservable = this._allSeasonsObservable.asObservable();
 
   public async fetch(): Promise<void> {
-    const res = await fetch('https://64.226.105.208/data/all-seasons.json');
+    const res = await fetch('https://www.dauntless-leaderboards.com/data/all-seasons.json');
     const data: ALL_SEASONS = await res.json();
     this._allSeasonsObservable.next(data);
   }

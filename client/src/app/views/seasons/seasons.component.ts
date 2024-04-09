@@ -101,7 +101,7 @@ export class SeasonsComponent implements OnDestroy {
     if (!this.currentSeason) return;
     this.ngxUiLoaderService.start();
 
-    const res = await fetch(`https://64.226.105.208/data/${this.currentSeasonId}/all-raw.json`);
+    const res = await fetch(`https://www.dauntless-leaderboards.com/data/${this.currentSeasonId}/all-raw.json`);
     const data: ALL_SEASONS = await res.json();
 
     const headers: Array<string> = ['Full date'];

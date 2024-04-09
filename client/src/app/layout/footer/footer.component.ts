@@ -19,7 +19,7 @@ export class FooterComponent {
   }
 
   public async loadChangelog() {
-    const res = await fetch(`https://64.226.105.208/data/versions.json`);
+    const res = await fetch(`https://www.dauntless-leaderboards.com/data/versions.json`);
     this.changelog = await res.json();
   }
 }
