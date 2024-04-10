@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body p-0">
+                <input class="form-control" list="allGuilds" placeholder="Search for a guild"
+                    [ngModel]="guildSearchInput" (ngModelChange)="onGuildSearch($event)" />
+                <datalist id="allGuilds">
+                    <option *ngFor="let guild of allGuilds" value="{{guild.guildName}} [{{guild.guildNameplate}}]">
+                        {{guild.guildName}} [{{guild.guildNameplate}}]</option>
+                </datalist>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div *ngIf="guild" class="col-lg-3">
+        <app-guild-detail [guild]="guild"></app-guild-detail>
+    </div>
+</div>

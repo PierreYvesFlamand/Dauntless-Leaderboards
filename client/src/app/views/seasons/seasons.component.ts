@@ -4,7 +4,7 @@ import { ActiveMenuService } from '../../services/active-menu.service';
 import { Subscription } from 'rxjs';
 import { AllSeasonsService } from '../../services/all-seasons.service';
 import { ALL_SEASONS, SEASON_DETAIL } from '../../types';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { DomSanitizer } from '@angular/platform-browser';
 import { environment } from '../../../environments/environment';
@@ -19,7 +19,6 @@ export class SeasonsComponent implements OnDestroy {
   public allSeasonId: Array<string> = [];
   public currentSeasonId?: string;
   public currentSeason?: SEASON_DETAIL;
-
   public showBarChartRaceModal: boolean = false;
 
   private allSeasonsSubscription: Subscription;
@@ -30,18 +29,17 @@ export class SeasonsComponent implements OnDestroy {
     private allSeasonsService: AllSeasonsService,
     private activatedRoute: ActivatedRoute,
     private ngxUiLoaderService: NgxUiLoaderService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {
     this.titleService.updateTitle('Seasons');
     this.activeMenuService.updateActiveMenu('seasons');
     this.allSeasonsSubscription = this.allSeasonsService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
 
-    this.activatedRoute.queryParams.subscribe(params => {
-      const gauntletId = params['gauntletId'];
-      if (gauntletId) {
-        this.onCurrentSeasonIdChange(`gauntlet-season${String(gauntletId).padStart(2, '0')}`);
-      }
-    });
+    const gauntletId = this.activatedRoute.firstChild?.snapshot.params['gauntletId'];
+    if (gauntletId) {
+      this.onCurrentSeasonIdChange(`gauntlet-season${String(gauntletId).padStart(2, '0')}`);
+    }
   }
 
   ngOnDestroy(): void {
@@ -54,10 +52,6 @@ export class SeasonsComponent implements OnDestroy {
     this.allSeasonId = Object.keys(allSeasonData).reverse();
     this.allSeasonData = allSeasonData;
     this.onCurrentSeasonIdChange(currentSeasonKey);
-  }
-
-  public convertRemainingSec(sec: number): string {
-    return `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
   }
 
   public getSeasonNumber(seasonId?: string): number {
@@ -74,17 +68,11 @@ export class SeasonsComponent implements OnDestroy {
     this.currentSeason = this.allSeasonData[this.currentSeasonId];
     this.titleService.updateTitle(`Season ${this.getSeasonNumber(this.currentSeasonId)}`);
 
-    let newUrl = '/seasons';
-    if (this.getSeasonNumber(this.currentSeasonId) !== Object.keys(this.allSeasonData).length) {
-      newUrl = `/seasons?gauntletId=${this.getSeasonNumber(this.currentSeasonId)}`;
-    }
-    window.history.replaceState({}, '', newUrl);
+    this.router.navigate([this.getSeasonNumber(this.currentSeasonId)], { relativeTo: this.activatedRoute });
   }
 
   public shouldShowLastUpdated(): boolean {
-    if (!this.currentSeason?.endAt) return false;
-    if (!this.currentSeason?.lastUpdated) return false;
-    return this.currentSeason.lastUpdated < this.currentSeason.endAt;
+    return this.allSeasonData ? Object.keys(this.allSeasonData)[Object.keys(this.allSeasonData).length - 1] === this.currentSeasonId : false;
   }
 
   public getSeasonFlourishId() {
@@ -94,7 +82,7 @@ export class SeasonsComponent implements OnDestroy {
     }[this.currentSeasonId] || undefined;
   }
 
-  public getFlourishUrl(){
+  public getFlourishUrl() {
     return this.sanitizer.bypassSecurityTrustResourceUrl(`https://flo.uri.sh/visualisation/${this.getSeasonFlourishId()}/embed`)
   }
 

@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-hover table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th>Season</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
+                        <ng-container *ngFor="let item of leaderboardPosition | keyvalue">
+                            <td>{{getSeasonNumber(item.key)}}</td>
+                            <td>{{item.value}}</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

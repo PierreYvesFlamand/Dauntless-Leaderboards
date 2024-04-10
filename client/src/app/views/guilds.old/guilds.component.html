@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body p-0">
+                <input class="form-control" list="allGuilds" placeholder="Search for a guild" [ngModel]="guildSearchInput" (ngModelChange)="onGuildSearch($event)" />
+                <datalist id="allGuilds">
+                    <option *ngFor="let guild of allGuilds" value="{{guild.guildName}} [{{guild.guildNameplate}}]">
+                        {{guild.guildName}} [{{guild.guildNameplate}}]</option>
+                </datalist>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="guild" class="col-lg-12">
+        {{guild|json}}
+        <div class="card">
+            <div class="card-body p-0">
+                <!-- <div class="table-responsive" style="max-height: 70vh;">
+                    <table class="table table-head-fixed text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 14px">Rank</th>
+                                <th>Guild</th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Level</div>
+                                </th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Time left</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leaderboardItem of currentSeason?.leaderboard; index as i;">
+                                <td>{{i + 1}}.
+                                    <i class="fa-solid" [class.d-none]="leaderboardItem.positionDirection === undefined"
+                                        [class.fa-caret-up]="!leaderboardItem.positionDirection"
+                                        [class.text-success]="!leaderboardItem.positionDirection"
+                                        [class.fa-caret-down]="leaderboardItem.positionDirection"
+                                        [class.text-danger]="leaderboardItem.positionDirection"></i>
+                                </td>
+                                <td>{{leaderboardItem.guildName}} <span
+                                        class="font-weight-light h6" style="font-size: 75%;">[{{leaderboardItem.guildNameplate}}]</span>
+                                </td>
+                                <td>
+                                    <div class="text-center">{{leaderboardItem.level}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        {{convertRemainingSec(leaderboardItem.remainingSec)}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
