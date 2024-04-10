@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { TitleService } from '../services/title.service';
+import { EventService } from '../services/event.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,9 +12,9 @@ export class LayoutComponent implements OnDestroy {
   public title: string = '';
 
   constructor(
-    private titleService: TitleService
+    private eventService: EventService
   ) {
-    this.titleSubscription = this.titleService.titleObservable.subscribe(newTitle => this.title = newTitle);
+    this.titleSubscription = this.eventService.titleObservable.subscribe(newTitle => this.title = newTitle);
   }
 
   ngOnDestroy(): void {

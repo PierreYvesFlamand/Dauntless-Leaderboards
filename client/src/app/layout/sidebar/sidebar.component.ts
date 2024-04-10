@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActiveMenuService } from '../../services/active-menu.service';
+import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -12,9 +12,9 @@ export class SidebarComponent {
   public activeMenu: string = '';
 
   constructor(
-    private activeMenuService: ActiveMenuService
+    private eventService: EventService
   ) {
-    this.activeMenuSubscription = this.activeMenuService.activeMenuObservable.subscribe(newActiveMenu => this.activeMenu = newActiveMenu);
+    this.activeMenuSubscription = this.eventService.activeMenuObservable.subscribe(newActiveMenu => this.activeMenu = newActiveMenu);
   }
 
   ngOnDestroy(): void {

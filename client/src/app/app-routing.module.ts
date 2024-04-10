@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, withComponentInputBinding } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { SeasonsComponent } from './views/seasons/seasons.component';
-import { SeasonDetailComponent } from './views/seasons/season-detail/season-detail.component';
 import { GuildsComponent } from './views/guilds/guilds.component';
 import { AboutComponent } from './views/about/about.component';
 import { NotFoundComponent } from './views/404/404.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
+import { ExportComponent } from './views/export/export.component';
 
 const routes: Routes = [
   {
@@ -15,7 +15,11 @@ const routes: Routes = [
       { path: '', component: DashboardComponent },
       {
         path: 'seasons', component: SeasonsComponent, children: [
-          { path: ':gauntletId', component: SeasonDetailComponent }
+          {
+            path: ':gauntletId', component: SeasonsComponent, children: [
+              { path: 'chart', component: SeasonsComponent, data: { showChart: true } }
+            ]
+          }
         ]
       },
       {
@@ -24,6 +28,7 @@ const routes: Routes = [
         ]
       },
       { path: 'about', component: AboutComponent },
+      { path: 'export', component: ExportComponent },
       { path: '**', component: NotFoundComponent }
     ]
   }

@@ -1,8 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { TitleService } from '../../services/title.service';
-import { ActiveMenuService } from '../../services/active-menu.service';
+import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { AllSeasonsService } from '../../services/all-seasons.service';
 import { ALL_SEASONS, LEADERBOARD_ITEM } from '../../types';
 
 @Component({
@@ -15,17 +13,14 @@ export class DashboardComponent implements OnDestroy {
   public currentSeasonEndAt?: Date;
   public currentSeasonLeaderboard: Array<LEADERBOARD_ITEM> = [];
 
-
   private allSeasonsSubscription: Subscription;
 
   constructor(
-    private titleService: TitleService,
-    private activeMenuService: ActiveMenuService,
-    private allSeasonsService: AllSeasonsService
+    private eventService: EventService
   ) {
-    this.titleService.updateTitle('Dashboard');
-    this.activeMenuService.updateActiveMenu('dashboard');
-    this.allSeasonsSubscription = this.allSeasonsService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
+    this.eventService.updateTitle('Dashboard');
+    this.eventService.updateActiveMenu('dashboard');
+    this.allSeasonsSubscription = this.eventService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
   }
 
   ngOnDestroy(): void {

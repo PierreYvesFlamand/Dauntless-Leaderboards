@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { TitleService } from '../../services/title.service';
-import { ActiveMenuService } from '../../services/active-menu.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-about',
@@ -9,10 +8,9 @@ import { ActiveMenuService } from '../../services/active-menu.service';
 })
 export class AboutComponent {
     constructor(
-      private titleService: TitleService,
-      private activeMenuService: ActiveMenuService
+      private eventService: EventService
     ) {
-      this.titleService.updateTitle('About');
-      this.activeMenuService.updateActiveMenu('about');
+      this.eventService.updateTitle('About');
+      this.eventService.updateActiveMenu('about');
     }
 }

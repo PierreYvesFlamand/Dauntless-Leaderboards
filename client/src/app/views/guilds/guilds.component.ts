@@ -1,11 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { TitleService } from '../../services/title.service';
-import { ActiveMenuService } from '../../services/active-menu.service';
+import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { AllSeasonsService } from '../../services/all-seasons.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ALL_GUILDS, GUILD_DETAIL } from '../../../../../scripts/src/types';
 
 @Component({
@@ -20,16 +16,14 @@ export class GuildsComponent implements OnDestroy {
   public guild?: GUILD_DETAIL;
 
   constructor(
-    private titleService: TitleService,
-    private activeMenuService: ActiveMenuService,
-    private allSeasonsService: AllSeasonsService,
+    private eventService: EventService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
 
-    this.titleService.updateTitle('Guilds');
-    this.activeMenuService.updateActiveMenu('guilds');
-    this.allGuildsSubscription = this.allSeasonsService.allGuildsObservable.subscribe(data => this.allGuilds = data);
+    this.eventService.updateTitle('Guilds');
+    this.eventService.updateActiveMenu('guilds');
+    this.allGuildsSubscription = this.eventService.allGuildsObservable.subscribe(data => this.allGuilds = data.sort((a, b) => a.guildName.toLowerCase().localeCompare(b.guildName.toLowerCase())));
 
     const guildTag = this.activatedRoute.firstChild?.snapshot.params['guildTag'];
     if (guildTag) {

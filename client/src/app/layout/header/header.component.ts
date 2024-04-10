@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ThemeService } from '../../services/theme.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-header',
@@ -12,9 +12,9 @@ export class HeaderComponent {
   public theme: 'light' | 'dark' = 'light';
 
   constructor(
-    public themeService: ThemeService
+    public eventService: EventService
   ) {
-    this.themeSubscription = this.themeService.themeObservable.subscribe(newTheme => this.theme = newTheme);
+    this.themeSubscription = this.eventService.themeObservable.subscribe(newTheme => this.theme = newTheme);
   }
 
   ngOnDestroy(): void {
