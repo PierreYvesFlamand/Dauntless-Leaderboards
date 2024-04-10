@@ -25,6 +25,8 @@ async function scrap(): Promise<void> {
 
     // Loop on all past seasons
     for (const season of allSeasonsData.past_seasons) {
+        if (Number(season.gauntlet_id.slice(15)) >= Number(allSeasonsData.active_season.gauntlet_id.slice(15))) continue;
+
         const seasonFolder = `${ROOT_FOLDER_PATH}/${season.gauntlet_id}`;
 
         // Check if season folder exist and create it if not
