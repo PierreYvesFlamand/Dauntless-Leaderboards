@@ -25,6 +25,8 @@ async function scrap(): Promise<void> {
 
     // Loop on all past seasons
     for (const season of allSeasonsData.past_seasons) {
+        if (Number(season.gauntlet_id.slice(15)) >= Number(allSeasonsData.active_season.gauntlet_id.slice(15))) continue;
+
         const seasonFolder = `${ROOT_FOLDER_PATH}/${season.gauntlet_id}`;
 
         // Check if season folder exist and create it if not
@@ -192,3 +194,25 @@ function getFileNameFromDate(date: Date): string {
         String(date.getUTCMinutes()).padStart(2, '0')
     ].join('')
 }
+
+// // Fill missing data
+// const base = JSON.parse(fs.readFileSync('../WORK/2024-04-10--06-10.json', 'utf8'));
+// let date = new Date(Date.UTC(
+//     Number('2024-04-10--06-10'.split('--')[0].split('-')[0]),
+//     Number('2024-04-10--06-10'.split('--')[0].split('-')[1]) - 1,
+//     Number('2024-04-10--06-10'.split('--')[0].split('-')[2]),
+//     Number('2024-04-10--06-10'.split('--')[1].split('-')[0]),
+//     Number('2024-04-10--06-10'.split('--')[1].split('-')[1])
+// ));
+
+// let next;
+// do {
+//     date = new Date(date.getTime() - 1000 * 60 * 10);
+//     next = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}--${String(date.getUTCHours()).padStart(2, '0')}-${String(date.getUTCMinutes()).padStart(2, '0')}`;
+//     console.log(next);
+//     base.lastUpdated = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}T${String(date.getUTCHours()).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}:04Z`;
+//     fs.writeFileSync(`../WORK/${next}.json`, JSON.stringify(base, null, 2), 'utf8');
+// } while (next !== '2024-04-09--17-10');
+
+// // Rebuild All Raw
+// const folder = '../WORK';
