@@ -2,14 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { DAUNTLESS_ALL_SEASONS, DAUNTLESS_SEASON_DETAIL, LEADERBOARD_ITEM, LEADERBOARD_POSITION_DIRECTION, SEASON_DETAIL } from './types';
 
-const ROOT_FOLDER_PATH = path.resolve('../server/public/data');
+const ROOT_FOLDER_PATH = path.resolve('../server/public/data/gauntlets');
 const ALL_SEASON_URL = 'https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-all-seasons.json';
 const SEASON_URL = 'https://storage.googleapis.com/dauntless-gauntlet-leaderboard';
 
 // Script starter with interval
 scrap();
-// setInterval(scrap, 1000 * 60 * 1);
-setInterval(scrap, 1000 * 60 * 10);
+setInterval(scrap, 1000 * 60 * 3);
 
 // Main scrap
 async function scrap(): Promise<void> {
@@ -194,25 +193,3 @@ function getFileNameFromDate(date: Date): string {
         String(date.getUTCMinutes()).padStart(2, '0')
     ].join('')
 }
-
-// // Fill missing data
-// const base = JSON.parse(fs.readFileSync('../WORK/2024-04-10--06-10.json', 'utf8'));
-// let date = new Date(Date.UTC(
-//     Number('2024-04-10--06-10'.split('--')[0].split('-')[0]),
-//     Number('2024-04-10--06-10'.split('--')[0].split('-')[1]) - 1,
-//     Number('2024-04-10--06-10'.split('--')[0].split('-')[2]),
-//     Number('2024-04-10--06-10'.split('--')[1].split('-')[0]),
-//     Number('2024-04-10--06-10'.split('--')[1].split('-')[1])
-// ));
-
-// let next;
-// do {
-//     date = new Date(date.getTime() - 1000 * 60 * 10);
-//     next = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}--${String(date.getUTCHours()).padStart(2, '0')}-${String(date.getUTCMinutes()).padStart(2, '0')}`;
-//     console.log(next);
-//     base.lastUpdated = `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')}T${String(date.getUTCHours()).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}:04Z`;
-//     fs.writeFileSync(`../WORK/${next}.json`, JSON.stringify(base, null, 2), 'utf8');
-// } while (next !== '2024-04-09--17-10');
-
-// // Rebuild All Raw
-// const folder = '../WORK';
