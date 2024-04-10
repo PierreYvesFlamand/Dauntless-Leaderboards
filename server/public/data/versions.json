@@ -1,9 +1,12 @@
 [
     {
-        "version": "1.0.0",
+        "version": "1.0.1",
         "changelogItems": [
-            "Line 1",
-            "Line 2"
+            "Fix error from 04/09 update that add S12 to past season 🤷‍♂️"
         ]
+    },
+    {
+        "version": "1.0.0",
+        "changelogItems": []
     }
 ]
