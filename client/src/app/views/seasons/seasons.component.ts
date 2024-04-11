@@ -64,8 +64,8 @@ export class SeasonsComponent implements OnDestroy {
     }[this.currentSeasonId] || undefined;
   }
 
-  public getFlourishSrc() {
-    return `visualisation/${this.getSeasonFlourishId()}`;
+  public getFlourishUrl() {
+    return `https://flo.uri.sh/visualisation/${this.getSeasonFlourishId()}/embed`;
   }
 
   public getSeasonNumber(seasonId?: string): number {
