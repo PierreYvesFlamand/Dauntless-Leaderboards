@@ -35,7 +35,7 @@
 
     <div class=" col-lg-9 order-lg-1">
         <app-season-detail *ngIf="!showChart" [season]="allSeasonData[currentSeasonId]"></app-season-detail>
-        <app-flourish *ngIf="showChart" [url]="getFlourishUrl()"></app-flourish>
+        <app-flourish *ngIf="showChart" [src]="getFlourishSrc()"></app-flourish>
     </div>
 </div>
 
