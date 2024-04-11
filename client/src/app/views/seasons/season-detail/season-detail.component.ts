@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SEASON_DETAIL } from '../../../types';
+import { SEASON_DETAIL } from '../../../imports';
 
 @Component({
   selector: 'app-season-detail',

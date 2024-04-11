@@ -3,7 +3,7 @@ import path from 'path';
 import { ALL_SLAYERS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DETAIL_GROUP_DETAIL, TRIAL_DETAIL_GROUP_DETAIL_ENTRY, TRIAL_DETAIL_SOLO_DETAIL_ENTRY } from './types';
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = '1e1cca46a4e6419cb906f212819130c9';
+const BASE_AUTHORIZATION_CODE = '119c1a8d6b45477d81bc388ebd37400c';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');

@@ -18,6 +18,8 @@ import { SeasonsComponent } from './views/seasons/seasons.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 import { FlourishComponent } from './views/flourish/flourish.component';
 import { ExportComponent } from './views/export/export.component';
+import { TrialsComponent } from './views/trials/trials.component';
+import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ExportComponent } from './views/export/export.component';
     SeasonsComponent,
     GuildDetailComponent,
     FlourishComponent,
-    ExportComponent
+    ExportComponent,
+    TrialsComponent,
+    TrialDetailComponent
   ],
   imports: [
     BrowserModule,

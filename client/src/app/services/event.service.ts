@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LocalstorageService } from './localstorage.service';
-import { ALL_SEASONS } from '../types';
-import { ALL_GUILDS } from '../../../../scripts/src/types';
+import { ALL_GUILDS, ALL_SEASONS, ALL_SLAYERS } from '../imports';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class EventService {
   ) { }
 
   public async init() {
-    await this.initAllSeasons();
+    await Promise.all([this.initAllSeasons(), this.initAllSlayers()]);
     setInterval(this.initAllSeasons.bind(this), 1000 * 30);
     this.initTheme();
   }
@@ -87,4 +86,14 @@ export class EventService {
   // All guilds
   private _allGuildsObservable = new BehaviorSubject<ALL_GUILDS>([]);
   public allGuildsObservable = this._allGuildsObservable.asObservable();
+
+  // All Slayers
+  private _allSlayersObservable = new BehaviorSubject<ALL_SLAYERS>({});
+  public allSlayersObservable = this._allSlayersObservable.asObservable();
+
+  public async initAllSlayers(): Promise<void> {
+    const res = await fetch(`${environment.backendUrl}/data/trials/all-slayers.json`);
+    const allSlayers: ALL_SLAYERS = await res.json();
+    this._allSlayersObservable.next(allSlayers);
+  }
 }

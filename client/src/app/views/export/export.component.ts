@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { ALL_SEASONS, LEADERBOARD_ITEM } from '../../types';
+import { ALL_SEASONS, LEADERBOARD_ITEM } from '../../imports';
 import { environment } from '../../../environments/environment';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 

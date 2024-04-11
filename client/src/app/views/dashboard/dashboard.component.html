@@ -3,9 +3,9 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><i class="nav-icon fa-solid fa-tree mr-2"></i>Gauntlet Season
-                    {{currentSeasonNumber}}</h3>
+                    {{getSeasonNumber(currentSeasonId)}}</h3>
                 <div class="card-tools">
-                    <span class="badge badge-secondary">End at {{currentSeasonEndAt |
+                    <span class="badge badge-secondary">End at {{allSeasonData[currentSeasonId].endAt |
                         date:'YYYY/MM/dd HH:mm'}}</span>
                 </div>
             </div>
@@ -24,7 +24,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let leaderboardItem of currentSeasonLeaderboard; index as i;">
+                        <tr
+                            *ngFor="let leaderboardItem of allSeasonData[currentSeasonId].leaderboard.slice(0, 5); index as i;">
                             <td>{{i + 1}}.
                                 <i class="fa-solid" [class.d-none]="leaderboardItem.positionDirection === undefined"
                                     [class.fa-caret-up]="!leaderboardItem.positionDirection"
@@ -45,5 +46,43 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div class="col-lg-6" *ngIf="currentTrail">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title"><img height="60px" [src]="getBehemothImgUrl()" /> Solo Trial<span
+                        class="badge badge-warning ml-2">BETA</span></h3>
+                <div class="card-tools">
+                    <span class="badge badge-secondary">End at {{getWeekStartAndEnd(getCurrentWeek())[1] |
+                        date:'YYYY/MM/dd HH:mm'}}</span>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 14px">Rank</th>
+                            <th>Player</th>
+                            <th style="width: 130px">Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let leaderboardItem of currentTrail.solo['all'].slice(0, 5); index as i;">
+                            <td>{{i + 1}}.</td>
+                            <td><img height="33px" [src]="getWeaponImgUrl(leaderboardItem.weapon)" /> <img height="33px"
+                                    [src]="getOmniImgUrl(leaderboardItem.playerRoleId)" />
+                                    <span class="ml-2 mr-2">{{getPlayerName(leaderboardItem.phxAccountId, leaderboardItem.platform)}}</span>
+                                    <span
+                                    class="font-weight-light"
+                                    style="font-size: 80%;">[{{leaderboardItem.platform}}]</span></td>
+                            <td>{{leaderboardItem.completionTime / 1000}} sec</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+
     </div>
 </div>

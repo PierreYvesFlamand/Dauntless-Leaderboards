@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { ALL_SEASONS } from '../../types';
+import { ALL_SEASONS } from '../../imports';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
