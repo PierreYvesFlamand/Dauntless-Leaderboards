@@ -2,14 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { DAUNTLESS_ALL_SEASONS, DAUNTLESS_SEASON_DETAIL, LEADERBOARD_ITEM, LEADERBOARD_POSITION_DIRECTION, SEASON_DETAIL } from './types';
 
-const ROOT_FOLDER_PATH = path.resolve('../server/public/data');
+const ROOT_FOLDER_PATH = path.resolve('../server/public/data/gauntlets');
 const ALL_SEASON_URL = 'https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-all-seasons.json';
 const SEASON_URL = 'https://storage.googleapis.com/dauntless-gauntlet-leaderboard';
 
 // Script starter with interval
 scrap();
-// setInterval(scrap, 1000 * 60 * 1);
-setInterval(scrap, 1000 * 60 * 10);
+setInterval(scrap, 1000 * 60 * 3);
 
 // Main scrap
 async function scrap(): Promise<void> {

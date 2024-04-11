@@ -1,24 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
-import { AllSeasonsService } from './services/all-seasons.service';
+
+import { EventService } from './services/event.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  private themeSubscription: Subscription;
   public isMainLoading: boolean = true;
 
   constructor(
     private ngxUiLoaderService: NgxUiLoaderService,
-    private allSeasonsService: AllSeasonsService
-  ) { }
+    private eventService: EventService,
+  ) {
+    this.themeSubscription = this.eventService.themeObservable.subscribe(theme => {
+      if (theme === 'dark') {
+        document.querySelector('body')?.classList.add('dark-mode');
+      } else {
+        document.querySelector('body')?.classList.remove('dark-mode');
+      }
+    });
+
+    this.eventService.init();
+  }
 
   async ngOnInit(): Promise<void> {
     this.ngxUiLoaderService.start();
-    await this.allSeasonsService.fetch();
+    await this.eventService.init();
     this.ngxUiLoaderService.stop();
     this.isMainLoading = false;
+  }
+
+  ngOnDestroy(): void {
+    this.themeSubscription.unsubscribe();
   }
 }

@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "gauntlets": "ts-node src/gauntlets.ts"
+    "gauntlets": "ts-node src/gauntlets.ts",
+    "trials": "ts-node src/trials.ts"
   },
   "dependencies": {
     "ts-node": "^10.9.2",

@@ -1,12 +1,42 @@
 [
     {
+        "version": "1.2.0",
+        "date": "2024/04/11",
+        "changelogItems": [
+            "Fix: Scroll bar not visible on chrome while dark mode is enable",
+            "Fix: Guilds in the search bar should be ordered by guild name",
+            "Better chart url management (can now share /chart)",
+            "Beta: Current solo trial on dashboard"
+        ]
+    },
+    {
+        "version": "1.1.0",
+        "date": "2024/04/10",
+        "changelogItems": [
+            "Add light/dark mode switch",
+            "Add version changelog on version number click",
+            "Upgrade \"season/xx\" routing",
+            "Add guild search feature and detail"
+        ]
+    },
+    {
         "version": "1.0.1",
+        "date": "2024/04/10",
         "changelogItems": [
             "Fix error from 04/09 update that add S12 to past season 🤷‍♂️"
         ]
     },
     {
         "version": "1.0.0",
-        "changelogItems": []
+        "date": "2024/04/09",
+        "changelogItems": [
+            "Very first version",
+            "Create Dashboard page",
+            "Create Seasons page",
+            "All details export",
+            "Add iframe to flourish bar chart race",
+            "Create About page",
+            "Add link to Discord server"
+        ]
     }
 ]

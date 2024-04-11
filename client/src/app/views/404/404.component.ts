@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { TitleService } from '../../services/title.service';
-import { ActiveMenuService } from '../../services/active-menu.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-404',
@@ -8,11 +7,10 @@ import { ActiveMenuService } from '../../services/active-menu.service';
   styleUrls: ['./404.component.scss']
 })
 export class NotFoundComponent {
-    constructor(
-      private titleService: TitleService,
-      private activeMenuService: ActiveMenuService
-    ) {
-      this.titleService.updateTitle('404 Page not found');
-      this.activeMenuService.updateActiveMenu('');
-    }
+  constructor(
+    private eventService: EventService
+  ) {
+    this.eventService.updateTitle('404 Page not found');
+    this.eventService.updateActiveMenu('');
+  }
 }

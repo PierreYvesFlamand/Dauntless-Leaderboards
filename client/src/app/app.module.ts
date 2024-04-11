@@ -7,12 +7,19 @@ import { LayoutComponent } from './layout/layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { SeasonsComponent } from './views/seasons/seasons.component';
 import { AboutComponent } from './views/about/about.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { NotFoundComponent } from './views/404/404.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { FormsModule } from '@angular/forms';
+import { GuildsComponent } from './views/guilds/guilds.component';
+import { SeasonDetailComponent } from './views/seasons/season-detail/season-detail.component';
+import { SeasonsComponent } from './views/seasons/seasons.component';
+import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
+import { FlourishComponent } from './views/flourish/flourish.component';
+import { ExportComponent } from './views/export/export.component';
+import { TrialsComponent } from './views/trials/trials.component';
+import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +28,17 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    SeasonsComponent,
     AboutComponent,
     DashboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    GuildsComponent,
+    SeasonDetailComponent,
+    SeasonsComponent,
+    GuildDetailComponent,
+    FlourishComponent,
+    ExportComponent,
+    TrialsComponent,
+    TrialDetailComponent
   ],
   imports: [
     BrowserModule,
