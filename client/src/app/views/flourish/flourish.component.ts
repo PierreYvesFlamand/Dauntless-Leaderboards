@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-flourish',
@@ -7,9 +6,5 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./flourish.component.scss']
 })
 export class FlourishComponent {
-  @Input() url: string = '';
-
-  constructor(
-    public domSanitizer: DomSanitizer,
-  ) { }
+  @Input() src: string = '';
 }
