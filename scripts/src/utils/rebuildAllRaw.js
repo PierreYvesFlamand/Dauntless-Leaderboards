@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-const folder = '../../../server/public/data/gauntlet-season11/raw';
+const folder = '../../../server/public/data/gauntlets/gauntlet-season11/raw';
 const allData = {};
 for (const fileName of fs.readdirSync(folder)) {
     const data = JSON.parse(fs.readFileSync(folder + '/' + fileName, 'utf8'));
     allData[fileName.split('.')[0]] = data;
 }
-fs.writeFileSync('../../../server/public/data/gauntlet-season11/all-raw.new.json', JSON.stringify(allData, null, 2), 'utf8');
+fs.writeFileSync('../../../server/public/data/gauntlets/gauntlet-season11/all-raw.new.json', JSON.stringify(allData, null, 2), 'utf8');
 
 // // Fill missing data
 // const base = JSON.parse(fs.readFileSync('../WORK/2024-04-10--06-10.json', 'utf8'));
