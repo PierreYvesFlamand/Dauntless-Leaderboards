@@ -376,6 +376,17 @@ export class DashboardComponent implements OnDestroy {
     return 'assets/img/omni/' + this.role_id[omniId];
   }
 
+  public platform: any = {
+    "WIN": "ico_platform_pc_default.png",
+    "PSN": "ico_platform_ps_default.png",
+    "XBL": "ico_platform_xbox_default.png",
+    "SWT": "ico_platform_switch_default.png",
+  }
+
+  public getPlatformImgUrl(platform: string): string {
+    return 'assets/img/platform/' + this.platform[platform];
+  }
+
   public getPlayerName(id: string, platform: string): string {
     const platformNames = this.allSlayers[id].filter(i => i.platform === platform);
     if (!platformNames.length) return '';

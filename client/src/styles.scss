@@ -21,3 +21,7 @@ body.dark-mode ::-webkit-scrollbar-thumb {
     border: 0;
     border-radius: 50px;
 }
+
+.light-mode .platform-icon {
+    filter: invert(0.667);
+}

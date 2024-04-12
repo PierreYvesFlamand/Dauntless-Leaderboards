@@ -74,7 +74,7 @@
                                     <span class="ml-2 mr-2">{{getPlayerName(leaderboardItem.phxAccountId, leaderboardItem.platform)}}</span>
                                     <span
                                     class="font-weight-light"
-                                    style="font-size: 80%;">[{{leaderboardItem.platform}}]</span></td>
+                                    style="font-size: 80%;"><img class="platform-icon" height="33px" [src]="getPlatformImgUrl(leaderboardItem.platform)" /></span></td>
                             <td>{{leaderboardItem.completionTime / 1000}} sec</td>
                         </tr>
                     </tbody>
