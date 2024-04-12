@@ -314,15 +314,19 @@ export function getBehemothIdFromWeek(week: number): number {
 })();
 
 async function scrap() {
+    console.log('Start week fetch at ' + new Date());
     if (!fs.existsSync(ROOT_FOLDER_PATH)) fs.mkdirSync(ROOT_FOLDER_PATH);
 
     const week = getCurrentWeek();
     const data = await fetchTrialLeaderboard(week);
     if (!data) {
+        console.log('Fetch is NOT OK at ' + new Date());
         await refreshSessionToken();
         scrap();
         return;
     }
+    console.log('Fetch is OK at ' + new Date());
+    
 
     const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
 
@@ -392,6 +396,8 @@ async function scrap() {
 
     fs.writeFileSync(currentWeekFinalLeaderboardFilename, JSON.stringify(formatedWeekData), 'utf8');
     fs.writeFileSync(allSlayersFilePath, JSON.stringify(ALL_SLAYERS), 'utf8');
+
+    console.log('Finish week fetch at ' + new Date());
 }
 
 async function initRefreshToken(authorization_code: string): Promise<string> {
@@ -446,6 +452,8 @@ async function initRefreshToken(authorization_code: string): Promise<string> {
 }
 
 async function refreshSessionToken() {
+    console.log('Start refreshSessionToken at ' + new Date());
+    
     let access_token = undefined;
 
     try {
@@ -490,6 +498,8 @@ async function refreshSessionToken() {
     } catch (error) {
         console.log(error);
     }
+
+    console.log('Finish refreshSessionToken at ' + new Date());
 }
 
 async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL_DETAIL | null> {
