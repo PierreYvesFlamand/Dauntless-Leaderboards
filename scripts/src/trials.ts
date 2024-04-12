@@ -3,7 +3,7 @@ import path from 'path';
 import { ALL_SLAYERS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DETAIL_GROUP_DETAIL, TRIAL_DETAIL_GROUP_DETAIL_ENTRY, TRIAL_DETAIL_SOLO_DETAIL_ENTRY } from './types';
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = 'ce18b7a71a0f40c49f1e3566c47d8f52';
+const BASE_AUTHORIZATION_CODE = '932ceee1c878450ab224e0d2c6f50387';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
@@ -308,24 +308,24 @@ export function getBehemothIdFromWeek(week: number): number {
 (async () => {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
-    setInterval(refreshSessionToken, 1000 * 60 * 30);
-    await scrap();
-    setInterval(scrap, 1000 * 60 * 10);
+    setInterval(refreshSessionToken.bind(this), 1000 * 5);
+    // await scrap();
+    // setInterval(scrap, 1000 * 60 * 10);
 })();
 
 async function scrap() {
-    console.log('Start week fetch at ' + new Date());
+    console.log('Start week fetch at ' + new Date() + '\n');
     if (!fs.existsSync(ROOT_FOLDER_PATH)) fs.mkdirSync(ROOT_FOLDER_PATH);
 
     const week = getCurrentWeek();
     const data = await fetchTrialLeaderboard(week);
     if (!data) {
-        console.log('Fetch is NOT OK at ' + new Date());
+        console.log('Fetch is NOT OK at ' + new Date() + '\n');
         await refreshSessionToken();
         scrap();
         return;
     }
-    console.log('Fetch is OK at ' + new Date());
+    console.log('Fetch is OK at ' + new Date() + '\n');
     
 
     const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
@@ -397,7 +397,7 @@ async function scrap() {
     fs.writeFileSync(currentWeekFinalLeaderboardFilename, JSON.stringify(formatedWeekData), 'utf8');
     fs.writeFileSync(allSlayersFilePath, JSON.stringify(ALL_SLAYERS), 'utf8');
 
-    console.log('Finish week fetch at ' + new Date());
+    console.log('Finish week fetch at ' + new Date() + '\n');
 }
 
 async function initRefreshToken(authorization_code: string): Promise<string> {
@@ -452,7 +452,7 @@ async function initRefreshToken(authorization_code: string): Promise<string> {
 }
 
 async function refreshSessionToken() {
-    console.log('Start refreshSessionToken at ' + new Date());
+    console.log('Start refreshSessionToken at ' + new Date() + '\n');
     
     let access_token = undefined;
 
@@ -473,10 +473,12 @@ async function refreshSessionToken() {
             }
         );
         const data = await res.json();
+
         access_token = data.access_token;
         REFRESH_TOKEN = data.refresh_token;
     } catch (error) {
         console.log(error);
+        return;
     }
 
     try {
@@ -494,12 +496,14 @@ async function refreshSessionToken() {
             }
         );
         const data = await res.json();
+        
         SESSION_TOKEN = data.payload.sessiontoken;
     } catch (error) {
         console.log(error);
+        return;
     }
 
-    console.log('Finish refreshSessionToken at ' + new Date());
+    console.log('Finish refreshSessionToken at ' + new Date() + '\n');
 }
 
 async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL_DETAIL | null> {
@@ -527,7 +531,6 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL_DETA
         return data;
     } catch (error) {
         console.log(error);
-        return null;
     }
     return null;
 }
