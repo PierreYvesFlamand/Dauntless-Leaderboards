@@ -23,7 +23,7 @@ export class SeasonsComponent implements OnDestroy {
     this.eventService.updateTitle('Seasons');
     this.eventService.updateActiveMenu('seasons');
 
-    this.currentSeasonId = this.activatedRoute.firstChild?.snapshot.params['gauntletId'];
+    this.currentSeasonId = 'gauntlet-season' + String(this.activatedRoute.firstChild?.snapshot.params['gauntletId'] || 69).padStart(2, '0');
     this.showChart = this.activatedRoute.firstChild?.firstChild?.snapshot.data['showChart'] ? true : false;
 
     this.allSeasonsSubscription = this.eventService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
@@ -60,7 +60,7 @@ export class SeasonsComponent implements OnDestroy {
     if (!this.currentSeasonId) return undefined;
     return {
       'gauntlet-season11': 17314108,
-      'gauntlet-season12': 17498903,
+      'gauntlet-season12': 17498903
     }[this.currentSeasonId] || undefined;
   }
 
