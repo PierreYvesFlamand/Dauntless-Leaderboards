@@ -3,7 +3,7 @@ import path from 'path';
 import { ALL_SLAYERS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DETAIL_GROUP_DETAIL, TRIAL_DETAIL_GROUP_DETAIL_ENTRY, TRIAL_DETAIL_SOLO_DETAIL_ENTRY } from './types';
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = '119c1a8d6b45477d81bc388ebd37400c';
+const BASE_AUTHORIZATION_CODE = 'ce18b7a71a0f40c49f1e3566c47d8f52';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
@@ -309,7 +309,7 @@ export function getBehemothIdFromWeek(week: number): number {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
     setInterval(refreshSessionToken, 1000 * 60 * 30);
-    scrap();
+    await scrap();
     setInterval(scrap, 1000 * 60 * 10);
 })();
 
@@ -318,7 +318,11 @@ async function scrap() {
 
     const week = getCurrentWeek();
     const data = await fetchTrialLeaderboard(week);
-    if (!data) return;
+    if (!data) {
+        await refreshSessionToken();
+        scrap();
+        return;
+    }
 
     const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
 
@@ -513,6 +517,7 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL_DETA
         return data;
     } catch (error) {
         console.log(error);
+        return null;
     }
     return null;
 }

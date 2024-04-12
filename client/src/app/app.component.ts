@@ -20,8 +20,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.themeSubscription = this.eventService.themeObservable.subscribe(theme => {
       if (theme === 'dark') {
         document.querySelector('body')?.classList.add('dark-mode');
+        document.querySelector('body')?.classList.remove('light-mode');
       } else {
         document.querySelector('body')?.classList.remove('dark-mode');
+        document.querySelector('body')?.classList.add('light-mode');
       }
     });
 
