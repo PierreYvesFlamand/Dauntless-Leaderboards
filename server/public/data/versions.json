@@ -1,5 +1,13 @@
 [
     {
+        "version": "1.2.1",
+        "date": "2024/04/12",
+        "changelogItems": [
+            "Fix: /11/chart redirecting to /12/chart",
+            "Add Google Analytics"
+        ]
+    },
+    {
         "version": "1.2.0",
         "date": "2024/04/11",
         "changelogItems": [
