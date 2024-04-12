@@ -308,9 +308,9 @@ export function getBehemothIdFromWeek(week: number): number {
 (async () => {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
-    setInterval(refreshSessionToken.bind(this), 1000 * 5);
-    // await scrap();
-    // setInterval(scrap, 1000 * 60 * 10);
+    setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);
+    await scrap();
+    setInterval(scrap, 1000 * 60 * 10);
 })();
 
 async function scrap() {
