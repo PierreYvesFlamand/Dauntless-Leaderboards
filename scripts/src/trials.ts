@@ -1,316 +1,22 @@
 import fs from 'fs';
 import path from 'path';
-import { ALL_SLAYERS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DETAIL_GROUP_DETAIL, TRIAL_DETAIL_GROUP_DETAIL_ENTRY, TRIAL_DETAIL_SOLO_DETAIL_ENTRY } from './types';
+import { ALL_SLAYERS, ALL_TRIALS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DETAIL_GROUP_DETAIL, TRIAL_DETAIL_GROUP_DETAIL_ENTRY, TRIAL_DETAIL_SOLO_DETAIL_ENTRY, WEAPONS, getCurrentWeek } from './types';
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = '932ceee1c878450ab224e0d2c6f50387';
+const BASE_AUTHORIZATION_CODE = '037ca5c491e443df90e47709bf98b107';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
-
-const WEAPONS = ['all', 'axe', 'chainblades', 'hammer', 'pike', 'repeaters', 'strikers', 'sword'];
-
-export enum BEHEMOTH {
-    'Shrike',
-    'Thunderdeep_Drask',
-    'Blaze_Quillshot',
-    'Shadowtouched_Koshai',
-    'Skarn',
-    'Koshai',
-    'Shrowd',
-    'Gnasher',
-    'Skraev',
-    'Charrogg',
-    'Phaelanx',
-    'Stormclaw',
-    'Malkarion',
-    'Rezakiri',
-    'Riftstalker',
-    'Drask',
-    'Embermane',
-    'Shadowtouched_Nayzaga',
-    'Quillshot',
-    'Pangar',
-    'Kharabak',
-    'Shadowtouched_Drask',
-    'Nayzaga',
-    'Boreus',
-    'Bloodshot_Shrowd',
-}
-
-export const behemoth = [
-    'Shrike',
-    'Thunderdeep Drask',
-    'Blaze Quillshot',
-    'Shadowtouched Koshai',
-    'Skarn',
-    'Koshai',
-    'Shrowd',
-    'Gnasher',
-    'Skraev',
-    'Charrogg',
-    'Phaelanx',
-    'Stormclaw',
-    'Malkarion',
-    'Rezakiri',
-    'Riftstalker',
-    'Drask',
-    'Embermane',
-    'Shadowtouched Nayzaga',
-    'Quillshot',
-    'Pangar',
-    'Kharabak',
-    'Shadowtouched Drask',
-    'Nayzaga',
-    'Boreus',
-    'Bloodshot Shrowd',
-]
-
-export const oldRatationHistory = [
-    BEHEMOTH.Nayzaga,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Nayzaga,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Nayzaga,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Nayzaga,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Boreus,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Boreus,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Shadowtouched_Drask,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Boreus,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Shadowtouched_Drask,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Boreus,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Shadowtouched_Drask,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Boreus,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Shadowtouched_Drask,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Boreus,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Shadowtouched_Drask,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Phaelanx,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Shadowtouched_Drask,
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Thunderdeep_Drask,
-    BEHEMOTH.Blaze_Quillshot,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Bloodshot_Shrowd,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Phaelanx,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Shadowtouched_Drask
-];
-
-export const currentBehemothRotation = [
-    BEHEMOTH.Shrike,
-    BEHEMOTH.Thunderdeep_Drask,
-    BEHEMOTH.Blaze_Quillshot,
-    BEHEMOTH.Shadowtouched_Koshai,
-    BEHEMOTH.Skarn,
-    BEHEMOTH.Koshai,
-    BEHEMOTH.Shrowd,
-    BEHEMOTH.Gnasher,
-    BEHEMOTH.Skraev,
-    BEHEMOTH.Charrogg,
-    BEHEMOTH.Phaelanx,
-    BEHEMOTH.Stormclaw,
-    BEHEMOTH.Malkarion,
-    BEHEMOTH.Rezakiri,
-    BEHEMOTH.Riftstalker,
-    BEHEMOTH.Drask,
-    BEHEMOTH.Embermane,
-    BEHEMOTH.Shadowtouched_Nayzaga,
-    BEHEMOTH.Quillshot,
-    BEHEMOTH.Pangar,
-    BEHEMOTH.Kharabak,
-    BEHEMOTH.Shadowtouched_Drask
-];
-
-export function getCurrentWeek(): number {
-    const week1StartDate = new Date(Date.UTC(2019, 7 - 1, 18, 17));
-    const weekInMs = 1 * 7 * 24 * 60 * 60 * 1000;
-    return Math.floor((new Date().getTime() - week1StartDate.getTime()) / weekInMs) + 1
-}
-
-export function getWeekStartAndEnd(week: number): Array<Date> {
-    const week1StartDate = new Date(Date.UTC(2019, 7 - 1, 18, 17));
-    const weekInMs = 1 * 7 * 24 * 60 * 60 * 1000;
-    return [
-        new Date(week1StartDate.getTime() + weekInMs * (week - 1)),
-        new Date(week1StartDate.getTime() + weekInMs * week)
-    ];
-}
-
-export function getBehemothIdFromWeek(week: number): number {
-    if (week < oldRatationHistory.length) return oldRatationHistory[week - 1];
-    return currentBehemothRotation[(week - oldRatationHistory.length) % currentBehemothRotation.length - 1];
-}
 
 (async () => {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
     setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);
-    await scrap();
-    setInterval(scrap, 1000 * 60 * 10);
+
+    for(let )
+
+    // await scrap();
+    // setInterval(scrap, 1000 * 60 * 10);
 })();
 
 async function scrap() {
@@ -327,11 +33,14 @@ async function scrap() {
     }
     console.log('Fetch is OK at ' + new Date() + '\n');
     
-
     const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
-
     if (!fs.existsSync(allSlayersFilePath)) {
         fs.writeFileSync(allSlayersFilePath, JSON.stringify({}), 'utf8');
+    }
+
+    const allTrialsFilePath = `${ROOT_FOLDER_PATH}/all-trials.json`;
+    if (!fs.existsSync(allTrialsFilePath)) {
+        fs.writeFileSync(allTrialsFilePath, JSON.stringify({}), 'utf8');
     }
 
     const ALL_SLAYERS: ALL_SLAYERS = JSON.parse(fs.readFileSync(allSlayersFilePath, 'utf8'));
@@ -396,6 +105,10 @@ async function scrap() {
 
     fs.writeFileSync(currentWeekFinalLeaderboardFilename, JSON.stringify(formatedWeekData), 'utf8');
     fs.writeFileSync(allSlayersFilePath, JSON.stringify(ALL_SLAYERS), 'utf8');
+
+    const ALL_TRIALS: ALL_TRIALS = JSON.parse(fs.readFileSync(allTrialsFilePath, 'utf8'));
+    ALL_TRIALS[`week_${String(week).padStart(4, '0')}`] = formatedWeekData;
+    fs.writeFileSync(allTrialsFilePath, JSON.stringify(ALL_TRIALS), 'utf8');
 
     console.log('Finish week fetch at ' + new Date() + '\n');
 }

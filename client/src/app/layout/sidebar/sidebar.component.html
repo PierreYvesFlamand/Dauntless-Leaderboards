@@ -9,34 +9,46 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
           <a routerLink="/" class="nav-link" [class.active]="activeMenu == 'dashboard'">
-            <i class="nav-icon fa-solid fa-gauge-high"></i>
+            <i class="nav-icon mr-2 fa-solid fa-gauge-high"></i>
             <p>Dashboard</p>
           </a>
         </li>
         <li class="nav-header user-select-none">GAUNTLET</li>
         <li class="nav-item">
           <a routerLink="/seasons" class="nav-link" [class.active]="activeMenu == 'seasons'">
-            <i class="nav-icon fa-solid fa-tree"></i>
+            <i class="nav-icon mr-2 fa-solid fa-tree"></i>
             <p>Seasons</p>
           </a>
         </li>
-        <li class="nav-header user-select-none">GUILDS</li>
         <li class="nav-item">
           <a routerLink="/guilds" class="nav-link" [class.active]="activeMenu == 'guilds'">
-            <i class="nav-icon fa-solid fa-people-group"></i>
+            <i class="nav-icon mr-2 fa-solid fa-users"></i>
             <p>Guilds</p>
+          </a>
+        </li>
+        <li class="nav-header user-select-none">TRIALS<span class="badge badge-warning ml-2">BETA</span></li>
+        <li class="nav-item">
+          <a routerLink="/seasons" class="nav-link" [class.active]="activeMenu == 'trials'">
+            <i class="nav-icon mr-2 fa-solid fa-hand-fist"></i>
+            <p>Trials<span class="badge badge-warning ml-2">BETA</span></p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/guilds" class="nav-link" [class.active]="activeMenu == 'players'">
+            <i class="nav-icon mr-2 fa-solid fa-user"></i>
+            <p>Players<span class="badge badge-warning ml-2">BETA</span></p>
           </a>
         </li>
         <li class="nav-header user-select-none">ABOUT</li>
         <li class="nav-item">
           <a routerLink="/about" class="nav-link" [class.active]="activeMenu == 'about'">
-            <i class="nav-icon fa-solid fa-circle-info"></i>
+            <i class="nav-icon mr-2 fa-solid fa-circle-info"></i>
             <p>About</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="https://discord.gg/JGTVcqMDfm" target="_blank" class="nav-link">
-            <i class="nav-icon fa-brands fa-discord"></i>
+            <i class="nav-icon mr-2 fa-brands fa-discord"></i>
             <p>Discord</p>
           </a>
         </li>
