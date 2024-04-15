@@ -1,7 +1,15 @@
 [
     {
+        "version": "1.3.1",
+        "date": "2024/04/15",
+        "changelogItems": [
+            "Fix a gap without background color on top of the footer",
+            "Fix /chart not remove when closing the bar chart race modal"
+        ]
+    },
+    {
         "version": "1.3.0",
-        "date": "202404/15/",
+        "date": "2024/04/15",
         "changelogItems": [
             "Allow redirection to guild detail on guild click",
             "Create a better guild list with search and sorts"
