@@ -6,52 +6,57 @@
 </div>
 <div class="row mt-3">
     <div class="col-12">
-        <div class="table-responsive" style="max-height: 75vh;">
-            <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th>Guild</th>
-                        <th style="width: 90px;">
-                            <div class="d-flex align-items-center">Rating <i
-                                    class="pl-2 ml-auto fa-solid {{getArrowIcon('rating')}}" role="button"
-                                    (click)="changeFilter('rating')"></i></div>
-                        </th>
-                        <th style="width: 90px;">
-                            <div class="d-flex align-items-center">Top 1s <i
-                                    class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrOfTop1')}}" role="button"
-                                    (click)="changeFilter('nbrOfTop1')"></i></div>
-                        </th>
-                        <th style="width: 90px;">
-                            <div class="d-flex align-items-center">Top 5s <i
-                                    class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrOfTop5')}}" role="button"
-                                    (click)="changeFilter('nbrOfTop5')"></i></div>
-                        </th>
-                        <th style="width: 90px;">
-                            <div class="d-flex align-items-center">Top 100s <i
-                                    class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrOfTop100')}}" role="button"
-                                    (click)="changeFilter('nbrOfTop100')"></i></div>
-                        </th>
-                        <th style="width: 120px;">
-                            <div class="d-flex align-items-center">Total levels <i
-                                    class="pl-2 ml-auto fa-solid {{getArrowIcon('totalLevelCompleted')}}" role="button"
-                                    (click)="changeFilter('totalLevelCompleted')"></i></div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let guild of allGuildsFiltered"
-                        [routerLink]="guild.guildNameplate" role="button">
-                        <td>{{guild.guildName}} <span class="font-weight-light h6"
-                                style="font-size: 75%;">[{{guild.guildNameplate}}]</span>
-                        </td>
-                        <td style="width: 90px;"> {{guild.rating.toFixed(2)}} </td>
-                        <td style="width: 90px;"> {{guild.nbrOfTop1 ? guild.nbrOfTop1 : ''}} </td>
-                        <td style="width: 90px;"> {{guild.nbrOfTop5 ? guild.nbrOfTop5 : ''}} </td>
-                        <td style="width: 90px;"> {{guild.nbrOfTop100 ? guild.nbrOfTop100 : ''}} </td>
-                        <td style="width: 120px;"> {{guild.totalLevelCompleted}} </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="card" style="border-radius: 0">
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 75vh;">
+                    <table
+                        class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Guild</th>
+                                <th style="width: 90px;">
+                                    <div class="d-flex align-items-center">Rating <i
+                                            class="pl-2 ml-auto fa-solid {{getArrowIcon('rating')}}" role="button"
+                                            (click)="changeFilter('rating')"></i></div>
+                                </th>
+                                <th style="width: 90px;">
+                                    <div class="d-flex align-items-center">Top 1s <i
+                                            class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrOfTop1')}}" role="button"
+                                            (click)="changeFilter('nbrOfTop1')"></i></div>
+                                </th>
+                                <th style="width: 90px;">
+                                    <div class="d-flex align-items-center">Top 5s <i
+                                            class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrOfTop5')}}" role="button"
+                                            (click)="changeFilter('nbrOfTop5')"></i></div>
+                                </th>
+                                <th style="width: 90px;">
+                                    <div class="d-flex align-items-center">Top 100s <i
+                                            class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrOfTop100')}}" role="button"
+                                            (click)="changeFilter('nbrOfTop100')"></i></div>
+                                </th>
+                                <th style="width: 120px;">
+                                    <div class="d-flex align-items-center">Total levels <i
+                                            class="pl-2 ml-auto fa-solid {{getArrowIcon('totalLevelCompleted')}}"
+                                            role="button" (click)="changeFilter('totalLevelCompleted')"></i></div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let guild of allGuildsFiltered" [routerLink]="guild.guildNameplate"
+                                role="button">
+                                <td>{{guild.guildName}} <span class="font-weight-light h6"
+                                        style="font-size: 75%;">[{{guild.guildNameplate}}]</span>
+                                </td>
+                                <td style="width: 90px;"> {{guild.rating.toFixed(2)}} </td>
+                                <td style="width: 90px;"> {{guild.nbrOfTop1 ? guild.nbrOfTop1 : ''}} </td>
+                                <td style="width: 90px;"> {{guild.nbrOfTop5 ? guild.nbrOfTop5 : ''}} </td>
+                                <td style="width: 90px;"> {{guild.nbrOfTop100 ? guild.nbrOfTop100 : ''}} </td>
+                                <td style="width: 120px;"> {{guild.totalLevelCompleted}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

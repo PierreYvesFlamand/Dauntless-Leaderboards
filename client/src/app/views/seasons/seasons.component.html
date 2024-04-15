@@ -45,7 +45,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Season {{getSeasonNumber(currentSeasonId)}}</h4>
-                <button type="button" class="close" (click)="showChart = false" aria-label="Close">
+                <button type="button" class="close" (click)="showChart = false; onFilterChange();" aria-label="Close">
                     <span>×</span>
                 </button>
             </div>

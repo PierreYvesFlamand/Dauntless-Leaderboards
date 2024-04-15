@@ -3,6 +3,7 @@ import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
 import { ALL_SEASONS, ALL_SLAYERS, TRIAL_DETAIL } from '../../imports';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 enum BEHEMOTH {
   'Shrike',
@@ -48,7 +49,8 @@ export class DashboardComponent implements OnDestroy {
   public currentTrail?: TRIAL_DETAIL;
 
   constructor(
-    private eventService: EventService
+    private eventService: EventService,
+    private router: Router
   ) {
     this.eventService.updateTitle('Dashboard');
     this.eventService.updateActiveMenu('dashboard');
@@ -79,7 +81,7 @@ export class DashboardComponent implements OnDestroy {
   }
 
   public openGuildDetail(guildNameplate: string) {
-    window.open(`/guilds/${guildNameplate}`, '_blank');
+    this.router.navigate(['guilds', guildNameplate]);
   }
 
   public behemoth = [
