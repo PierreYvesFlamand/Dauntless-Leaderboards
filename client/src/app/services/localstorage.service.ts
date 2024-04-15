@@ -4,7 +4,7 @@ const KEY_PREFIX = 'settings';
 export type LOCALSTORAGE_KEYS = 'theme';
 
 const defaultSettings = {
-  'theme': 'light'
+  'theme': 'dark'
 }
 
 @Injectable({

@@ -13,10 +13,8 @@ const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
     await refreshSessionToken();
     setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);
 
-    for(let )
-
-    // await scrap();
-    // setInterval(scrap, 1000 * 60 * 10);
+    await scrap();
+    setInterval(scrap, 1000 * 60 * 10);
 })();
 
 async function scrap() {
@@ -25,7 +23,7 @@ async function scrap() {
 
     const week = getCurrentWeek();
     const data = await fetchTrialLeaderboard(week);
-    if (!data) {
+    if (!data?.payload.world) {
         console.log('Fetch is NOT OK at ' + new Date() + '\n');
         await refreshSessionToken();
         scrap();

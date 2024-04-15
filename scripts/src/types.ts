@@ -53,7 +53,13 @@ export type ALL_GUILDS = Array<GUILD_DETAIL>;
 export type GUILD_DETAIL = {
     guildName: string,
     guildNameplate: string,
-    leaderboardPositions: Array<LEADERBOARD_POSITION>
+    leaderboardPositions: Array<LEADERBOARD_POSITION>,
+    totalLevelCompleted: number,
+    nbrOfTop1: number,
+    nbrOfTop5: number,
+    nbrOfTop100: number,
+    rawRating: number,
+    rating: number
 }
 
 export type LEADERBOARD_POSITION = {

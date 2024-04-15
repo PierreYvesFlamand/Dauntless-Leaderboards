@@ -14,7 +14,6 @@ export class EventService {
 
   public async init() {
     await Promise.all([this.initAllSeasons(), this.initAllSlayers()]);
-    setInterval(this.initAllSeasons.bind(this), 1000 * 30);
     this.initTheme();
   }
 
@@ -57,7 +56,8 @@ export class EventService {
     const res = await fetch(`${environment.backendUrl}/data/gauntlets/all-seasons.json`);
     const allSeasons: ALL_SEASONS = await res.json();
 
-    const allGuilds: ALL_GUILDS = [];
+    let allGuilds: ALL_GUILDS = [];
+    const maxRawRating = this.getMaxGuildRawRating(Object.keys(allSeasons).length);
 
     for (const gauntletId of Object.keys(allSeasons).reverse()) {
       allSeasons[gauntletId].leaderboard.forEach((leaderboardItem, index) => {
@@ -67,7 +67,13 @@ export class EventService {
           guild = {
             guildName: leaderboardItem.guildName,
             guildNameplate: leaderboardItem.guildNameplate,
-            leaderboardPositions: []
+            leaderboardPositions: [],
+            totalLevelCompleted: 0,
+            nbrOfTop1: 0,
+            nbrOfTop5: 0,
+            nbrOfTop100: 0,
+            rawRating: 0,
+            rating: 0
           };
 
           allGuilds.push(guild);
@@ -76,16 +82,35 @@ export class EventService {
         guild.leaderboardPositions.push({
           [gauntletId]: index + 1
         });
+        guild.totalLevelCompleted += leaderboardItem.level;
+        if (index + 1 === 1) { guild.nbrOfTop1++; }
+        if (index + 1 <= 5) { guild.nbrOfTop5++; }
+        guild.nbrOfTop100++;
+        guild.rawRating += Math.floor((100 - index) * (Number(gauntletId.slice(15)) / Object.keys(allSeasons).length));
       });
     }
+
+    allGuilds = allGuilds.map(g => ({ ...g, rating: (100 / maxRawRating) * g.rawRating }));
 
     this._allSeasonsObservable.next(allSeasons);
     this._allGuildsObservable.next(allGuilds);
   }
 
+  public getSeasonNumber(seasonId: string): number {
+    return Number(seasonId.slice(15));
+  }
+
   // All guilds
   private _allGuildsObservable = new BehaviorSubject<ALL_GUILDS>([]);
   public allGuildsObservable = this._allGuildsObservable.asObservable();
+
+  public getMaxGuildRawRating(nbrOfSeason: number): number {
+    let maxRawRating = 0;
+    for (let i = 1; i <= nbrOfSeason; i++) {
+      maxRawRating += Math.floor(100 * (i / nbrOfSeason));
+    }
+    return maxRawRating;
+  }
 
   // All Slayers
   private _allSlayersObservable = new BehaviorSubject<ALL_SLAYERS>({});

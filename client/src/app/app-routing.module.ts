@@ -8,6 +8,7 @@ import { AboutComponent } from './views/about/about.component';
 import { NotFoundComponent } from './views/404/404.component';
 import { ExportComponent } from './views/export/export.component';
 import { TrialsComponent } from './views/trials/trials.component';
+import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 
 const routes: Routes = [
   {
@@ -22,11 +23,8 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'guilds', component: GuildsComponent, children: [
-          { path: ':guildTag', component: GuildsComponent }
-        ]
-      },
+      { path: 'guilds', component: GuildsComponent },
+      { path: 'guilds/:guildTag', component: GuildDetailComponent },
       {
         path: 'trials', component: TrialsComponent, children: [
           { path: ':trialWeek', component: TrialsComponent }
