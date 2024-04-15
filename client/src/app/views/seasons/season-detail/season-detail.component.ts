@@ -12,4 +12,8 @@ export class SeasonDetailComponent {
   public convertRemainingSec(sec: number): string {
     return `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
   }
+
+  public openGuildDetail(guildNameplate: string) {
+    window.open(`/guilds/${guildNameplate}`, '_blank');
+  }
 }

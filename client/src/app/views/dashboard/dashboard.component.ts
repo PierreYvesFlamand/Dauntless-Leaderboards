@@ -78,6 +78,10 @@ export class DashboardComponent implements OnDestroy {
     return Number(seasonId.slice(15));
   }
 
+  public openGuildDetail(guildNameplate: string) {
+    window.open(`/guilds/${guildNameplate}`, '_blank');
+  }
+
   public behemoth = [
     'Shrike',
     'Thunderdeep Drask',

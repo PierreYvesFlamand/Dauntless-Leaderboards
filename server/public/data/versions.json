@@ -1,5 +1,13 @@
 [
     {
+        "version": "1.3.0",
+        "date": "202404/15/",
+        "changelogItems": [
+            "Allow redirection to guild detail on guild click",
+            "Create a better guild list with search and sorts"
+        ]
+    },
+    {
         "version": "1.2.2",
         "date": "2024/04/12",
         "changelogItems": [
