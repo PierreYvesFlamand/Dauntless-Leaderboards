@@ -51,9 +51,10 @@
                             </tr>
                         </thead>
                         <tbody *ngIf="currentSeasonId">
-                            <tr *ngFor="let leaderboardItem of allSeasonData[currentSeasonId]?.leaderboard; index as i;"
-                                (click)="openGuildDetail(leaderboardItem.guildNameplate)" role="button">
-                                <td class="text-center">{{i + 1}}.</td>
+                            <tr *ngFor="let leaderboardItem of allSeasonData[currentSeasonId]?.leaderboard; index as index;"
+                                [routerLink]="'/guilds/' + leaderboardItem.guildNameplate" role="button"
+                                [class.text-info]="leaderboardItem.guildNameplate === userGuildTag">
+                                <td class="text-center">{{index + 1}}.</td>
                                 <td>{{leaderboardItem.guildName}} <span class="font-weight-light h6"
                                         style="font-size: 75%;">[{{leaderboardItem.guildNameplate}}]</span>
                                 </td>

@@ -1,14 +1,17 @@
 [
     {
         "version": "1.4.0",
-        "date": "",
+        "date": "2024/04/16",
         "changelogItems": [
-            "Keep the header on top of the page",
-            "Auto close menu on click on small divice",
+            "Always keep the header on top of the page",
+            "Auto close menu sidebar on click on small divice",
             "Add direct link to https://www.dauntless-builder.com/",
             "Add Gauntlet icon",
             "Fix /seasons/:id routing not allowing to go back with history",
-            "Add a stable version of displaying the Bar Chart Race from Flourish"
+            "Add a stable version of displaying the Bar Chart Race from Flourish",
+            "Add user settings",
+            "Remove light/dark mode switch from header",
+            "Add reload btn on header"
         ]
     },
     {

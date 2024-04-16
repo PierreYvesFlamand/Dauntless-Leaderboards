@@ -15,6 +15,9 @@ export class SeasonsComponent implements OnDestroy {
   public currentSeasonId?: string = '';
   public showChart: boolean = false;
 
+  private guildTagSubscription: Subscription;
+  public userGuildTag: string = '';
+
   constructor(
     private eventService: EventService,
     private activatedRoute: ActivatedRoute,
@@ -34,10 +37,12 @@ export class SeasonsComponent implements OnDestroy {
     });
 
     this.allSeasonsSubscription = this.eventService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
+    this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.userGuildTag = newValue);
   }
 
   ngOnDestroy(): void {
     this.allSeasonsSubscription.unsubscribe();
+    this.guildTagSubscription.unsubscribe();
   }
 
   private onAllSeasonsDataUpdate(allSeasonData: ALL_SEASONS): void {
@@ -87,9 +92,5 @@ export class SeasonsComponent implements OnDestroy {
 
   public convertRemainingSec(sec: number): string {
     return `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
-  }
-
-  public openGuildDetail(guildNameplate: string) {
-    window.open(`/guilds/${guildNameplate}`, '_blank');
   }
 }

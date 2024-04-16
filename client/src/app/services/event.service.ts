@@ -15,6 +15,9 @@ export class EventService {
   public async init() {
     await Promise.all([this.initAllSeasons(), this.initAllSlayers()]);
     this.initTheme();
+    this.initLanguage();
+    this.initPlayerName();
+    this.initGuildTag();
   }
 
   // Title
@@ -34,15 +37,57 @@ export class EventService {
     this.localstorageService.setByKey('theme', theme);
   }
 
-  // Active menu
-  private _activeMenuObservable = new BehaviorSubject<string>('');
-  public activeMenuObservable = this._activeMenuObservable.asObservable();
-
   public initTheme() {
     let theme = this.localstorageService.getByKey<string>('theme');
     if (theme !== 'light' && theme !== 'dark') theme = 'light';
     this.updateTheme(theme as 'light' | 'dark');
   }
+
+  // Language
+  private _languageObservable = new BehaviorSubject<string>('us');
+  public languageObservable = this._languageObservable.asObservable();
+
+  public updateLanguage(language: string): void {
+    this._languageObservable.next(language);
+    this.localstorageService.setByKey('language', language);
+  }
+
+  public initLanguage() {
+    let language = this.localstorageService.getByKey<string>('language');
+    this.updateLanguage(language);
+  }
+
+  // Player Name
+  private _playerNameObservable = new BehaviorSubject<string>('');
+  public playerNameObservable = this._playerNameObservable.asObservable();
+
+  public updatePlayerName(playerName: string): void {
+    this._playerNameObservable.next(playerName);
+    this.localstorageService.setByKey('player-name', playerName);
+  }
+
+  public initPlayerName() {
+    let playerName = this.localstorageService.getByKey<string>('player-name');
+    this.updatePlayerName(playerName);
+  }
+
+  // Guild Tag
+  private _guildTagObservable = new BehaviorSubject<string>('');
+  public guildTagObservable = this._guildTagObservable.asObservable();
+
+  public updateGuildTag(guildTag: string): void {
+    this._guildTagObservable.next(guildTag);
+    this.localstorageService.setByKey('guild-tag', guildTag);
+  }
+
+  public initGuildTag() {
+    let guildTag = this.localstorageService.getByKey<string>('guild-tag');
+    this.updateGuildTag(guildTag);
+  }
+
+  // Active menu
+  private _activeMenuObservable = new BehaviorSubject<string>('');
+  public activeMenuObservable = this._activeMenuObservable.asObservable();
 
   public updateActiveMenu(string: string): void {
     this._activeMenuObservable.next(string);

@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { ALL_SEASONS, ALL_SLAYERS, TRIAL_DETAIL } from '../../imports';
+import { ALL_SEASONS, ALL_SLAYERS, TRIAL_DETAIL, SEASON_DETAIL } from '../../imports';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 
@@ -41,10 +41,13 @@ enum BEHEMOTH {
 export class DashboardComponent implements OnDestroy {
   private allSeasonsSubscription: Subscription;
   public currentSeasonId: string = '';
-  public allSeasonData: ALL_SEASONS = {};
+  public currentSeason?: SEASON_DETAIL;
 
   private allSlayersSubscription: Subscription;
   public allSlayers: ALL_SLAYERS = {};
+
+  private guildTagSubscription: Subscription;
+  public userGuildTag: string = '';
 
   public currentTrail?: TRIAL_DETAIL;
 
@@ -57,6 +60,7 @@ export class DashboardComponent implements OnDestroy {
 
     this.allSeasonsSubscription = this.eventService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
     this.allSlayersSubscription = this.eventService.allSlayersObservable.subscribe(data => this.allSlayers = data);
+    this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.userGuildTag = newValue);
     fetch(`${environment.backendUrl}/data/trials/week_${String(this.getCurrentWeek()).padStart(4, '0')}/current-leaderboard.json`).then(res => res.json()).then(data => {
       this.currentTrail = data;
     });
@@ -65,11 +69,12 @@ export class DashboardComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.allSeasonsSubscription.unsubscribe();
     this.allSlayersSubscription.unsubscribe();
+    this.guildTagSubscription.unsubscribe();
   }
 
   private onAllSeasonsDataUpdate(allSeasonData: ALL_SEASONS): void {
-    this.allSeasonData = allSeasonData;
     this.currentSeasonId = Object.keys(allSeasonData)[Object.keys(allSeasonData).length - 1];
+    this.currentSeason = allSeasonData[this.currentSeasonId];
   }
 
   public convertRemainingSec(sec: number): string {

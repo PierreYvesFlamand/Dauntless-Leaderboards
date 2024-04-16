@@ -1,10 +1,11 @@
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card" *ngIf="currentSeason">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title"><img class="mr-2" style="width: 1.333rem;" src="assets/img/gauntlet_icon.png">Gauntlet Season
+                <h3 class="card-title"><img class="mr-2" style="width: 1.333rem;"
+                        src="assets/img/gauntlet_icon.png">Gauntlet Season
                     {{getSeasonNumber(currentSeasonId)}}</h3>
-                <span class="badge badge-secondary ml-auto">End at {{allSeasonData[currentSeasonId].endAt |
+                <span class="badge badge-secondary ml-auto">End at {{currentSeason.endAt |
                     date:'YYYY/MM/dd HH:mm'}}</span>
             </div>
             <div class="card-body p-0">
@@ -22,17 +23,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let leaderboardItem of allSeasonData[currentSeasonId].leaderboard.slice(0, 5); index as i;"
+                        <tr *ngFor="let leaderboardItem of currentSeason.leaderboard; index as index;"
+                            [class.text-info]="leaderboardItem.guildNameplate === userGuildTag"
                             (click)="openGuildDetail(leaderboardItem.guildNameplate)" role="button">
-                            <td class="text-center">{{i + 1}}.</td>
-                            <td>{{leaderboardItem.guildName}} <span
-                                    class="font-weight-light h6">[{{leaderboardItem.guildNameplate}}]</span></td>
-                            <td>
-                                <div class="text-center">{{leaderboardItem.level}}</div>
-                            </td>
-                            <td>
-                                <div class="text-center">{{convertRemainingSec(leaderboardItem.remainingSec)}}</div>
-                            </td>
+                            <ng-container *ngIf="index < 5 || leaderboardItem.guildNameplate === userGuildTag">
+                                <td class="text-center">{{index + 1}}.</td>
+                                <td>{{leaderboardItem.guildName}} <span
+                                        class="font-weight-light h6">[{{leaderboardItem.guildNameplate}}]</span></td>
+                                <td>
+                                    <div class="text-center">{{leaderboardItem.level}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-center">{{convertRemainingSec(leaderboardItem.remainingSec)}}</div>
+                                </td>
+                            </ng-container>
                         </tr>
                     </tbody>
                 </table>
@@ -40,7 +44,7 @@
             </div>
             <div class="card-footer d-flex">
                 <span class="badge badge-secondary ml-auto">Last updated at
-                    {{allSeasonData[currentSeasonId].lastUpdated |
+                    {{currentSeason.lastUpdated |
                     date:'YYYY/MM/dd HH:mm'}}</span>
             </div>
         </div>

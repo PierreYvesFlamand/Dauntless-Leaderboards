@@ -24,17 +24,22 @@ export class GuildsComponent implements OnDestroy {
       sortAsc: false
     };
 
+  private guildTagSubscription: Subscription;
+  public userGuildTag: string = '';
+
   constructor(
     private eventService: EventService
   ) {
     this.eventService.updateTitle('Guilds');
     this.eventService.updateActiveMenu('guilds');
     this.allGuildsSubscription = this.eventService.allGuildsObservable.subscribe(data => this.allGuilds = data.sort((a, b) => b.rating - a.rating));
+    this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.userGuildTag = newValue);
     this.applyFilter();
   }
 
   ngOnDestroy(): void {
     this.allGuildsSubscription.unsubscribe();
+    this.guildTagSubscription.unsubscribe();
   }
 
   public onGuildSearch(searchInput: string) {
