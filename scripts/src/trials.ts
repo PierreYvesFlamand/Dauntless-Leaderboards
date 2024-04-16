@@ -8,9 +8,6 @@ let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
 
-console.log(getCurrentWeek());
-
-
 (async () => {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
@@ -18,10 +15,6 @@ console.log(getCurrentWeek());
 
     await scrap();
     setInterval(scrap, 1000 * 60 * 10);
-
-    // for (let i = 1; i < getCurrentWeek(); i++) {
-    //     await scrap(i);
-    // }
 })();
 
 async function scrap(/*week: number*/) {
