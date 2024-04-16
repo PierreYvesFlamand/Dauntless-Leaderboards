@@ -1,23 +1,25 @@
 const fs = require('fs');
 const path = require('path');
 
-// https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = '0a5edb08b2a247da94bbb2ac885c1e1f';
-let REFRESH_TOKEN = '';
-let SESSION_TOKEN = '';
-const ROOT_FOLDER_PATH = path.resolve('../../../server/public/data/trials');
-
+const WEAPONS = ['all', 'axe', 'chainblades', 'hammer', 'pike', 'repeaters', 'strikers', 'sword'];
 function getCurrentWeek() {
     const week1StartDate = new Date(Date.UTC(2019, 7 - 1, 18, 17));
     const weekInMs = 1 * 7 * 24 * 60 * 60 * 1000;
     return Math.floor((new Date().getTime() - week1StartDate.getTime()) / weekInMs) + 1
 }
 
+// https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
+const BASE_AUTHORIZATION_CODE = '6c0483da90a241bb81e10ec5e352b516';
+let REFRESH_TOKEN = '';
+let SESSION_TOKEN = '';
+const ROOT_FOLDER_PATH = path.resolve('../../../server/public/data/trials');
+
 (async () => {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
 
     for (let i = 1; i < getCurrentWeek(); i++) {
+        console.log('Doing ' + i);
         await scrap(i);
     }
 })();
@@ -108,8 +110,6 @@ async function scrap(week) {
     const ALL_TRIALS = JSON.parse(fs.readFileSync(allTrialsFilePath, 'utf8'));
     ALL_TRIALS[`week_${String(week).padStart(4, '0')}`] = formatedWeekData;
     fs.writeFileSync(allTrialsFilePath, JSON.stringify(ALL_TRIALS), 'utf8');
-
-    console.log('Finish week fetch at ' + new Date() + '\n');
 }
 
 async function initRefreshToken(authorization_code) {
