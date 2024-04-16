@@ -8,48 +8,96 @@
     <nav class="mt-4">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a routerLink="/" class="nav-link" [class.active]="activeMenu == 'dashboard'">
+          <a data-widget="pushmenu" routerLink="/" class="nav-link d-lg-none"
+            [class.active]="activeMenu == 'dashboard'">
+            <i class="nav-icon mr-2 fa-solid fa-gauge-high"></i>
+            <p>Dashboard</p>
+          </a>
+          <a routerLink="/" class="nav-link d-none d-lg-block" [class.active]="activeMenu == 'dashboard'">
             <i class="nav-icon mr-2 fa-solid fa-gauge-high"></i>
             <p>Dashboard</p>
           </a>
         </li>
+
         <li class="nav-header user-select-none">GAUNTLET</li>
+
         <li class="nav-item">
-          <a routerLink="/seasons" class="nav-link" [class.active]="activeMenu == 'seasons'">
-            <i class="nav-icon mr-2 fa-solid fa-tree"></i>
+          <a data-widget="pushmenu" routerLink="/seasons" class="nav-link d-lg-none"
+            [class.active]="activeMenu == 'seasons'">
+            <img class="nav-icon mr-2" src="assets/img/gauntlet_icon.png">
+            <p>Seasons</p>
+          </a>
+          <a routerLink="/seasons" class="nav-link d-none d-lg-block" [class.active]="activeMenu == 'seasons'">
+            <img class="nav-icon mr-2" src="assets/img/gauntlet_icon.png">
             <p>Seasons</p>
           </a>
         </li>
+
         <li class="nav-item">
-          <a routerLink="/guilds" class="nav-link" [class.active]="activeMenu == 'guilds'">
+          <a data-widget="pushmenu" routerLink="/guilds" class="nav-link d-lg-none"
+            [class.active]="activeMenu == 'guilds'">
+            <i class="nav-icon mr-2 fa-solid fa-users"></i>
+            <p>Guilds</p>
+          </a>
+          <a routerLink="/guilds" class="nav-link d-none d-lg-block" [class.active]="activeMenu == 'guilds'">
             <i class="nav-icon mr-2 fa-solid fa-users"></i>
             <p>Guilds</p>
           </a>
         </li>
+        
         <!-- <li class="nav-header user-select-none">TRIALS<span class="badge badge-warning ml-2">BETA</span></li>
         <li class="nav-item">
-          <a routerLink="/seasons" class="nav-link" [class.active]="activeMenu == 'trials'">
+          <a data-widget="pushmenu" routerLink="/seasons" class="nav-link" [class.active]="activeMenu == 'trials'">
             <i class="nav-icon mr-2 fa-solid fa-hand-fist"></i>
             <p>Trials<span class="badge badge-warning ml-2">BETA</span></p>
           </a>
         </li>
         <li class="nav-item">
-          <a routerLink="/guilds" class="nav-link" [class.active]="activeMenu == 'players'">
+          <a data-widget="pushmenu" routerLink="/guilds" class="nav-link" [class.active]="activeMenu == 'players'">
             <i class="nav-icon mr-2 fa-solid fa-user"></i>
             <p>Players<span class="badge badge-warning ml-2">BETA</span></p>
           </a>
         </li> -->
-        <li class="nav-header user-select-none">ABOUT</li>
+
+        <li class="nav-header user-select-none">WEB APP</li>
+
         <li class="nav-item">
-          <a routerLink="/about" class="nav-link" [class.active]="activeMenu == 'about'">
+          <a data-widget="pushmenu" routerLink="/about" class="nav-link d-lg-none"
+            [class.active]="activeMenu == 'about'">
+            <i class="nav-icon mr-2 fa-solid fa-circle-info"></i>
+            <p>About</p>
+          </a>
+          <a routerLink="/about" class="nav-link d-none d-lg-block" [class.active]="activeMenu == 'about'">
             <i class="nav-icon mr-2 fa-solid fa-circle-info"></i>
             <p>About</p>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a data-widget="pushmenu" routerLink="/settings" class="nav-link d-lg-none"
+            [class.active]="activeMenu == 'settings'">
+            <i class="nav-icon mr-2 fa-solid fa-users"></i>
+            <p>Settings</p>
+          </a>
+          <a routerLink="/settings" class="nav-link d-none d-lg-block" [class.active]="activeMenu == 'settings'">
+            <i class="nav-icon mr-2 fa-solid fa-gear"></i>
+            <p>Settings</p>
+          </a>
+        </li>
+        
+        <li class="nav-header user-select-none">LINKS</li>
+
         <li class="nav-item">
           <a href="https://discord.gg/JGTVcqMDfm" target="_blank" class="nav-link">
             <i class="nav-icon mr-2 fa-brands fa-discord"></i>
             <p>Discord</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="https://www.dauntless-builder.com/" target="_blank" class="nav-link">
+            <img class="nav-icon mr-2" src="https://www.dauntless-builder.com/assets/icon.png">
+            <p>Dauntless Builder</p>
           </a>
         </li>
       </ul>

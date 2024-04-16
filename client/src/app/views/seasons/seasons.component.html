@@ -6,7 +6,7 @@
                     <option *ngFor="let item of allSeasonData | keyvalue" [ngValue]="item.key">Season
                         {{getSeasonNumber(item.key)}}</option>
                 </select>
-                <div class="p-3">
+                <div class="p-3" *ngIf="currentSeasonId">
                     <h6 class="font-weight-bold">Start at</h6>
                     <p>{{allSeasonData[currentSeasonId].startAt | date:'YYYY/MM/dd HH:mm'}}</p>
                     <h6 class="font-weight-bold">End at</h6>
@@ -34,8 +34,43 @@
     </div>
 
     <div class=" col-lg-9 order-lg-1">
-        <app-season-detail *ngIf="!showChart" [season]="allSeasonData[currentSeasonId]"></app-season-detail>
-        <!-- <app-flourish *ngIf="showChart" [url]="getFlourishUrl()"></app-flourish> -->
+        <div *ngIf="!showChart" class="card" style="border-radius: 0">
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 75vh;">
+                    <table class="table table-head-fixed text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 14px">Rank</th>
+                                <th>Guild</th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Level</div>
+                                </th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Time left</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="currentSeasonId">
+                            <tr *ngFor="let leaderboardItem of allSeasonData[currentSeasonId]?.leaderboard; index as i;"
+                                (click)="openGuildDetail(leaderboardItem.guildNameplate)" role="button">
+                                <td class="text-center">{{i + 1}}.</td>
+                                <td>{{leaderboardItem.guildName}} <span class="font-weight-light h6"
+                                        style="font-size: 75%;">[{{leaderboardItem.guildNameplate}}]</span>
+                                </td>
+                                <td>
+                                    <div class="text-center">{{leaderboardItem.level}}</div>
+                                </td>
+                                <td>
+                                    <div class="text-center">
+                                        {{convertRemainingSec(leaderboardItem.remainingSec)}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -50,7 +85,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-flourish [url]="getFlourishUrl()"></app-flourish>
+                <app-flourish *ngIf="showChart" [url]="getFlourishUrl()"></app-flourish>
             </div>
             <!-- <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" (click)="showChart = false">Close</button>

@@ -12,7 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SeasonsComponent implements OnDestroy {
   private allSeasonsSubscription: Subscription;
   public allSeasonData: ALL_SEASONS = {};
-  public currentSeasonId: string = '';
+  public currentSeasonId?: string = '';
   public showChart: boolean = false;
 
   constructor(
@@ -23,8 +23,15 @@ export class SeasonsComponent implements OnDestroy {
     this.eventService.updateTitle('Seasons');
     this.eventService.updateActiveMenu('seasons');
 
-    this.currentSeasonId = 'gauntlet-season' + String(this.activatedRoute.firstChild?.snapshot.params['gauntletId'] || 69).padStart(2, '0');
-    this.showChart = this.activatedRoute.firstChild?.firstChild?.snapshot.data['showChart'] ? true : false;
+    this.activatedRoute.params.subscribe(params => {
+      this.currentSeasonId = 'gauntlet-season' + String(params['gauntletId'] || 69).padStart(2, '0');
+      this.onFilterChange();
+    });
+
+    this.activatedRoute.data.subscribe(data => {
+      this.showChart = data['showChart'] ? true : false;
+      this.onFilterChange();
+    });
 
     this.allSeasonsSubscription = this.eventService.allSeasonsObservable.subscribe(this.onAllSeasonsDataUpdate.bind(this));
   }
@@ -39,17 +46,22 @@ export class SeasonsComponent implements OnDestroy {
   }
 
   public onFilterChange() {
-    if (!this.allSeasonData) return;
-    if (!this.allSeasonData[this.currentSeasonId]) {
+    if (!Object.keys(this.allSeasonData).length || !this.currentSeasonId) return;
+
+    let replaceUrl = false;
+
+    if (this.allSeasonData[this.currentSeasonId] === undefined) {
       this.currentSeasonId = Object.keys(this.allSeasonData)[Object.keys(this.allSeasonData).length - 1];
+      replaceUrl = true;
     }
 
     this.eventService.updateTitle(`Season ${this.getSeasonNumber(this.currentSeasonId)}`);
 
     this.showChart = this.showChart && (this.getSeasonFlourishId() ? true : false);
-    const routes: Array<any> = [this.getSeasonNumber(this.currentSeasonId)];
+    
+    const routes: Array<any> = ['seasons', this.getSeasonNumber(this.currentSeasonId)];
     if (this.showChart) routes.push('chart');
-    this.router.navigate(routes, { relativeTo: this.activatedRoute });
+    this.router.navigate(routes, { replaceUrl });
   }
 
   public shouldShowLastUpdated(): boolean {
@@ -71,5 +83,13 @@ export class SeasonsComponent implements OnDestroy {
   public getSeasonNumber(seasonId?: string): number {
     if (!seasonId) return 69;
     return Number(seasonId.slice(15));
+  }
+
+  public convertRemainingSec(sec: number): string {
+    return `${String(Math.floor(sec / 60)).padStart(2, '0')}:${String(sec % 60).padStart(2, '0')}`;
+  }
+
+  public openGuildDetail(guildNameplate: string) {
+    window.open(`/guilds/${guildNameplate}`, '_blank');
   }
 }
