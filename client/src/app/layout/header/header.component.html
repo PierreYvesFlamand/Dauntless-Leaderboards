@@ -18,12 +18,12 @@
     </li>
     <li class="nav-item dropdown">
       <a role="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown" aria-expanded="false"><i
-          class="fa-solid fa-user mr-md-2"></i><span class="d-none d-md-inline">{{playerName}} [{{guildTag}}]</span><i
+          class="fa-solid fa-user mr-md-2"></i><span class="d-none d-sm-inline">{{playerName}}{{guildTag.length ? ' [' + guildTag + ']' : ''}}</span><i
           class="fa-solid fa-caret-down ml-2"></i></a>
 
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: max-content !important;">
-        <span class="dropdown-item dropdown-header d-md-none">{{playerName}} [{{guildTag}}]</span>
-        <div class="dropdown-divider d-md-none"></div>
+        <span class="dropdown-item dropdown-header d-sm-none" [class.d-none]="!playerName.length && !guildTag.length">{{playerName}}{{guildTag.length ? ' [' + guildTag + ']' : ''}}</span>
+        <div class="dropdown-divider d-sm-none" [class.d-none]="!playerName.length && !guildTag.length"></div>
 
         <a [routerLink]="'/guilds/' + guildTag" class="dropdown-item">
           <i class="fa-solid fa-users mr-2"></i> My guild
