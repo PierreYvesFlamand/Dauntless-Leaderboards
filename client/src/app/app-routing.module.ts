@@ -9,6 +9,8 @@ import { NotFoundComponent } from './views/404/404.component';
 import { ExportComponent } from './views/export/export.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { TrialsComponent } from './views/trials/trials.component';
+import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 
 const routes: Routes = [
   {
@@ -21,11 +23,9 @@ const routes: Routes = [
 
       { path: 'guilds', component: GuildsComponent },
       { path: 'guilds/:guildTag', component: GuildDetailComponent },
-      // {
-      //   path: 'trials', component: TrialsComponent, children: [
-      //     { path: ':trialWeek', component: TrialsComponent }
-      //   ]
-      // },
+
+      { path: 'trials', component: TrialsComponent },
+      { path: 'trials/:week', component: TrialDetailComponent },
 
       { path: 'about', component: AboutComponent },
       { path: 'settings', component: SettingsComponent },

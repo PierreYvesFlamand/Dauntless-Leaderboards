@@ -3,10 +3,13 @@ import path from 'path';
 import { ALL_SLAYERS, ALL_TRIALS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DETAIL_GROUP_DETAIL, TRIAL_DETAIL_GROUP_DETAIL_ENTRY, TRIAL_DETAIL_SOLO_DETAIL_ENTRY, WEAPONS, getCurrentWeek } from './types';
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = '037ca5c491e443df90e47709bf98b107';
+const BASE_AUTHORIZATION_CODE = '0a5edb08b2a247da94bbb2ac885c1e1f';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
+
+console.log(getCurrentWeek());
+
 
 (async () => {
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
@@ -15,9 +18,13 @@ const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
 
     await scrap();
     setInterval(scrap, 1000 * 60 * 10);
+
+    // for (let i = 1; i < getCurrentWeek(); i++) {
+    //     await scrap(i);
+    // }
 })();
 
-async function scrap() {
+async function scrap(/*week: number*/) {
     console.log('Start week fetch at ' + new Date() + '\n');
     if (!fs.existsSync(ROOT_FOLDER_PATH)) fs.mkdirSync(ROOT_FOLDER_PATH);
 
@@ -26,11 +33,11 @@ async function scrap() {
     if (!data?.payload.world) {
         console.log('Fetch is NOT OK at ' + new Date() + '\n');
         await refreshSessionToken();
-        scrap();
+        scrap(/*week*/);
         return;
     }
     console.log('Fetch is OK at ' + new Date() + '\n');
-    
+
     const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
     if (!fs.existsSync(allSlayersFilePath)) {
         fs.writeFileSync(allSlayersFilePath, JSON.stringify({}), 'utf8');
@@ -164,7 +171,7 @@ async function initRefreshToken(authorization_code: string): Promise<string> {
 
 async function refreshSessionToken() {
     console.log('Start refreshSessionToken at ' + new Date() + '\n');
-    
+
     let access_token = undefined;
 
     try {
@@ -207,7 +214,7 @@ async function refreshSessionToken() {
             }
         );
         const data = await res.json();
-        
+
         SESSION_TOKEN = data.payload.sessiontoken;
     } catch (error) {
         console.log(error);
