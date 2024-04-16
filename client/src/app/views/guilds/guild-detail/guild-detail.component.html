@@ -32,7 +32,7 @@
     <div class="col-md-3 order-md-2" *ngIf="guildsDetail[guild.guildNameplate]">
         <div class="d-flex flex-column" style="gap: 0.5rem">
             <img *ngIf="guildsDetail[guild.guildNameplate].imageName" style="width: 100%;"
-                src="/assets/img/guildsImages/{{guildsDetail[guild.guildNameplate].imageName}}">
+                src="/assets/img/GUILDS/{{guildsDetail[guild.guildNameplate].imageName}}">
             <a *ngIf="guildsDetail[guild.guildNameplate].discordLink" class="btn btn-block btn-primary"
                 [href]="guildsDetail[guild.guildNameplate].discordLink" target="_blank"><i
                     class="fa-brands fa-discord mr-2"></i>Discord</a>

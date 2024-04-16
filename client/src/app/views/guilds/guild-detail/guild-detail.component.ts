@@ -48,7 +48,41 @@ export class GuildDetailComponent implements OnDestroy {
     requirements?: string,
     howToJoin?: string
   } } = {
-      "THRAAX": {
+      "DFR1": {
+        imageName: 'DFR1.gif',
+        discordLink: 'https://discord.gg/tTVBmWzK2y',
+        description: `
+<p>
+  🇫🇷 Notre histoire
+  Notre guilde au sens Alpha du terme a vu le jour en 2018 avec la guilde [DFR1] Les béliers.<br/>
+  Nous étions la 1e guilde francophone la plus active grâce à la limite infinie du nombre de membres dans la guilde, nous étions auparavant 1400+ membres et trouvions facilement des joueurs en jeu avec le canal de guilde. <br/>
+  Les temps et les mises à jour ont passé pour laisser place à un système à 100 place Max. Nous avons donc dû revoir complètement la guilde est son intérêt.<br/><br/>
+  Avec l'arrivée du Gauntlet nous avons sur la 1e saison pas mal joué mais nous n'avions pas trop forcé voyant comment les guildes internationales  dominaient la scène.<br/>
+  Après plusieurs saisons passées et la motivation à nouveau présente, c'est en saison 6 (août 2023) que nous reprenons du poil de la bête.<br/>
+  C'est à dire : Nettoyage complet de la guilde par une dissolution suivi d'une recréation instantanée pour palier au bug des "Ghost Members"...<br/><br/>
+  Nous avons actuellement un nouveau système pour suivre nos membres qui participent (ou non) et ainsi faire en sorte que chaque personne ne se sentent pas exploité par les autres membres inactifs.<br/>
+  (Nous avions auparavant une politique de recrutement plus que laxiste et au final personne ne participait. Nous avons donc changé notre fusil d'épaule et proposons donc ce nouveau concept qui pour l'instant marche bien puisqu'une semaine après nous sommes montés Top20 au palier 135.<br/>
+  Depuis, nos classement ce sont stabilisés dans le Top20<br/><br/>
+  <u>Pourquoi nous</u>?<br/>
+  Eh bien comme dit précédemment, fort d'un discord communautaire FR de ~7000 membres, nous avons donc un pilier central d'activité et fait de notre guilde un endroit propice pour tout francophone qui se respecte.
+  Vous l'avez donc compris, notre guilde n'est pas prête de rendre l'âme et si vous recherchez une guilde FR c'est LA guilde à ne pas rater.
+</p>
+    `,
+        requirements: `
+<ul>
+  <li>📌 Parler FR,</li>
+  <li>📌 Utiliser discord</li>
+  <li>📌 Avoir un minimum de stuff (Stuff requis disponible sur notre discord dans la section #guildes)</li>
+  <li>📌 Participer au gauntlet, le tout dans la joie et la bonne humeur 😄</li>
+</ul>
+    `,
+        howToJoin: `
+<p>
+  🇫🇷 Il suffit de rejoindre notre discord, de valider le règlement, assigner vos rôles et passer par le canal #guildes pour ensuite postuler avec notre formulaire directement sur le canal de recrutement.
+</p>
+    `
+      },
+      "__THRAAX": {
         imageName: 'THRAAX.jpg',
         discordLink: 'https://google.be',
         description: `
