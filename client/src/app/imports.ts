@@ -4,7 +4,9 @@ import {
     LEADERBOARD_ITEM,
     ALL_GUILDS,
     ALL_SLAYERS,
-    TRIAL_DETAIL
+    TRIAL_DETAIL,
+    ALL_TRIALS,
+    SLAYER_DETAIL
 } from "../../../scripts/src/types";
 
 export {
@@ -13,5 +15,7 @@ export {
     LEADERBOARD_ITEM,
     ALL_GUILDS,
     ALL_SLAYERS,
-    TRIAL_DETAIL
+    TRIAL_DETAIL,
+    ALL_TRIALS,
+    SLAYER_DETAIL
 };

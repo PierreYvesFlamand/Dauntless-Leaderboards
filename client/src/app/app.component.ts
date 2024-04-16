@@ -26,8 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
         document.querySelector('body')?.classList.add('light-mode');
       }
     });
-
-    this.eventService.init();
   }
 
   async ngOnInit(): Promise<void> {

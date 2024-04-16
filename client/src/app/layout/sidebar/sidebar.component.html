@@ -49,19 +49,33 @@
           </a>
         </li>
         
-        <!-- <li class="nav-header user-select-none">TRIALS<span class="badge badge-warning ml-2">BETA</span></li>
+        <li class="nav-header user-select-none">TRIALS</li>
+
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/seasons" class="nav-link" [class.active]="activeMenu == 'trials'">
+          <a data-widget="pushmenu" routerLink="/trials" class="nav-link d-lg-none"
+            [class.active]="activeMenu == 'trials'">
             <i class="nav-icon mr-2 fa-solid fa-hand-fist"></i>
-            <p>Trials<span class="badge badge-warning ml-2">BETA</span></p>
+            <p>Trials</p>
+          </a>
+          <a routerLink="/trials" class="nav-link d-none d-lg-block" [class.active]="activeMenu == 'trials'">
+            <i class="nav-icon mr-2 fa-solid fa-hand-fist"></i>
+            <p>Trials</p>
           </a>
         </li>
+
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/guilds" class="nav-link" [class.active]="activeMenu == 'players'">
+          <a data-widget="pushmenu" routerLink="/trials" class="nav-link disabled d-lg-none"
+            [class.active]="activeMenu == 'trials'">
             <i class="nav-icon mr-2 fa-solid fa-user"></i>
-            <p>Players<span class="badge badge-warning ml-2">BETA</span></p>
+            <p>Players</p>
+            <span class="badge badge-warning ml-2">Under dev</span>
           </a>
-        </li> -->
+          <a routerLink="/trials" class="nav-link disabled d-none d-lg-block" [class.active]="activeMenu == 'trials'">
+            <i class="nav-icon mr-2 fa-solid fa-user"></i>
+            <p>Players</p>
+            <span class="badge badge-warning ml-2">Under dev</span>
+          </a>
+        </li>
 
         <li class="nav-header user-select-none">APPLICATION</li>
 

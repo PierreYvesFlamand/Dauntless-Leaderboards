@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LocalstorageService } from './localstorage.service';
-import { ALL_GUILDS, ALL_SEASONS, ALL_SLAYERS } from '../imports';
+import { ALL_GUILDS, ALL_SEASONS, ALL_SLAYERS, ALL_TRIALS } from '../imports';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class EventService {
   ) { }
 
   public async init() {
-    await Promise.all([this.initAllSeasons(), this.initAllSlayers()]);
+    await Promise.all([this.initAllSeasons(), this.initAllSlayers(), this.initAllTrials()]);
     this.initTheme();
     this.initLanguage();
     this.initPlayerName();
@@ -165,5 +165,15 @@ export class EventService {
     const res = await fetch(`${environment.backendUrl}/data/trials/all-slayers.json`);
     const allSlayers: ALL_SLAYERS = await res.json();
     this._allSlayersObservable.next(allSlayers);
+  }
+
+  // All Slayers
+  private _allTrialsObservable = new BehaviorSubject<ALL_TRIALS>({});
+  public allTrialsObservable = this._allTrialsObservable.asObservable();
+
+  public async initAllTrials(): Promise<void> {
+    const res = await fetch(`${environment.backendUrl}/data/trials/all-trials.json`);
+    const allTrials: ALL_TRIALS = await res.json();
+    this._allTrialsObservable.next(allTrials);
   }
 }
