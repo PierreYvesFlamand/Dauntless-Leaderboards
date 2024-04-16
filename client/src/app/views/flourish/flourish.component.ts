@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { AfterViewInit, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-flourish',
   templateUrl: './flourish.component.html',
   styleUrls: ['./flourish.component.scss']
 })
-export class FlourishComponent {
+export class FlourishComponent implements AfterViewInit {
   @Input() url: string = '';
+  @ViewChild("iframe") iframe?: ElementRef;
 
-  constructor(
-    public domSanitizer: DomSanitizer,
-  ) { }
+  ngAfterViewInit(): void {
+    this.iframe?.nativeElement.contentWindow.location.replace(this.url);
+  }
 }

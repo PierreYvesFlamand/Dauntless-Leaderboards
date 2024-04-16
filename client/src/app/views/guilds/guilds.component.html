@@ -43,7 +43,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let guild of allGuildsFiltered" [routerLink]="guild.guildNameplate"
-                                role="button">
+                                role="button" [class.text-info]="guild.guildNameplate === userGuildTag">
                                 <td>{{guild.guildName}} <span class="font-weight-light h6"
                                         style="font-size: 75%;">[{{guild.guildNameplate}}]</span>
                                 </td>

@@ -7,38 +7,38 @@ import { GuildsComponent } from './views/guilds/guilds.component';
 import { AboutComponent } from './views/about/about.component';
 import { NotFoundComponent } from './views/404/404.component';
 import { ExportComponent } from './views/export/export.component';
-import { TrialsComponent } from './views/trials/trials.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
       { path: '', component: DashboardComponent },
-      {
-        path: 'seasons', component: SeasonsComponent, children: [
-          {
-            path: ':gauntletId', component: SeasonsComponent, children: [
-              { path: 'chart', component: SeasonsComponent, data: { showChart: true } }
-            ]
-          }
-        ]
-      },
+
+      { path: 'seasons', component: SeasonsComponent },
+      { path: 'seasons/:gauntletId', component: SeasonsComponent },
+      { path: 'seasons/:gauntletId/chart', component: SeasonsComponent, data: { showChart: true } },
+
       { path: 'guilds', component: GuildsComponent },
       { path: 'guilds/:guildTag', component: GuildDetailComponent },
-      {
-        path: 'trials', component: TrialsComponent, children: [
-          { path: ':trialWeek', component: TrialsComponent }
-        ]
-      },
+      // {
+      //   path: 'trials', component: TrialsComponent, children: [
+      //     { path: ':trialWeek', component: TrialsComponent }
+      //   ]
+      // },
+
       { path: 'about', component: AboutComponent },
+      { path: 'settings', component: SettingsComponent },
+
       { path: 'export', component: ExportComponent },
+      
       { path: '**', component: NotFoundComponent }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

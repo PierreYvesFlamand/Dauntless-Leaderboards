@@ -13,13 +13,13 @@ import { NotFoundComponent } from './views/404/404.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { FormsModule } from '@angular/forms';
 import { GuildsComponent } from './views/guilds/guilds.component';
-import { SeasonDetailComponent } from './views/seasons/season-detail/season-detail.component';
 import { SeasonsComponent } from './views/seasons/seasons.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 import { FlourishComponent } from './views/flourish/flourish.component';
 import { ExportComponent } from './views/export/export.component';
 import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +32,13 @@ import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.c
     DashboardComponent,
     NotFoundComponent,
     GuildsComponent,
-    SeasonDetailComponent,
     SeasonsComponent,
     GuildDetailComponent,
     FlourishComponent,
     ExportComponent,
     TrialsComponent,
-    TrialDetailComponent
+    TrialDetailComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
