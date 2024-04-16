@@ -22,7 +22,7 @@
           class="fa-solid fa-caret-down ml-2"></i></a>
 
       <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: max-content !important;">
-        <span class="dropdown-item dropdown-header d-md-none">{{playerName}} [{{guildTag}}]</span>
+        <span class="dropdown-item dropdown-header d-md-none">{{playerName}} {{guildTag ? "'[' + {{guildTag}} + ']'" : ''}}</span>
         <div class="dropdown-divider d-md-none"></div>
 
         <a [routerLink]="'/guilds/' + guildTag" class="dropdown-item">
