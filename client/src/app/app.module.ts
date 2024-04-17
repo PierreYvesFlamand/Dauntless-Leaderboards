@@ -20,6 +20,8 @@ import { ExportComponent } from './views/export/export.component';
 import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { PlayersComponent } from './views/players/players.component';
+import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { SettingsComponent } from './views/settings/settings.component';
     ExportComponent,
     TrialsComponent,
     TrialDetailComponent,
-    SettingsComponent
+    SettingsComponent,
+    PlayersComponent,
+    PlayerDetailComponent
   ],
   imports: [
     BrowserModule,

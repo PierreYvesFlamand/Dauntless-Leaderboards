@@ -11,6 +11,8 @@ import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.c
 import { SettingsComponent } from './views/settings/settings.component';
 import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
+import { PlayersComponent } from './views/players/players.component';
+import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 
 const routes: Routes = [
   {
@@ -27,18 +29,21 @@ const routes: Routes = [
       { path: 'trials', component: TrialsComponent },
       { path: 'trials/:week', component: TrialDetailComponent },
 
+      { path: 'players', component: PlayersComponent },
+      { path: 'players/:name', component: PlayerDetailComponent },
+
       { path: 'about', component: AboutComponent },
       { path: 'settings', component: SettingsComponent },
 
       { path: 'export', component: ExportComponent },
-      
+
       { path: '**', component: NotFoundComponent }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
