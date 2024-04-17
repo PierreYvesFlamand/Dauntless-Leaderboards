@@ -9,7 +9,7 @@ function getCurrentWeek() {
 }
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = '6c0483da90a241bb81e10ec5e352b516';
+const BASE_AUTHORIZATION_CODE = 'c52b10b396e24b2a9a27fed0166d4f7d';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../../../server/public/data/trials');
@@ -18,7 +18,7 @@ const ROOT_FOLDER_PATH = path.resolve('../../../server/public/data/trials');
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
 
-    for (let i = 1; i < getCurrentWeek(); i++) {
+    for (let i = 239; i < getCurrentWeek(); i++) {
         console.log('Doing ' + i);
         await scrap(i);
     }
