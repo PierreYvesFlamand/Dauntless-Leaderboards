@@ -58,7 +58,7 @@ export class GuildDetailComponent implements OnDestroy {
         discordLink: 'https://discord.gg/tTVBmWzK2y',
         description: `
 <p>
-  🇫🇷 Notre histoire
+  Notre histoire
   Notre guilde au sens Alpha du terme a vu le jour en 2018 avec la guilde [DFR1] Les béliers.<br/>
   Nous étions la 1e guilde francophone la plus active grâce à la limite infinie du nombre de membres dans la guilde, nous étions auparavant 1400+ membres et trouvions facilement des joueurs en jeu avec le canal de guilde. <br/>
   Les temps et les mises à jour ont passé pour laisser place à un système à 100 place Max. Nous avons donc dû revoir complètement la guilde est son intérêt.<br/><br/>
@@ -75,7 +75,7 @@ export class GuildDetailComponent implements OnDestroy {
     `,
         requirements: `
 <ul>
-  <li>📌 Parler FR,</li>
+  <li>📌 Parler FR</li>
   <li>📌 Utiliser discord</li>
   <li>📌 Avoir un minimum de stuff (Stuff requis disponible sur notre discord dans la section #guildes)</li>
   <li>📌 Participer au gauntlet, le tout dans la joie et la bonne humeur 😄</li>
@@ -83,7 +83,7 @@ export class GuildDetailComponent implements OnDestroy {
     `,
         howToJoin: `
 <p>
-  🇫🇷 Il suffit de rejoindre notre discord, de valider le règlement, assigner vos rôles et passer par le canal #guildes pour ensuite postuler avec notre formulaire directement sur le canal de recrutement.
+  Il suffit de rejoindre notre discord, de valider le règlement, assigner vos rôles et passer par le canal #guildes pour ensuite postuler avec notre formulaire directement sur le canal de recrutement.
 </p>
     `
       },
