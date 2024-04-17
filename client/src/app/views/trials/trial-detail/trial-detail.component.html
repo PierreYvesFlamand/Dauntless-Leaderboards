@@ -12,16 +12,18 @@
                 </div>
             </div>
             <div class="card-body">
+                <div *ngIf="week <= 90" class="alert alert-secondary">
+                    <p class="mb-0"><i class="icon fas fa-info"></i>Weapon specific leaderboards wasn't implemented for
+                        this week and are extracted from solo leaderboard</p>
+                </div>
                 <ul class="nav nav-tabs" id="trial-switch" role="tablist">
                     <li class="nav-item" *ngIf="trial.data.solo['all'].length">
-                        <a class="nav-link" [class.active]="trial.data.solo['all'].length" id="solo-tab"
-                            data-toggle="pill" href="#solo" role="tab" aria-controls="solo"
-                            aria-selected="true">Solo</a>
+                        <a class="nav-link active" id="solo-tab" data-toggle="pill" href="#solo" role="tab"
+                            aria-controls="solo" aria-selected="true">Solo</a>
                     </li>
                     <li class="nav-item" *ngIf="trial.data.group.length">
-                        <a class="nav-link" [class.active]="!trial.data.solo['all'].length && trial.data.group.length"
-                            id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group"
-                            aria-selected="false">Group</a>
+                        <a class="nav-link" id="group-tab" data-toggle="pill" href="#group" role="tab"
+                            aria-controls="group" aria-selected="false">Group</a>
                     </li>
                     <li class="nav-item" *ngIf="trial.data.solo['hammer'].length">
                         <a class="nav-link" id="weapon-1-tab" data-toggle="pill" href="#weapon-1" role="tab"
@@ -60,9 +62,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="trial-switchContent">
-                    <div class="tab-pane fade " [class.show]="trial.data.solo['all'].length"
-                        [class.active]="trial.data.solo['all'].length" id="solo" role="tabpanel"
-                        aria-labelledby="solo-tab">
+                    <div class="tab-pane fade show active" id="solo" role="tabpanel" aria-labelledby="solo-tab">
                         <div class="table-responsive" style="max-height: 70vh;">
                             <table
                                 class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
@@ -75,6 +75,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['all']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -101,9 +103,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="tab-pane fade" [class.show]="!trial.data.solo['all'].length && trial.data.group.length"
-                        [class.active]="!trial.data.solo['all'].length && trial.data.group.length" id="group"
-                        role="tabpanel" aria-labelledby="group-tab">
+                    <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
                         <div class="table-responsive" style="max-height: 70vh;">
                             <table
                                 class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
@@ -130,7 +130,8 @@
                                                 <div
                                                     style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
                                                     <div [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)"
-                                                        *ngFor="let player of group.entries">
+                                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                                        role="button" *ngFor="let player of group.entries">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
                                                             [src]="trialsService.getWeaponImgUrl(player.weapon)">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
@@ -149,7 +150,8 @@
                                                 <div
                                                     style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
                                                     <div [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)"
-                                                        *ngFor="let player of group.entries">
+                                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                                        role="button" *ngFor="let player of group.entries">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
                                                             [src]="trialsService.getWeaponImgUrl(player.weapon)">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
@@ -183,6 +185,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['hammer']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -222,6 +226,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['axe']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -261,6 +267,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['sword']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -300,6 +308,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['chainblades']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -339,6 +349,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['pike']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -378,6 +390,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['repeaters']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>
@@ -417,6 +431,8 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let player of trial.data.solo['strikers']; let index = index"
+                                        [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                        role="button"
                                         [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
                                             1}}.</td>

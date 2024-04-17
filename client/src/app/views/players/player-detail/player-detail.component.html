@@ -1,0 +1,237 @@
+<div class="row">
+    <div class="col">
+        <button class="btn btn-primary" routerLink="/players"><i class="fa-solid fa-arrow-left-long mr-2"></i> Back to
+            all players</button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="trial-switch" role="tablist">
+                    <li class="nav-item" *ngIf="playerDetails['all'].length">
+                        <a class="nav-link active" id="solo-tab" data-toggle="pill" href="#solo" role="tab"
+                            aria-controls="solo" aria-selected="true">Solo ({{playerDetails['all'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['group'].length">
+                        <a class="nav-link" id="group-tab" data-toggle="pill" href="#group" role="tab"
+                            aria-controls="group" aria-selected="false">Group ({{playerDetails['group'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['hammer'].length">
+                        <a class="nav-link" id="weapon-1-tab" data-toggle="pill" href="#weapon-1" role="tab"
+                            aria-controls="weapon-1" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('1')"> ({{playerDetails['hammer'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['axe'].length">
+                        <a class="nav-link" id="weapon-2-tab" data-toggle="pill" href="#weapon-2" role="tab"
+                            aria-controls="weapon-2" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('2')"> ({{playerDetails['axe'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['sword'].length">
+                        <a class="nav-link" id="weapon-3-tab" data-toggle="pill" href="#weapon-3" role="tab"
+                            aria-controls="weapon-3" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('3')"> ({{playerDetails['sword'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['chainblades'].length">
+                        <a class="nav-link" id="weapon-4-tab" data-toggle="pill" href="#weapon-4" role="tab"
+                            aria-controls="weapon-4" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('4')">
+                            ({{playerDetails['chainblades'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['pike'].length">
+                        <a class="nav-link" id="weapon-5-tab" data-toggle="pill" href="#weapon-5" role="tab"
+                            aria-controls="weapon-5" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('5')"> ({{playerDetails['pike'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['repeaters'].length">
+                        <a class="nav-link" id="weapon-6-tab" data-toggle="pill" href="#weapon-6" role="tab"
+                            aria-controls="weapon-6" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('6')"> ({{playerDetails['repeaters'].length}})</a>
+                    </li>
+                    <li class="nav-item" *ngIf="playerDetails['strikers'].length">
+                        <a class="nav-link" id="weapon-7-tab" data-toggle="pill" href="#weapon-7" role="tab"
+                            aria-controls="weapon-7" aria-selected="false"><img style="width: 2rem; margin: -0.1rem;"
+                                [src]="trialsService.getWeaponImgUrl('7')"> ({{playerDetails['strikers'].length}})</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="trial-switchContent">
+                    <div class="tab-pane fade show active" id="solo" role="tabpanel" aria-labelledby="solo-tab">
+                        <div class="table-responsive" style="max-height: 70vh;">
+                            <table
+                                class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                        <th style="width: 2rem;" class="text-center">Rank</th>
+                                        <th>Time</th>
+                                        <th style="width: 10rem;">From</th>
+                                        <th style="width: 10rem;">To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of playerDetails['all']; let index = index" [routerLink]="'/trials/' + item.week" role="button">
+                                        <td style="vertical-align: middle; width: 6rem;" class="text-center px-2"
+                                            [title]="trialsService.getBehemothName(item.behemothId)">
+                                            {{item.week}}<img class="ml-1" style="width: 3rem; margin: -0.5rem;"
+                                                [src]="trialsService.getBehemothImgUrl(item.behemothId)">
+                                        </td>
+                                        <td style="vertical-align: middle; width: 2rem;" class="text-center">
+                                            {{item.rank}}.
+                                        </td>
+                                        <td style="vertical-align: middle;cursor: default;"
+                                            [title]="trialsService.convertTrialTime(item.completionTime, true)">
+                                            <img class="mr-1" style="width: 2rem; margin: -0.1rem;" *ngIf="item.weapon"
+                                                [src]="trialsService.getWeaponImgUrl(item.weapon)">
+                                            <img class="mr-1" style="width: 2rem; margin: -0.1rem;"
+                                                *ngIf="item.playerRoleId"
+                                                [src]="trialsService.getOmniImgUrl(item.playerRoleId)">
+                                            {{trialsService.convertTrialTime(item.completionTime)}}
+                                        </td>
+                                        <td style="vertical-align: middle; width: 10rem;">
+                                            {{trialsService.getWeekStartAndEnd(item.week)[0] |
+                                            date:'YYYY MMMM dd'}}
+                                        </td>
+                                        <td style="vertical-align: middle; width: 10rem;">
+                                            {{trialsService.getWeekStartAndEnd(item.week)[1] |
+                                            date:'MMMM dd'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
+                        <div class="table-responsive" style="max-height: 70vh;">
+                            <table
+                                class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                        <th style="width: 2rem;" class="text-center">Rank</th>
+                                        <th style="width: 7.5rem;">Time</th>
+                                        <th>Players</th>
+                                        <th style="width: 10rem;">From</th>
+                                        <th style="width: 10rem;">To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of playerDetails['group']; let index = index" [routerLink]="'/trials/' + item.week" role="button">
+
+                                        <td style="vertical-align: middle; width: 6rem;" class="text-center px-2"
+                                            [title]="trialsService.getBehemothName(item.behemothId)">
+                                            {{item.week}}<img class="ml-1" style="width: 3rem; margin: -0.5rem;"
+                                                [src]="trialsService.getBehemothImgUrl(item.behemothId)">
+                                        </td>
+                                        <td style="vertical-align: middle; width: 2rem;" class="text-center">
+                                            {{item.rank}}.
+                                        </td>
+                                        <td style="vertical-align: middle; cursor: default; width: 7.5rem;"
+                                            [title]="trialsService.convertTrialTime(item.completionTime, true)">
+                                            {{trialsService.convertTrialTime(item.completionTime)}}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-none d-md-block">
+                                                <div
+                                                    style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of item.entries">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                                            [src]="trialsService.getWeaponImgUrl(player.weapon)">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                                            *ngIf="player.playerRoleId"
+                                                            [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
+                                                        <span
+                                                            class="mx-2">{{trialsService.getPlayerName(allSlayers[player.phxAccountId],
+                                                            player.platform)}}</span>
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                                            *ngIf="player.playerRoleId"
+                                                            [src]="trialsService.getPlatformImgUrl(player.platform)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-md-none">
+                                                <div
+                                                    style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of item.entries">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                                            [src]="trialsService.getWeaponImgUrl(player.weapon)">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                                            *ngIf="player.playerRoleId"
+                                                            [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
+                                                        <span
+                                                            class="mx-2">{{trialsService.getPlayerName(allSlayers[player.phxAccountId],
+                                                            player.platform)}}</span>
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                                            *ngIf="player.playerRoleId"
+                                                            [src]="trialsService.getPlatformImgUrl(player.platform)">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align: middle; width: 10rem;">
+                                            {{trialsService.getWeekStartAndEnd(item.week)[0] |
+                                            date:'YYYY MMMM dd'}}
+                                        </td>
+                                        <td style="vertical-align: middle; width: 10rem;">
+                                            {{trialsService.getWeekStartAndEnd(item.week)[1] |
+                                            date:'MMMM dd'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div *ngFor="let weapon of ['hammer', 'axe', 'sword', 'chainblades', 'pike', 'repeaters', 'strikers']; let weaponId = index;"
+                        class="tab-pane fade" id="weapon-{{weaponId+1}}" role="tabpanel"
+                        [attr.aria-labelledby]="'weapon-'+(weaponId+1)+'-tab'">
+                        <div class="table-responsive" style="max-height: 70vh;">
+                            <table
+                                class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                        <th style="width: 2rem;" class="text-center">Rank</th>
+                                        <th>Time</th>
+                                        <th style="width: 10rem;">From</th>
+                                        <th style="width: 10rem;">To</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of playerDetails[weapon]; let index = index" [routerLink]="'/trials/' + item.week" role="button">
+                                        <td style="vertical-align: middle; width: 6rem;" class="text-center px-2"
+                                            [title]="trialsService.getBehemothName(item.behemothId)">
+                                            {{item.week}}<img class="ml-1" style="width: 3rem; margin: -0.5rem;"
+                                                [src]="trialsService.getBehemothImgUrl(item.behemothId)">
+                                        </td>
+                                        <td style="vertical-align: middle; width: 2rem;" class="text-center">
+                                            {{item.rank}}.
+                                        </td>
+                                        <td style="vertical-align: middle;cursor: default;"
+                                            [title]="trialsService.convertTrialTime(item.completionTime, true)">
+                                            <img class="mr-1" style="width: 2rem; margin: -0.1rem;"
+                                                [src]="trialsService.getWeaponImgUrl(weaponId+1)">
+                                            <img class="mr-1" style="width: 2rem; margin: -0.1rem;"
+                                                *ngIf="item.playerRoleId"
+                                                [src]="trialsService.getOmniImgUrl(item.playerRoleId)">
+                                            {{trialsService.convertTrialTime(item.completionTime)}}
+                                        </td>
+                                        <td style="vertical-align: middle; width: 10rem;">
+                                            {{trialsService.getWeekStartAndEnd(item.week)[0] |
+                                            date:'YYYY MMMM dd'}}
+                                        </td>
+                                        <td style="vertical-align: middle; width: 10rem;">
+                                            {{trialsService.getWeekStartAndEnd(item.week)[1] |
+                                            date:'MMMM dd'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

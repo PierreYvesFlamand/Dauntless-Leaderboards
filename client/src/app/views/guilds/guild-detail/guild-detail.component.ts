@@ -10,8 +10,11 @@ import { EventService } from '../../../services/event.service';
   styleUrls: ['./guild-detail.component.scss']
 })
 export class GuildDetailComponent implements OnDestroy {
+  private allSeasonSubscription: Subscription;
   private allGuildsSubscription: Subscription;
   public guild?: GUILD_DETAIL;
+
+  public numberOfSeasons: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,6 +25,7 @@ export class GuildDetailComponent implements OnDestroy {
 
     const guildTag = this.activatedRoute?.snapshot.params['guildTag'];
 
+    this.allSeasonSubscription = this.eventService.allSeasonsObservable.subscribe(data => this.numberOfSeasons = Object.keys(data).length);
     this.allGuildsSubscription = this.eventService.allGuildsObservable.subscribe(data => {
       this.guild = data.find(g => g.guildNameplate.toLowerCase() === guildTag.toLowerCase());
       if (!this.guild) {
@@ -34,6 +38,7 @@ export class GuildDetailComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.allGuildsSubscription.unsubscribe();
+    this.allSeasonSubscription.unsubscribe();
   }
 
   public getSeasonNumber(seasonId?: string): number {

@@ -27,7 +27,7 @@
                             <tr *ngFor="let trial of allTrialsFormated" routerLink="{{trial.week}}" role="button">
                                 <ng-container
                                     *ngIf="filterBehemothName === undefined || trialsService.getBehemothName(trial.behemothId) === filterBehemothName">
-                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="trialsService.getBehemothName(trial.behemothId)">
                                         {{trial.week}}<img class="ml-1" style="width: 3rem; margin: -0.5rem;"
                                             [src]="trialsService.getBehemothImgUrl(trial.behemothId)"></td>
                                     <td style="vertical-align: middle;"

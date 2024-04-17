@@ -1,7 +1,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card" *ngIf="currentSeason">
-            <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card-header d-flex justify-content-between align-items-center" role="button"
+                [routerLink]="'/seasons/' + getSeasonNumber(currentSeasonId)">
                 <h3 class="card-title"><img class="mr-2" style="width: 1.333rem;"
                         src="assets/img/gauntlet_icon.png">Gauntlet Season
                     {{getSeasonNumber(currentSeasonId)}}</h3>
@@ -49,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-6" *ngIf="currentTrail">
+    <!-- <div class="col-lg-6" *ngIf="currentTrial">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><img height="60px" [src]="getBehemothImgUrl()" /> Solo Trial<span
@@ -60,32 +61,45 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th style="width: 14px">Rank</th>
-                            <th>Player</th>
-                            <th style="width: 130px">Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let leaderboardItem of currentTrail.solo['all'].slice(0, 5); index as i;">
-                            <td>{{i + 1}}.</td>
-                            <td><img height="33px" [src]="getWeaponImgUrl(leaderboardItem.weapon)" /> <img height="33px"
-                                    [src]="getOmniImgUrl(leaderboardItem.playerRoleId)" />
-                                <span class="ml-2 mr-2">{{getPlayerName(leaderboardItem.phxAccountId,
-                                    leaderboardItem.platform)}}</span>
-                                <span class="font-weight-light" style="font-size: 80%;"><img class="platform-icon"
-                                        height="33px" [src]="getPlatformImgUrl(leaderboardItem.platform)" /></span>
-                            </td>
-                            <td>{{leaderboardItem.completionTime / 1000}} sec</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive" style="max-height: 70vh;">
+                    <table
+                        class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 2rem;" class="text-center">Rank</th>
+                                <th style="width: 6rem;" class="text-center">Time</th>
+                                <th>Player</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let player of trial.data.solo['all']; let index = index"
+                                [routerLink]="'/players/' + trialsService.getPlayerName(allSlayers[player.phxAccountId], player.platform)"
+                                role="button"
+                                [class.text-info]="trialsService.getPlayerNames(allSlayers, player.phxAccountId).includes(userPlayerName)">
+                                <td style="vertical-align: middle; width: 2rem;" class="text-center">{{index +
+                                    1}}.</td>
+                                <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center"
+                                    [title]="trialsService.convertTrialTime(player.completionTime, true)">
+                                    {{trialsService.convertTrialTime(player.completionTime)}}
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;"
+                                        [src]="trialsService.getWeaponImgUrl(player.weapon)">
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId"
+                                        [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
+                                    <span class="mx-2">{{trialsService.getPlayerName(allSlayers[player.phxAccountId],
+                                        player.platform)}}</span>
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId"
+                                        [src]="trialsService.getPlatformImgUrl(player.platform)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-lg-6">
 
-    </div>
+    </div> -->
 </div>

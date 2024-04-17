@@ -9,7 +9,7 @@ function getCurrentWeek() {
 }
 
 // https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code
-const BASE_AUTHORIZATION_CODE = 'c52b10b396e24b2a9a27fed0166d4f7d';
+const BASE_AUTHORIZATION_CODE = '33eec0173a6c4d7db3d43b5277912c92';
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 const ROOT_FOLDER_PATH = path.resolve('../../../server/public/data/trials');
@@ -18,7 +18,7 @@ const ROOT_FOLDER_PATH = path.resolve('../../../server/public/data/trials');
     REFRESH_TOKEN = await initRefreshToken(BASE_AUTHORIZATION_CODE);
     await refreshSessionToken();
 
-    for (let i = 239; i < getCurrentWeek(); i++) {
+    for (let i = getCurrentWeek() - 1; i < getCurrentWeek(); i++) {
         console.log('Doing ' + i);
         await scrap(i);
     }
@@ -240,6 +240,35 @@ async function fetchTrialLeaderboard(week) {
             }
         );
         const data = await res.json();
+
+        if (!isNew && week <= 90) {
+            const res = await fetch('https://leaderboards-prod.steelyard.ca/trials/leaderboards/solo',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'BEARER ' + SESSION_TOKEN
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'difficulty': 1,
+                        'page': 0,
+                        'page_size': 100,
+                        'trial_id': `Arena_MatchmakerHunt_Elite${isNew ? '_New' : ''}_${String(week).padStart(isNew ? 4 : 3, '0')}`,
+                        'target_platforms': []
+                    })
+                }
+            );
+            data.payload.world.solo = {
+                'all': { entries: (await res.json()).payload.entries },
+                'axe': { entries: [] },
+                'chainblades': { entries: [] },
+                'hammer': { entries: [] },
+                'pike': { entries: [] },
+                'repeaters': { entries: [] },
+                'strikers': { entries: [] },
+                'sword': { entries: [] },
+            }
+        }
         return data;
     } catch (error) {
         console.log(error);

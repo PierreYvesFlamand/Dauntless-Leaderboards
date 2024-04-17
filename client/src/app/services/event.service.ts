@@ -167,7 +167,7 @@ export class EventService {
     this._allSlayersObservable.next(allSlayers);
   }
 
-  // All Slayers
+  // All Trials
   private _allTrialsObservable = new BehaviorSubject<ALL_TRIALS>({});
   public allTrialsObservable = this._allTrialsObservable.asObservable();
 

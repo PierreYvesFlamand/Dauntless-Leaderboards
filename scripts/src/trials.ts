@@ -17,31 +17,28 @@ const ROOT_FOLDER_PATH = path.resolve('../server/public/data/trials');
     setInterval(scrap, 1000 * 60 * 10);
 })();
 
-async function scrap(/*week: number*/) {
-    console.log('Start week fetch at ' + new Date() + '\n');
+async function scrap() {
     if (!fs.existsSync(ROOT_FOLDER_PATH)) fs.mkdirSync(ROOT_FOLDER_PATH);
 
     const week = getCurrentWeek();
     const data = await fetchTrialLeaderboard(week);
     if (!data?.payload.world) {
-        console.log('Fetch is NOT OK at ' + new Date() + '\n');
         await refreshSessionToken();
-        scrap(/*week*/);
+        scrap();
         return;
     }
-    console.log('Fetch is OK at ' + new Date() + '\n');
 
-    const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
-    if (!fs.existsSync(allSlayersFilePath)) {
-        fs.writeFileSync(allSlayersFilePath, JSON.stringify({}), 'utf8');
-    }
+    // const allSlayersFilePath = `${ROOT_FOLDER_PATH}/all-slayers.json`;
+    // if (!fs.existsSync(allSlayersFilePath)) {
+    //     fs.writeFileSync(allSlayersFilePath, JSON.stringify({}), 'utf8');
+    // }
 
-    const allTrialsFilePath = `${ROOT_FOLDER_PATH}/all-trials.json`;
-    if (!fs.existsSync(allTrialsFilePath)) {
-        fs.writeFileSync(allTrialsFilePath, JSON.stringify({}), 'utf8');
-    }
+    // const allTrialsFilePath = `${ROOT_FOLDER_PATH}/all-trials.json`;
+    // if (!fs.existsSync(allTrialsFilePath)) {
+    //     fs.writeFileSync(allTrialsFilePath, JSON.stringify({}), 'utf8');
+    // }
 
-    const ALL_SLAYERS: ALL_SLAYERS = JSON.parse(fs.readFileSync(allSlayersFilePath, 'utf8'));
+    // const ALL_SLAYERS: ALL_SLAYERS = JSON.parse(fs.readFileSync(allSlayersFilePath, 'utf8'));
     const formatedWeekData: TRIAL_DETAIL = {
         group: data.payload.world.group.entries.reduce<Array<TRIAL_DETAIL_GROUP_DETAIL>>((groups, group) => {
             groups.push({
@@ -49,15 +46,15 @@ async function scrap(/*week: number*/) {
                 objectivesCompleted: group.objectives_completed,
                 entries: group.entries.reduce<Array<TRIAL_DETAIL_GROUP_DETAIL_ENTRY>>((group, player) => {
 
-                    // SLAYER NAMES //
-                    if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = [];
-                    if (!ALL_SLAYERS[player.phx_account_id].find((i) => i.platform === player.platform && i.platformName === player.platform_name)) {
-                        ALL_SLAYERS[player.phx_account_id].push({
-                            platform: player.platform,
-                            platformName: player.platform_name
-                        });
-                    }
-                    // SLAYER NAMES //
+                    // // SLAYER NAMES //
+                    // if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = [];
+                    // if (!ALL_SLAYERS[player.phx_account_id].find((i) => i.platform === player.platform && i.platformName === player.platform_name)) {
+                    //     ALL_SLAYERS[player.phx_account_id].push({
+                    //         platform: player.platform,
+                    //         platformName: player.platform_name
+                    //     });
+                    // }
+                    // // SLAYER NAMES //
 
                     group.push({
                         phxAccountId: player.phx_account_id,
@@ -73,15 +70,15 @@ async function scrap(/*week: number*/) {
         solo: WEAPONS.reduce<{ [key: string]: Array<TRIAL_DETAIL_SOLO_DETAIL_ENTRY> }>((solo, weapon) => {
             solo[weapon] = data.payload.world.solo[weapon].entries.reduce<Array<TRIAL_DETAIL_SOLO_DETAIL_ENTRY>>((entries, player) => {
 
-                // SLAYER NAMES //
-                if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = [];
-                if (!ALL_SLAYERS[player.phx_account_id].find((i) => i.platform === player.platform && i.platformName === player.platform_name)) {
-                    ALL_SLAYERS[player.phx_account_id].push({
-                        platform: player.platform,
-                        platformName: player.platform_name
-                    });
-                }
-                // SLAYER NAMES //
+                // // SLAYER NAMES //
+                // if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = [];
+                // if (!ALL_SLAYERS[player.phx_account_id].find((i) => i.platform === player.platform && i.platformName === player.platform_name)) {
+                //     ALL_SLAYERS[player.phx_account_id].push({
+                //         platform: player.platform,
+                //         platformName: player.platform_name
+                //     });
+                // }
+                // // SLAYER NAMES //
 
                 entries.push({
                     completionTime: player.completion_time,
@@ -97,18 +94,17 @@ async function scrap(/*week: number*/) {
         }, {})
     }
 
-    const currentWeekFolder = `${ROOT_FOLDER_PATH}/week_${String(week).padStart(4, '0')}`;
-    if (!fs.existsSync(currentWeekFolder)) fs.mkdirSync(currentWeekFolder);
-    const currentWeekFinalLeaderboardFilename = `${ROOT_FOLDER_PATH}/week_${String(week).padStart(4, '0')}/current-leaderboard.json`;
+    // const currentWeekFolder = `${ROOT_FOLDER_PATH}/week_${String(week).padStart(4, '0')}`;
+    // if (!fs.existsSync(currentWeekFolder)) fs.mkdirSync(currentWeekFolder);
+    // const currentWeekFinalLeaderboardFilename = `${ROOT_FOLDER_PATH}/week_${String(week).padStart(4, '0')}/current-leaderboard.json`;
+    const currentWeekFinalLeaderboardFilename = `${ROOT_FOLDER_PATH}/current-leaderboard.json`;
 
     fs.writeFileSync(currentWeekFinalLeaderboardFilename, JSON.stringify(formatedWeekData), 'utf8');
-    fs.writeFileSync(allSlayersFilePath, JSON.stringify(ALL_SLAYERS), 'utf8');
+    // fs.writeFileSync(allSlayersFilePath, JSON.stringify(ALL_SLAYERS), 'utf8');
 
-    const ALL_TRIALS: ALL_TRIALS = JSON.parse(fs.readFileSync(allTrialsFilePath, 'utf8'));
-    ALL_TRIALS[`week_${String(week).padStart(4, '0')}`] = formatedWeekData;
-    fs.writeFileSync(allTrialsFilePath, JSON.stringify(ALL_TRIALS), 'utf8');
-
-    console.log('Finish week fetch at ' + new Date() + '\n');
+    // const ALL_TRIALS: ALL_TRIALS = JSON.parse(fs.readFileSync(allTrialsFilePath, 'utf8'));
+    // ALL_TRIALS[`week_${String(week).padStart(4, '0')}`] = formatedWeekData;
+    // fs.writeFileSync(allTrialsFilePath, JSON.stringify(ALL_TRIALS), 'utf8');
 }
 
 async function initRefreshToken(authorization_code: string): Promise<string> {
@@ -163,8 +159,6 @@ async function initRefreshToken(authorization_code: string): Promise<string> {
 }
 
 async function refreshSessionToken() {
-    console.log('Start refreshSessionToken at ' + new Date() + '\n');
-
     let access_token = undefined;
 
     try {
@@ -213,8 +207,6 @@ async function refreshSessionToken() {
         console.log(error);
         return;
     }
-
-    console.log('Finish refreshSessionToken at ' + new Date() + '\n');
 }
 
 async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL_DETAIL | null> {

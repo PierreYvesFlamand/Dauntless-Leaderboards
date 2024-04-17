@@ -12,6 +12,7 @@ import { ALL_SLAYERS } from '../../../imports';
   styleUrls: ['./trial-detail.component.scss']
 })
 export class TrialDetailComponent implements OnDestroy {
+  public week: number = 0;
   public trial?: TRIAL_DETAIL_FORMATED;
   private allTrialsSubscription: Subscription;
 
@@ -30,20 +31,30 @@ export class TrialDetailComponent implements OnDestroy {
     this.eventService.updateTitle('Trial');
     this.eventService.updateActiveMenu('');
 
-    const week = this.activatedRoute?.snapshot.params['week'];
+    this.week = Number(this.activatedRoute?.snapshot.params['week']);
 
     this.allTrialsSubscription = this.eventService.allTrialsObservable.subscribe(allTrials => {
-      const trial = allTrials[`week_${String(week).padStart(4, '0')}`];
+      const trial = allTrials[`week_${String(this.week).padStart(4, '0')}`];
       if (!trial) {
         this.router.navigate(['trials']);
       } else {
         console.log(trial);
 
         this.trial = {
-          week,
-          isNew: week > 185,
-          behemothId: this.trialsService.getBehemothIdFromWeek(week),
+          week: this.week,
+          isNew: this.week > 185,
+          behemothId: this.trialsService.getBehemothIdFromWeek(this.week),
           data: trial
+        }
+
+        if (this.week <= 90) {
+          this.trial.data.solo['hammer'] = this.trial.data.solo['all'].filter(e => e.weapon === 1);
+          this.trial.data.solo['axe'] = this.trial.data.solo['all'].filter(e => e.weapon === 2);
+          this.trial.data.solo['sword'] = this.trial.data.solo['all'].filter(e => e.weapon === 3);
+          this.trial.data.solo['chainblades'] = this.trial.data.solo['all'].filter(e => e.weapon === 4);
+          this.trial.data.solo['pike'] = this.trial.data.solo['all'].filter(e => e.weapon === 5);
+          this.trial.data.solo['repeaters'] = this.trial.data.solo['all'].filter(e => e.weapon === 6);
+          this.trial.data.solo['strikers'] = this.trial.data.solo['all'].filter(e => e.weapon === 7);
         }
       }
     });

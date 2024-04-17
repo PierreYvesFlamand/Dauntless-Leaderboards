@@ -25,6 +25,9 @@
         <span class="dropdown-item dropdown-header d-sm-none" [class.d-none]="!playerName.length && !guildTag.length">{{playerName}}{{guildTag.length ? ' [' + guildTag + ']' : ''}}</span>
         <div class="dropdown-divider d-sm-none" [class.d-none]="!playerName.length && !guildTag.length"></div>
 
+        <a [routerLink]="'/players/' + playerName" class="dropdown-item">
+          <i class="fa-solid fa-users mr-2"></i> My profile
+        </a>
         <a [routerLink]="'/guilds/' + guildTag" class="dropdown-item">
           <i class="fa-solid fa-users mr-2"></i> My guild
         </a>
