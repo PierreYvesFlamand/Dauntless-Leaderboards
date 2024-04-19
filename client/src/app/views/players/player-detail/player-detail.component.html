@@ -45,7 +45,7 @@
                                         <td style="vertical-align: middle; width: 2rem;" class="text-center">
                                             {{item.rank}}.
                                         </td>
-                                        <td style="vertical-align: middle;cursor: default;" class="text-center" [title]="trialsService.convertTrialTime(item.completionTime, true)">
+                                        <td style="vertical-align: middle;cursor: default;" [title]="trialsService.convertTrialTime(item.completionTime, true)">
                                             <img class="mr-1" style="width: 2rem; margin: -0.1rem;" *ngIf="item.weapon" [src]="trialsService.getWeaponImgUrl(item.weapon)">
                                             <img class="mr-1" style="width: 2rem; margin: -0.1rem;" *ngIf="item.playerRoleId" [src]="trialsService.getOmniImgUrl(item.playerRoleId)">
                                             {{trialsService.convertTrialTime(item.completionTime, trialDecimals)}}
@@ -86,7 +86,7 @@
                                             <td style="vertical-align: middle; width: 2rem;" class="text-center">
                                                 {{entry.rank}}.
                                             </td>
-                                            <td style="vertical-align: middle; cursor: default; width: 7.5rem;" [title]="trialsService.convertTrialTime(entry.completionTime, true)">
+                                            <td style="vertical-align: middle; cursor: default; width: 7.5rem;" class="text-center" [title]="trialsService.convertTrialTime(entry.completionTime, true)">
                                                 {{trialsService.convertTrialTime(entry.completionTime, trialDecimals)}}
                                             </td>
                                             <td style="vertical-align: middle;">
