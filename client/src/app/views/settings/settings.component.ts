@@ -20,6 +20,9 @@ export class SettingsComponent implements OnDestroy {
   private guildTagSubscription: Subscription;
   public guildTag: string = '';
 
+  private trialDecimalsSubscription: Subscription;
+  public trialDecimals: number = 1;
+
   constructor(
     public eventService: EventService
   ) {
@@ -30,6 +33,7 @@ export class SettingsComponent implements OnDestroy {
     this.languageSubscription = this.eventService.languageObservable.subscribe(newValue => this.language = newValue);
     this.playerNameSubscription = this.eventService.playerNameObservable.subscribe(newValue => this.playerName = newValue);
     this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.guildTag = newValue);
+    this.trialDecimalsSubscription = this.eventService.trialDecimalsObservable.subscribe(newValue => this.trialDecimals = newValue);
   }
 
   ngOnDestroy(): void {
@@ -37,5 +41,6 @@ export class SettingsComponent implements OnDestroy {
     this.languageSubscription.unsubscribe();
     this.playerNameSubscription.unsubscribe();
     this.guildTagSubscription.unsubscribe();
+    this.trialDecimalsSubscription.unsubscribe();
   }
 }

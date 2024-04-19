@@ -1,33 +1,30 @@
-import { Component, Input, OnDestroy } from '@angular/core';
-import { ALL_GUILDS, GUILD_DETAIL } from '../../../../../../scripts/src/types';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { EventService } from '../../../services/event.service';
+import { GUILD_DETAIL } from '../../../../../../server/src/types';
+import { DatabaseService } from '../../../services/database.service';
 
 @Component({
   selector: 'app-guild-detail',
   templateUrl: './guild-detail.component.html',
   styleUrls: ['./guild-detail.component.scss']
 })
-export class GuildDetailComponent implements OnDestroy {
-  private allSeasonSubscription: Subscription;
-  private allGuildsSubscription: Subscription;
+export class GuildDetailComponent {
   public guild?: GUILD_DETAIL;
-
   public numberOfSeasons: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private eventService: EventService,
+    private databaseService: DatabaseService,
     private router: Router
   ) {
     this.eventService.updateActiveMenu('');
 
-    const guildTag = this.activatedRoute?.snapshot.params['guildTag'];
+    this.numberOfSeasons = Object.keys(this.databaseService.allSeasons).length;
 
-    this.allSeasonSubscription = this.eventService.allSeasonsObservable.subscribe(data => this.numberOfSeasons = Object.keys(data).length);
-    this.allGuildsSubscription = this.eventService.allGuildsObservable.subscribe(data => {
-      this.guild = data.find(g => g.guildNameplate.toLowerCase() === guildTag.toLowerCase());
+    this.activatedRoute.params.subscribe(params => {
+      this.guild = this.databaseService.allGuilds.find(g => g.guildNameplate.toLowerCase() === (params['guildTag'] || '').toLowerCase());
       if (!this.guild) {
         this.router.navigate(['guilds']);
       } else {
@@ -36,16 +33,12 @@ export class GuildDetailComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.allGuildsSubscription.unsubscribe();
-    this.allSeasonSubscription.unsubscribe();
-  }
-
   public getSeasonNumber(seasonId?: string): number {
     if (!seasonId) return 69;
     return Number(seasonId.slice(15));
   }
 
+  // Will have to use a JSON file for easier editing later
   public guildsDetail: { [key in string]: {
     imageName?: string,
     discordLink?: string,
@@ -87,7 +80,7 @@ export class GuildDetailComponent implements OnDestroy {
 </p>
     `
       },
-      "__THRAAX": {
+      "THRAAX__EXEMPLE": {
         imageName: 'THRAAX.jpg',
         discordLink: 'https://google.be',
         description: `

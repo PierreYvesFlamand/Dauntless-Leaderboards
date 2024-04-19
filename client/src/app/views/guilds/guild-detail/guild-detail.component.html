@@ -1,78 +1,65 @@
 <div class="row">
     <div class="col">
-        <button class="btn btn-primary" routerLink="/guilds"><i class="fa-solid fa-arrow-left-long mr-2"></i> Back to
-            all guilds</button>
+        <button class="btn btn-primary" routerLink="/guilds"><i class="fa-solid fa-arrow-left-long mr-2"></i> Back to all guilds</button>
     </div>
 </div>
 
 <div *ngIf="guild" class="row mt-3">
     <div class="col col-md-5 col-lg-3" *ngIf="!guildsDetail[guild.guildNameplate]">
-        <div class="card">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover table-bordered mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-center px-0" style="width: 90px">Season</th>
-                                <th class="text-center px-0" style="width: 90px">Position</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container
-                                *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
-                                <tr *ngFor="let item of leaderboardPosition | keyvalue" role="button"
-                                    [routerLink]="'/seasons/' + getSeasonNumber(item.key)">
-                                    <td class="text-center px-0" style="width: 90px">{{getSeasonNumber(item.key)}}
-                                        {{getSeasonNumber(item.key) === numberOfSeasons ?
-                                        '(Current)' : ''}}</td>
-                                    <td class="text-center px-0" style="width: 90px">{{item.value}}</td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="table-responsive bg-gray-dark">
+            <table class="table table-sm table-striped table-hover table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center px-0" style="width: 90px">Season</th>
+                        <th class="text-center px-0" style="width: 90px">Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
+                        <tr *ngFor="let item of leaderboardPosition | keyvalue" role="button" [routerLink]="'/seasons/' + getSeasonNumber(item.key)">
+                            <td class="text-center px-0" style="width: 90px">
+                                {{getSeasonNumber(item.key)}}
+                                {{getSeasonNumber(item.key) === numberOfSeasons ? '(Current)' : ''}}
+                            </td>
+                            <td class="text-center px-0" style="width: 90px">{{item.value}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="col-md-3 order-md-2" *ngIf="guildsDetail[guild.guildNameplate]">
         <div class="d-flex flex-column" style="gap: 0.5rem">
-            <img *ngIf="guildsDetail[guild.guildNameplate].imageName" style="width: 100%;"
-                src="/assets/img/GUILDS/{{guildsDetail[guild.guildNameplate].imageName}}">
-            <a *ngIf="guildsDetail[guild.guildNameplate].discordLink" class="btn btn-block btn-primary"
-                [href]="guildsDetail[guild.guildNameplate].discordLink" target="_blank"><i
-                    class="fa-brands fa-discord mr-2"></i>Discord</a>
-            <div class="card d-none d-lg-block">
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-striped table-hover table-bordered mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-center px-0" style="width: 90px">Season</th>
-                                    <th class="text-center px-0" style="width: 90px">Position</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <ng-container
-                                    *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
-                                    <tr *ngFor="let item of leaderboardPosition | keyvalue" role="button"
-                                        [routerLink]="'/seasons/' + getSeasonNumber(item.key)">
-                                        <td class="text-center px-0" style="width: 90px">{{getSeasonNumber(item.key)}}
-                                            {{getSeasonNumber(item.key) === numberOfSeasons ?
-                                            '(Current)' : ''}}</td>
-                                        <td class="text-center px-0" style="width: 90px">{{item.value}}</td>
-                                    </tr>
-                                </ng-container>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+            <img *ngIf="guildsDetail[guild.guildNameplate].imageName" style="width: 100%;" src="/assets/img/GUILDS/{{guildsDetail[guild.guildNameplate].imageName}}">
+            <a *ngIf="guildsDetail[guild.guildNameplate].discordLink" class="btn btn-block btn-primary" [href]="guildsDetail[guild.guildNameplate].discordLink" target="_blank">
+                <i class="fa-brands fa-discord mr-2"></i>Discord
+            </a>
+            <div class="table-responsive bg-gray-dark d-none d-lg-block">
+                <table class="table table-sm table-striped table-hover table-bordered mb-0">
+                    <thead>
+                        <tr>
+                            <th class="text-center px-0" style="width: 90px">Season</th>
+                            <th class="text-center px-0" style="width: 90px">Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
+                            <tr *ngFor="let item of leaderboardPosition | keyvalue" role="button" [routerLink]="'/seasons/' + getSeasonNumber(item.key)">
+                                <td class="text-center px-0" style="width: 90px">
+                                    {{getSeasonNumber(item.key)}}
+                                    {{getSeasonNumber(item.key) === numberOfSeasons ? '(Current)' : ''}}
+                                </td>
+                                <td class="text-center px-0" style="width: 90px">{{item.value}}</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     <div class="col-md-9 order-md-1 mt-4 mt-md-0" *ngIf="guildsDetail[guild.guildNameplate]">
-        <div *ngIf="guildsDetail[guild.guildNameplate].description"
-            [innerHTML]="guildsDetail[guild.guildNameplate].description"></div>
+        <div *ngIf="guildsDetail[guild.guildNameplate].description" [innerHTML]="guildsDetail[guild.guildNameplate].description"></div>
         <ng-container *ngIf="guildsDetail[guild.guildNameplate].requirements">
             <h5><u>Requirements</u> :</h5>
             <div [innerHTML]="guildsDetail[guild.guildNameplate].requirements"></div>
@@ -82,31 +69,26 @@
             <div [innerHTML]="guildsDetail[guild.guildNameplate].howToJoin"></div>
         </ng-container>
 
-        <div class="card d-lg-none">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover table-bordered mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-center px-0" style="width: 90px">Season</th>
-                                <th class="text-center px-0" style="width: 90px">Position</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ng-container
-                                *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
-                                <tr *ngFor="let item of leaderboardPosition | keyvalue" role="button"
-                                    [routerLink]="'/seasons/' + getSeasonNumber(item.key)">
-                                    <td class="text-center px-0" style="width: 90px">{{getSeasonNumber(item.key)}}
-                                        {{getSeasonNumber(item.key) === numberOfSeasons ?
-                                        '(Current)' : ''}}</td>
-                                    <td class="text-center px-0" style="width: 90px">{{item.value}}</td>
-                                </tr>
-                            </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div class="table-responsive bg-gray-dark d-lg-none">
+            <table class="table table-sm table-striped table-hover table-bordered mb-0">
+                <thead>
+                    <tr>
+                        <th class="text-center px-0" style="width: 90px">Season</th>
+                        <th class="text-center px-0" style="width: 90px">Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let leaderboardPosition of guild?.leaderboardPositions">
+                        <tr *ngFor="let item of leaderboardPosition | keyvalue" role="button" [routerLink]="'/seasons/' + getSeasonNumber(item.key)">
+                            <td class="text-center px-0" style="width: 90px">
+                                {{getSeasonNumber(item.key)}}
+                                {{getSeasonNumber(item.key) === numberOfSeasons ? '(Current)' : ''}}
+                            </td>
+                            <td class="text-center px-0" style="width: 90px">{{item.value}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

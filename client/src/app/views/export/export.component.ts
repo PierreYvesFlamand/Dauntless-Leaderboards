@@ -1,9 +1,13 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import { Subscription } from 'rxjs';
-import { ALL_SEASONS, LEADERBOARD_ITEM } from '../../imports';
 import { environment } from '../../../environments/environment';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ALL_SEASONS } from '../../../../../server/src/types';
+
+/**
+ * Accessible with /export
+ * Hidden to not have too many users using it as it's niche
+ */
 
 @Component({
   selector: 'app-export',
@@ -24,8 +28,14 @@ export class ExportComponent {
   public async export(type: 'csv' | 'flourish') {
     this.ngxUiLoaderService.start();
 
-    const res = await fetch(`${environment.backendUrl}/data/gauntlets/gauntlet-season${String(this.seasonId).padStart(2, '0')}/all-raw.json`);
-    const data: ALL_SEASONS = await res.json();
+    let data: ALL_SEASONS = {};
+    try {
+      const res = await fetch(`${environment.backendUrl}/data/season-${String(this.seasonId).padStart(2, '0')}-all-raw.json`);
+      data = await res.json();
+    } catch (error) {
+      this.ngxUiLoaderService.stop();
+      return;
+    }
 
     const headers: Array<string> = ['Full date'];
     let lines: any = [];

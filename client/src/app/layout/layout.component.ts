@@ -14,7 +14,7 @@ export class LayoutComponent implements OnDestroy {
   constructor(
     private eventService: EventService
   ) {
-    this.titleSubscription = this.eventService.titleObservable.subscribe(newTitle => this.title = newTitle);
+    this.titleSubscription = this.eventService.titleObservable.subscribe(newValue => this.title = newValue);
   }
 
   ngOnDestroy(): void {
