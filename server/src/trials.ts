@@ -9,6 +9,7 @@ let SESSION_TOKEN = '';
     await initRefreshToken(config.AUTHORIZATION_CODE);
     await refreshSessionToken();
 
+    // Of course this need to be more separated to multiple cmds
     switch (process.argv[2]) {
         case undefined:
             setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);

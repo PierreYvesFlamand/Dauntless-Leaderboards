@@ -98,15 +98,17 @@ async function scrap(): Promise<void> {
     const lastUpdateFilePath = `${seasonRawFolder}/${fileName}.json`;
     fs.writeFileSync(lastUpdateFilePath, JSON.stringify(formatedSeasonData), 'utf8');
 
-    // Create or update the "all-raw" file
-    const allRawFilePath = `../database/exposed/season-${getSeasonNumberFromSeasonId(allSeasonsData.active_season.gauntlet_id)}-all-raw.json`;
-    let allRaw: { [key: string]: SEASON_DETAIL } = {};
-    if (fs.existsSync(allRawFilePath)) {
-        allRaw = JSON.parse(fs.readFileSync(allRawFilePath, 'utf8'));
-    }
-    allRaw[fileName] = formatedSeasonData;
+    // Disable for know because of huge file loading in RAM
+    // Will create a simple fix to create the with a command manualy
+    // // Create or update the "all-raw" file
+    // const allRawFilePath = `../database/exposed/season-${getSeasonNumberFromSeasonId(allSeasonsData.active_season.gauntlet_id)}-all-raw.json`;
+    // let allRaw: { [key: string]: SEASON_DETAIL } = {};
+    // if (fs.existsSync(allRawFilePath)) {
+    //     allRaw = JSON.parse(fs.readFileSync(allRawFilePath, 'utf8'));
+    // }
+    // allRaw[fileName] = formatedSeasonData;
 
-    fs.writeFileSync(allRawFilePath, JSON.stringify(allRaw), 'utf8');
+    // fs.writeFileSync(allRawFilePath, JSON.stringify(allRaw), 'utf8');
 }
 
 // Return file name based on Date

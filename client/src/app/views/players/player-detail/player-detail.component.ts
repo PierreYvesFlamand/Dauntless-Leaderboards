@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { EventService } from '../../../../services/event.service';
+import { EventService } from '../../../services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TrialsService } from '../../../../services/trials.service';
-import { DatabaseService } from '../../../../services/database.service';
+import { TrialsService } from '../../../services/trials.service';
+import { DatabaseService } from '../../../services/database.service';
 
 @Component({
   selector: 'app-player-detail',
@@ -13,6 +13,7 @@ export class PlayerDetailComponent {
   public playerName: string = '';
   // TODO: Type this value correctly
   public playerDetails: any = {};
+  public totalOfGroup: number = 0;
   public firstTabToOpen: string = 'all';
 
   constructor(
@@ -100,12 +101,14 @@ export class PlayerDetailComponent {
         });
       }
 
+      this.totalOfGroup = 0;
       const entries: any = [];
 
       this.databaseService.allTrials[key].group.forEach((group, index) => {
 
         for (const entry of group.entries) {
           if (entry.phxAccountId === playerId) {
+            this.totalOfGroup++;
             entries.push({
               rank: index + 1,
               ...group
