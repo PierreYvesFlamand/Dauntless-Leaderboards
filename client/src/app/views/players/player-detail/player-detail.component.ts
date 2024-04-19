@@ -13,7 +13,7 @@ export class PlayerDetailComponent {
   public playerName: string = '';
   // TODO: Type this value correctly
   public playerDetails: any = {};
-  public totalOfGroup: number = 0;
+  public totalOfGroupEntry: number = 0;
   public firstTabToOpen: string = 'all';
 
   constructor(
@@ -76,6 +76,8 @@ export class PlayerDetailComponent {
 
     const keys = Object.keys(this.databaseService.allTrials).reverse();
 
+    this.totalOfGroupEntry = 0;
+
     for (const key of keys) {
       const week = Number(key.slice(5));
 
@@ -101,14 +103,12 @@ export class PlayerDetailComponent {
         });
       }
 
-      this.totalOfGroup = 0;
       const entries: any = [];
 
       this.databaseService.allTrials[key].group.forEach((group, index) => {
-
         for (const entry of group.entries) {
           if (entry.phxAccountId === playerId) {
-            this.totalOfGroup++;
+            this.totalOfGroupEntry++;
             entries.push({
               rank: index + 1,
               ...group
