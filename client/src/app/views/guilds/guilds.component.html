@@ -35,7 +35,7 @@
                 <tbody>
                     <tr *ngFor="let guild of allGuildsFiltered" [routerLink]="guild.guildNameplate" role="button" [class.text-info]="guild.guildNameplate === userGuildTag">
                         <td>
-                            {{guild.guildName}} <span class="font-weight-light h6" style="font-size: 75%;">[{{guild.guildNameplate}}]</span>
+                            <app-guild-name [guildName]="guild.guildName" [guildNameplate]="guild.guildNameplate"></app-guild-name>
                         </td>
                         <td style="width: 90px;">{{guild.rating.toFixed(2)}}</td>
                         <td style="width: 90px;">{{guild.nbrOfTop1 ? guild.nbrOfTop1 : ''}}</td>

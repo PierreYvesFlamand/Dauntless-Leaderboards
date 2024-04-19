@@ -36,7 +36,7 @@ let SESSION_TOKEN = '';
         case 'light':
             setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);
             await scrap(getCurrentWeek(), true);
-            setInterval(scrap.bind(this, getCurrentWeek(), true), 1000 * 60 * 10);
+            setInterval(scrap.bind(this, getCurrentWeek(), true), 1000 * 60 * 3);
             break;
 
         default:
@@ -50,7 +50,7 @@ async function scrap(week: number, isLight: boolean = false) {
     if (!fs.existsSync(rawTrialsFolderPath)) fs.mkdirSync(rawTrialsFolderPath);
 
     const data = await fetchTrialLeaderboard(week);
-    if (!data?.payload.world) {
+    if (!data?.payload?.world) {
         await refreshSessionToken();
         scrap(week);
         return;
@@ -72,6 +72,7 @@ async function scrap(week: number, isLight: boolean = false) {
     }
 
     const formatedWeekData: TRIAL_DETAIL = {
+        lastUpdated: new Date(),
         group: data.payload.world.group.entries.reduce<Array<TRIAL_DETAIL_GROUP_DETAIL>>((groups, group) => {
             groups.push({
                 completionTime: group.completion_time,

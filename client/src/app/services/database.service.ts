@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ALL_GUILDS, ALL_SEASONS, ALL_SLAYERS, ALL_TRIALS, TRIAL_DETAIL } from '../../../../server/src/types';
+import { ALL_GUILDS, ALL_PLAYERS_PERKS, ALL_SEASONS, ALL_SLAYERS, ALL_TRIALS, TRIAL_DETAIL, ALL_GUILDS_PERKS, ALL_GUILDS_DETAILS } from '../../../../server/src/types';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +11,20 @@ export class DatabaseService {
   public currentTrial?: TRIAL_DETAIL;
   public allSlayers: ALL_SLAYERS = {};
   public allTrials: ALL_TRIALS = {};
-
-  constructor(
-
-  ) { }
+  public allPlayersPerks: ALL_PLAYERS_PERKS = {};
+  public allGuildsPerks: ALL_GUILDS_PERKS = {};
+  public allGuildsDetails: ALL_GUILDS_DETAILS = {};
 
   public async init() {
-    await Promise.all([this.initAllSeasons(), this.initCurrentTrial(), this.initAllSlayers(), this.initAllTrials()]);
+    await Promise.all([
+      this.initAllSeasons(),
+      this.initCurrentTrial(),
+      this.initAllSlayers(),
+      this.initAllTrials(),
+      this.initAllPlayersPerks(),
+      this.initAllGuildsPerks(),
+      this.initAllGuildsDetails()
+    ]);
   }
 
   // All seasons
@@ -91,5 +98,23 @@ export class DatabaseService {
   public async initAllTrials(): Promise<void> {
     const res = await fetch(`${environment.backendUrl}/data/all-trials.json`);
     this.allTrials = await res.json();
+  }
+
+  // Patreon
+  public async initAllPlayersPerks(): Promise<void> {
+    // Will enable next releases (Need more time writing on Patraon and Discord the rules of the perks)
+
+    // const res = await fetch(`${environment.backendUrl}/data/players-perks.json`);
+    // this.allPlayersPerks = await res.json();
+  }
+  public async initAllGuildsPerks(): Promise<void> {
+    // Will enable next releases (Need more time writing on Patraon and Discord the rules of the perks)
+
+    // const res = await fetch(`${environment.backendUrl}/data/guilds-perks.json`);
+    // this.allGuildsPerks = await res.json();
+  }
+  public async initAllGuildsDetails(): Promise<void> {
+    const res = await fetch(`${environment.backendUrl}/data/guilds-details.json`);
+    this.allGuildsDetails = await res.json();
   }
 }

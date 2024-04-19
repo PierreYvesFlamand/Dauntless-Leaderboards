@@ -47,6 +47,7 @@ You can use the `suggestions` and `bug-reports` form on our [Discord](https://di
 
 ## Contributor
 
-- n1ck0 & themero - Base idea of collecting Gauntlet data to create Bar Chart Race
-- macvilla - First one to trust and support this project and help formatting and understanding Gauntlet data
-- superevilteam - Figured out and share how to get trials data
+- n1ck0 & themero: Base idea of collecting Gauntlet data to create Bar Chart Race
+- macvilla: First one to trust and support this project and help formatting and understanding Gauntlet data
+- superevilteam: Figured out and share how to get trials data
+- thepikeofdestiny: For his all behemoth rotation Google sheet
