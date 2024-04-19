@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 
 const KEY_PREFIX = 'settings';
-export type LOCALSTORAGE_KEYS = 'theme' | 'language' | 'player-name' | 'guild-tag';
+export type LOCALSTORAGE_KEYS = 'theme' | 'language' | 'player-name' | 'guild-tag' | 'trial-decimals';
 
 const defaultSettings = {
   'theme': 'dark',
   'language': 'us',
   'player-name': '',
   'guild-tag': '',
+  'trial-decimals': 1,
 }
 
 @Injectable({
@@ -19,6 +20,7 @@ export class LocalstorageService {
     this.getByKey('language');
     this.getByKey('player-name');
     this.getByKey('guild-tag');
+    this.getByKey('trial-decimals');
   }
 
   public getByKey<T>(key: LOCALSTORAGE_KEYS): T {

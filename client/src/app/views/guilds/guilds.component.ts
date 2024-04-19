@@ -1,44 +1,51 @@
-import { Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { ALL_GUILDS, GUILD_DETAIL } from '../../../../../scripts/src/types';
+import { DatabaseService } from '../../services/database.service';
+import { ALL_GUILDS } from '../../../../../server/src/types';
 
 @Component({
   selector: 'app-guilds',
   templateUrl: './guilds.component.html',
   styleUrls: ['./guilds.component.scss']
 })
-export class GuildsComponent implements OnDestroy {
-  public allGuilds: ALL_GUILDS = [];
+export class GuildsComponent implements AfterViewInit, OnDestroy {
   public allGuildsFiltered: ALL_GUILDS = [];
-  private allGuildsSubscription: Subscription;
-  public guildSearchInput: string = '';
-  public guild?: GUILD_DETAIL;
+  // Test purpose when will work on pagination
+  // public itemPerPage: number = 20;
+  // public totalItems: number = 0;
+
   public filters: {
     textSearch: string
     sortCol: string | null,
     sortAsc: boolean
+    // Test purpose when will work on pagination
+    // page: number
   } = {
       textSearch: '',
       sortCol: 'rating',
-      sortAsc: false
+      sortAsc: false,
+      // Test purpose when will work on pagination
+      // page: 10
     };
 
   private guildTagSubscription: Subscription;
   public userGuildTag: string = '';
 
   constructor(
-    private eventService: EventService
+    private eventService: EventService,
+    private databaseService: DatabaseService
   ) {
     this.eventService.updateTitle('Guilds');
     this.eventService.updateActiveMenu('guilds');
-    this.allGuildsSubscription = this.eventService.allGuildsObservable.subscribe(data => this.allGuilds = data.sort((a, b) => b.rating - a.rating));
     this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.userGuildTag = newValue);
+  }
+
+  ngAfterViewInit(): void {
     this.applyFilter();
   }
 
   ngOnDestroy(): void {
-    this.allGuildsSubscription.unsubscribe();
     this.guildTagSubscription.unsubscribe();
   }
 
@@ -63,12 +70,18 @@ export class GuildsComponent implements OnDestroy {
   }
 
   public applyFilter() {
-    this.allGuildsFiltered = this.allGuilds.filter(g => g.guildName.toLowerCase().includes(this.filters.textSearch) || g.guildNameplate.toLowerCase().includes(this.filters.textSearch))
+    this.allGuildsFiltered = this.databaseService.allGuilds
+      .sort((a, b) => b.rating - a.rating)
+      .filter(g => g.guildName.toLowerCase().includes(this.filters.textSearch) || g.guildNameplate.toLowerCase().includes(this.filters.textSearch));
 
-    if (this.filters.sortCol && Object.keys(this.allGuilds[0]).includes(this.filters.sortCol)) {
+    if (this.filters.sortCol && Object.keys(this.databaseService.allGuilds[0]).includes(this.filters.sortCol)) {
       this.allGuildsFiltered = this.allGuildsFiltered.sort((a, b) => (<any>b)[this.filters.sortCol as string] - (<any>a)[this.filters.sortCol as string]);
       if (this.filters.sortAsc === true) this.allGuildsFiltered = this.allGuildsFiltered.reverse();
     }
+
+    // Test purpose when will work on pagination
+    // this.totalItems = this.allGuildsFiltered.length;
+    // this.allGuildsFiltered = this.allGuildsFiltered.slice(this.itemPerPage * (this.filters.page - 1), this.itemPerPage * this.filters.page);
   }
 
   public getArrowIcon(key: string): string {
@@ -76,4 +89,9 @@ export class GuildsComponent implements OnDestroy {
     else if (this.filters.sortAsc) return 'fa-arrow-up-long';
     return 'fa-arrow-down-long';
   }
+
+  // Test purpose when will work on pagination
+  // public getNumberOfPages(): number {
+  //   return Math.ceil(this.totalItems / this.itemPerPage);
+  // }
 }

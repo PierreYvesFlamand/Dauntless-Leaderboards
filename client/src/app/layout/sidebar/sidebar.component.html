@@ -1,19 +1,18 @@
+<!-- Every items that redirect inside the app is double to trick auto close on small devices -->
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <div class="brand-link user-select-none d-lg-none" routerLink="/" role="button" data-widget="pushmenu">
-    <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-    <div role="button" class="brand-text font-weight-light text-center" >Dauntless Leaderboards</div>
+    <div role="button" class="brand-text font-weight-light text-center">Dauntless Leaderboards</div>
   </div>
   <div class="brand-link user-select-none d-none d-lg-block" routerLink="/" role="button">
-    <!-- <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-    <div role="button" class="brand-text font-weight-light text-center" >Dauntless Leaderboards</div>
+    <div role="button" class="brand-text font-weight-light text-center">Dauntless Leaderboards</div>
   </div>
 
   <div class="sidebar">
     <nav class="mt-4">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'dashboard'">
+          <a data-widget="pushmenu" routerLink="/" class="nav-link d-lg-none" [class.active]="activeMenu == 'dashboard'">
             <i class="nav-icon mr-2 fa-solid fa-gauge-high"></i>
             <p>Dashboard</p>
           </a>
@@ -26,8 +25,7 @@
         <li class="nav-header user-select-none">GAUNTLET</li>
 
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/seasons" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'seasons'">
+          <a data-widget="pushmenu" routerLink="/seasons" class="nav-link d-lg-none" [class.active]="activeMenu == 'seasons'">
             <img class="nav-icon mr-2" src="assets/img/gauntlet_icon.png">
             <p>Seasons</p>
           </a>
@@ -38,8 +36,7 @@
         </li>
 
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/guilds" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'guilds'">
+          <a data-widget="pushmenu" routerLink="/guilds" class="nav-link d-lg-none" [class.active]="activeMenu == 'guilds'">
             <i class="nav-icon mr-2 fa-solid fa-users"></i>
             <p>Guilds</p>
           </a>
@@ -48,12 +45,11 @@
             <p>Guilds</p>
           </a>
         </li>
-        
+
         <li class="nav-header user-select-none">TRIALS</li>
 
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/trials" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'trials'">
+          <a data-widget="pushmenu" routerLink="/trials" class="nav-link d-lg-none" [class.active]="activeMenu == 'trials'">
             <i class="nav-icon mr-2 fa-solid fa-hand-fist"></i>
             <p>Trials</p>
           </a>
@@ -64,8 +60,7 @@
         </li>
 
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/players" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'players'">
+          <a data-widget="pushmenu" routerLink="/players" class="nav-link d-lg-none" [class.active]="activeMenu == 'players'">
             <i class="nav-icon mr-2 fa-solid fa-user"></i>
             <p>Players</p>
           </a>
@@ -78,8 +73,7 @@
         <li class="nav-header user-select-none">APPLICATION</li>
 
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/about" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'about'">
+          <a data-widget="pushmenu" routerLink="/about" class="nav-link d-lg-none" [class.active]="activeMenu == 'about'">
             <i class="nav-icon mr-2 fa-solid fa-circle-info"></i>
             <p>About</p>
           </a>
@@ -90,8 +84,7 @@
         </li>
 
         <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/settings" class="nav-link d-lg-none"
-            [class.active]="activeMenu == 'settings'">
+          <a data-widget="pushmenu" routerLink="/settings" class="nav-link d-lg-none" [class.active]="activeMenu == 'settings'">
             <i class="nav-icon mr-2 fa-solid fa-users"></i>
             <p>Settings</p>
           </a>
@@ -100,7 +93,7 @@
             <p>Settings</p>
           </a>
         </li>
-        
+
         <li class="nav-header user-select-none">LINKS</li>
 
         <li class="nav-item">

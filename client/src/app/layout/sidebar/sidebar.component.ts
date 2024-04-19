@@ -14,7 +14,7 @@ export class SidebarComponent {
   constructor(
     private eventService: EventService
   ) {
-    this.activeMenuSubscription = this.eventService.activeMenuObservable.subscribe(newActiveMenu => this.activeMenu = newActiveMenu);
+    this.activeMenuSubscription = this.eventService.activeMenuObservable.subscribe(newValue => this.activeMenu = newValue);
   }
 
   ngOnDestroy(): void {

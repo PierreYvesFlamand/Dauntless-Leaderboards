@@ -1,27 +1,27 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { AboutComponent } from './views/about/about.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { NotFoundComponent } from './views/404/404.component';
-import { NgxUiLoaderModule } from 'ngx-ui-loader';
-import { FormsModule } from '@angular/forms';
-import { GuildsComponent } from './views/guilds/guilds.component';
-import { SeasonsComponent } from './views/seasons/seasons.component';
-import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
-import { FlourishComponent } from './views/flourish/flourish.component';
 import { ExportComponent } from './views/export/export.component';
+import { AboutComponent } from './views/about/about.component';
+import { SettingsComponent } from './views/settings/settings.component';
+import { SeasonsComponent } from './views/seasons/seasons.component';
+import { FlourishComponent } from './components/flourish/flourish.component';
+import { GuildsComponent } from './views/guilds/guilds.component';
+import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
-import { SettingsComponent } from './views/settings/settings.component';
 import { PlayersComponent } from './views/players/players.component';
-import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
+import { PlayerDetailComponent } from './views/players/players/player-detail/player-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,17 +30,17 @@ import { PlayerDetailComponent } from './views/players/player-detail/player-deta
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    AboutComponent,
     DashboardComponent,
     NotFoundComponent,
-    GuildsComponent,
-    SeasonsComponent,
-    GuildDetailComponent,
-    FlourishComponent,
     ExportComponent,
+    AboutComponent,
+    SettingsComponent,
+    SeasonsComponent,
+    FlourishComponent,
+    GuildsComponent,
+    GuildDetailComponent,
     TrialsComponent,
     TrialDetailComponent,
-    SettingsComponent,
     PlayersComponent,
     PlayerDetailComponent
   ],
@@ -77,6 +77,9 @@ import { PlayerDetailComponent } from './views/players/player-detail/player-deta
       "textPosition": "center-center",
       "maxTime": -1,
       "minTime": 300
+    }),
+    TranslateModule.forRoot({
+      defaultLanguage: 'us'
     })
   ],
   providers: [],

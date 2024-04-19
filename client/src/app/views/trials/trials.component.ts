@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { EventService } from '../../services/event.service';
-import { ALL_TRIALS, TRIAL_DETAIL } from '../../imports';
+import { TRIAL_DETAIL } from '../../../../../server/src/types';
+import { TrialsService } from '../../services/trials.service';
+import { DatabaseService } from '../../services/database.service';
 import { Subscription } from 'rxjs';
-import { TrialsService } from './trials.service';
 
 export type TRIAL_DETAIL_FORMATED = {
   week: number,
-  isNew: boolean,
   behemothId: number,
   data: TRIAL_DETAIL
 };
@@ -18,34 +18,35 @@ export type TRIAL_DETAIL_FORMATED = {
 })
 export class TrialsComponent {
   public allTrialsFormated: Array<TRIAL_DETAIL_FORMATED> = [];
-  private allTrialsSubscription: Subscription;
   public filterBehemothName?: string = undefined;
+
+  private trialDecimalsSubscription: Subscription;
+  public trialDecimals: 1 | 2 | 3 = 1;
 
   constructor(
     private eventService: EventService,
-    public trialsService: TrialsService
+    public trialsService: TrialsService,
+    public databaseService: DatabaseService
   ) {
     this.eventService.updateTitle('Trials');
     this.eventService.updateActiveMenu('trials');
-    this.allTrialsSubscription = this.eventService.allTrialsObservable.subscribe(this.onAllTrials.bind(this));
-  }
 
-  ngOnDestroy(): void {
-    this.allTrialsSubscription.unsubscribe();
-  }
+    this.trialDecimalsSubscription = this.eventService.trialDecimalsObservable.subscribe(newValue => this.trialDecimals = newValue);
 
-  public onAllTrials(allTrials: ALL_TRIALS) {
-    for (const key of Object.keys(allTrials)) {
+    for (const key in this.databaseService.allTrials) {
       const week = Number(key.slice(5));
 
       this.allTrialsFormated.push({
         week,
-        isNew: week > 185,
         behemothId: this.trialsService.getBehemothIdFromWeek(week),
-        data: allTrials[key]
+        data: this.databaseService.allTrials[key]
       });
     }
 
     this.allTrialsFormated = this.allTrialsFormated.reverse();
+  }
+
+  ngOnDestroy(): void {
+    this.trialDecimalsSubscription.unsubscribe();
   }
 }

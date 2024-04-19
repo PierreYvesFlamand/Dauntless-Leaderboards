@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { EventService } from '../../services/event.service';
+import { EventService, Theme } from '../../services/event.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import { EventService } from '../../services/event.service';
 })
 export class HeaderComponent {
   private themeSubscription: Subscription;
-  public theme: 'light' | 'dark' = 'light';
+  public theme: Theme = 'light';
 
   private playerNameSubscription: Subscription;
   public playerName: string = '';
@@ -20,7 +20,7 @@ export class HeaderComponent {
   constructor(
     public eventService: EventService
   ) {
-    this.themeSubscription = this.eventService.themeObservable.subscribe(newTheme => this.theme = newTheme);
+    this.themeSubscription = this.eventService.themeObservable.subscribe(newValue => this.theme = newValue);
     this.playerNameSubscription = this.eventService.playerNameObservable.subscribe(newValue => this.playerName = newValue);
     this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.guildTag = newValue);
   }
