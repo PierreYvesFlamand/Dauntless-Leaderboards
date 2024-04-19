@@ -1,3 +1,9 @@
+<div class="row mb-2">
+    <div class="col">
+        <h1><app-player-name [playerName]="playerName" [useBig]="true"></app-player-name></h1>
+    </div>
+</div>
+
 <div class="row">
     <div class="col">
         <button class="btn btn-primary" routerLink="/players"><i class="fa-solid fa-arrow-left-long mr-2"></i> Back to all players</button>
@@ -95,8 +101,9 @@
                                                         <div *ngFor="let player of entry.entries">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
-                                                            <span class="mx-2">{{trialsService.getPlayerName(databaseService.allSlayers[player.phxAccountId],
-                                                                player.platform)}}</span>
+                                                            <span class="mx-2">
+                                                                {{trialsService.getPlayerName(databaseService.allSlayers[player.phxAccountId], player.platform)}}
+                                                            </span>
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)">
                                                         </div>
                                                     </div>
@@ -106,8 +113,9 @@
                                                         <div *ngFor="let player of entry.entries">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
-                                                            <span class="mx-2">{{trialsService.getPlayerName(databaseService.allSlayers[player.phxAccountId],
-                                                                player.platform)}}</span>
+                                                            <span class="mx-2">
+                                                                {{trialsService.getPlayerName(databaseService.allSlayers[player.phxAccountId], player.platform)}}
+                                                            </span>
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)">
                                                         </div>
                                                     </div>

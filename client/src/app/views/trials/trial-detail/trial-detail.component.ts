@@ -5,6 +5,7 @@ import { TRIAL_DETAIL_FORMATED } from '../trials.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrialsService } from '../../../services/trials.service';
 import { DatabaseService } from '../../../services/database.service';
+import { TRIAL_DETAIL } from '../../../../../../server/src/types';
 
 @Component({
   selector: 'app-trial-detail',
@@ -14,6 +15,7 @@ import { DatabaseService } from '../../../services/database.service';
 export class TrialDetailComponent implements OnDestroy {
   public week: number = 0;
   public trial?: TRIAL_DETAIL_FORMATED;
+  public isCurrent: boolean = false;
 
   private playerNameSubscription: Subscription;
   public userPlayerName: string = '';
@@ -31,12 +33,19 @@ export class TrialDetailComponent implements OnDestroy {
     this.eventService.updateTitle('Trial');
     this.eventService.updateActiveMenu('');
 
-    this.week = Number(this.activatedRoute?.snapshot.params['week']);
-
     this.playerNameSubscription = this.eventService.playerNameObservable.subscribe(newValue => this.userPlayerName = newValue);
     this.trialDecimalsSubscription = this.eventService.trialDecimalsObservable.subscribe(newValue => this.trialDecimals = newValue);
 
-    const trial = this.databaseService.allTrials[`week_${String(this.week).padStart(4, '0')}`];
+    let trial: TRIAL_DETAIL | undefined;
+    if (this.activatedRoute?.snapshot.params['week'] === 'current') {
+      this.week = this.trialsService.getCurrentWeek();
+      this.isCurrent = true;
+      trial = this.databaseService.currentTrial;
+    } else {
+      this.week = Number(this.activatedRoute?.snapshot.params['week']);
+      trial = this.databaseService.allTrials[`week_${String(this.week).padStart(4, '0')}`];
+    }
+
     if (!trial) {
       this.router.navigate(['trials']);
     } else {

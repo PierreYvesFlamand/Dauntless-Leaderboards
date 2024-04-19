@@ -135,6 +135,7 @@ export type SLAYER_DETAIL = {
 }
 
 export type TRIAL_DETAIL = {
+    lastUpdated: Date,
     group: Array<TRIAL_DETAIL_GROUP_DETAIL>,
     solo: {
         [key: string]: Array<TRIAL_DETAIL_SOLO_DETAIL_ENTRY>
@@ -163,4 +164,19 @@ export type TRIAL_DETAIL_SOLO_DETAIL_ENTRY = {
     objectivesCompleted: number,
     playerRoleId: string,
     weapon: number | string
+}
+
+// PATREON
+export type ALL_PLAYERS_PERKS = {
+    [key in string]: string
+}
+export type ALL_GUILDS_PERKS = {
+    [key in string]: string
+}
+export type ALL_GUILDS_DETAILS = {
+    [key in string]: {
+        imageFileName: string,
+        discordLink: string,
+        description: string
+    }
 }

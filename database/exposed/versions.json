@@ -1,5 +1,14 @@
 [
     {
+        "version": "2.1.0",
+        "date": "2024/04/20",
+        "changelogItems": [
+            "Add 'last updated' on dashboard current trial",
+            "Create /trials/current",
+            "Add a redirection to /trials/current on dashboard current trial"
+        ]
+    },
+    {
         "version": "2.0.0",
         "date": "2024/04/19",
         "changelogItems": [

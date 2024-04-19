@@ -52,7 +52,7 @@
                     <tr *ngFor="let leaderboardItem of databaseService.allSeasons[selectedSeasonId]?.leaderboard; index as index;" [routerLink]="'/guilds/' + leaderboardItem.guildNameplate" role="button" [class.text-info]="leaderboardItem.guildNameplate === userGuildTag">
                         <td class="text-center">{{index + 1}}.</td>
                         <td>
-                            {{leaderboardItem.guildName}} <span class="font-weight-light h6" style="font-size: 75%;">[{{leaderboardItem.guildNameplate}}]</span>
+                            <app-guild-name [guildName]="leaderboardItem.guildName" [guildNameplate]="leaderboardItem.guildNameplate"></app-guild-name>
                         </td>
                         <td>
                             <div class="text-center">{{leaderboardItem.level}}</div>

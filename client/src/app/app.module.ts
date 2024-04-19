@@ -22,6 +22,8 @@ import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
+import { PlayerNameComponent } from './components/patreon/player-name/player-name.component';
+import { GuildNameComponent } from './components/patreon/guild-name/guild-name.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { PlayerDetailComponent } from './views/players/player-detail/player-deta
     TrialsComponent,
     TrialDetailComponent,
     PlayersComponent,
-    PlayerDetailComponent
+    PlayerDetailComponent,
+    PlayerNameComponent,
+    GuildNameComponent
   ],
   imports: [
     BrowserModule,

@@ -32,7 +32,7 @@ export class PlayerDetailComponent implements OnDestroy {
 
     this.activatedRoute.params.subscribe(params => {
       this.playerName = params['name'];
-      this.eventService.updateTitle(this.playerName);
+      this.eventService.updateTitle('');
       this.buildPlayerData();
     });
 
