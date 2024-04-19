@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { EventService } from '../../../services/event.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TrialsService } from '../../../services/trials.service';
 import { DatabaseService } from '../../../services/database.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-player-detail',
   templateUrl: './player-detail.component.html',
   styleUrls: ['./player-detail.component.scss']
 })
-export class PlayerDetailComponent {
+export class PlayerDetailComponent implements OnDestroy {
   public playerName: string = '';
   // TODO: Type this value correctly
   public playerDetails: any = {};
   public totalOfGroupEntry: number = 0;
   public firstTabToOpen: string = 'all';
+
+  private trialDecimalsSubscription: Subscription;
+  public trialDecimals: 1 | 2 | 3 = 1;
 
   constructor(
     private eventService: EventService,
@@ -24,6 +28,7 @@ export class PlayerDetailComponent {
     public router: Router
   ) {
     this.playerName = this.activatedRoute?.snapshot.params['name'];
+    this.trialDecimalsSubscription = this.eventService.trialDecimalsObservable.subscribe(newValue => this.trialDecimals = newValue);
 
     this.activatedRoute.params.subscribe(params => {
       this.playerName = params['name'];
@@ -32,6 +37,10 @@ export class PlayerDetailComponent {
     });
 
     this.eventService.updateActiveMenu('');
+  }
+
+  ngOnDestroy(): void {
+    this.trialDecimalsSubscription.unsubscribe();
   }
 
   public buildPlayerData() {
