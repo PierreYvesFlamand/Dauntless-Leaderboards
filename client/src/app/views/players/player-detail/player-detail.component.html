@@ -10,15 +10,16 @@
             <div class="card-body">
                 <ul class="nav nav-tabs" id="trial-switch" role="tablist">
                     <li class="nav-item" *ngIf="playerDetails['all'].length">
-                        <a class="nav-link link-color" [class.active]="firstTabToOpen === 'all'" id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" aria-selected="true">Solo</a>
+                        <a class="nav-link link-color" [class.active]="firstTabToOpen === 'all'" id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" aria-selected="true">Solo ({{playerDetails['all'].length}})</a>
                     </li>
                     <li class="nav-item" *ngIf="playerDetails.group.length">
-                        <a class="nav-link link-color" [class.active]="firstTabToOpen === 'group'" id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" aria-selected="false">Group</a>
+                        <a class="nav-link link-color" [class.active]="firstTabToOpen === 'group'" id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" aria-selected="false">Group ({{totalOfGroup}})</a>
                     </li>
                     <ng-container *ngFor="let type of ['hammer', 'axe', 'sword', 'chainblades', 'pike', 'repeaters', 'strikers']; let index = index">
                         <li class="nav-item" *ngIf="playerDetails[type].length">
                             <a class="nav-link link-color" [class.active]="firstTabToOpen === type" [attr.id]="type + '-tab'" data-toggle="pill" [href]="'#' + type" role="tab" [attr.aria-controls]="type" aria-selected="false">
                                 <img style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(index + 1)">
+                                ({{playerDetails[type].length}})
                             </a>
                         </li>
                     </ng-container>

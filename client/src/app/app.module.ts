@@ -21,7 +21,7 @@ import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.c
 import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 import { PlayersComponent } from './views/players/players.component';
-import { PlayerDetailComponent } from './views/players/players/player-detail/player-detail.component';
+import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 
 @NgModule({
   declarations: [
