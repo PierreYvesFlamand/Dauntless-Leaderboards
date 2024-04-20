@@ -2,7 +2,8 @@
   "scripts": {
     "server": "ts-node src/server.ts",
     "gauntlets": "ts-node src/gauntlets.ts",
-    "trials": "ts-node src/trials.ts"
+    "trials": "ts-node src/trials.ts",
+    "fetch": "ts-node src/fetch.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
