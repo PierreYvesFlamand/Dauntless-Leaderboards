@@ -38,8 +38,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.ngxUiLoaderService.start();
-    this.eventService.init();
     await this.databaseService.init();
+    this.eventService.init();
     this.isLoadingDatabase = false;
     this.ngxUiLoaderService.stop();
   }

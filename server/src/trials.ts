@@ -5,54 +5,18 @@ import { ALL_SLAYERS, ALL_TRIALS, DAUNTLESS_TRIAL_DETAIL, TRIAL_DETAIL, TRIAL_DE
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 
-(async () => {
-    await initRefreshToken(config.AUTHORIZATION_CODE);
-    await refreshSessionToken();
-
-    // Of course this need to be more separated to multiple cmds
-    switch (process.argv[2]) {
-        case undefined:
-            setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);
-            await scrap(getCurrentWeek());
-            setInterval(scrap, 1000 * 60 * 10);
-            break;
-
-        case 'last':
-            await scrap(getCurrentWeek() - 1);
-            console.log('✅ Fetching last week done');
-            break;
-
-        case 'all':
-            if (fs.existsSync('../database/raw/trials')) fs.rmSync('../database/raw/trials', { recursive: true, force: true });
-            if (fs.existsSync('../database/exposed/all-trials.json')) fs.rmSync('../database/exposed/all-trials.json');
-            if (fs.existsSync('../database/exposed/all-slayers.json')) fs.rmSync('../database/exposed/all-slayers.json');
-            for (let week = 1; week < getCurrentWeek(); week++) {
-                await scrap(week);
-                console.log('✅ Week ' + week);
-            }
-            break;
-
-        // Light mode is a hack for now has my server get his RAM killed because of massive file read/write
-        case 'light':
-            setInterval(refreshSessionToken.bind(this), 1000 * 60 * 60);
-            await scrap(getCurrentWeek(), true);
-            setInterval(scrap.bind(this, getCurrentWeek(), true), 1000 * 60 * 3);
-            break;
-
-        default:
-            console.error('❌ Wrong command arg');
-            break;
-    }
-})();
-
-async function scrap(week: number, isLight: boolean = false) {
+export async function scrap(week: number, isLight: boolean = false) {
     const rawTrialsFolderPath = '../database/raw/trials';
     if (!fs.existsSync(rawTrialsFolderPath)) fs.mkdirSync(rawTrialsFolderPath);
 
     const data = await fetchTrialLeaderboard(week);
     if (!data?.payload?.world) {
+        if (REFRESH_TOKEN === '') {
+            await initRefreshToken(config.AUTHORIZATION_CODE);
+            setInterval(refreshSessionToken, 1000 * 60 * 60);
+        }
         await refreshSessionToken();
-        scrap(week);
+        scrap(week, isLight);
         return;
     }
 
@@ -81,12 +45,24 @@ async function scrap(week: number, isLight: boolean = false) {
 
                     if (!isLight) {
                         // SLAYER NAMES //
-                        if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = [];
-                        if (!ALL_SLAYERS[player.phx_account_id].find((i) => i.platform === player.platform && i.platformName === player.platform_name)) {
-                            ALL_SLAYERS[player.phx_account_id].push({
-                                platform: player.platform,
-                                platformName: player.platform_name
-                            });
+                        if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = {};
+                        switch (player.platform) {
+                            case 'WIN':
+                                ALL_SLAYERS[player.phx_account_id].WIN_Name = player.platform_name;
+                                break;
+                            case 'PSN':
+                                ALL_SLAYERS[player.phx_account_id].PSN_Name = player.platform_name;
+                                break;
+                            case 'XBL':
+                                ALL_SLAYERS[player.phx_account_id].XBL_Name = player.platform_name;
+                                break;
+                            case 'SWT':
+                                ALL_SLAYERS[player.phx_account_id].SWT_Name = player.platform_name;
+                                break;
+
+                            default:
+                                ALL_SLAYERS[player.phx_account_id].WIN_Name = '???????';
+                                break;
                         }
                         // SLAYER NAMES //
                     }
@@ -108,12 +84,24 @@ async function scrap(week: number, isLight: boolean = false) {
 
                 if (!isLight) {
                     // SLAYER NAMES //
-                    if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = [];
-                    if (!ALL_SLAYERS[player.phx_account_id].find((i) => i.platform === player.platform && i.platformName === player.platform_name)) {
-                        ALL_SLAYERS[player.phx_account_id].push({
-                            platform: player.platform,
-                            platformName: player.platform_name
-                        });
+                    if (!ALL_SLAYERS[player.phx_account_id]) ALL_SLAYERS[player.phx_account_id] = {};
+                    switch (player.platform) {
+                        case 'WIN':
+                            ALL_SLAYERS[player.phx_account_id].WIN_Name = player.platform_name;
+                            break;
+                        case 'PSN':
+                            ALL_SLAYERS[player.phx_account_id].PSN_Name = player.platform_name;
+                            break;
+                        case 'XBL':
+                            ALL_SLAYERS[player.phx_account_id].XBL_Name = player.platform_name;
+                            break;
+                        case 'SWT':
+                            ALL_SLAYERS[player.phx_account_id].SWT_Name = player.platform_name;
+                            break;
+
+                        default:
+                            ALL_SLAYERS[player.phx_account_id].WIN_Name = '???????';
+                            break;
                     }
                     // SLAYER NAMES //
                 }
@@ -155,7 +143,7 @@ async function scrap(week: number, isLight: boolean = false) {
     }
 }
 
-function getCurrentWeek(): number {
+export function getCurrentWeek(): number {
     const week1StartDate = new Date(Date.UTC(2019, 7 - 1, 18, 17));
     const weekInMs = 1 * 7 * 24 * 60 * 60 * 1000;
     return Math.floor((new Date().getTime() - week1StartDate.getTime()) / weekInMs) + 1

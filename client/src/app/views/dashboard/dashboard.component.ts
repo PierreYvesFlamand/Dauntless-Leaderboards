@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
 import { TrialsService } from '../../services/trials.service';
 

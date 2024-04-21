@@ -14,6 +14,9 @@ export class HeaderComponent {
   private playerNameSubscription: Subscription;
   public playerName: string = '';
 
+  private playerIdSubscription: Subscription;
+  public playerId: string = '';
+
   private guildTagSubscription: Subscription;
   public guildTag: string = '';
 
@@ -22,12 +25,14 @@ export class HeaderComponent {
   ) {
     this.themeSubscription = this.eventService.themeObservable.subscribe(newValue => this.theme = newValue);
     this.playerNameSubscription = this.eventService.playerNameObservable.subscribe(newValue => this.playerName = newValue);
+    this.playerIdSubscription = this.eventService.playerIdObservable.subscribe(newValue => this.playerId = newValue);
     this.guildTagSubscription = this.eventService.guildTagObservable.subscribe(newValue => this.guildTag = newValue);
   }
 
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
     this.playerNameSubscription.unsubscribe();
+    this.playerIdSubscription.unsubscribe();
     this.guildTagSubscription.unsubscribe();
   }
 

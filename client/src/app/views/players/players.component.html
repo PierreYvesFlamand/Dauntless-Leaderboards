@@ -22,15 +22,18 @@
             <table style="width: max-content;" class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>Name</th>
+                        <th class="text-center"><img style="width: 2rem" [src]="trialsService.getPlatformImgUrl('WIN')" /></th>
+                        <th class="text-center"><img style="width: 2rem" [src]="trialsService.getPlatformImgUrl('PSN')" /></th>
+                        <th class="text-center"><img style="width: 2rem" [src]="trialsService.getPlatformImgUrl('XBL')" /></th>
+                        <th class="text-center"><img style="width: 2rem" [src]="trialsService.getPlatformImgUrl('SWT')" /></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let slayer of allSlayersFormattedForList" [routerLink]="slayer.platformName" role="button">
-                        <th *ngIf="slayer.platformName.toLowerCase().includes(playerSearchInput.toLowerCase())">
-                            <img class="mr-2" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getPlatformImgUrl(slayer.platform)" />
-                            {{slayer.platformName}}
-                        </th>
+                    <tr *ngFor="let slayer of allSlayersFormattedForList" [routerLink]="slayer.id" role="button">
+                        <td>{{slayer.WIN_Name}}</td>
+                        <td>{{slayer.PSN_Name}}</td>
+                        <td>{{slayer.XBL_Name}}</td>
+                        <td>{{slayer.SWT_Name}}</td>
                     </tr>
                 </tbody>
             </table>

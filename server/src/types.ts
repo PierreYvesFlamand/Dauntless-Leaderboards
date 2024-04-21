@@ -122,7 +122,7 @@ export type DAUNTLESS_TRIAL_DETAIL_SOLO_DETAIL = {
 
 // APP TRIAL
 export type ALL_SLAYERS = {
-    [key: string]: Array<SLAYER_DETAIL>
+    [key: string]: SLAYER_DETAIL
 }
 
 export type ALL_TRIALS = {
@@ -130,8 +130,11 @@ export type ALL_TRIALS = {
 }
 
 export type SLAYER_DETAIL = {
-    platform: string,
-    platformName: string
+    id?: string,
+    WIN_Name?: string,
+    PSN_Name?: string,
+    XBL_Name?: string,
+    SWT_Name?: string
 }
 
 export type TRIAL_DETAIL = {
@@ -166,7 +169,7 @@ export type TRIAL_DETAIL_SOLO_DETAIL_ENTRY = {
     weapon: number | string
 }
 
-// PATREON
+// CUSTOM
 export type ALL_PLAYERS_PERKS = {
     [key in string]: string
 }

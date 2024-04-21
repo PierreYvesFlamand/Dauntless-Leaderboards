@@ -102,16 +102,12 @@ export class DatabaseService {
 
   // Patreon
   public async initAllPlayersPerks(): Promise<void> {
-    // Will enable next releases (Need more time writing on Patraon and Discord the rules of the perks)
-
-    // const res = await fetch(`${environment.backendUrl}/data/players-perks.json`);
-    // this.allPlayersPerks = await res.json();
+    const res = await fetch(`${environment.backendUrl}/data/players-perks.json`);
+    this.allPlayersPerks = await res.json();
   }
   public async initAllGuildsPerks(): Promise<void> {
-    // Will enable next releases (Need more time writing on Patraon and Discord the rules of the perks)
-
-    // const res = await fetch(`${environment.backendUrl}/data/guilds-perks.json`);
-    // this.allGuildsPerks = await res.json();
+    const res = await fetch(`${environment.backendUrl}/data/guilds-perks.json`);
+    this.allGuildsPerks = await res.json();
   }
   public async initAllGuildsDetails(): Promise<void> {
     const res = await fetch(`${environment.backendUrl}/data/guilds-details.json`);

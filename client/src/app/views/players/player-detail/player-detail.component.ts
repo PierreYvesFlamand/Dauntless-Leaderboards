@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./player-detail.component.scss']
 })
 export class PlayerDetailComponent implements OnDestroy {
-  public playerName: string = '';
+  public playerId: string = '';
   // TODO: Type this value correctly
   public playerDetails: any = {};
   public totalOfGroupEntry: number = 0;
@@ -27,11 +27,11 @@ export class PlayerDetailComponent implements OnDestroy {
     public activatedRoute: ActivatedRoute,
     public router: Router
   ) {
-    this.playerName = this.activatedRoute?.snapshot.params['name'];
+    this.playerId = this.activatedRoute?.snapshot.params['id'];
     this.trialDecimalsSubscription = this.eventService.trialDecimalsObservable.subscribe(newValue => this.trialDecimals = newValue);
 
     this.activatedRoute.params.subscribe(params => {
-      this.playerName = params['name'];
+      this.playerId = params['id'];
       this.eventService.updateTitle('');
       this.buildPlayerData();
     });
@@ -44,29 +44,7 @@ export class PlayerDetailComponent implements OnDestroy {
   }
 
   public buildPlayerData() {
-    let playerId = null;
-
-    for (const id in this.databaseService.allSlayers) {
-      if (playerId) continue;
-
-      this.databaseService.allSlayers[id] = this.databaseService.allSlayers[id].reverse();
-      let player = this.databaseService.allSlayers[id].find(s => s.platform === 'WIN' && s.platformName.toLowerCase() === this.playerName.toLowerCase());
-      if (player) { playerId = id }
-      else {
-        player = this.databaseService.allSlayers[id].find(s => s.platform === 'PSN' && s.platformName.toLowerCase() === this.playerName.toLowerCase());
-        if (player) { playerId = id }
-        else {
-          player = this.databaseService.allSlayers[id].find(s => s.platform === 'XBL' && s.platformName.toLowerCase() === this.playerName.toLowerCase());
-          if (player) { playerId = id }
-          else {
-            player = this.databaseService.allSlayers[id].find(s => s.platform === 'SWT' && s.platformName.toLowerCase() === this.playerName.toLowerCase());
-            if (player) { playerId = id }
-          }
-        }
-      }
-    }
-
-    if (!playerId) {
+    if (!this.playerId) {
       this.router.navigate(['players']);
       return;
     }
@@ -101,7 +79,7 @@ export class PlayerDetailComponent implements OnDestroy {
         'strikers'
       ]) {
         this.databaseService.allTrials[key].solo[type].forEach((entry, index) => {
-          if (entry.phxAccountId === playerId) {
+          if (entry.phxAccountId === this.playerId) {
             this.playerDetails[type].push({
               week,
               rank: index + 1,
@@ -116,7 +94,7 @@ export class PlayerDetailComponent implements OnDestroy {
 
       this.databaseService.allTrials[key].group.forEach((group, index) => {
         for (const entry of group.entries) {
-          if (entry.phxAccountId === playerId) {
+          if (entry.phxAccountId === this.playerId) {
             this.totalOfGroupEntry++;
             entries.push({
               rank: index + 1,
@@ -144,6 +122,10 @@ export class PlayerDetailComponent implements OnDestroy {
     else if (this.playerDetails['pike'].length) this.firstTabToOpen = 'pike';
     else if (this.playerDetails['repeaters'].length) this.firstTabToOpen = 'repeaters';
     else if (this.playerDetails['strikers'].length) this.firstTabToOpen = 'strikers';
+    else {
+      this.router.navigate(['players']);
+      return;
+    }
   }
 
   public getNbrOfTop(type: string, nbr: number): number {

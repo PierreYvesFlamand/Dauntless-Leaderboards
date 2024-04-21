@@ -74,7 +74,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let player of databaseService.currentTrial.solo['all'].slice(0, 5); let index = index" [routerLink]="'/players/' + player.playerName" role="button" [class.text-info]="player.playerName === userPlayerName">
+                            <tr *ngFor="let player of databaseService.currentTrial.solo['all'].slice(0, 5); let index = index" [routerLink]="'/players/' + player.phxAccountId" role="button" [class.text-info]="player.playerName === userPlayerName">
                                 <td style="vertical-align: middle" class="text-center">
                                     {{index + 1}}.
                                 </td>
@@ -133,7 +133,7 @@
                                 <td style="vertical-align: middle;">
                                     <div class="d-none d-md-block">
                                         <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                            <div [class.text-info]="player.playerName === userPlayerName" [routerLink]="'/players/' + player.playerName" role="button" *ngFor="let player of group.entries">
+                                            <div [class.text-info]="player.playerName === userPlayerName" [routerLink]="'/players/' + player.phxAccountId" role="button" *ngFor="let player of group.entries">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)" />
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)" />
                                                 <span class="mx-2">
@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="d-md-none">
                                         <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                            <div [class.text-info]="player.playerName === userPlayerName" [routerLink]="'/players/' + player.playerName" role="button" *ngFor="let player of group.entries">
+                                            <div [class.text-info]="player.playerName === userPlayerName" [routerLink]="'/players/' + player.phxAccountId" role="button" *ngFor="let player of group.entries">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)" />
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)" />
                                                 <span class="mx-2">
