@@ -399,14 +399,25 @@ export class TrialsService {
     return '';
   }
 
-  public getPlayerName(names: Array<SLAYER_DETAIL>, platform: string): string {
-    const platformNames = names.filter(i => i.platform === platform);
-    if (!platformNames.length) return '';
-    return platformNames[platformNames.length - 1].platformName;
+  public getFirstPlayerName(slayer: SLAYER_DETAIL): string {
+    if (slayer.WIN_Name) return slayer.WIN_Name;
+    else if (slayer.PSN_Name) return slayer.PSN_Name;
+    else if (slayer.XBL_Name) return slayer.XBL_Name;
+    else if (slayer.SWT_Name) return slayer.SWT_Name;
+    else { return '????'; }
   }
 
-  public getPlayerNames(allSlayers: ALL_SLAYERS, id: string): Array<string> {
-    if (!allSlayers[id]) return [];
-    return allSlayers[id].map(a => a.platformName);
+  public getFirstPlayerIdByName(allSlayers: ALL_SLAYERS, name: string): string {
+    let playerId = null;
+
+    for (const id in allSlayers) {
+      if (playerId) continue;
+      if (allSlayers[id].WIN_Name === name) { playerId = id; }
+      else if (allSlayers[id].PSN_Name === name) { playerId = id; }
+      else if (allSlayers[id].XBL_Name === name) { playerId = id; }
+      else if (allSlayers[id].SWT_Name === name) { playerId = id; }
+    }
+
+    return playerId ?? '';
   }
 }

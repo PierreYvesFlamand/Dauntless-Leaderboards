@@ -15,7 +15,7 @@ export class EventService {
   public init() {
     this.initTheme();
     this.initLanguage();
-    this.initPlayerName();
+    this.initPlayerId();
     this.initGuildTag();
     this.initTrialDecimals();
   }
@@ -57,16 +57,26 @@ export class EventService {
     this.updateLanguage(language);
   }
 
-  // Player Name
+  // Player Id
+  private _playerIdObservable = new BehaviorSubject<string>('');
+  public playerIdObservable = this._playerIdObservable.asObservable();
+
   private _playerNameObservable = new BehaviorSubject<string>('');
   public playerNameObservable = this._playerNameObservable.asObservable();
+
+  public updatePlayerId(playerId: string): void {
+    this._playerIdObservable.next(playerId);
+    this.localstorageService.setByKey('player-id', playerId);
+  }
 
   public updatePlayerName(playerName: string): void {
     this._playerNameObservable.next(playerName);
     this.localstorageService.setByKey('player-name', playerName);
   }
 
-  public initPlayerName() {
+  public initPlayerId() {
+    let playerId = this.localstorageService.getByKey<string>('player-id');
+    this.updatePlayerId(playerId);
     let playerName = this.localstorageService.getByKey<string>('player-name');
     this.updatePlayerName(playerName);
   }

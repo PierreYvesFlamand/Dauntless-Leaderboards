@@ -24,13 +24,8 @@ Install server dependencies
 Start the Express server
 `npm run server`
 
-Start the Gauntlets scrap
-`npm run gauntlets`
-
-Start the Trials scrap (Use with causion as it store in huge JSON file and it may kill your RAM 🤷‍♂️)
-- `npm run trials` will fetch the current trial week every 10 minutes
-- `npm run trials last` will fetch the last week trial
-- `npm run trials all` will fetch every weeks
+Start the scraps
+`npm run fetch`
 
 ### Client
 `cd client`

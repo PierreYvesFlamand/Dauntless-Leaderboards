@@ -1,6 +1,6 @@
 <div class="row mb-2">
     <div class="col">
-        <h1><app-player-name [playerName]="playerName" [useBig]="true"></app-player-name></h1>
+        <h1><app-player-name [playerName]="trialsService.getFirstPlayerName(databaseService.allSlayers[playerId])" [useBig]="true"></app-player-name></h1>
     </div>
 </div>
 
@@ -98,11 +98,11 @@
                                             <td style="vertical-align: middle;">
                                                 <div class="d-none d-md-block">
                                                     <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                                        <div *ngFor="let player of entry.entries">
+                                                        <div *ngFor="let player of entry.entries" [class.text-info]="player.phxAccountId === playerId">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
                                                             <span class="mx-2">
-                                                                {{trialsService.getPlayerName(databaseService.allSlayers[player.phxAccountId], player.platform)}}
+                                                                <app-player-name [playerName]="player.playerName"></app-player-name>
                                                             </span>
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)">
                                                         </div>
@@ -110,11 +110,11 @@
                                                 </div>
                                                 <div class="d-md-none">
                                                     <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                                        <div *ngFor="let player of entry.entries">
+                                                        <div *ngFor="let player of entry.entries" [class.text-info]="player.phxAccountId === playerId">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)">
                                                             <span class="mx-2">
-                                                                {{trialsService.getPlayerName(databaseService.allSlayers[player.phxAccountId], player.platform)}}
+                                                                <app-player-name [playerName]="player.playerName"></app-player-name>
                                                             </span>
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)">
                                                         </div>

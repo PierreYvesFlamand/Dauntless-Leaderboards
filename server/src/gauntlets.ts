@@ -1,11 +1,7 @@
 import fs from 'fs';
-import { DAUNTLESS_ALL_SEASONS, DAUNTLESS_SEASON, DAUNTLESS_SEASON_DETAIL, LEADERBOARD_ITEM, LEADERBOARD_POSITION_DIRECTION, SEASON_DETAIL } from './types';
+import { DAUNTLESS_ALL_SEASONS, DAUNTLESS_SEASON, DAUNTLESS_SEASON_DETAIL, SEASON_DETAIL } from './types';
 
-scrap();
-// Dauntless website is updated every 10 minutes but we try every 3 minutes to be sure to get the update
-setInterval(scrap, 1000 * 60 * 3);
-
-async function scrap(): Promise<void> {
+export async function scrap(): Promise<void> {
     // Check if main folder exist and create it if not
     const rawGauntletsFolderPath = '../database/raw/gauntlets'
     if (!fs.existsSync(rawGauntletsFolderPath)) fs.mkdirSync(rawGauntletsFolderPath);
@@ -97,18 +93,6 @@ async function scrap(): Promise<void> {
 
     const lastUpdateFilePath = `${seasonRawFolder}/${fileName}.json`;
     fs.writeFileSync(lastUpdateFilePath, JSON.stringify(formatedSeasonData), 'utf8');
-
-    // Disable for know because of huge file loading in RAM
-    // Will create a simple fix to create the with a command manualy
-    // // Create or update the "all-raw" file
-    // const allRawFilePath = `../database/exposed/season-${getSeasonNumberFromSeasonId(allSeasonsData.active_season.gauntlet_id)}-all-raw.json`;
-    // let allRaw: { [key: string]: SEASON_DETAIL } = {};
-    // if (fs.existsSync(allRawFilePath)) {
-    //     allRaw = JSON.parse(fs.readFileSync(allRawFilePath, 'utf8'));
-    // }
-    // allRaw[fileName] = formatedSeasonData;
-
-    // fs.writeFileSync(allRawFilePath, JSON.stringify(allRaw), 'utf8');
 }
 
 // Return file name based on Date

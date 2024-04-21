@@ -17,8 +17,8 @@ export class TrialDetailComponent implements OnDestroy {
   public trial?: TRIAL_DETAIL_FORMATED;
   public isCurrent: boolean = false;
 
-  private playerNameSubscription: Subscription;
-  public userPlayerName: string = '';
+  private playerIdSubscription: Subscription;
+  public userPlayerId: string = '';
 
   private trialDecimalsSubscription: Subscription;
   public trialDecimals: 1 | 2 | 3 = 1;
@@ -33,7 +33,7 @@ export class TrialDetailComponent implements OnDestroy {
     this.eventService.updateTitle('Trial');
     this.eventService.updateActiveMenu('');
 
-    this.playerNameSubscription = this.eventService.playerNameObservable.subscribe(newValue => this.userPlayerName = newValue);
+    this.playerIdSubscription = this.eventService.playerIdObservable.subscribe(newValue => this.userPlayerId = newValue);
     this.trialDecimalsSubscription = this.eventService.trialDecimalsObservable.subscribe(newValue => this.trialDecimals = newValue);
 
     let trial: TRIAL_DETAIL | undefined;
@@ -68,11 +68,11 @@ export class TrialDetailComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.playerNameSubscription.unsubscribe();
+    this.playerIdSubscription.unsubscribe();
     this.trialDecimalsSubscription.unsubscribe();
   }
 
   public souldHighlightGroupLine(group: any): boolean {
-    return group.entries.map((p: any) => this.trialsService.getPlayerNames(this.databaseService.allSlayers, p.phxAccountId).includes(this.userPlayerName)).includes(true);
+    return group.entries.map((p: any) => p.phxAccountId === this.userPlayerId).includes(true);
   }
 }

@@ -29,36 +29,28 @@ export class PlayersComponent {
     const allSlayersFormatted: Array<SLAYER_DETAIL> = [];
 
     for (const id in this.databaseService.allSlayers) {
-      const slayerDetails = this.databaseService.allSlayers[id].reverse();
-      let player = null;
-
-      player = slayerDetails.find(s => s.platform === 'WIN');
-      if (player) { allSlayersFormatted.push(player) }
-      else {
-        player = slayerDetails.find(s => s.platform === 'PSN');
-        if (player) { allSlayersFormatted.push(player) }
-        else {
-          player = slayerDetails.find(s => s.platform === 'XBL');
-          if (player) { allSlayersFormatted.push(player) }
-          else {
-            player = slayerDetails.find(s => s.platform === 'SWT');
-            if (player) { allSlayersFormatted.push(player) }
-            else {
-              allSlayersFormatted.push({
-                platformName: 'XXXX',
-                platform: 'XXXX'
-              });
-            }
-          }
-        }
-      }
+      allSlayersFormatted.push({
+        id,
+        ...databaseService.allSlayers[id]
+      });
     }
 
-    allSlayersFormatted.sort((a, b) => a.platformName.toLowerCase().localeCompare(b.platformName.toLowerCase()));
+    allSlayersFormatted.sort((a, b) => {
+      return (a.SWT_Name ?? '').toLowerCase().localeCompare((b.SWT_Name || '').toLowerCase()) ||
+        (a.XBL_Name ?? '').toLowerCase().localeCompare((b.XBL_Name || '').toLowerCase()) ||
+        (a.PSN_Name ?? '').toLowerCase().localeCompare((b.PSN_Name || '').toLowerCase()) ||
+        (a.WIN_Name ?? '').toLowerCase().localeCompare((b.WIN_Name || '').toLowerCase())
+    });
+
     this.allSlayersFormatted = this.allSlayersFormattedForList = allSlayersFormatted;
   }
 
   public onPlayerSearch() {
-    this.allSlayersFormattedForList = this.allSlayersFormatted.filter(s => s.platformName.toLowerCase().includes(this.playerSearchInput.toLowerCase()));
+    this.allSlayersFormattedForList = this.allSlayersFormatted.filter(s => {
+      return (s.WIN_Name ?? '').toLowerCase().includes(this.playerSearchInput.toLowerCase()) ||
+        (s.PSN_Name ?? '').toLowerCase().includes(this.playerSearchInput.toLowerCase()) ||
+        (s.XBL_Name ?? '').toLowerCase().includes(this.playerSearchInput.toLowerCase()) ||
+        (s.SWT_Name ?? '').toLowerCase().includes(this.playerSearchInput.toLowerCase())
+    });
   }
 }
