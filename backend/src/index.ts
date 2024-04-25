@@ -1,8 +1,9 @@
-import db from "./database/db";
-import { startGauntletsImport } from "./importers/gauntlets";
-import { startTrialsImport } from "./importers/trials";
-import express from "express";
-import { SEASON_INFO, SEASON_LEADERBAORD_ITEM, TRIAL_INFO, TRIAL_LEADERBAORD_ITEM } from "./types/types";
+import db from './database/db';
+import { startGauntletsImport } from './importers/gauntlets';
+import { startTrialsImport } from './importers/trials';
+import express from 'express';
+import cors from 'cors';
+import { SEASON_INFO, SEASON_LEADERBAORD_ITEM, TRIAL_INFO, TRIAL_LEADERBAORD_ITEM } from './types/types';
 
 (async () => {
     await db.init();
@@ -10,6 +11,7 @@ import { SEASON_INFO, SEASON_LEADERBAORD_ITEM, TRIAL_INFO, TRIAL_LEADERBAORD_ITE
     // await startGauntletsImport();
 
     const app = express();
+    app.use(cors());
     app.use(express.json());
 
     app.get('/api/dashboard', async (req, res) => {

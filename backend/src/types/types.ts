@@ -173,7 +173,7 @@ export interface TRIAL_LEADERBAORD_ITEM extends RowDataPacket {
 
 export type DASHBOARD_DATA = {
     season_info: SEASON_INFO
-    season_leaderbaord: SEASON_LEADERBAORD_ITEM
+    season_leaderbaord: SEASON_LEADERBAORD_ITEM[]
     trial_info: TRIAL_INFO
     trial_leaderbaord: TRIAL_LEADERBAORD_ITEM
 }
