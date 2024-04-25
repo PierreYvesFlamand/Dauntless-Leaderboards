@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: dauntless-leaderboards
+      MYSQL_TCP_PORT: 7002
+    ports:
+      - "7002:7002"
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 7002
+      PMA_USER: root
+      PMA_PASSWORD: password
+    ports:
+      - 7003:80
