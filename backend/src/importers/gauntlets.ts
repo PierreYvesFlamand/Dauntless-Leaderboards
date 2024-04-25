@@ -1,4 +1,4 @@
-import { DAUNTLESS_ALL_SEASONS, DAUNTLESS_SEASON, GAUNTLET_LEADERBOARD_ITEM, GAUNTLET_SEASON, GUILD } from '../types/types';
+import { DAUNTLESS_ALL_SEASONS, DAUNTLESS_SEASON, SEASON_LEADERBOARD_ITEM, GAUNTLET_SEASON, GUILD } from '../types/types';
 import { getSeasonNumberFromSeasonId, getTimestampFromDate } from '../utils/utils';
 import db from '../database/db';
 
@@ -26,13 +26,13 @@ async function importGauntlets() {
             const dauntlessSeason = await fetchSeasonData(dauntlessAllSeasonDetail.gauntlet_id);
             if (!dauntlessSeason) return;
 
-            let [leaderboardItem] = await db.select<GAUNTLET_LEADERBOARD_ITEM[]>(`SELECT * FROM gauntlet_leaderboard_items WHERE gauntlet_season = ${season[0].season} AND last_updated = FROM_UNIXTIME(${getTimestampFromDate(dauntlessSeason.last_updated)})`);
+            let [leaderboardItem] = await db.select<SEASON_LEADERBOARD_ITEM[]>(`SELECT * FROM gauntlet_leaderboard_items WHERE gauntlet_season = ${season[0].season} AND last_updated = FROM_UNIXTIME(${getTimestampFromDate(dauntlessSeason.last_updated)})`);
             if (leaderboardItem[0]) continue;
 
             console.log(`Creating new gauntlet_leaderboard_items row for season ${season[0].season} at ${dauntlessSeason.last_updated}`);
 
             await db.insert(`INSERT INTO gauntlet_leaderboard_items (last_updated, gauntlet_season) VALUES (FROM_UNIXTIME(${getTimestampFromDate(dauntlessSeason.last_updated)}), ${season[0].season})`);
-            [leaderboardItem] = await db.select<GAUNTLET_LEADERBOARD_ITEM[]>(`SELECT * FROM gauntlet_leaderboard_items WHERE gauntlet_season = ${season[0].season} AND last_updated = FROM_UNIXTIME(${getTimestampFromDate(dauntlessSeason.last_updated)})`);
+            [leaderboardItem] = await db.select<SEASON_LEADERBOARD_ITEM[]>(`SELECT * FROM gauntlet_leaderboard_items WHERE gauntlet_season = ${season[0].season} AND last_updated = FROM_UNIXTIME(${getTimestampFromDate(dauntlessSeason.last_updated)})`);
 
             let rank = 1;
             for (const dauntlessLeaderboardItem of dauntlessSeason.leaderboard) {

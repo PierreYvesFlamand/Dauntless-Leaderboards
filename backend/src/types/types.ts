@@ -18,7 +18,7 @@ export interface GAUNTLET_SEASON extends RowDataPacket {
     end_at: Date
 }
 
-export interface GAUNTLET_LEADERBOARD_ITEM extends RowDataPacket {
+export interface SEASON_LEADERBOARD_ITEM extends RowDataPacket {
     id: number
     gauntlet_season: number
     last_updated: Date
@@ -143,7 +143,7 @@ export interface SEASON_INFO extends RowDataPacket {
     last_updated: Date
 }
 
-export interface SEASON_LEADERBAORD_ITEM extends RowDataPacket {
+export interface SEASON_LEADERBOARD_ITEM_PLAYER extends RowDataPacket {
     rank: number
     guild_id: number
     guild_icon_filename: string | null
@@ -160,7 +160,7 @@ export interface TRIAL_INFO extends RowDataPacket {
     last_updated: Date
 }
 
-export interface TRIAL_LEADERBAORD_ITEM extends RowDataPacket {
+export interface TRIAL_LEADERBOARD_ITEM_PLAYER extends RowDataPacket {
     rank: number
     completion_time: number
     weapon_id: number
@@ -171,9 +171,17 @@ export interface TRIAL_LEADERBAORD_ITEM extends RowDataPacket {
     platform_id: number
 }
 
+export interface TRIAL_LEADERBOARD_ITEM_TYPE extends RowDataPacket {
+    id: number
+    type: string
+}
+
+export type TRIAL_LEADERBOARD_ITEM_TYPES = 'all' | 'group' | 'sword' | 'axe' | 'hammer' | 'chainblades' | 'pike' | 'repeaters' | 'strikers';
+
 export type DASHBOARD_DATA = {
     season_info: SEASON_INFO
-    season_leaderbaord: SEASON_LEADERBAORD_ITEM[]
+    season_leaderbaord: SEASON_LEADERBOARD_ITEM_PLAYER[]
     trial_info: TRIAL_INFO
-    trial_leaderbaord: TRIAL_LEADERBAORD_ITEM
+    trial_leaderbaord_solo: TRIAL_LEADERBOARD_ITEM_PLAYER
+    trial_leaderbaord_group: TRIAL_LEADERBOARD_ITEM_PLAYER
 }

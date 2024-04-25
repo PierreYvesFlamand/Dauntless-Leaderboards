@@ -9,11 +9,21 @@ import { ClarityIcons, cogIcon, userIcon, dashboardIcon, usersIcon } from '@cds/
 ClarityIcons.addIcons(cogIcon, userIcon, dashboardIcon, usersIcon);
 
 import { AppComponent } from './app.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { RouterLinkDirective } from './directives/router-link.directive';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent,
+    DashboardComponent,
+    RouterLinkDirective
   ],
   imports: [
     BrowserModule,

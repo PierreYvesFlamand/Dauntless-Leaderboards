@@ -1,0 +1,55 @@
+<h1 cds-text="headline medium" cds-layout="m-t:xl">Dashboard</h1>
+<div class="clr-row">
+    <div class="clr-col-12 clr-col-xl-6">
+        <div class="card">
+            <div *ngIf="!data" class="card-text text-center" cds-layout="m-y:md">
+                <clr-spinner></clr-spinner>
+            </div>
+            <ng-container *ngIf="data">
+                <div class="card-header" role="button" routerLink="/season/{{data.season_info.season}}">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>Gauntlet Season {{data.season_info.season}}</div>
+                        <div>
+                            <button class="btn btn-sm">View full</button>
+                            <span class="label">End at {{data.season_info.end_at | date:'YYYY/MM/dd hh:mm'}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-block" style="padding: 0;">
+                    <div class="card-text">
+                        <div style="display: block; width: 100%; overflow-x: auto;">
+                            <table class="table table-compact" style="margin: 0; border-radius: 0; border: none;">
+                                <thead>
+                                    <tr>
+                                        <th class="right">#</th>
+                                        <th class="left">Guild</th>
+                                        <th>Level</th>
+                                        <th>Time left</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of data.season_leaderbaord" routerLink="/guilds/{{item.guild_id}}">
+                                        <td class="right">{{item.rank}}.</td>
+                                        <td class="left">
+                                            <div style="display: flex; align-items: center;">
+                                                <img *ngIf="item.guild_icon_filename" cds-layout="m-r:xs" style="width: var(--clr-table-data-cell-line-height); border-radius: 50%;" src="http://localhost:7001/assets/img/guilds/{{item.guild_icon_filename}}" />
+                                                <span>{{item.guild_name}} [{{item.guild_tag}}]</span>
+                                            </div>
+                                        </td>
+                                        <td>{{item.level}}</td>
+                                        <td>{{item.remaining_sec * 1000 | date:'mm:ss'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div style="width: 100%; display: flex; justify-content: end; align-items: center;">
+                        <span class="label">Last updated {{data.season_info.last_updated| date:'YYYY/MM/dd hh:mm'}}</span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

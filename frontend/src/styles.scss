@@ -1,3 +1,11 @@
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/material.css';
+body {
+    --cds-global-typography-font-family: Metropolis, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    --cds-alias-typography-font-family: Metropolis, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    --cds-global-typography-header-font-family: Metropolis, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+    --cds-alias-typography-header-font-family: Metropolis, "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+}
+
 // Scroll bar
 body::-webkit-scrollbar-track,
 body ::-webkit-scrollbar-track {
@@ -14,4 +22,17 @@ body ::-webkit-scrollbar-thumb {
     background-color: var(--clr-vertical-nav-bg-color);
     border: 0;
     border-radius: 50px;
+}
+
+// Table
+table.table tbody tr {
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--clr-datagrid-row-hover-color);
+    }
+
+    &:active {
+        background-color: var(--clr-datagrid-row-active-color);
+    }
 }
