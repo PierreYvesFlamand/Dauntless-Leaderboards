@@ -14,8 +14,8 @@ import { SEASON_INFO, SEASON_LEADERBOARD_ITEM_PLAYER, TRIAL_INFO, TRIAL_LEADERBO
     const app = express();
     app.use(cors());
     app.use(express.json());
-    
-    app.use('/assets', express.static(path.resolve(__dirname, 'public')));
+
+    app.use('/assets', express.static(path.resolve(__dirname, '../public')));
 
     app.get('/api/dashboard', async (req, res) => {
         try {
@@ -26,6 +26,18 @@ import { SEASON_INFO, SEASON_LEADERBOARD_ITEM_PLAYER, TRIAL_INFO, TRIAL_LEADERBO
             const trial_leaderbaord_group = await getTrialLeaderboard(trial_info.week, 'group', 5);
 
             res.status(200).json({ season_info, season_leaderbaord, trial_info, trial_leaderbaord_solo, trial_leaderbaord_group });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.get('/api/guilds', async (req, res) => {
+        try {
+            const [guilds] = await db.select<any[]>(`SELECT * FROM guilds LIMIT ${(req.query as any).pageSize} OFFSET ${((req.query as any).page - 1) * (req.query as any).pageSize}`);
+            const [total] = await db.select<any[]>(`SELECT COUNT(*) as total FROM guilds`);
+
+            res.status(200).json({ guilds, total: total[0].total });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });

@@ -58,8 +58,8 @@
               "node_modules/@cds/core/global.min.css",
               "node_modules/@cds/core/styles/theme.dark.min.css",
               "node_modules/@clr/ui/clr-ui.min.css",
-              "src/styles.scss",
-              "./node_modules/@syncfusion/ej2-material-theme/styles/material.css"
+              "node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+              "src/styles.scss"
             ],
             "scripts": []
           },

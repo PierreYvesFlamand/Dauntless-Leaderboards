@@ -1,33 +1,33 @@
 <clr-main-container>
-    <dl-header></dl-header>
-    <div class="content-container">
-        <main class="content-area" style="max-width: 1200px; margin-left: auto; margin-right: auto;">
-            <router-outlet></router-outlet>
-            <dl-footer></dl-footer>
-        </main>
-        <clr-vertical-nav [clr-nav-level]="1">
+  <dl-header></dl-header>
+  <div class="content-container">
+    <main class="content-area" style="max-width: 1200px; margin-left: auto; margin-right: auto;">
+      <router-outlet></router-outlet>
+      <dl-footer></dl-footer>
+    </main>
+    <clr-vertical-nav [clr-nav-level]="1">
 
-            <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
-                <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
-                Dashboard
-            </a>
+      <a clrVerticalNavLink routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
+        <cds-icon shape="dashboard" clrVerticalNavIcon solid="true"></cds-icon>
+        Dashboard
+      </a>
 
-            <!-- <clr-vertical-nav-group [clrVerticalNavGroupExpanded]="true">
-          <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
-          Gauntlets
-          <clr-vertical-nav-group-children>
-            <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
+      <clr-vertical-nav-group [clrVerticalNavGroupExpanded]="true">
+        <cds-icon shape="cog" clrVerticalNavIcon solid="true"></cds-icon>
+        Gauntlets
+        <clr-vertical-nav-group-children>
+          <!-- <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
               <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
               Seasons
-            </a>
-            <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
-              <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
-              Guilds
-            </a>
-          </clr-vertical-nav-group-children>
-        </clr-vertical-nav-group> -->
+            </a> -->
+          <a clrVerticalNavLink routerLink="/guilds" routerLinkActive="active">
+            <cds-icon shape="users" clrVerticalNavIcon solid="true"></cds-icon>
+            Guilds
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
 
-            <!-- <clr-vertical-nav-group [clrVerticalNavGroupExpanded]="true">
+      <!-- <clr-vertical-nav-group [clrVerticalNavGroupExpanded]="true">
           <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
           Trials
           <clr-vertical-nav-group-children>
@@ -42,12 +42,12 @@
           </clr-vertical-nav-group-children>
         </clr-vertical-nav-group> -->
 
-            <!-- <div class="nav-divider"></div> -->
+      <!-- <div class="nav-divider"></div> -->
 
-            <!-- <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
+      <!-- <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
           <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
           About
         </a> -->
-        </clr-vertical-nav>
-    </div>
+    </clr-vertical-nav>
+  </div>
 </clr-main-container>

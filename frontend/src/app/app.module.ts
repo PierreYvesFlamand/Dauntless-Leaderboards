@@ -14,6 +14,7 @@ import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RouterLinkDirective } from './directives/router-link.directive';
+import { GuildsComponent } from './views/guilds/guilds.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { RouterLinkDirective } from './directives/router-link.directive';
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
-    RouterLinkDirective
+    RouterLinkDirective,
+    GuildsComponent
   ],
   imports: [
     BrowserModule,
