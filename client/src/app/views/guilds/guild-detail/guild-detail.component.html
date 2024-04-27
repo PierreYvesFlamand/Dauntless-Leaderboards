@@ -12,7 +12,7 @@
 
 <div *ngIf="guild" class="row mt-3">
     <div class="col col-md-5 col-lg-3" *ngIf="!databaseService.allGuildsDetails[guild.guildNameplate]">
-        <div class="table-responsive bg-gray-dark">
+        <div class="table-responsive forced-bg">
             <table class="table table-sm table-striped table-hover table-bordered mb-0">
                 <thead>
                     <tr>
@@ -42,7 +42,7 @@
                 <i class="fa-brands fa-discord mr-2"></i>
                 Discord
             </a>
-            <div class="table-responsive bg-gray-dark d-none d-lg-block">
+            <div class="table-responsive forced-bg d-none d-lg-block">
                 <table class="table table-sm table-striped table-hover table-bordered mb-0">
                     <thead>
                         <tr>
@@ -68,7 +68,7 @@
     <div class="col-md-9 order-md-1 mt-4 mt-md-0" *ngIf="databaseService.allGuildsDetails[guild.guildNameplate]">
         <div *ngIf="databaseService.allGuildsDetails[guild.guildNameplate].description" [innerHTML]="databaseService.allGuildsDetails[guild.guildNameplate].description"></div>
 
-        <div class="table-responsive bg-gray-dark d-lg-none">
+        <div class="table-responsive forced-bg d-lg-none">
             <table class="table table-sm table-striped table-hover table-bordered mb-0">
                 <thead>
                     <tr>

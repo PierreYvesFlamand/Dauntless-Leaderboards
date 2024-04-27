@@ -37,3 +37,11 @@ body.dark-mode ::-webkit-scrollbar-thumb {
         color: white !important;
     }
 }
+
+.light-mode .forced-bg {
+    background-color: white !important;
+}
+
+.dark-mode .forced-bg {
+    background-color: #343a40 !important;
+}
