@@ -1,18 +1,49 @@
-<h1 class="mt-4">Guilds</h1>
+<h1 class="mt-1">Guilds</h1>
 
-<clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
-    <clr-dg-column [clrDgField]="'guild_name_tag'">Guild</clr-dg-column>
-    <!-- <clr-dg-column [clrDgField]="'rating'">Rating</clr-dg-column> -->
+<div class="datagrid-forced-height">
+    <clr-datagrid (clrDgRefresh)="refresh($event)" [clrDgLoading]="loading">
+        <clr-dg-column [clrDgField]="'guild_name_tag'">
+            <ng-container *clrDgHideableColumn="{ hidden: false }">Guild</ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'rating'" [clrDgSortOrder]="-1">
+            <ng-container *clrDgHideableColumn="{ hidden: false }">Rating</ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'nbrTop1'">
+            <ng-container *clrDgHideableColumn="{ hidden: false }">Top 1s</ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'nbrTop5'">
+            <ng-container *clrDgHideableColumn="{ hidden: false }">Top 5s</ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'nbrTop20'">
+            <ng-container *clrDgHideableColumn="{ hidden: true }">Top 20s</ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'nbrTop100'">
+            <ng-container *clrDgHideableColumn="{ hidden: false }">Top 100s</ng-container>
+        </clr-dg-column>
+        <clr-dg-column [clrDgField]="'totalLevelCleared'">
+            <ng-container *clrDgHideableColumn="{ hidden: false }">Total levels</ng-container>
+        </clr-dg-column>
 
-    <clr-dg-row *ngFor="let guild of guilds">
-        <clr-dg-cell>{{ guild.name }} <span style="font-size: 80%; font-weight: lighter;">[{{guild.tag}}]</span></clr-dg-cell>
-        <!-- <clr-dg-cell>{{ guild.rating }}</clr-dg-cell> -->
-    </clr-dg-row>
+        <clr-dg-row *ngFor="let guild of guilds">
+            <clr-dg-cell>
+                <div style="display: flex; align-items: center;">
+                    <img *ngIf="guild.icon_filename" cds-layout="m-r:xs" style="width: var(--clr-table-data-cell-line-height); border-radius: 50%;" src="http://localhost:7001/assets/img/guilds/{{guild.icon_filename}}" />
+                    <span>{{guild.name}} <span style="font-size: 80%; font-weight: lighter;">[{{guild.tag}}]</span></span>
+                </div>
+            </clr-dg-cell>
+            <clr-dg-cell>{{ guild.rating | number:'2.2-2' }}</clr-dg-cell>
+            <clr-dg-cell>{{ guild.nbrTop1 }}</clr-dg-cell>
+            <clr-dg-cell>{{ guild.nbrTop5 }}</clr-dg-cell>
+            <clr-dg-cell>{{ guild.nbrTop20 }}</clr-dg-cell>
+            <clr-dg-cell>{{ guild.nbrTop100 }}</clr-dg-cell>
+            <clr-dg-cell>{{ guild.totalLevelCleared }}</clr-dg-cell>
+        </clr-dg-row>
 
-    <clr-dg-footer>
-        <clr-dg-pagination #pagination [clrDgPageSize]="10" [clrDgTotalItems]="total">
-            <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Guilds per page</clr-dg-page-size>
-            {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} guilds
-        </clr-dg-pagination>
-    </clr-dg-footer>
-</clr-datagrid>
+        <clr-dg-footer>
+            <clr-dg-pagination #pagination [clrDgPageSize]="20" [clrDgTotalItems]="total">
+                <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">Guilds per page</clr-dg-page-size>
+                {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of {{ pagination.totalItems }} guilds
+            </clr-dg-pagination>
+        </clr-dg-footer>
+    </clr-datagrid>
+</div>

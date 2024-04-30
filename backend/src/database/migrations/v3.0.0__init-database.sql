@@ -1,5 +1,6 @@
-CREATE TABLE `gauntlet_seasons` (`season` INT NOT NULL , `start_at` DATETIME NOT NULL , `end_at` DATETIME NOT NULL , PRIMARY KEY (`season`)) ENGINE = InnoDB;
+CREATE TABLE `gauntlet_seasons` (`season` INT NOT NULL , `start_at` DATETIME NOT NULL , `end_at` DATETIME NOT NULL , `flourish_id` VARCHAR(100) NULL , PRIMARY KEY (`season`)) ENGINE = InnoDB;
 CREATE TABLE `guilds` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(100) NOT NULL , `tag` VARCHAR(100) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+INSERT INTO `guilds` (`id`, `name`, `tag`) VALUES (NULL, 'ThraxEnjoyers', 'THRAAX'), (NULL, 'DFrance', 'DFR1');
 CREATE TABLE `gauntlet_leaderboard_items` (`id` INT NOT NULL AUTO_INCREMENT , `last_updated` DATETIME NOT NULL , `gauntlet_season` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `gauntlet_leaderboard_items` ADD FOREIGN KEY (`gauntlet_season`) REFERENCES `gauntlet_seasons`(`season`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 CREATE TABLE `gauntlet_leaderboard_items_guilds` (`gauntlet_leaderboard_item_id` INT NOT NULL , `guild_id` INT NOT NULL , `level` INT NOT NULL , `remaining_sec` INT NOT NULL , `rank` INT NOT NULL ) ENGINE = InnoDB;
@@ -15,7 +16,9 @@ CREATE TABLE `player_names` (`player_id` INT NOT NULL , `platform_id` INT NOT NU
 ALTER TABLE `player_names` ADD UNIQUE(`player_id`, `platform_id`);
 CREATE TABLE `players_data` (`player_id` INT NOT NULL , `icon_filename` INT NOT NULL , PRIMARY KEY (`player_id`)) ENGINE = InnoDB;
 ALTER TABLE `players_data` ADD FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-CREATE TABLE `trial_weeks` (`week` INT NOT NULL , `start_at` DATETIME NOT NULL , `end_at` DATETIME NOT NULL , PRIMARY KEY (`week`)) ENGINE = InnoDB;
+CREATE TABLE `trial_weeks` (`week` INT NOT NULL , `start_at` DATETIME NOT NULL , `end_at` DATETIME NOT NULL , `behemoth_id` INT NOT NULL , PRIMARY KEY (`week`)) ENGINE = InnoDB;
+CREATE TABLE `behemoths` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `trial_weeks` ADD FOREIGN KEY (`behemoth_id`) REFERENCES `behemoths`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 CREATE TABLE `trial_leaderboard_items` (`id` INT NOT NULL AUTO_INCREMENT , `trial_week` INT NOT NULL , `last_updated` DATETIME NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 ALTER TABLE `trial_leaderboard_items` ADD FOREIGN KEY (`trial_week`) REFERENCES `trial_weeks`(`week`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 CREATE TABLE `trial_leaderboard_item_type` (`id` INT NOT NULL AUTO_INCREMENT , `type` VARCHAR(20) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

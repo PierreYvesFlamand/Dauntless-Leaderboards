@@ -24,18 +24,18 @@ export default {
         }
     },
 
-    async insert(query: string) {
+    async insert(query: string, params: (string | number)[] = []) {
         try {
-            return this.db.query(query);
+            return this.db.query(query, params);
         } catch (error) {
             console.log(error);
             throw new Error();
         }
     },
 
-    async select<T extends QueryResult>(query: string) {
+    async select<T extends QueryResult>(query: string, params: (string | number)[] = []) {
         try {
-            return this.db.query<T>(query);
+            return this.db.query<T>(query, params);
         } catch (error) {
             console.log(error);
             throw new Error();

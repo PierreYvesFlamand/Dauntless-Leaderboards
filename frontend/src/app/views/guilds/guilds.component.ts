@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ClrDatagridStateInterface } from '@clr/angular';
+import { ClrDatagridSortOrder, ClrDatagridStateInterface } from '@clr/angular';
 
 @Component({
   selector: 'dl-guilds',
@@ -12,24 +12,30 @@ export class GuildsComponent {
   public loading: boolean = true;
 
   refresh(state: ClrDatagridStateInterface) {
-    this.loading = true;
-
     console.log(state);
 
-    fetch(`http://localhost:7001/api/guilds?pageSize=${state.page?.size}&page=${state.page?.current}`).then(res => res.json()).then((data: any) => {
+    const a = ClrDatagridSortOrder.DESC
+
+    this.loading = true;
+
+    const params: {
+      pageSize: number
+      page: number
+      sortBy: string | null
+      sortReverse: 1 | -1
+    } = {
+      pageSize: state.page?.size || 20,
+      page: state.page?.current || 1,
+      sortBy: String(state.sort?.by) || null,
+      sortReverse: state.sort?.reverse ? 1 : -1
+    };
+
+    const paramsAsString = Object.keys(params).reduce<string[]>((p, k) => { return [...p, `${k}=${(<any>params)[k] || ''}`] }, []).join('&');
+
+    fetch(`http://localhost:7001/api/guilds?${paramsAsString}`, {}).then(res => res.json()).then((data: any) => {
       this.guilds = data.guilds;
       this.total = data.total;
       this.loading = false;
     });
-
-    // this.inventory
-    //   .filter(filters)
-    //   .sort(<{ by: string; reverse: boolean }>state.sort)
-    //   .fetch(state.page.size * (state.page.current - 1), state.page.size)
-    //   .then((result: FetchResult) => {
-    //     this.users = result.users;
-    //     this.total = result.length;
-    //     this.loading = false;
-    //   });
   }
 }

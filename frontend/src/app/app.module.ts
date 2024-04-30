@@ -15,7 +15,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RouterLinkDirective } from './directives/router-link.directive';
 import { GuildsComponent } from './views/guilds/guilds.component';
-
+import { SeasonsComponent } from './views/seasons/seasons.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +25,8 @@ import { GuildsComponent } from './views/guilds/guilds.component';
     FooterComponent,
     DashboardComponent,
     RouterLinkDirective,
-    GuildsComponent
+    GuildsComponent,
+    SeasonsComponent
   ],
   imports: [
     BrowserModule,

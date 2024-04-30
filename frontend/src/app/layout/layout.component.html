@@ -1,8 +1,11 @@
 <clr-main-container>
   <dl-header></dl-header>
   <div class="content-container">
-    <main class="content-area" style="max-width: 1200px; margin-left: auto; margin-right: auto;">
-      <router-outlet></router-outlet>
+    <main class="content-area" style="display: grid; grid-template-columns: 1fr 1240px 1fr;">
+      <div></div>
+      <div><router-outlet></router-outlet></div>
+      <div></div>
+      <div></div>
       <dl-footer></dl-footer>
     </main>
     <clr-vertical-nav [clr-nav-level]="1">
@@ -16,10 +19,10 @@
         <cds-icon shape="cog" clrVerticalNavIcon solid="true"></cds-icon>
         Gauntlets
         <clr-vertical-nav-group-children>
-          <!-- <a clrVerticalNavLink routerLink="/" routerLinkActive="active">
-              <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
-              Seasons
-            </a> -->
+          <a clrVerticalNavLink routerLink="/seasons" routerLinkActive="active">
+            <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
+            Seasons
+          </a>
           <a clrVerticalNavLink routerLink="/guilds" routerLinkActive="active">
             <cds-icon shape="users" clrVerticalNavIcon solid="true"></cds-icon>
             Guilds

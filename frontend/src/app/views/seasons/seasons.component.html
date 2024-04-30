@@ -1,0 +1,45 @@
+<ng-container *ngIf="seasonData">
+    <h1 class="mt-1">Season {{seasonData.seasonInfo.season}}</h1>
+    <div class="row">
+        <div class="col-12 col-lg-3 order-lg-2">
+            <div class="card">
+                <div class="card-block p-0">
+                    <div class="clr-select-wrapper w-100">
+                        <select id="select-basic" class="clr-select w-100" (change)="test($event)">
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-9 mt-3 mt-md-0">
+            <div class="table-responsive">
+                <table class="table table-compact">
+                    <thead>
+                        <tr>
+                            <th class="right" style="width: 60px;">#</th>
+                            <th class="left">Guild</th>
+                            <th style="width: 80px;">Level</th>
+                            <th style="width: 100px;">Time left</th>
+                        </tr>
+                    </thead>
+                    <tbody style="max-height: 70vh;">
+                        <tr *ngFor="let item of seasonData.seasonLeaderboard" routerLink="/guilds/{{item.guild_id}}">
+                            <td class="right">{{item.rank}}.</td>
+                            <td class="left">
+                                <div style="display: flex; align-items: center;">
+                                    <img *ngIf="item.guild_icon_filename" cds-layout="m-r:xs" style="width: var(--clr-table-data-cell-line-height); border-radius: 50%;" src="http://localhost:7001/assets/img/guilds/{{item.guild_icon_filename}}" />
+                                    <span>{{item.guild_name}} <span style="font-size: 80%; font-weight: lighter;">[{{item.guild_tag}}]</span></span>
+                                </div>
+                            </td>
+                            <td>{{item.level}}</td>
+                            <td>{{item.remaining_sec * 1000 | date:'mm:ss'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-container>

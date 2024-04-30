@@ -1,17 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DASHBOARD_DATA } from '../../../../../backend/src/types/types';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'dl-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
-export class DashboardComponent {
-  public data?: DASHBOARD_DATA;
+export class DashboardComponent implements OnDestroy {
+  public dashboardData?: DASHBOARD_DATA;
+  private dashboardDataInterval;
 
-  ngOnInit(): void {
-    fetch('http://localhost:7001/api/dashboard').then(res => res.json()).then((data: DASHBOARD_DATA) => {
-      this.data = data;
-    });
+  constructor(
+    private databaseService: DatabaseService
+  ) {
+    this.fetchData();
+    this.dashboardDataInterval = setInterval(this.fetchData.bind(this), 1000 * 30);
+  }
+
+  ngOnDestroy(): void {
+    if (this.dashboardDataInterval) clearInterval(this.dashboardDataInterval);
+  }
+
+  private async fetchData() {
+    this.dashboardData = await this.databaseService.fetch<DASHBOARD_DATA>('dashboard');
   }
 }

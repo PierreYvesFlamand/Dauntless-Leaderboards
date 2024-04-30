@@ -1,6 +1,6 @@
 import db from "../database/db";
-import { DAUNTLESS_TRIAL, DAUNTLESS_TRIAL_SOLO_DETAIL, PLATFORM, PLAYER, PLAYER_NAME, TRIAL_LEADERBOARD_ITEM, TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_WEEK } from "../types/types";
-import { getCurrentWeek, getTimestampFromDate, getWeekEndDate, getWeekStartDate } from "../utils/utils";
+import { BEHEMOTH, DAUNTLESS_TRIAL, DAUNTLESS_TRIAL_SOLO_DETAIL, PLATFORM, PLAYER, PLAYER_NAME, TRIAL_LEADERBOARD_ITEM, TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_WEEK } from "../types/types";
+import { getBehemothNameFromWeek, getCurrentWeek, getTimestampFromDate, getWeekEndDate, getWeekStartDate } from "../utils/utils";
 
 let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
@@ -25,40 +25,85 @@ async function importTrials(week: number = getCurrentWeek()) {
     console.log(`Start trial week ${week} import at ${new Date().toUTCString()}`);
 
     const dauntlessTrial = await fetchTrialLeaderboard(week);
-    if (!dauntlessTrial?.payload.world) process.exit();
-    // if (!dauntlessTrial?.payload.world) return;
+    if (!dauntlessTrial?.payload?.world) return;
 
     try {
-        const [platforms] = await db.select<PLATFORM[]>('SELECT * FROM platforms');
-        const [trialLeaderboardsItemTypes] = await db.select<TRIAL_LEADERBOARD_ITEM_TYPE[]>('SELECT * FROM trial_leaderboard_item_type');
+        const [platforms] = await db.select<PLATFORM[]>(`SELECT * FROM platforms`);
+        const [trialLeaderboardsItemTypes] = await db.select<TRIAL_LEADERBOARD_ITEM_TYPE[]>(`SELECT * FROM trial_leaderboard_item_type`);
 
-        let [trialWeek] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks WHERE week = ${week}`);
+        const behemothName = getBehemothNameFromWeek(week);
+        let [behemoth] = await db.select<BEHEMOTH[]>(`SELECT * FROM behemoths WHERE name = ?`, [behemothName]);
+        if (!behemoth.length) {
+            await db.select(`
+                INSERT INTO behemoths (name)
+                VALUES (?)
+            `, [
+                behemothName
+            ]);
+            [behemoth] = await db.select<BEHEMOTH[]>(`SELECT * FROM behemoths WHERE name = ?`, [behemothName]);
+        }
+
+        let [trialWeek] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks WHERE week = ?`, [week]);
         if (!trialWeek.length) {
-            await db.select(`INSERT INTO trial_weeks (week, start_at, end_at) VALUES (${week}, FROM_UNIXTIME(${getTimestampFromDate(getWeekStartDate(week))}), FROM_UNIXTIME(${getTimestampFromDate(getWeekEndDate(week))}))`);
-            [trialWeek] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks WHERE week = ${week}`);
+            await db.select(`
+                INSERT INTO trial_weeks (week, start_at, end_at, behemoth_id)
+                VALUES (?, FROM_UNIXTIME(?), FROM_UNIXTIME(?), ?)
+            `, [
+                week,
+                getTimestampFromDate(getWeekStartDate(week)),
+                getTimestampFromDate(getWeekEndDate(week)),
+                behemoth[0].id
+            ]);
+            [trialWeek] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks WHERE week = ?`, [week]);
         }
 
         const lastUpdated = new Date();
-        await db.insert(`INSERT INTO trial_leaderboard_items (last_updated, trial_week) VALUES (FROM_UNIXTIME(${getTimestampFromDate(lastUpdated)}), ${week})`);
-        let [trialLeaderboardItem] = await db.select<TRIAL_LEADERBOARD_ITEM[]>(`SELECT * FROM trial_leaderboard_items WHERE trial_week = ${week} AND last_updated = FROM_UNIXTIME(${getTimestampFromDate(lastUpdated)})`);
+        await db.insert(`
+            INSERT INTO trial_leaderboard_items (last_updated, trial_week)
+            VALUES (FROM_UNIXTIME(?), ?)
+        `, [
+            getTimestampFromDate(lastUpdated),
+            week
+        ]);
+        let [trialLeaderboardItem] = await db.select<TRIAL_LEADERBOARD_ITEM[]>(`
+            SELECT * FROM trial_leaderboard_items
+            WHERE trial_week = ? AND last_updated = FROM_UNIXTIME(?)
+        `, [
+            week,
+            getTimestampFromDate(lastUpdated)
+        ]);
 
         // SOLO
-        const values: string[] = [];
+        const values: (string | number)[] = [];
 
         for (const trialLeaderboardsItemType of trialLeaderboardsItemTypes.filter(tlit => tlit.type !== 'group')) {
             for (const dauntlessTrialLeaderboardItem of (<DAUNTLESS_TRIAL_SOLO_DETAIL>(<any>dauntlessTrial.payload.world.solo)[trialLeaderboardsItemType.type]).entries) {
-                let [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = '${dauntlessTrialLeaderboardItem.phx_account_id}'`);
+                let [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = ?`, [dauntlessTrialLeaderboardItem.phx_account_id]);
                 if (!player.length) {
-                    await db.insert(`INSERT INTO players (phx_id) VALUES ('${dauntlessTrialLeaderboardItem.phx_account_id}')`);
-                    [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = '${dauntlessTrialLeaderboardItem.phx_account_id}'`);
+                    await db.insert(`INSERT INTO players (phx_id) VALUES (?)`, [dauntlessTrialLeaderboardItem.phx_account_id]);
+                    [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = ?`, [dauntlessTrialLeaderboardItem.phx_account_id]);
                 }
 
                 const platform = platforms.find(p => p.name === dauntlessTrialLeaderboardItem.platform);
                 if (!platform) continue;
 
-                let [playerName] = await db.select<PLAYER_NAME[]>(`SELECT * FROM player_names WHERE player_id = ${player[0].id} AND platform_id = ${platform.id};`);
+                let [playerName] = await db.select<PLAYER_NAME[]>(`
+                    SELECT *
+                    FROM player_names
+                    WHERE player_id = ? AND platform_id = ?
+                `, [
+                    player[0].id,
+                    platform.id
+                ]);
                 if (!playerName.length) {
-                    await db.insert(`INSERT INTO player_names (player_id, platform_id, name) VALUES (${player[0].id}, ${platform.id}, '${dauntlessTrialLeaderboardItem.platform_name.replace(/'/g, "''")}')`);
+                    await db.insert(`
+                        INSERT INTO player_names (player_id, platform_id, name)
+                        VALUES (?, ?, ?)
+                    `, [
+                        player[0].id,
+                        platform.id,
+                        dauntlessTrialLeaderboardItem.platform_name.replace(/'/g, "''")
+                    ]);
                 }
 
                 const type = trialLeaderboardsItemTypes.find(tlit => tlit.type === trialLeaderboardsItemType.type);
@@ -68,35 +113,52 @@ async function importTrials(week: number = getCurrentWeek()) {
                     dauntlessTrialLeaderboardItem.weapon = ['hammer', 'axe', 'sword', 'chainblades', 'pike', 'repeaters', 'strikers'].findIndex(w => w === trialLeaderboardsItemType.type) + 1;
                 }
 
-                values.push(`(${trialLeaderboardItem[0].id}, ${type.id}, ${player[0].id}, ${platform.id}, ${dauntlessTrialLeaderboardItem.objectives_completed}, ${dauntlessTrialLeaderboardItem.completion_time}, ${dauntlessTrialLeaderboardItem.weapon}, '${dauntlessTrialLeaderboardItem.player_role_id}', ${dauntlessTrialLeaderboardItem.rank})`)
+                values.push(trialLeaderboardItem[0].id, type.id, player[0].id, platform.id, dauntlessTrialLeaderboardItem.objectives_completed, dauntlessTrialLeaderboardItem.completion_time, dauntlessTrialLeaderboardItem.weapon, dauntlessTrialLeaderboardItem.player_role_id, dauntlessTrialLeaderboardItem.rank);
             }
         }
 
         // GROUP
         for (const dauntlessTrialLeaderboardItem of dauntlessTrial.payload.world.group.entries) {
             for (const dauntlessTrialLeaderboardItemEntries of dauntlessTrialLeaderboardItem.entries) {
-                let [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = '${dauntlessTrialLeaderboardItemEntries.phx_account_id}'`);
+                let [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = ?`, [dauntlessTrialLeaderboardItemEntries.phx_account_id]);
                 if (!player.length) {
-                    await db.insert(`INSERT INTO players (phx_id) VALUES ('${dauntlessTrialLeaderboardItemEntries.phx_account_id}')`);
-                    [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = '${dauntlessTrialLeaderboardItemEntries.phx_account_id}'`);
+                    await db.insert(`INSERT INTO players (phx_id) VALUES (?)`, [dauntlessTrialLeaderboardItemEntries.phx_account_id]);
+                    [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = ?`, [dauntlessTrialLeaderboardItemEntries.phx_account_id]);
                 }
 
                 const platform = platforms.find(p => p.name === dauntlessTrialLeaderboardItemEntries.platform);
                 if (!platform) continue;
 
-                let [playerName] = await db.select<PLAYER_NAME[]>(`SELECT * FROM player_names WHERE player_id = ${player[0].id} AND platform_id = ${platform.id};`);
+                let [playerName] = await db.select<PLAYER_NAME[]>(`
+                    SELECT *
+                    FROM player_names
+                    WHERE player_id = ? AND platform_id = ?
+                `, [
+                    player[0].id,
+                    platform.id
+                ]);
                 if (!playerName.length) {
-                    await db.insert(`INSERT INTO player_names (player_id, platform_id, name) VALUES (${player[0].id}, ${platform.id}, '${dauntlessTrialLeaderboardItemEntries.platform_name.replace(/'/g, "''")}')`);
+                    await db.insert(`
+                        INSERT INTO player_names (player_id, platform_id, name)
+                        VALUES (?, ?, ?)
+                    `, [
+                        player[0].id,
+                        platform.id,
+                        dauntlessTrialLeaderboardItemEntries.platform_name.replace(/'/g, "''")
+                    ]);
                 }
 
                 const type = trialLeaderboardsItemTypes.find(tlit => tlit.type === 'group');
                 if (!type) continue;
 
-                values.push(`(${trialLeaderboardItem[0].id}, ${type.id}, ${player[0].id}, ${platform.id}, ${dauntlessTrialLeaderboardItem.objectives_completed}, ${dauntlessTrialLeaderboardItem.completion_time}, ${dauntlessTrialLeaderboardItemEntries.weapon}, '${dauntlessTrialLeaderboardItemEntries.player_role_id}', ${dauntlessTrialLeaderboardItem.rank})`);
+                values.push(trialLeaderboardItem[0].id, type.id, player[0].id, platform.id, dauntlessTrialLeaderboardItem.objectives_completed, dauntlessTrialLeaderboardItem.completion_time, dauntlessTrialLeaderboardItemEntries.weapon, dauntlessTrialLeaderboardItemEntries.player_role_id, dauntlessTrialLeaderboardItem.rank);
             }
         }
 
-        await db.select(`INSERT INTO trial_leaderboard_items_players (trial_leaderboard_item_id, trial_leaderboard_item_type_id, player_id, platform_id, objectives_completed, completion_time, weapon_id, role_id, \`rank\`) VALUES ${values.join(', ')}`);
+        await db.insert(`
+        INSERT INTO trial_leaderboard_items_players (trial_leaderboard_item_id, trial_leaderboard_item_type_id, player_id, platform_id, objectives_completed, completion_time, weapon_id, role_id, \`rank\`)
+            VALUES ${'(?,?,?,?,?,?,?,?,?)'.repeat(values.length / 9).split(')(').join('),(')}
+        `, values);
     } catch (error) {
         console.error(error);
     }

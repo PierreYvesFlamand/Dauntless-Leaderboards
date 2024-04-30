@@ -6,6 +6,7 @@ body {
 }
 
 // Scroll bar
+
 body::-webkit-scrollbar-track,
 body ::-webkit-scrollbar-track {
     background-color: transparent;
@@ -13,7 +14,8 @@ body ::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar,
 body ::-webkit-scrollbar {
-    width: 5px;
+    width: 8px;
+    height: 8px;
 }
 
 body::-webkit-scrollbar-thumb,
@@ -24,6 +26,10 @@ body ::-webkit-scrollbar-thumb {
 }
 
 // Table
+.datagrid-forced-height clr-datagrid {
+    max-height: 70vh;
+}
+
 .table-responsive {
     display: block;
     width: 100%;

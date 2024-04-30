@@ -1,17 +1,17 @@
-<h1 class="mt-4">Dashboard</h1>
+<h1 class="mt-1">Dashboard</h1>
 <div class="row">
     <div class="col-12 col-xl-6">
         <div class="card">
-            <div *ngIf="!data" class="my-2 card-text text-center">
+            <div *ngIf="!dashboardData" class="my-2 card-text text-center">
                 <clr-spinner></clr-spinner>
             </div>
-            <ng-container *ngIf="data">
-                <div class="card-header" role="button" routerLink="/season/{{data.season_info.season}}">
+            <ng-container *ngIf="dashboardData">
+                <div class="card-header" role="button" routerLink="/seasons/{{dashboardData.seasonInfo.season}}">
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                        <div>Gauntlet Season {{data.season_info.season}}</div>
+                        <div>Gauntlet Season {{dashboardData.seasonInfo.season}}</div>
                         <div class="d-flex align-items-center flex-column flex-md-row">
                             <button class="btn btn-sm">View full</button>
-                            <span class="label">End at {{data.season_info.end_at | date:'YYYY/MM/dd hh:mm'}}</span>
+                            <span class="label">End at {{dashboardData.seasonInfo.end_at | date:'YYYY/MM/dd hh:mm'}}</span>
                         </div>
                     </div>
                 </div>
@@ -28,12 +28,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let item of data.season_leaderbaord" routerLink="/guilds/{{item.guild_id}}">
+                                    <tr *ngFor="let item of dashboardData.seasonLeaderboard" routerLink="/guilds/{{item.guild_id}}">
                                         <td class="right">{{item.rank}}.</td>
                                         <td class="left">
                                             <div style="display: flex; align-items: center;">
                                                 <img *ngIf="item.guild_icon_filename" cds-layout="m-r:xs" style="width: var(--clr-table-data-cell-line-height); border-radius: 50%;" src="http://localhost:7001/assets/img/guilds/{{item.guild_icon_filename}}" />
-                                                <span>{{item.guild_name}} [{{item.guild_tag}}]</span>
+                                                <span>{{item.guild_name}} <span style="font-size: 80%; font-weight: lighter;">[{{item.guild_tag}}]</span></span>
                                             </div>
                                         </td>
                                         <td>{{item.level}}</td>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="w-100 d-flex justify-content-end">
-                        <span class="label">Last updated {{data.season_info.last_updated| date:'YYYY/MM/dd hh:mm'}}</span>
+                        <span class="label">Last updated {{dashboardData.seasonInfo.last_updated| date:'YYYY/MM/dd hh:mm'}}</span>
                     </div>
                 </div>
             </ng-container>

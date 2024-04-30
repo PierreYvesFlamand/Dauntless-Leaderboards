@@ -141,6 +141,7 @@ export interface SEASON_INFO extends RowDataPacket {
     start_at: Date
     end_at: Date
     last_updated: Date
+    flourish_id: string
 }
 
 export interface SEASON_LEADERBOARD_ITEM_PLAYER extends RowDataPacket {
@@ -176,12 +177,24 @@ export interface TRIAL_LEADERBOARD_ITEM_TYPE extends RowDataPacket {
     type: string
 }
 
+export interface BEHEMOTH extends RowDataPacket {
+    id: number
+    name: string
+}
+
 export type TRIAL_LEADERBOARD_ITEM_TYPES = 'all' | 'group' | 'sword' | 'axe' | 'hammer' | 'chainblades' | 'pike' | 'repeaters' | 'strikers';
 
+// From endpoints
 export type DASHBOARD_DATA = {
-    season_info: SEASON_INFO
-    season_leaderbaord: SEASON_LEADERBOARD_ITEM_PLAYER[]
-    trial_info: TRIAL_INFO
-    trial_leaderbaord_solo: TRIAL_LEADERBOARD_ITEM_PLAYER
-    trial_leaderbaord_group: TRIAL_LEADERBOARD_ITEM_PLAYER
+    seasonInfo: SEASON_INFO
+    seasonLeaderboard: SEASON_LEADERBOARD_ITEM_PLAYER[]
+    trialInfo: TRIAL_INFO
+    trialLeaderboardSolo: TRIAL_LEADERBOARD_ITEM_PLAYER
+    trialLeaderboardGroup: TRIAL_LEADERBOARD_ITEM_PLAYER
+}
+
+
+export type SEASON_DATA = {
+    seasonInfo: SEASON_INFO
+    seasonLeaderboard: SEASON_LEADERBOARD_ITEM_PLAYER[]
 }
