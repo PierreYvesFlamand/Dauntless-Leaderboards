@@ -9,7 +9,7 @@ import { startTrialsImport } from './importers/trials';
 (async () => {
     await db.init();
 
-    // await startTrialsImport('b85931c9d965453ebe5b6c0552e9a342');
+    // await startTrialsImport('762d94168bff4963a331440c4ec9abd4');
     await startGauntletsImport();
 
     const app = express();

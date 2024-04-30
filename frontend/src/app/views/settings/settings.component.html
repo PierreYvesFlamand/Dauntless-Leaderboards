@@ -1,0 +1,39 @@
+<h1 class="mt-1">Settings</h1>
+
+<div class="row">
+    <div class="col-12">
+        <h3>General</h3>
+        <form clrForm clrLayout="vertical">
+            <clr-toggle-container>
+                <label>Enable Light Mode</label>
+                <clr-toggle-wrapper>
+                    <input type="checkbox" clrToggle [ngModel]="sharedService.theme === 'light'" (ngModelChange)="sharedService.updateTheme($event ? 'light' : 'dark')" [ngModelOptions]="{standalone: true}" />
+                </clr-toggle-wrapper>
+                <clr-control-helper>Use at your own risk</clr-control-helper>
+            </clr-toggle-container>
+        
+            <clr-select-container>
+                <label>Language</label>
+                <select style="width: 220px;" clrSelect name="options" [ngModel]="sharedService.language" (ngModelChange)="sharedService.updateLanguage($event)" required [ngModelOptions]="{standalone: true}">
+                    <option value="us">🇺🇸 - English (English)</option>
+                    <option value="fr">🇫🇷 - Français (French)</option>
+                    <option value="de">🇩🇪 - Deutsch (German)</option>
+                    <option value="jp">🇯🇵 - 日本語 (Japanese)</option>
+                    <option value="es">🇪🇸 - Español (Spanish)</option>
+                    <option value="it">🇮🇹 - Italiano (Italian)</option>
+                    <option value="br">🇧🇷 - Português (Portuguese)</option>
+                    <option value="ru">🇷🇺 - русский (Russian)</option>
+                </select>
+                <clr-control-helper>Under development</clr-control-helper>
+            </clr-select-container>
+        </form>
+        
+        <h3>Trials</h3>
+        <form clrForm clrLayout="vertical">
+            <clr-input-container>
+                <label>Trial time decimals (1, 2 or 3)</label>
+                <input style="width: 220px;" clrInput  type="number" min="0" max="3" [ngModel]="sharedService.trialDecimals" (ngModelChange)="sharedService.updateTrialDecimals($event)" [ngModelOptions]="{standalone: true}"/>
+            </clr-input-container>
+        </form>
+    </div>
+</div>

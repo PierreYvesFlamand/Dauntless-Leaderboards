@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ClarityModule } from "@clr/angular";
+import { ClarityModule } from '@clr/angular';
 import '@cds/core/icon/register.js';
-import { ClarityIcons, cogIcon, userIcon, dashboardIcon, usersIcon } from '@cds/core/icon';
-ClarityIcons.addIcons(cogIcon, userIcon, dashboardIcon, usersIcon);
+import { ClarityIcons, cogIcon, userIcon, dashboardIcon, usersIcon, barChartIcon, listIcon } from '@cds/core/icon';
+ClarityIcons.addIcons(cogIcon, userIcon, dashboardIcon, usersIcon, barChartIcon, listIcon);
 
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -16,6 +16,9 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RouterLinkDirective } from './directives/router-link.directive';
 import { GuildsComponent } from './views/guilds/guilds.component';
 import { SeasonsComponent } from './views/seasons/seasons.component';
+import { FormsModule } from '@angular/forms';
+import { FlourishFrameComponent } from './components/flourish-frame/flourish-frame.component';
+import { SettingsComponent } from './views/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +29,16 @@ import { SeasonsComponent } from './views/seasons/seasons.component';
     DashboardComponent,
     RouterLinkDirective,
     GuildsComponent,
-    SeasonsComponent
+    SeasonsComponent,
+    FlourishFrameComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ClarityModule
+    ClarityModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

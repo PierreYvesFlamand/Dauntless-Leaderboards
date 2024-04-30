@@ -10,7 +10,7 @@
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
                         <div>Gauntlet Season {{dashboardData.seasonInfo.season}}</div>
                         <div class="d-flex align-items-center flex-column flex-md-row">
-                            <button class="btn btn-sm">View full</button>
+                            <button class="btn btn-primary btn-sm">View full</button>
                             <span class="label">End at {{dashboardData.seasonInfo.end_at | date:'YYYY/MM/dd hh:mm'}}</span>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="w-100 d-flex justify-content-end">
-                        <span class="label">Last updated {{dashboardData.seasonInfo.last_updated| date:'YYYY/MM/dd hh:mm'}}</span>
+                        <span class="label">Last updated {{dashboardData.seasonInfo.last_updated | date:'YYYY/MM/dd hh:mm'}}</span>
                     </div>
                 </div>
             </ng-container>

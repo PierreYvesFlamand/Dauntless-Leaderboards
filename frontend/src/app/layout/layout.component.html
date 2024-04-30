@@ -1,7 +1,7 @@
 <clr-main-container>
   <dl-header></dl-header>
   <div class="content-container">
-    <main class="content-area" style="display: grid; grid-template-columns: 1fr 1240px 1fr;">
+    <main class="content-area" style="display: grid; grid-template-columns: 1fr minmax(0px, 1240px) 1fr;">
       <div></div>
       <div><router-outlet></router-outlet></div>
       <div></div>
@@ -26,6 +26,21 @@
           <a clrVerticalNavLink routerLink="/guilds" routerLinkActive="active">
             <cds-icon shape="users" clrVerticalNavIcon solid="true"></cds-icon>
             Guilds
+          </a>
+        </clr-vertical-nav-group-children>
+      </clr-vertical-nav-group>
+
+      <clr-vertical-nav-group [clrVerticalNavGroupExpanded]="true">
+        <cds-icon shape="cog" clrVerticalNavIcon solid="true"></cds-icon>
+        Application
+        <clr-vertical-nav-group-children>
+          <!-- <a clrVerticalNavLink routerLink="/seasons" routerLinkActive="active">
+            <cds-icon shape="user" clrVerticalNavIcon solid="true"></cds-icon>
+            About
+          </a> -->
+          <a clrVerticalNavLink routerLink="/settings" routerLinkActive="active">
+            <cds-icon shape="users" clrVerticalNavIcon solid="true"></cds-icon>
+            Settings
           </a>
         </clr-vertical-nav-group-children>
       </clr-vertical-nav-group>

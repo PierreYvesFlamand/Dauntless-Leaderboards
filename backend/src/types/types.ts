@@ -196,5 +196,6 @@ export type DASHBOARD_DATA = {
 
 export type SEASON_DATA = {
     seasonInfo: SEASON_INFO
+    allSeasonsInfo: SEASON_INFO[]
     seasonLeaderboard: SEASON_LEADERBOARD_ITEM_PLAYER[]
 }

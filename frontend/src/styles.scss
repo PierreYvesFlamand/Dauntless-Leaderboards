@@ -27,7 +27,17 @@ body ::-webkit-scrollbar-thumb {
 
 // Table
 .datagrid-forced-height clr-datagrid {
-    max-height: 70vh;
+    min-height: 75vh;
+    max-height: 75vh;
+
+    .datagrid {
+        margin-top: 0;
+    }
+
+    .datagrid-spinner {
+        height: 100%;
+        top: 0;
+    }
 }
 
 .table-responsive {
