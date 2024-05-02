@@ -14,7 +14,7 @@ CREATE TABLE `platforms` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(3) N
 INSERT INTO `platforms` (`id`, `name`) VALUES (NULL, 'WIN'), (NULL, 'PSN'), (NULL, 'XBL'), (NULL, 'SWT');
 CREATE TABLE `player_names` (`player_id` INT NOT NULL , `platform_id` INT NOT NULL , `name` VARCHAR(100) NOT NULL ) ENGINE = InnoDB;
 ALTER TABLE `player_names` ADD UNIQUE(`player_id`, `platform_id`);
-CREATE TABLE `players_data` (`player_id` INT NOT NULL , `icon_filename` INT NOT NULL , PRIMARY KEY (`player_id`)) ENGINE = InnoDB;
+CREATE TABLE `players_data` (`player_id` INT NOT NULL , `icon_filename` VARCHAR(100) NOT NULL , PRIMARY KEY (`player_id`)) ENGINE = InnoDB;
 ALTER TABLE `players_data` ADD FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 CREATE TABLE `trial_weeks` (`week` INT NOT NULL , `start_at` DATETIME NOT NULL , `end_at` DATETIME NOT NULL , `behemoth_id` INT NOT NULL , PRIMARY KEY (`week`)) ENGINE = InnoDB;
 CREATE TABLE `behemoths` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;

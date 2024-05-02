@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SharedService } from './services/shared.service';
-import { LocalstorageService } from './services/localstorage.service';
 
 @Component({
   selector: 'dl-root',
@@ -17,9 +16,10 @@ export class AppComponent {
       'font-weight: bold; font-size: 1rem;color: #ceb73f;',
       "color: #ceb73f; font-size: 0.75rem; font-family: Tahoma, 'Trebuchet MS', Helvetica;",
     );
-    
-    this.sharedService.theme$.subscribe(value => {      
-      document.querySelector('body')?.setAttribute('cds-theme', value)
+
+    this.sharedService.theme$.subscribe(value => {
+      document.querySelector('body')?.classList.add(`${value === 'dark' ? 'dark' : 'light'}-mode`);
+      document.querySelector('body')?.classList.remove(`${value === 'dark' ? 'light' : 'dark'}-mode`);
     });
     this.sharedService.init();
   }

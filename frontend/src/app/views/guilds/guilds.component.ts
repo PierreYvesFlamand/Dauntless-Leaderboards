@@ -1,41 +1,73 @@
-import { Component } from '@angular/core';
-import { ClrDatagridSortOrder, ClrDatagridStateInterface } from '@clr/angular';
+import { AfterViewInit, Component } from '@angular/core';
+import { SharedService } from '../../services/shared.service';
+import { DatabaseService } from '../../services/database.service';
+import { GUILD_DATA, GUILD_LIST_DATA } from '../../../../../backend/src/types/types';
 
 @Component({
   selector: 'dl-guilds',
   templateUrl: './guilds.component.html',
   styleUrl: './guilds.component.scss'
 })
-export class GuildsComponent {
-  public guilds: any[] = [];
+export class GuildsComponent implements AfterViewInit {
+  constructor(
+    public sharedService: SharedService,
+    public databaseService: DatabaseService
+  ) { }
+
+  ngAfterViewInit(): void {
+    this.applyFilter();
+  }
+
+  public guilds: GUILD_DATA[] = [];
   public total: number = 0;
-  public loading: boolean = true;
-
-  refresh(state: ClrDatagridStateInterface) {
-    console.log(state);
-
-    const a = ClrDatagridSortOrder.DESC
-
-    this.loading = true;
-
-    const params: {
-      pageSize: number
-      page: number
-      sortBy: string | null
-      sortReverse: 1 | -1
-    } = {
-      pageSize: state.page?.size || 20,
-      page: state.page?.current || 1,
-      sortBy: String(state.sort?.by) || null,
-      sortReverse: state.sort?.reverse ? 1 : -1
+  public isLoading: boolean = true;
+  public filters: {
+    textSearch: string
+    orderByField: string | null
+    orderByDirection: 'ASC' | 'DESC'
+    page: number
+  } = {
+      textSearch: '',
+      orderByField: 'rating',
+      orderByDirection: 'DESC',
+      page: 1
     };
 
-    const paramsAsString = Object.keys(params).reduce<string[]>((p, k) => { return [...p, `${k}=${(<any>params)[k] || ''}`] }, []).join('&');
+  public async applyFilter() {
+    this.guilds = [];
+    this.isLoading = true;
+    const paramsAsString = Object.keys(this.filters).reduce<string[]>((p, k) => { return [...p, `${k}=${(<any>this.filters)[k] || ''}`] }, []).join('&');
+    const response = await this.databaseService.fetch<GUILD_LIST_DATA>(`guilds?${paramsAsString}`);
+    if (!response) return;
+    this.isLoading = false;
+    this.guilds = response.guilds;
+    this.total = response.total;
+  }
 
-    fetch(`http://localhost:7001/api/guilds?${paramsAsString}`, {}).then(res => res.json()).then((data: any) => {
-      this.guilds = data.guilds;
-      this.total = data.total;
-      this.loading = false;
-    });
+  public changeFilter(key: string) {
+    if (this.filters.orderByField !== key) {
+      this.filters.orderByField = key;
+      this.filters.orderByDirection = 'DESC';
+    } else {
+      if (this.filters.orderByDirection === 'DESC') {
+        this.filters.orderByDirection = 'ASC';
+      } else {
+        this.filters.orderByField = null;
+      }
+    }
+
+    this.applyFilter();
+  }
+
+  public getArrowIcon(key: string): string {
+    if (this.filters.orderByField !== key) return 'fa-arrows-up-down';
+    else if (this.filters.orderByDirection === 'ASC') return 'fa-arrow-up-long';
+    return 'fa-arrow-down-long';
+  }
+
+  public Number: (str: string) => number = str => Number(str);
+
+  public getNumberOfPages(): number {
+    return Math.ceil(this.total / 20);
   }
 }

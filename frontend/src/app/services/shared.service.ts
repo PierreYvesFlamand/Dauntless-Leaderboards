@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { LocalstorageService } from "./localstorage.service";
+import { environment } from "../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -16,6 +17,7 @@ export class SharedService {
         this.updatePlayerId(this.localstorageService.getByKey<number>('player-id'));
         this.updateGuildId(this.localstorageService.getByKey<number>('guild-id'));
         this.updateTrialDecimals(this.localstorageService.getByKey<number>('trial-decimals'));
+        this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('favorite-guilds'));
     }
 
     // Theme
@@ -68,4 +70,60 @@ export class SharedService {
         this.trialDecimalsSubject.next(value);
     }
     public get trialDecimals(): number { return this.trialDecimalsSubject.value; }
+
+    // Favorite Guilds
+    private favoriteGuildsSubject = new BehaviorSubject<number[]>([]);
+    favoriteGuilds$ = this.favoriteGuildsSubject.asObservable();
+    updateFavoriteGuilds(value: number[]) {
+        this.localstorageService.setByKey('favorite-guilds', value);
+        this.favoriteGuildsSubject.next(value);
+    }
+    addFavoriteGuilds(value: number) {
+        const newArray = [...this.favoriteGuilds, value];
+        this.localstorageService.setByKey('favorite-guilds', newArray);
+        this.favoriteGuildsSubject.next(newArray);
+    }
+    removeFavoriteGuilds(value: number) {
+        const newArray = this.favoriteGuilds.filter(v => v !== value);
+        this.localstorageService.setByKey('favorite-guilds', newArray);
+        this.favoriteGuildsSubject.next(newArray);
+    }
+    hasFavoriteGuild(value: number): boolean {
+        return this.favoriteGuilds.includes(value);
+    }
+    toggleFavoriteGuild(value: number) {
+        if (this.hasFavoriteGuild(value)) {
+            this.removeFavoriteGuilds(value);
+        } else {
+            this.addFavoriteGuilds(value);
+        }
+    }
+    public get favoriteGuilds(): number[] { return this.favoriteGuildsSubject.value; }
+
+    // UTILS
+    public getImgPath(iconFilename: string, subFolder: string = ''): string {
+        return `${environment.backendUrl}/assets/img/${subFolder}/${iconFilename}`;
+    }
+
+    public convertTrialTime(time?: number, decimals: true | number = 1): string {
+        if (!time) return '';
+
+        const m = Math.floor(Math.abs(time) / 60000);
+        const s = Math.floor((Math.abs(time) - m * 60000) / 1000);
+        const ms = Math.abs(time) % 1000;
+
+        if (decimals === true) {
+            if (time >= 60000) return `${m} min ${s}.${ms} sec`;
+            if (time > 0) return `${s}.${ms} sec`;
+            if (time === 0) return `0.000 sec`;
+            if (time < 0) return `-${s}.${ms} sec`;
+        } else {
+            if (time >= 60000) return `${m} min ${s} sec`;
+            if (time > 0) return `${s}.${Math.floor(ms / (10 ** (3 - decimals)))} sec`;
+            if (time === 0) return `0 sec`;
+            if (time < 0) return `-${s}.${Math.floor(ms / (10 ** (3 - decimals)))} sec`;
+        }
+
+        return '';
+    }
 }

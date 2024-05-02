@@ -1,70 +1,72 @@
 <ng-container>
     <h1 class="mt-1">Season {{seasonData?.seasonInfo?.season || ''}}</h1>
     <div class="row mt-3">
-        <div class="col-12 col-md-4 col-lg-3 order-md-2">
-            <div class="card mt-0">
-                <div class="card-block p-0">
-                    <div class="clr-select-wrapper w-100">
-                        <select id="select-basic" class="clr-select w-100" [ngModel]="selectedSeasonId" (ngModelChange)="onSeasonChange($event)">
-                            <ng-container *ngFor="let item of (seasonData?.allSeasonsInfo || []).reverse()">
-                                <option *ngIf="!showChart || item.flourish_id" [ngValue]="item.season">Season {{ item.season }}</option>
-                            </ng-container>
-                        </select>
-                    </div>
-                    <div *ngIf="!seasonData" class="my-2 card-text text-center">
-                        <clr-spinner></clr-spinner>
-                    </div>
-                    <div *ngIf="seasonData" class="my-2 card-text px-2">
-                        <clr-input-container>
-                            <label>Start at</label>
-                            <input readonly clrInput [ngModel]="seasonData.seasonInfo.start_at | date:'YYYY/MM/dd hh:mm'" />
-                        </clr-input-container>
-                        <clr-input-container>
-                              <label>End at</label>
-                              <input readonly clrInput [ngModel]="seasonData.seasonInfo.end_at | date:'YYYY/MM/dd hh:mm'" />
-                        </clr-input-container>
-                        <clr-input-container *ngIf="seasonData.seasonInfo.season === seasonData.allSeasonsInfo.length">
-                            <label>Lat updated</label>
-                            <input readonly clrInput [ngModel]="seasonData.seasonInfo.last_updated | date:'YYYY/MM/dd hh:mm'" />
-                        </clr-input-container>
-                        <button *ngIf="seasonData.seasonInfo.flourish_id" class="btn btn-primary btn-block btn-icon mt-3" (click)="toggleShowChart()">
-                            <ng-container *ngIf="!showChart"><cds-icon shape="bar-chart"></cds-icon>Bar Chart Race</ng-container>
-                            <ng-container *ngIf="showChart"><cds-icon shape="list"></cds-icon>Leaderboard</ng-container>
-                        </button>
-                    </div>
+        <div class="col-lg-3 order-lg-2">
+            <div class="forced-bg">
+                <select class="form-control" [ngModel]="selectedSeasonId" (ngModelChange)="onSeasonChange($event)">
+                    <option *ngFor="let item of (seasonData?.allSeasonsInfo || []).reverse()" [ngValue]="item.season">Season {{ item.season }}</option>
+                </select>
+
+                <div *ngIf="!seasonData" class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+                    <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+                </div>
+                <div class="p-3" *ngIf="seasonData">
+                    <h6 class="font-weight-bold">Start at</h6>
+                    <p>{{seasonData.seasonInfo.start_at | date:'YYYY/MM/dd HH:mm'}}</p>
+
+                    <h6 class="font-weight-bold">End at</h6>
+                    <p>{{seasonData.seasonInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</p>
+
+                    <ng-container *ngIf="seasonData.seasonInfo.season === seasonData.allSeasonsInfo.length">
+                        <h6 class="font-weight-bold">Last updated</h6>
+                        <p>{{seasonData.seasonInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</p>
+                    </ng-container>
+
+                    <button *ngIf="seasonData.seasonInfo.flourish_id" class="btn btn-primary btn-block btn-icon mt-3" (click)="toggleShowChart()">
+                        <ng-container *ngIf="!showChart"><i class="fa-solid fa-chart-bar mr-1"></i>Bar Chart Race</ng-container>
+                        <ng-container *ngIf="showChart"><i class="fa-solid fa-arrow-left mr-1"></i>Leaderboard</ng-container>
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-8 col-lg-9 mt-3 mt-md-0">
-            <div *ngIf="!showChart" class="datagrid-forced-height mt-0">
-                <clr-datagrid [clrDgLoading]="seasonData === undefined">
-                    <clr-dg-column style="width: 100px;">
-                        <div class="w-100 text-right">#</div>
-                    </clr-dg-column>
-                    <clr-dg-column>Guild</clr-dg-column>
-                    <clr-dg-column style="width: 100px;">
-                        <div class="w-100 text-center">Level</div>
-                    </clr-dg-column>
-                    <clr-dg-column style="width: 100px;">
-                        <div class="w-100 text-center">Time left</div>
-                    </clr-dg-column>
-
-                    <clr-dg-row *ngFor="let item of (seasonData?.seasonLeaderboard || [])" role="button"
-                        [routerLink]="'/guilds'">
-                        <clr-dg-cell class="text-right">{{item.rank}}.</clr-dg-cell>
-                        <clr-dg-cell>
-                            <div style="display: flex; align-items: center;">
-                                <img *ngIf="item.guild_icon_filename" cds-layout="m-r:xs"
-                                    style="width: var(--clr-table-data-cell-line-height); border-radius: 50%;"
-                                    src="http://localhost:7001/assets/img/guilds/{{item.guild_icon_filename}}" />
-                                <span>{{item.guild_name}} <span
-                                        style="font-size: 80%; font-weight: lighter;">[{{item.guild_tag}}]</span></span>
-                            </div>
-                        </clr-dg-cell>
-                        <clr-dg-cell class="text-center">{{item.level}}</clr-dg-cell>
-                        <clr-dg-cell class="text-center">{{item.remaining_sec * 1000 | date:'mm:ss'}}</clr-dg-cell>
-                    </clr-dg-row>
-                </clr-datagrid>
+        <div class="col-12 col-lg-9 mt-3 mt-lg-0">
+            <div *ngIf="!showChart" class="table-responsive forced-bg" style="max-height: 75vh;">
+                <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 14px">Rank</th>
+                            <th>Guild</th>
+                            <th style="width: 100px">
+                                <div class="text-center">Level</div>
+                            </th>
+                            <th style="width: 100px">
+                                <div class="text-center">Time left</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="!seasonData" style="user-select: none;">
+                            <td colspan="6">
+                                <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+                                    <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let leaderboardItem of seasonData?.seasonLeaderboard;" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId">
+                            <td class="text-center">{{leaderboardItem.rank}}.</td>
+                            <td>
+                                <img *ngIf="leaderboardItem.guild_icon_filename" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.guild_icon_filename, 'guilds')">
+                                {{leaderboardItem.guild_name}} <span class="font-weight-light h6">[{{leaderboardItem.guild_tag}}]</span>
+                            </td>
+                            <td>
+                                <div class="text-center">{{leaderboardItem.level}}</div>
+                            </td>
+                            <td class="text-center">
+                                <div class="text-center">{{leaderboardItem.remaining_sec * 1000 | date:'mm:ss'}}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <dl-flourish-frame *ngIf="showChart && seasonData?.seasonInfo?.flourish_id" [url]="getFlourishUrl(seasonData!.seasonInfo.flourish_id)"></dl-flourish-frame>
         </div>

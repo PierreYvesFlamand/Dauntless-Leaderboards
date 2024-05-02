@@ -2,23 +2,21 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ClarityModule } from '@clr/angular';
-import '@cds/core/icon/register.js';
-import { ClarityIcons, cogIcon, userIcon, dashboardIcon, usersIcon, barChartIcon, listIcon } from '@cds/core/icon';
-ClarityIcons.addIcons(cogIcon, userIcon, dashboardIcon, usersIcon, barChartIcon, listIcon);
-
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { RouterLinkDirective } from './directives/router-link.directive';
-import { GuildsComponent } from './views/guilds/guilds.component';
-import { SeasonsComponent } from './views/seasons/seasons.component';
 import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { SeasonsComponent } from './views/seasons/seasons.component';
 import { FlourishFrameComponent } from './components/flourish-frame/flourish-frame.component';
+import { NotFoundComponent } from './views/404/404.component';
 import { SettingsComponent } from './views/settings/settings.component';
+import { AboutComponent } from './views/about/about.component';
+import { GuildsComponent } from './views/guilds/guilds.component';
+import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
 
 @NgModule({
   declarations: [
@@ -28,16 +26,19 @@ import { SettingsComponent } from './views/settings/settings.component';
     FooterComponent,
     DashboardComponent,
     RouterLinkDirective,
-    GuildsComponent,
+    SidebarComponent,
     SeasonsComponent,
     FlourishFrameComponent,
-    SettingsComponent
+    NotFoundComponent,
+    SettingsComponent,
+    AboutComponent,
+    GuildsComponent,
+    GuildDetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ClarityModule,
     FormsModule
   ],
   providers: [],

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SEASON_DATA } from '../../../../../backend/src/types/types';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'dl-seasons',
@@ -16,6 +17,7 @@ export class SeasonsComponent {
   constructor(
     private databaseService: DatabaseService,
     private router: Router,
+    public sharedService: SharedService,
     private activatedRoute: ActivatedRoute
   ) {
 
@@ -29,9 +31,7 @@ export class SeasonsComponent {
   }
 
   private async fetchData(seasonId: number, shouldReplaceUrl: boolean = true) {
-    console.log(seasonId, this.selectedSeasonId);
-      
-    if(seasonId !== this.selectedSeasonId){
+    if (seasonId !== this.selectedSeasonId) {
       this.seasonData = undefined;
       this.seasonData = await this.databaseService.fetch<SEASON_DATA>(`season/${seasonId}`);
     }
@@ -39,7 +39,8 @@ export class SeasonsComponent {
 
     const segments: (string | number)[] = ['seasons', this.seasonData.seasonInfo.season];
 
-    if (this.showChart) segments.push('chart');
+    if (this.showChart && this.seasonData.seasonInfo.flourish_id) segments.push('chart');
+    else this.showChart = false;
 
     this.router.navigate(segments, { replaceUrl: shouldReplaceUrl });
     this.selectedSeasonId = this.seasonData.seasonInfo.season;

@@ -1,55 +1,182 @@
-<h1 class="mt-1">Dashboard</h1>
-<div class="row">
-    <div class="col-12 col-xl-6">
+<h1>Dashboard</h1>
+
+<div class="row mt-4" *ngIf="dashboardData">
+    <!-- <div class="col-xl-6">
         <div class="card">
-            <div *ngIf="!dashboardData" class="my-2 card-text text-center">
-                <clr-spinner></clr-spinner>
+            <div class="card-header" role="button" [routerLink]="'/seasons/' + dashboardData.seasonInfo.season">
+                <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                    <h3 class="card-title">
+                        <img class="mr-2" style="width: 1.333rem;" src="assets/img/gauntlet_icon.png" />
+                        Gauntlet Season {{dashboardData.seasonInfo.season}}
+                    </h3>
+                    <div class="d-flex flex-column align-items-center d-md-block">
+                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0">View detail</button>
+                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.seasonInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
+                    </div>
+                </div>
             </div>
-            <ng-container *ngIf="dashboardData">
-                <div class="card-header" role="button" routerLink="/seasons/{{dashboardData.seasonInfo.season}}">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 14px">Rank</th>
+                                <th>Guild</th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Level</div>
+                                </th>
+                                <th style="width: 100px">
+                                    <div class="text-center">Time left</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leaderboardItem of dashboardData.seasonLeaderboard;" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button">
+                                <ng-container *ngIf="leaderboardItem.rank <= 5 || leaderboardItem.guild_id === sharedService.guildId">
+                                    <td class="text-center">{{leaderboardItem.rank}}.</td>
+                                    <td>
+                                        <img *ngIf="leaderboardItem.guild_icon_filename" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.guild_icon_filename, 'guilds')">
+                                        {{leaderboardItem.guild_name}} <span class="font-weight-light h6">[{{leaderboardItem.guild_tag}}]</span>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">{{leaderboardItem.level}}</div>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">{{leaderboardItem.remaining_sec * 1000 | date:'mm:ss'}}</div>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer d-flex">
+                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.seasonInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                    <h3 class="card-title flex-grow-1">
+                        <img class="mr-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(dashboardData.trialInfo.behemoth_name + '.png', 'behemoths')" [title]="dashboardData.trialInfo.behemoth_name" />
+                        Solo Trial
+                    </h3>
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                        <div>Gauntlet Season {{dashboardData.seasonInfo.season}}</div>
-                        <div class="d-flex align-items-center flex-column flex-md-row">
-                            <button class="btn btn-primary btn-sm">View full</button>
-                            <span class="label">End at {{dashboardData.seasonInfo.end_at | date:'YYYY/MM/dd hh:mm'}}</span>
-                        </div>
+                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.trialInfo.week">View all</button>
+                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.trialInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
-                <div class="card-block p-0">
-                    <div class="card-text">
-                        <div class="table-responsive">
-                            <table class="table table-compact m-0" style="border-radius: 0; border: none;">
-                                <thead>
-                                    <tr>
-                                        <th class="right">#</th>
-                                        <th class="left">Guild</th>
-                                        <th>Level</th>
-                                        <th>Time left</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of dashboardData.seasonLeaderboard" routerLink="/guilds/{{item.guild_id}}">
-                                        <td class="right">{{item.rank}}.</td>
-                                        <td class="left">
-                                            <div style="display: flex; align-items: center;">
-                                                <img *ngIf="item.guild_icon_filename" cds-layout="m-r:xs" style="width: var(--clr-table-data-cell-line-height); border-radius: 50%;" src="http://localhost:7001/assets/img/guilds/{{item.guild_icon_filename}}" />
-                                                <span>{{item.guild_name}} <span style="font-size: 80%; font-weight: lighter;">[{{item.guild_tag}}]</span></span>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 70vh;">
+                    <table class="table text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 14px;">Rank</th>
+                                <th style="width: 6rem;" class="text-center">Time</th>
+                                <th>Player</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leaderboardItem of dashboardData.trialLeaderboardSolo" [routerLink]="'/players/' + leaderboardItem.player_id" role="button">
+                                <td style="vertical-align: middle" class="text-center">
+                                    {{leaderboardItem.rank}}.
+                                </td>
+                                <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completion_time, true)">
+                                    {{sharedService.convertTrialTime(leaderboardItem.completion_time, sharedService.trialDecimals)}}
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.weapon_id + '.png', 'weapons')">
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.role_id" [src]="sharedService.getImgPath(leaderboardItem.role_id + '.png', 'omnicells')" />
+                                    <span class="mx-2">
+                                        <span *ngIf="leaderboardItem.player_icon_filename === 'diamond'">💎</span>
+                                        <img *ngIf="leaderboardItem.player_icon_filename && leaderboardItem.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.player_icon_filename, 'players')">
+                                        {{leaderboardItem.player_name}}
+                                    </span>
+                                    <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.platform_id" [src]="sharedService.getImgPath(leaderboardItem.platform_id + '.png', 'platforms')" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer d-flex">
+                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.trialInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
+            </div>
+        </div>
+    </div> -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                    <h3 class="card-title flex-grow-1">
+                        <img class="mr-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(dashboardData.trialInfo.behemoth_name + '.png', 'behemoths')" [title]="dashboardData.trialInfo.behemoth_name" />
+                        Group Trial
+                    </h3>
+                    <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.trialInfo.week">View all</button>
+                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.trialInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="max-height: 70vh;">
+                    <table class="table text-nowrap table-sm table-striped table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 14px;">Rank</th>
+                                <th style="width: 6rem;" class="text-center">Time</th>
+                                <th>Player</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let leaderboardItem of dashboardData.trialLeaderboardGroup">
+                                <td style="vertical-align: middle" class="text-center">
+                                    {{leaderboardItem.rank}}.
+                                </td>
+                                <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completion_time, true)">
+                                    {{sharedService.convertTrialTime(leaderboardItem.completion_time, sharedService.trialDecimals)}}
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <div class="d-none d-md-block">
+                                        <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                            <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
+                                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                                <span class="mx-2">
+                                                    <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
+                                                    <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
+                                                    {{player.player_name}}
+                                                </span>
+                                                <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
                                             </div>
-                                        </td>
-                                        <td>{{item.level}}</td>
-                                        <td>{{item.remaining_sec * 1000 | date:'mm:ss'}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-md-none">
+                                        <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                            <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
+                                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                                <span class="mx-2">
+                                                    <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
+                                                    <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
+                                                    {{player.player_name}}
+                                                </span>
+                                                <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="card-footer">
-                    <div class="w-100 d-flex justify-content-end">
-                        <span class="label">Last updated {{dashboardData.seasonInfo.last_updated | date:'YYYY/MM/dd hh:mm'}}</span>
-                    </div>
-                </div>
-            </ng-container>
+            </div>
+            <div class="card-footer d-flex">
+                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.trialInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
+            </div>
         </div>
     </div>
 </div>

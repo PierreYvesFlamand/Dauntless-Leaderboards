@@ -144,7 +144,7 @@ export interface SEASON_INFO extends RowDataPacket {
     flourish_id: string
 }
 
-export interface SEASON_LEADERBOARD_ITEM_PLAYER extends RowDataPacket {
+export interface SEASON_LEADERBOARD_ITEM_GUILD extends RowDataPacket {
     rank: number
     guild_id: number
     guild_icon_filename: string | null
@@ -156,6 +156,7 @@ export interface SEASON_LEADERBOARD_ITEM_PLAYER extends RowDataPacket {
 
 export interface TRIAL_INFO extends RowDataPacket {
     week: number
+    behemoth_name: string
     start_at: Date
     end_at: Date
     last_updated: Date
@@ -184,18 +185,87 @@ export interface BEHEMOTH extends RowDataPacket {
 
 export type TRIAL_LEADERBOARD_ITEM_TYPES = 'all' | 'group' | 'sword' | 'axe' | 'hammer' | 'chainblades' | 'pike' | 'repeaters' | 'strikers';
 
+
+export interface COUNT extends RowDataPacket {
+    total: number
+}
+
 // From endpoints
 export type DASHBOARD_DATA = {
     seasonInfo: SEASON_INFO
-    seasonLeaderboard: SEASON_LEADERBOARD_ITEM_PLAYER[]
+    seasonLeaderboard: SEASON_LEADERBOARD_ITEM_GUILD[]
     trialInfo: TRIAL_INFO
-    trialLeaderboardSolo: TRIAL_LEADERBOARD_ITEM_PLAYER
-    trialLeaderboardGroup: TRIAL_LEADERBOARD_ITEM_PLAYER
+    trialLeaderboardSolo: TRIAL_LEADERBOARD_ITEM_PLAYER[]
+    trialLeaderboardGroup: TRIAL_LEADERBOARD_ITEM_GROUP[]
 }
 
+export type TRIAL_LEADERBOARD_ITEM_GROUP = {
+    rank: number
+    completion_time: number
+    players: TRIAL_LEADERBOARD_ITEM_GROUP_PLAYER[]
+}
+
+export type TRIAL_LEADERBOARD_ITEM_GROUP_PLAYER = {
+    weapon_id: number
+    role_id: string
+    player_id: number
+    player_name: string
+    player_icon_filename: string | null
+    platform_id: number
+}
 
 export type SEASON_DATA = {
     seasonInfo: SEASON_INFO
     allSeasonsInfo: SEASON_INFO[]
-    seasonLeaderboard: SEASON_LEADERBOARD_ITEM_PLAYER[]
+    seasonLeaderboard: SEASON_LEADERBOARD_ITEM_GUILD[]
+}
+
+export type GUILD_LIST_DATA = {
+    guilds: GUILD_DATA[]
+    total: number
+}
+
+export type GUILD_DATA = {
+    icon_filename: string
+    id: number
+    name: string
+    nbrTop1: string
+    nbrTop5: string
+    nbrTop100: string
+    rating: string
+    tag: string
+    totalLevelCleared: string
+}
+
+export type GUILD_DETAIL = {
+    guildInfo: {
+        icon_filename: string
+        id: number
+        name: string
+        nbrTop1: string
+        nbrTop5: string
+        nbrTop100: string
+        rating: string
+        tag: string
+        totalLevelCleared: string
+        detail_html: string
+        discord_link: string
+    }
+    guildSeasonStats: {
+        season: number
+        rank: number
+    }[]
+}
+
+export type ME = {
+    guild?: {
+        id: number
+        tag: string
+        icon_filename: string
+    }
+    player?: {
+        id: number
+        name: string
+        icon_filename: string
+    }
 }

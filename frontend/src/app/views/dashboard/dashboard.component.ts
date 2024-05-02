@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { DASHBOARD_DATA } from '../../../../../backend/src/types/types';
 import { DatabaseService } from '../../services/database.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'dl-dashboard',
@@ -12,10 +13,11 @@ export class DashboardComponent implements OnDestroy {
   private dashboardDataInterval;
 
   constructor(
-    private databaseService: DatabaseService
+    private databaseService: DatabaseService,
+    public sharedService: SharedService
   ) {
     this.fetchData();
-    this.dashboardDataInterval = setInterval(this.fetchData.bind(this), 1000 * 30);
+    this.dashboardDataInterval = setInterval(this.fetchData.bind(this), 1000 * 60);
   }
 
   ngOnDestroy(): void {
@@ -23,6 +25,9 @@ export class DashboardComponent implements OnDestroy {
   }
 
   private async fetchData() {
-    this.dashboardData = await this.databaseService.fetch<DASHBOARD_DATA>('dashboard');
+    const newDashboardData = await this.databaseService.fetch<DASHBOARD_DATA>('dashboard');
+    if (newDashboardData) {
+      this.dashboardData = newDashboardData;
+    }
   }
 }
