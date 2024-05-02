@@ -1,16 +1,16 @@
 <h1>Dashboard</h1>
 
 <div class="row mt-4" *ngIf="dashboardData">
-    <!-- <div class="col-xl-6">
+    <div class="col-xl-6">
         <div class="card">
-            <div class="card-header" role="button" [routerLink]="'/seasons/' + dashboardData.seasonInfo.season">
+            <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                    <h3 class="card-title">
+                    <h3 class="card-title d-flex align-items-center">
                         <img class="mr-2" style="width: 1.333rem;" src="assets/img/gauntlet_icon.png" />
                         Gauntlet Season {{dashboardData.seasonInfo.season}}
                     </h3>
                     <div class="d-flex flex-column align-items-center d-md-block">
-                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0">View detail</button>
+                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [routerLink]="'/seasons/' + dashboardData.seasonInfo.season">View detail</button>
                         <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.seasonInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let leaderboardItem of dashboardData.trialLeaderboardSolo" [routerLink]="'/players/' + leaderboardItem.player_id" role="button">
+                            <tr *ngFor="let leaderboardItem of dashboardData.trialLeaderboardSolo" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
                                 <td style="vertical-align: middle" class="text-center">
                                     {{leaderboardItem.rank}}.
                                 </td>
@@ -88,14 +88,14 @@
                                     {{sharedService.convertTrialTime(leaderboardItem.completion_time, sharedService.trialDecimals)}}
                                 </td>
                                 <td style="vertical-align: middle;">
-                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.weapon_id + '.png', 'weapons')">
-                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.role_id" [src]="sharedService.getImgPath(leaderboardItem.role_id + '.png', 'omnicells')" />
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weapon_id + '.png', 'weapons')">
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].role_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].role_id + '.png', 'omnicells')" />
                                     <span class="mx-2">
-                                        <span *ngIf="leaderboardItem.player_icon_filename === 'diamond'">💎</span>
-                                        <img *ngIf="leaderboardItem.player_icon_filename && leaderboardItem.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.player_icon_filename, 'players')">
-                                        {{leaderboardItem.player_name}}
+                                        <span *ngIf="leaderboardItem.players[0].player_icon_filename === 'diamond'">💎</span>
+                                        <img *ngIf="leaderboardItem.players[0].player_icon_filename && leaderboardItem.players[0].player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.players[0].player_icon_filename, 'players')">
+                                        {{leaderboardItem.players[0].player_name}}
                                     </span>
-                                    <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.platform_id" [src]="sharedService.getImgPath(leaderboardItem.platform_id + '.png', 'platforms')" />
+                                    <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
                                 </td>
                             </tr>
                         </tbody>
@@ -106,7 +106,7 @@
                 <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.trialInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive" style="max-height: 70vh;">
+                <div class="table-responsive">
                     <table class="table text-nowrap table-sm table-striped table-hover mb-0">
                         <thead>
                             <tr>

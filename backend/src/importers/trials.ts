@@ -34,7 +34,7 @@ async function importTrials(week: number = getCurrentWeek()) {
         const behemothName = getBehemothNameFromWeek(week);
         let [behemoth] = await db.select<BEHEMOTH[]>(`SELECT * FROM behemoths WHERE name = ?`, [behemothName]);
         if (!behemoth.length) {
-            await db.select(`
+            await db.insert(`
                 INSERT INTO behemoths (name)
                 VALUES (?)
             `, [
@@ -45,7 +45,7 @@ async function importTrials(week: number = getCurrentWeek()) {
 
         let [trialWeek] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks WHERE week = ?`, [week]);
         if (!trialWeek.length) {
-            await db.select(`
+            await db.insert(`
                 INSERT INTO trial_weeks (week, start_at, end_at, behemoth_id)
                 VALUES (?, FROM_UNIXTIME(?), FROM_UNIXTIME(?), ?)
             `, [

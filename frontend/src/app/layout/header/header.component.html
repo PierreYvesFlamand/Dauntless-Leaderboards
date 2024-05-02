@@ -38,7 +38,7 @@
                     <i class="fa-solid fa-users mr-2"></i> My guild
                 </a>
 
-                <div class="dropdown-divider"></div>
+                <div *ngIf="(me && me.player) || (me && me.guild)" class="dropdown-divider"></div>
                 <a routerLink="/settings" class="dropdown-item">
                     <i class="fa-solid fa-gear mr-2"></i> Settings
                 </a>

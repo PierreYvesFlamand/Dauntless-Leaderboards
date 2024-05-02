@@ -195,23 +195,21 @@ export type DASHBOARD_DATA = {
     seasonInfo: SEASON_INFO
     seasonLeaderboard: SEASON_LEADERBOARD_ITEM_GUILD[]
     trialInfo: TRIAL_INFO
-    trialLeaderboardSolo: TRIAL_LEADERBOARD_ITEM_PLAYER[]
-    trialLeaderboardGroup: TRIAL_LEADERBOARD_ITEM_GROUP[]
+    trialLeaderboardSolo: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    trialLeaderboardGroup: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
 }
 
-export type TRIAL_LEADERBOARD_ITEM_GROUP = {
+export type TRIAL_LEADERBOARD_ITEM_PLAYER_DATA = {
     rank: number
     completion_time: number
-    players: TRIAL_LEADERBOARD_ITEM_GROUP_PLAYER[]
-}
-
-export type TRIAL_LEADERBOARD_ITEM_GROUP_PLAYER = {
-    weapon_id: number
-    role_id: string
-    player_id: number
-    player_name: string
-    player_icon_filename: string | null
-    platform_id: number
+    players: {
+        weapon_id: number
+        role_id: string
+        player_id: number
+        player_name: string
+        player_icon_filename: string | null
+        platform_id: number
+    }[]
 }
 
 export type SEASON_DATA = {
@@ -268,4 +266,59 @@ export type ME = {
         name: string
         icon_filename: string
     }
+}
+
+export type TRIAL_LIST_DATA = {
+    trials: TRIAL_DATA[]
+    total: number
+}
+
+export type TRIAL_DATA = {
+    week: number
+    behemoth_name: string
+    trial_start_time: Date
+    trial_end_time: Date
+    solo_weapon_id: number
+    solo_role_id: string
+    solo_completion_time: number
+    group_players: {
+        weapon_id: number
+        role_id: string
+    }[]
+    group_completion_time: number
+}
+
+export type BEHEMOTH_LIST = {
+    id: number
+    name: string
+}
+
+export type TRIAL_DETAIL = {
+    info: TRIAL_INFO
+    allLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    groupLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    hammerLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    axeLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    swordLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    chainbladesLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    repeatersLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    pikeLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+    strikersLeaderboard: TRIAL_LEADERBOARD_ITEM_PLAYER_DATA[]
+}
+
+export type PLAYER_LIST_DATA = {
+    players: PLAYER_DATA[]
+    total: number
+}
+
+export type PLAYER_DATA = {
+    icon_filename: string
+    id: number
+    player_names: { platform_id: number, name: string }[]
+    nbrSoloTop1: string
+    nbrSoloTop5: string
+    nbrSoloTop100: string
+    nbrGroupTop1: string
+    nbrGroupTop5: string
+    nbrGroupTop100: string
 }

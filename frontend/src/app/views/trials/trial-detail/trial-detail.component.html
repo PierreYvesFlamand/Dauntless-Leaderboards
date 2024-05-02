@@ -1,0 +1,261 @@
+<div class="row">
+    <div class="col" *ngIf="!trial">
+        <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+            <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+        </div>
+    </div>
+    <div class="col" *ngIf="trial && trial.info">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
+                    <h3 class="card-title">
+                        <img class="pr-2" style="width: 4rem; margin: -0.5rem;" [src]="sharedService.getImgPath(trial.info.behemoth_name + '.png', 'behemoths')" />
+                        {{trial.info.behemoth_name}}
+                    </h3>
+                    <span class="badge badge-secondary mt-2 mt-md-0">
+                        From {{trial.info.start_at | date:'YYYY MMMM d'}}
+                        to {{trial.info.end_at | date:'MMMM d'}}
+                    </span>
+                </div>
+            </div>
+            <div class="card-body">
+                <div *ngIf="trial.info.week <= 90" class="alert alert-secondary">
+                    <p class="mb-0">
+                        <i class="icon fas fa-info"></i>
+                        Weapon specific leaderboards wasn't implemented for this week and are extracted from solo leaderboard
+                    </p>
+                </div>
+                <ul class="nav nav-tabs">
+                    <li *ngIf="trial.allLeaderboard.length" class="nav-item" role="button" (click)="changeType('all')">
+                        <a [class.active]="currentType === 'all'" class="nav-link link-color h-100">Solo</a>
+                    </li>
+                    <li *ngIf="trial.groupLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('group')">
+                        <a [class.active]="currentType === 'group'" class="nav-link link-color h-100">Group</a>
+                    </li>
+                    <li *ngIf="trial.hammerLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('hammer')">
+                        <a [class.active]="currentType === 'hammer'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('1.png', 'weapons')">
+                        </a>
+                    </li>
+                    <li *ngIf="trial.axeLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('axe')">
+                        <a [class.active]="currentType === 'axe'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('2.png', 'weapons')">
+                        </a>
+                    </li>
+                    <li *ngIf="trial.swordLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('sword')">
+                        <a [class.active]="currentType === 'sword'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('3.png', 'weapons')">
+                        </a>
+                    </li>
+                    <li *ngIf="trial.chainbladesLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('chainblades')">
+                        <a [class.active]="currentType === 'chainblades'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('4.png', 'weapons')">
+                        </a>
+                    </li>
+                    <li *ngIf="trial.pikeLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('pike')">
+                        <a [class.active]="currentType === 'pike'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('5.png', 'weapons')">
+                        </a>
+                    </li>
+                    <li *ngIf="trial.repeatersLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('repeaters')">
+                        <a [class.active]="currentType === 'repeaters'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('6.png', 'weapons')">
+                        </a>
+                    </li>
+                    <li *ngIf="trial.strikersLeaderboard.length > 0" class="nav-item" role="button" (click)="changeType('strikers')">
+                        <a [class.active]="currentType === 'strikers'" class="nav-link link-color">
+                            <img style="width: 2rem" [src]="sharedService.getImgPath('7.png', 'weapons')">
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of currentLeaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completion_time, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completion_time, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <ng-container *ngIf="currentType !== 'group'">
+                                            <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weapon_id + '.png', 'weapons')">
+                                            <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].role_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].role_id + '.png', 'omnicells')" />
+                                            <span class="mx-2">
+                                                <span *ngIf="leaderboardItem.players[0].player_icon_filename === 'diamond'">💎</span>
+                                                <img *ngIf="leaderboardItem.players[0].player_icon_filename && leaderboardItem.players[0].player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.players[0].player_icon_filename, 'players')">
+                                                {{leaderboardItem.players[0].player_name}}
+                                            </span>
+                                            <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                        </ng-container>
+                                        <ng-container *ngIf="currentType === 'group'">
+                                            <div class="d-none d-md-block">
+                                                <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                                        <span class="mx-2">
+                                                            <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
+                                                            <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
+                                                            {{player.player_name}}
+                                                        </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-md-none">
+                                                <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                                        <span class="mx-2">
+                                                            <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
+                                                            <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
+                                                            {{player.player_name}}
+                                                        </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row" *ngIf="trial && !isCurrent">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="tab-content" id="trial-switchContent">
+                    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                        <div class="table-responsive" style="max-height: 70vh;">
+                            <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 2rem;" class="text-center">Rank</th>
+                                        <th style="width: 6rem;" class="text-center">Time</th>
+                                        <th>Player</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let player of trial.data.solo['all']; let index = index" [routerLink]="'/players/' + player.phxAccountId" role="button" [class.text-info]="player.phxAccountId === userPlayerId">
+                                        <td style="vertical-align: middle; width: 2rem;" class="text-center">
+                                            {{index + 1}}.
+                                        </td>
+                                        <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="trialsService.convertTrialTime(player.completionTime, true)">
+                                            {{trialsService.convertTrialTime(player.completionTime, trialDecimals)}}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)" />
+                                            <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)" />
+                                            <span class="mx-2">
+                                                <app-player-name [playerName]="player.playerName"></app-player-name>
+                                            </span>
+                                            <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="group" role="tabpanel" aria-labelledby="group-tab">
+                        <div class="table-responsive" style="max-height: 70vh;">
+                            <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 2rem;" class="text-center">Rank</th>
+                                        <th style="width: 6rem;" class="text-center">Time</th>
+                                        <th>Player</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let group of trial.data.group; let index = index">
+                                        <td [class.text-info]="souldHighlightGroupLine(group)" style="vertical-align: middle; width: 2rem;" class="text-center">
+                                            {{index + 1}}.
+                                        </td>
+                                        <td [class.text-info]="souldHighlightGroupLine(group)" style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="trialsService.convertTrialTime(group.completionTime, true)">
+                                            {{trialsService.convertTrialTime(group.completionTime, trialDecimals)}}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-none d-md-block">
+                                                <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div [class.text-info]="player.phxAccountId === userPlayerId" [routerLink]="'/players/' + player.phxAccountId" role="button" *ngFor="let player of group.entries">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)" />
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)" />
+                                                        <span class="mx-2">
+                                                            <app-player-name [playerName]="player.playerName"></app-player-name> </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-md-none">
+                                                <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div [class.text-info]="player.phxAccountId === userPlayerId" [routerLink]="'/players/' + player.phxAccountId" role="button" *ngFor="let player of group.entries">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(player.weapon)" />
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)" />
+                                                        <span class="mx-2">
+                                                            <app-player-name [playerName]="player.playerName"></app-player-name> </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <ng-container *ngFor="let type of ['hammer', 'axe', 'sword', 'chainblades', 'pike', 'repeaters', 'strikers']; let indexWeapon = index">
+                        <div class="tab-pane fade" [attr.id]="type" role="tabpanel" [attr.aria-labelledby]="type + '-tab'">
+                            <div class="table-responsive" style="max-height: 70vh;">
+                                <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 2rem;" class="text-center">Rank</th>
+                                            <th style="width: 6rem;" class="text-center">Time</th>
+                                            <th>Player</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let player of trial.data.solo[type]; let index = index" [routerLink]="'/players/' + player.phxAccountId" role="button" [class.text-info]="player.phxAccountId === userPlayerId">
+                                            <td style="vertical-align: middle; width: 2rem;" class="text-center">
+                                                {{index + 1}}.
+                                            </td>
+                                            <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="trialsService.convertTrialTime(player.completionTime, true)">
+                                                {{trialsService.convertTrialTime(player.completionTime, trialDecimals)}}
+                                            </td>
+                                            <td style="vertical-align: middle;">
+                                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="trialsService.getWeaponImgUrl(indexWeapon + 1)" />
+                                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getOmniImgUrl(player.playerRoleId)" />
+                                                <span class="mx-2">
+                                                    <app-player-name [playerName]="player.playerName"></app-player-name>
+                                                </span>
+                                                <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.playerRoleId" [src]="trialsService.getPlatformImgUrl(player.platform)" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

@@ -9,8 +9,13 @@ import { startTrialsImport } from './importers/trials';
 (async () => {
     await db.init();
 
-    // await startTrialsImport('762d94168bff4963a331440c4ec9abd4');
-    await startGauntletsImport();
+    // await startTrialsImport('938f568d84bb41c0b8982fef70abe4c7');
+    // await startGauntletsImport();
+
+    console.log(await db.insert(`INSERT INTO players (phx_id) VALUES (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?)`, ['aa', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb']));
+    
+
+    process.exit();
 
     const app = express();
     app.use(cors());
@@ -102,6 +107,84 @@ import { startTrialsImport } from './importers/trials';
             const me = await getMe(playerId, guildId);
 
             res.status(200).json(me);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.get('/api/trials', async (req, res) => {
+        try {
+            let page = Number(req.query['page']);
+            if (isNaN(page)) page = 1;
+            let behemothId: number | undefined | string = Number(req.query['behemothId']);
+            if (isNaN(behemothId) || behemothId <= 0) behemothId = undefined;
+
+            const trialList = await getTrials(page, behemothId);
+
+            res.status(200).json(trialList);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.get('/api/trials/:id', async (req, res) => {
+        try {
+            const trial_id = Number(req.params.id);
+            if (isNaN(trial_id)) throw new Error(`Trial id should be a number`);
+
+            const info = await getTrialInfo(trial_id);
+            const allLeaderboard = await getTrialLeaderboard(trial_id, 'all');
+            const groupLeaderboard = await getTrialLeaderboard(trial_id, 'group');
+            const hammerLeaderboard = await getTrialLeaderboard(trial_id, 'hammer');
+            const axeLeaderboard = await getTrialLeaderboard(trial_id, 'axe');
+            const swordLeaderboard = await getTrialLeaderboard(trial_id, 'sword');
+            const chainbladesLeaderboard = await getTrialLeaderboard(trial_id, 'chainblades');
+            const pikeLeaderboard = await getTrialLeaderboard(trial_id, 'pike');
+            const repeatersLeaderboard = await getTrialLeaderboard(trial_id, 'repeaters');
+            const strikersLeaderboard = await getTrialLeaderboard(trial_id, 'strikers');
+
+            res.status(200).json({ info, allLeaderboard, groupLeaderboard, hammerLeaderboard, axeLeaderboard, swordLeaderboard, chainbladesLeaderboard, pikeLeaderboard, repeatersLeaderboard, strikersLeaderboard });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.get('/api/behemoths', async (req, res) => {
+        try {
+            const behemoths = await getBehemoths();
+
+            res.status(200).json(behemoths);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.get('/api/players', async (req, res) => {
+        try {
+            let page = Number(req.query['page']);
+            if (isNaN(page)) page = 1;
+
+            let textSearch = String(req.query['textSearch']) || '';
+
+            let orderByField = String(req.query['orderByField']) || 'DESC';
+            const allowedOrderByFields = ['nbrSoloTop1', 'nbrSoloTop5', 'nbrSoloTop100', 'nbrGroupTop1', 'nbrGroupTop5', 'nbrGroupTop100'];
+            if (!allowedOrderByFields.includes(orderByField)) {
+                orderByField = allowedOrderByFields[0];
+            }
+
+            let orderByDirection = String(req.query['orderByDirection']) || '';
+            const allowedOrderByDirections = ['DESC', 'ASC'];
+            if (!allowedOrderByDirections.includes(orderByDirection)) {
+                orderByDirection = allowedOrderByDirections[0];
+            }
+
+            const guildList = await getPlayers(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
+
+            res.status(200).json(guildList);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
@@ -214,7 +297,17 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
     if (!selectedType.length) selectedType[0] = { ...selectedType[0], id: 0, type: '' };
 
     let [trialLeaderboard] = await db.select<any[]>(`
-        SELECT tlip.rank, tlip.completion_time, tlip.weapon_id, tlip.role_id, tlip.player_id, pn.name as player_name, pd.icon_filename as player_icon_filename, tlip.platform_id
+        SELECT
+            MAX(tlip.rank) AS \`rank\`,
+            MAX(tlip.completion_time) AS completion_time,
+            JSON_ARRAYAGG(JSON_OBJECT(
+                'weapon_id', tlip.weapon_id,
+                'role_id', tlip.role_id,
+                'player_id', tlip.player_id,
+                'player_name', pn.name,
+                'player_icon_filename', pd.icon_filename,
+                'platform_id', tlip.platform_id
+            )) AS players
         FROM trial_leaderboard_items tli
         LEFT JOIN trial_leaderboard_items_players tlip ON tlip.trial_leaderboard_item_id = tli.id
         LEFT JOIN trial_leaderboard_item_type tlit ON tlit.id = tlip.trial_leaderboard_item_type_id
@@ -229,6 +322,7 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
         LEFT JOIN player_names pn ON pn.player_id = p.id AND pn.platform_id = tlip.platform_id
         LEFT JOIN players_data pd ON pd.player_id = p.id
         WHERE tlip.rank >= 1 AND tlip.rank <= ? AND tli.trial_week = ? AND tlit.id = ? AND tli.last_updated = max_last_updated.max_last_updated
+        GROUP BY tlip.rank
         ORDER BY tlip.rank ASC
     `, [
         week,
@@ -236,30 +330,6 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
         week,
         selectedType[0].id
     ]);
-
-    if (type === 'group') {
-        const trialLeaderboardGroupFormated: any[] = [];
-        for (const row of trialLeaderboard) {
-            if (!trialLeaderboardGroupFormated.find(i => i.rank === row.rank)) {
-                trialLeaderboardGroupFormated.push({
-                    rank: row.rank,
-                    completion_time: row.completion_time,
-                    players: []
-                });
-            }
-            trialLeaderboardGroupFormated.find(i => i.rank === row.rank).players.push({
-                platform_id: row.platform_id,
-                player_icon_filename: row.player_icon_filename,
-                player_id: row.player_id,
-                player_name: row.player_name,
-                role_id: row.role_id,
-                weapon_id: row.weapon_id
-            })
-        }
-        console.log(trialLeaderboardGroupFormated);
-
-        trialLeaderboard = trialLeaderboardGroupFormated;
-    }
 
     return trialLeaderboard;
 }
@@ -372,5 +442,104 @@ async function getMe(playerId: number, guildId: number) {
     return {
         player: players[0],
         guild: guilds[0]
+    };
+}
+
+async function getTrials(page: number, behemothId?: number) {
+    // TODO: type
+    const params = [];
+    if (behemothId !== undefined) params.push(behemothId);
+    params.push((page - 1) * 20);
+
+    const [trials] = await db.select<any[]>(`
+        SELECT
+            tw.week,
+            b.name AS behemoth_name,
+            tw.start_at AS trial_start_time,
+            tw.end_at AS trial_end_time,
+            tlips.weapon_id AS solo_weapon_id,
+            tlips.role_id AS solo_role_id,
+            tlips.completion_time AS solo_completion_time,
+            JSON_ARRAYAGG(JSON_OBJECT('weapon_id', tlipg.weapon_id, 'role_id', tlipg.role_id)) AS group_players,
+            MAX(tlipg.completion_time) AS group_completion_time
+        FROM trial_weeks tw
+        LEFT JOIN (
+            SELECT MAX(last_updated) as max_last_updated, trial_week
+            FROM trial_leaderboard_items
+            GROUP BY trial_week
+        ) tli_max ON tli_max.trial_week = tw.week
+        LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = tli_max.max_last_updated
+        LEFT JOIN behemoths b ON tw.behemoth_id = b.id
+        LEFT JOIN trial_leaderboard_items_players tlips ON tlips.trial_leaderboard_item_id = tli.id AND tlips.trial_leaderboard_item_type_id = 1 AND tlips.rank = 1
+        LEFT JOIN trial_leaderboard_items_players tlipg ON tlipg.trial_leaderboard_item_id = tli.id AND tlipg.trial_leaderboard_item_type_id = 2 AND tlipg.rank = 1
+        WHERE b.id = ${behemothId === undefined ? 'b.id' : '?'}
+        GROUP BY tw.week, b.name, tw.start_at, tw.end_at, tlips.weapon_id, tlips.role_id, tlips.completion_time
+        ORDER BY tw.week DESC
+        LIMIT 20 OFFSET ?
+    `, params);
+
+    const [totals] = await db.select<COUNT[]>(`SELECT COUNT(*) as total FROM trial_weeks tw WHERE tw.behemoth_id = ${behemothId === undefined ? 'tw.behemoth_id' : '?'}`, [behemothId === undefined ? '' : behemothId]);
+
+    return {
+        trials,
+        total: totals[0].total
+    };
+}
+
+async function getBehemoths() {
+    // TODO: type
+    const [behemoths] = await db.select<any[]>(`SELECT * FROM behemoths b ORDER BY b.name`);
+    return behemoths;
+}
+
+async function getPlayers(page: number, textSearch: string, orderByField: string, orderByDirection: 'ASC' | 'DESC') {
+    // TODO: type
+    const [players] = await db.select<any[]>(`
+WITH MaxLastUpdated AS (
+    SELECT trial_week, MAX(last_updated) AS max_last_updated
+    FROM trial_leaderboard_items
+    GROUP BY trial_week
+)
+SELECT
+    p.id,
+    pd.icon_filename,
+    JSON_ARRAYAGG(JSON_OBJECT(
+        'platform_id', pn.platform_id,
+        'name', pn.name
+    )) AS player_names,
+    SUM(tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop1,
+    SUM(tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop5,
+    SUM(tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop100,
+    SUM(CASE WHEN tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop1,
+    SUM(CASE WHEN tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop5,
+    SUM(CASE WHEN tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop100
+FROM trial_weeks tw
+LEFT JOIN MaxLastUpdated mlu ON mlu.trial_week = tw.week
+LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = mlu.max_last_updated
+LEFT JOIN trial_leaderboard_items_players tlip ON tlip.trial_leaderboard_item_id = tli.id 
+LEFT JOIN players p ON p.id = tlip.player_id 
+LEFT JOIN players_data pd ON pd.player_id = tlip.player_id 
+LEFT JOIN player_names pn ON pn.player_id = p.id
+WHERE pn.name LIKE ?
+GROUP BY p.id, pd.icon_filename, pn.platform_id, pn.name
+ORDER BY ?? ${orderByDirection}
+LIMIT 20 OFFSET ?
+    `, [
+        `%${textSearch}%`,
+        orderByField,
+        (page - 1) * 20
+    ]);
+
+    const [totals] = await db.select<COUNT[]>(`
+        SELECT COUNT(DISTINCT p.id) as total
+        FROM players p
+        LEFT JOIN player_names pn ON pn.player_id = p.id
+        WHERE pn.name LIKE ?
+    `, [`%${textSearch}%`]
+);
+
+    return {
+        players,
+        total: totals[0].total
     };
 }

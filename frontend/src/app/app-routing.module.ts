@@ -8,6 +8,9 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { AboutComponent } from './views/about/about.component';
 import { GuildsComponent } from './views/guilds/guilds.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
+import { TrialsComponent } from './views/trials/trials.component';
+import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
+import { PlayersComponent } from './views/players/players.component';
 
 const routes: Routes = [
   {
@@ -21,10 +24,10 @@ const routes: Routes = [
       { path: 'guilds', component: GuildsComponent },
       { path: 'guilds/:id', component: GuildDetailComponent },
 
-      // { path: 'trials', component: TrialsComponent },
-      // { path: 'trials/:week', component: TrialDetailComponent },
+      { path: 'trials', component: TrialsComponent },
+      { path: 'trials/:id', component: TrialDetailComponent },
 
-      // { path: 'players', component: PlayersComponent },
+      { path: 'players', component: PlayersComponent },
       // { path: 'players/:id', component: PlayerDetailComponent },
 
       { path: 'about', component: AboutComponent },

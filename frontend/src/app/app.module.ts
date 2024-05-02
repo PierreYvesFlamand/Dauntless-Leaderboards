@@ -17,6 +17,9 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { AboutComponent } from './views/about/about.component';
 import { GuildsComponent } from './views/guilds/guilds.component';
 import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.component';
+import { TrialsComponent } from './views/trials/trials.component';
+import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
+import { PlayersComponent } from './views/players/players.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.c
     SettingsComponent,
     AboutComponent,
     GuildsComponent,
-    GuildDetailComponent
+    GuildDetailComponent,
+    TrialsComponent,
+    TrialDetailComponent,
+    PlayersComponent
   ],
   imports: [
     BrowserModule,
