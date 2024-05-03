@@ -3,13 +3,14 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { startGauntletsImport } from './importers/gauntlets';
-import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES } from './types/types';
+import { startTrialsImport } from './importers/trials';
+import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_GUILD_LIST_ITEM, DB_GUILD_ME, DB_PLAYER_ME, DB_SEASON_INFO, DB_SEASON_LEADERBOARD, DB_TRIAL_INFO, DB_TRIAL_LEADERBOARD, DB_TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES } from './types/types';
 
 (async () => {
     await db.init();
 
-    // await startTrialsImport('9f4d5e0d32844d1487b73037f9bbeb41');
-    await startGauntletsImport();
+    await startTrialsImport('1a520b31daf9438e831d348856eeecec');
+    // await startGauntletsImport();
 
     const app = express();
     app.use(cors());
@@ -17,15 +18,31 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
 
     app.use('/assets', express.static(path.resolve(__dirname, '../public')));
 
+    app.get('/api/me', async (req, res) => {
+        try {
+            let playerId = Number(req.query['playerId']);
+            if (isNaN(playerId)) playerId = -1;
+            let guildId = Number(req.query['guildId']);
+            if (isNaN(guildId)) guildId = -1;
+
+            const me = await getMe(playerId, guildId);
+
+            res.status(200).json(me);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
     app.get('/api/dashboard', async (_req, res) => {
         try {
-            const seasonInfo = await getSeasonInfo();
-            const seasonLeaderboard = await getSeasonLeaderboard(seasonInfo.season, 5);
-            const trialInfo = await getTrialInfo();
-            const trialLeaderboardSolo = await getTrialLeaderboard(trialInfo.week, 'all', 5);
-            const trialLeaderboardGroup = await getTrialLeaderboard(trialInfo.week, 'group', 5);
+            const current_season_info = await getSeasonInfo(1);
+            const current_season_leaderboard = await getSeasonLeaderboard(current_season_info.season, 5);
+            const current_trial_info = await getTrialInfo();
+            const current_trial_leaderboard_solo = await getTrialLeaderboard(current_trial_info.week, 'all', 5);
+            const current_trial_leaderboard_group = await getTrialLeaderboard(current_trial_info.week, 'group', 5);
 
-            res.status(200).json({ seasonInfo, seasonLeaderboard, trialInfo, trialLeaderboardSolo, trialLeaderboardGroup });
+            res.status(200).json({ current_season_info, current_season_leaderboard, current_trial_info, current_trial_leaderboard_solo, current_trial_leaderboard_group });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
@@ -37,11 +54,11 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
             const season_id = Number(req.params.id);
             if (isNaN(season_id)) throw new Error(`Season id should be a number`);
 
-            const seasonInfo = await getSeasonInfo(season_id === -1 ? 'current' : season_id);
-            const seasonLeaderboard = await getSeasonLeaderboard(seasonInfo.season);
-            const allSeasonsInfo = await getAllSeasonsInfo();
+            const season_info = await getSeasonInfo(season_id === -1 ? 'current' : season_id);
+            const season_leaderboard = await getSeasonLeaderboard(season_info.season);
+            const all_seasons_info = await getAllSeasonsInfo();
 
-            res.status(200).json({ seasonInfo, seasonLeaderboard, allSeasonsInfo });
+            res.status(200).json({ all_seasons_info, season_info, season_leaderboard });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
@@ -67,9 +84,9 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
                 orderByDirection = allowedOrderByDirections[0];
             }
 
-            const guildList = await getGuilds(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
+            const guild_list = await getGuilds(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
 
-            res.status(200).json(guildList);
+            res.status(200).json(guild_list);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
@@ -81,32 +98,16 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
             const guild_id = Number(req.params.id);
             if (isNaN(guild_id)) throw new Error(`Guild id should be a number`);
 
-            const guildInfo = await getGuild(guild_id);
-            const guildSeasonStats = await getGuildSeasonStats(guild_id);
+            const guild_info = await getGuild(guild_id);
+            const guild_gauntlet_stats = await getGuildGauntletStats(guild_id);
 
-            res.status(200).json({ guildInfo, guildSeasonStats });
+            res.status(200).json({ guild_info, guild_gauntlet_stats });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
         }
     });
-
-    app.get('/api/me', async (req, res) => {
-        try {
-            let playerId = Number(req.query['playerId']);
-            if (isNaN(playerId)) playerId = -1;
-            let guildId = Number(req.query['guildId']);
-            if (isNaN(guildId)) guildId = -1;
-
-            const me = await getMe(playerId, guildId);
-
-            res.status(200).json(me);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal Server Error', error });
-        }
-    });
-
+    
     app.get('/api/trials', async (req, res) => {
         try {
             let page = Number(req.query['page']);
@@ -114,14 +115,14 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
             let behemothId: number | undefined | string = Number(req.query['behemothId']);
             if (isNaN(behemothId) || behemothId <= 0) behemothId = undefined;
 
-            const trialList = await getTrials(page, behemothId);
+            const trial_list = await getTrials(page, behemothId);
 
-            res.status(200).json(trialList);
+            res.status(200).json(trial_list);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
         }
-    });
+    });    
 
     app.get('/api/trials/:id', async (req, res) => {
         try {
@@ -129,24 +130,24 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
             if (isNaN(trial_id)) throw new Error(`Trial id should be a number`);
 
             const info = await getTrialInfo(trial_id);
-            const allLeaderboard = await getTrialLeaderboard(trial_id, 'all');
-            const groupLeaderboard = await getTrialLeaderboard(trial_id, 'group');
-            const hammerLeaderboard = await getTrialLeaderboard(trial_id, 'hammer');
-            const axeLeaderboard = await getTrialLeaderboard(trial_id, 'axe');
-            const swordLeaderboard = await getTrialLeaderboard(trial_id, 'sword');
-            const chainbladesLeaderboard = await getTrialLeaderboard(trial_id, 'chainblades');
-            const pikeLeaderboard = await getTrialLeaderboard(trial_id, 'pike');
-            const repeatersLeaderboard = await getTrialLeaderboard(trial_id, 'repeaters');
-            const strikersLeaderboard = await getTrialLeaderboard(trial_id, 'strikers');
+            const all_leaderboard = await getTrialLeaderboard(trial_id, 'all');
+            const group_leaderboard = await getTrialLeaderboard(trial_id, 'group');
+            const hammer_leaderboard = await getTrialLeaderboard(trial_id, 'hammer');
+            const axe_leaderboard = await getTrialLeaderboard(trial_id, 'axe');
+            const sword_leaderboard = await getTrialLeaderboard(trial_id, 'sword');
+            const chainblades_leaderboard = await getTrialLeaderboard(trial_id, 'chainblades');
+            const pike_leaderboard = await getTrialLeaderboard(trial_id, 'pike');
+            const repeaters_leaderboard = await getTrialLeaderboard(trial_id, 'repeaters');
+            const strikers_leaderboard = await getTrialLeaderboard(trial_id, 'strikers');
 
-            res.status(200).json({ info, allLeaderboard, groupLeaderboard, hammerLeaderboard, axeLeaderboard, swordLeaderboard, chainbladesLeaderboard, pikeLeaderboard, repeatersLeaderboard, strikersLeaderboard });
+            res.status(200).json({ info, all_leaderboard, group_leaderboard, hammer_leaderboard, axe_leaderboard, sword_leaderboard, chainblades_leaderboard, pike_leaderboard, repeaters_leaderboard, strikers_leaderboard });
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
         }
     });
 
-    app.get('/api/behemoths', async (req, res) => {
+    app.get('/api/behemoths', async (_req, res) => {
         try {
             const behemoths = await getBehemoths();
 
@@ -157,43 +158,43 @@ import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LE
         }
     });
 
-    app.get('/api/players', async (req, res) => {
-        try {
-            let page = Number(req.query['page']);
-            if (isNaN(page)) page = 1;
+    // app.get('/api/players', async (req, res) => {
+    //     try {
+    //         let page = Number(req.query['page']);
+    //         if (isNaN(page)) page = 1;
 
-            let textSearch = String(req.query['textSearch']) || '';
+    //         let textSearch = String(req.query['textSearch']) || '';
 
-            let orderByField = String(req.query['orderByField']) || 'DESC';
-            const allowedOrderByFields = ['nbrSoloTop1', 'nbrSoloTop5', 'nbrSoloTop100', 'nbrGroupTop1', 'nbrGroupTop5', 'nbrGroupTop100'];
-            if (!allowedOrderByFields.includes(orderByField)) {
-                orderByField = allowedOrderByFields[0];
-            }
+    //         let orderByField = String(req.query['orderByField']) || 'DESC';
+    //         const allowedOrderByFields = ['nbrSoloTop1', 'nbrSoloTop5', 'nbrSoloTop100', 'nbrGroupTop1', 'nbrGroupTop5', 'nbrGroupTop100'];
+    //         if (!allowedOrderByFields.includes(orderByField)) {
+    //             orderByField = allowedOrderByFields[0];
+    //         }
 
-            let orderByDirection = String(req.query['orderByDirection']) || '';
-            const allowedOrderByDirections = ['DESC', 'ASC'];
-            if (!allowedOrderByDirections.includes(orderByDirection)) {
-                orderByDirection = allowedOrderByDirections[0];
-            }
+    //         let orderByDirection = String(req.query['orderByDirection']) || '';
+    //         const allowedOrderByDirections = ['DESC', 'ASC'];
+    //         if (!allowedOrderByDirections.includes(orderByDirection)) {
+    //             orderByDirection = allowedOrderByDirections[0];
+    //         }
 
-            const guildList = await getPlayers(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
+    //         const guildList = await getPlayers(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
 
-            res.status(200).json(guildList);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal Server Error', error });
-        }
-    });
+    //         res.status(200).json(guildList);
+    //     } catch (error) {
+    //         console.error(error);
+    //         res.status(500).json({ message: 'Internal Server Error', error });
+    //     }
+    // });
 
     app.listen(7001, () => console.log('Server listening on port 7001'));
 })();
 
 async function getAllSeasonsInfo() {
-    const [allSeasonsInfo] = await db.select<SEASON_INFO[]>(`
+    const [allSeasonsInfo] = await db.select<DB_SEASON_INFO[]>(`
         WITH MaxLastUpdated AS (
-            SELECT gauntlet_season, MAX(last_updated) AS max_last_updated
-            FROM gauntlet_leaderboard_items
-            GROUP BY gauntlet_season
+            SELECT gli.gauntlet_season, MAX(gli.last_updated) AS max_last_updated
+            FROM gauntlet_leaderboard_items gli
+            GROUP BY gli.gauntlet_season
         )
         SELECT gs.season, gs.start_at, gs.end_at, gli.last_updated, gs.flourish_id
         FROM gauntlet_seasons gs
@@ -206,16 +207,16 @@ async function getAllSeasonsInfo() {
 }
 
 async function getSeasonInfo(season: number | 'current' = 'current') {
-    const [seasonInfo] = await db.select<SEASON_INFO[]>(`
+    const [seasonInfo] = await db.select<DB_SEASON_INFO[]>(`
         WITH MaxSeason AS (
-            SELECT MAX(season) AS max_season
+            SELECT MAX(gs.season) AS max_season
             FROM gauntlet_seasons gs
-            WHERE season = ${season === 'current' ? 'gs.season' : '?'}
+            WHERE gs.season = ${season === 'current' ? 'gs.season' : '?'}
         ),
         MaxLastUpdated AS (
-            SELECT MAX(last_updated) AS max_last_updated
-            FROM gauntlet_leaderboard_items
-            WHERE gauntlet_season = (SELECT max_season FROM MaxSeason)
+            SELECT MAX(gli.last_updated) AS max_last_updated
+            FROM gauntlet_leaderboard_items gli
+            WHERE gli.gauntlet_season = (SELECT max_season FROM MaxSeason)
         )
         SELECT gs.season, gs.start_at, gs.end_at, gli.last_updated, gs.flourish_id
         FROM gauntlet_seasons gs
@@ -233,7 +234,7 @@ async function getSeasonInfo(season: number | 'current' = 'current') {
 }
 
 async function getSeasonLeaderboard(season: number, limit: number = 100) {
-    const [seasonLeaderboard] = await db.select<SEASON_LEADERBOARD_ITEM_GUILD[]>(`
+    const [seasonLeaderboard] = await db.select<DB_SEASON_LEADERBOARD[]>(`
         WITH MaxLastUpdated AS (
             SELECT MAX(last_updated) AS max_last_updated
             FROM gauntlet_leaderboard_items
@@ -245,7 +246,7 @@ async function getSeasonLeaderboard(season: number, limit: number = 100) {
         LEFT JOIN guilds g ON glig.guild_id = g.id
         LEFT JOIN guilds_data gd ON gd.guild_id = g.id
         CROSS JOIN MaxLastUpdated
-        WHERE gli.gauntlet_season = ? 
+        WHERE gli.gauntlet_season = ?
         AND gli.last_updated = MaxLastUpdated.max_last_updated
         ORDER BY glig.rank ASC
         LIMIT ?
@@ -260,7 +261,7 @@ async function getSeasonLeaderboard(season: number, limit: number = 100) {
 }
 
 async function getTrialInfo(week: number | 'current' = 'current') {
-    const [trialInfo] = await db.select<TRIAL_INFO[]>(`
+    const [trialInfo] = await db.select<DB_TRIAL_INFO[]>(`
         WITH MaxTrialWeek AS (
             SELECT MAX(week) AS max_week
             FROM trial_weeks tw
@@ -286,11 +287,10 @@ async function getTrialInfo(week: number | 'current' = 'current') {
 }
 
 async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TYPES, limit: number = 100) {
-    // TODO : type
-    const [selectedType] = await db.select<TRIAL_LEADERBOARD_ITEM_TYPE[]>(`SELECT id FROM trial_leaderboard_item_type WHERE type LIKE ?`, [type]);
+    const [selectedType] = await db.select<DB_TRIAL_LEADERBOARD_ITEM_TYPE[]>(`SELECT * FROM trial_leaderboard_item_type WHERE type LIKE ?`, [type]);
     if (!selectedType.length) selectedType[0] = { ...selectedType[0], id: 0, type: '' };
 
-    let [trialLeaderboard] = await db.select<any[]>(`
+    let [trialLeaderboard] = await db.select<DB_TRIAL_LEADERBOARD[]>(`
         SELECT
             tlig.rank,
             tlig.completion_time,
@@ -326,15 +326,14 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
     return trialLeaderboard;
 }
 
-async function getGuilds(page: number, textSearch: string, orderByField: string, orderByDirection: 'ASC' | 'DESC') {
-    // TODO: type
-    const [guilds] = await db.select<any[]>(`
-        SELECT g.id, gd.icon_filename, g.name, g.tag, 
-            (100 / 646) * SUM((100 - glig.rank) * (gs.season / 12)) as rating, 
-            SUM(glig.rank = 1) as nbrTop1, 
-            SUM(glig.rank <= 5) as nbrTop5, 
-            SUM(glig.rank <= 20) as nbrTop20, 
-            SUM(glig.rank <= 100) as nbrTop100, 
+async function getGuilds(page: number = 1, textSearch: string = '', orderByField: string = 'g.id', orderByDirection: 'ASC' | 'DESC' = 'ASC') {
+    const [guilds] = await db.select<DB_GUILD_LIST_ITEM[]>(`
+        SELECT g.id, gd.icon_filename, g.name, g.tag,
+            (100 / 646) * SUM((100 - glig.rank) * (gs.season / 12)) as rating,
+            SUM(glig.rank = 1) as nbrTop1,
+            SUM(glig.rank <= 5) as nbrTop5,
+            SUM(glig.rank <= 20) as nbrTop20,
+            SUM(glig.rank <= 100) as nbrTop100,
             SUM(glig.level) as totalLevelCleared
         FROM gauntlet_seasons gs
         LEFT JOIN (
@@ -343,10 +342,10 @@ async function getGuilds(page: number, textSearch: string, orderByField: string,
             GROUP BY gauntlet_season
         ) gli_max ON gli_max.gauntlet_season = gs.season
         LEFT JOIN gauntlet_leaderboard_items gli ON gli.gauntlet_season = gs.season AND gli.last_updated = gli_max.max_last_updated
-        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id 
-        LEFT JOIN guilds g ON g.id = glig.guild_id 
-        LEFT JOIN guilds_data gd ON gd.guild_id = glig.guild_id 
-        WHERE (g.name LIKE ? OR g.tag LIKE ?) 
+        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id
+        LEFT JOIN guilds g ON g.id = glig.guild_id
+        LEFT JOIN guilds_data gd ON gd.guild_id = glig.guild_id
+        WHERE (g.name LIKE ? OR g.tag LIKE ?)
         GROUP BY g.id
         ORDER BY ?? ${orderByDirection}
         LIMIT 20 OFFSET ?
@@ -357,35 +356,34 @@ async function getGuilds(page: number, textSearch: string, orderByField: string,
         (page - 1) * 20
     ]);
 
-    const [totals] = await db.select<COUNT[]>(`SELECT COUNT(*) as total FROM guilds g WHERE (g.name LIKE ? OR g.tag LIKE ?)`, [`%${textSearch}%`, `%${textSearch}%`]);
+    const [totals] = await db.select<DB_COUNT[]>(`SELECT COUNT(*) as total FROM guilds g WHERE (g.name LIKE ? OR g.tag LIKE ?)`, [`%${textSearch}%`, `%${textSearch}%`]);
 
     return {
-        guilds,
+        data: guilds,
         total: totals[0].total
     };
 }
 
 async function getGuild(id: number) {
-    // TODO : type
-    const [guilds] = await db.select<any[]>(`
+    const [guilds] = await db.select<DB_GUILD_INFO[]>(`
         WITH MaxLastUpdated AS (
             SELECT gauntlet_season, MAX(last_updated) AS max_last_updated
             FROM gauntlet_leaderboard_items
             GROUP BY gauntlet_season
         )
-        SELECT g.id, gd.icon_filename, gd.discord_link, gd.detail_html, g.name, g.tag, 
-            (100 / 646) * SUM((100 - glig.rank) * (gs.season / 12)) AS rating, 
-            SUM(glig.rank = 1) AS nbrTop1, 
-            SUM(glig.rank <= 5) AS nbrTop5, 
-            SUM(glig.rank <= 20) AS nbrTop20, 
-            SUM(glig.rank <= 100) AS nbrTop100, 
+        SELECT g.id, gd.icon_filename, gd.discord_link, gd.detail_html, g.name, g.tag,
+            (100 / 646) * SUM((100 - glig.rank) * (gs.season / 12)) AS rating,
+            SUM(glig.rank = 1) AS nbrTop1,
+            SUM(glig.rank <= 5) AS nbrTop5,
+            SUM(glig.rank <= 20) AS nbrTop20,
+            SUM(glig.rank <= 100) AS nbrTop100,
             SUM(glig.level) AS totalLevelCleared
         FROM gauntlet_seasons gs
         LEFT JOIN MaxLastUpdated mlu ON mlu.gauntlet_season = gs.season
         LEFT JOIN gauntlet_leaderboard_items gli ON gli.gauntlet_season = gs.season AND gli.last_updated = mlu.max_last_updated
-        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id 
-        LEFT JOIN guilds g ON g.id = glig.guild_id 
-        LEFT JOIN guilds_data gd ON gd.guild_id = glig.guild_id 
+        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id
+        LEFT JOIN guilds g ON g.id = glig.guild_id
+        LEFT JOIN guilds_data gd ON gd.guild_id = glig.guild_id
         WHERE g.id = ?
         GROUP BY g.id
     `, [id]);
@@ -393,9 +391,8 @@ async function getGuild(id: number) {
     return guilds[0];
 }
 
-async function getGuildSeasonStats(id: number) {
-    // TODO : type
-    const [seasonRanks] = await db.select<any[]>(`
+async function getGuildGauntletStats(id: number) {
+    const [seasonRanks] = await db.select<DB_GUILD_GAUNTLET_STAT_ITEM[]>(`
         WITH MaxLastUpdated AS (
             SELECT gauntlet_season, MAX(last_updated) AS max_last_updated
             FROM gauntlet_leaderboard_items
@@ -405,8 +402,8 @@ async function getGuildSeasonStats(id: number) {
         FROM gauntlet_seasons gs
         LEFT JOIN MaxLastUpdated mlu ON mlu.gauntlet_season = gs.season
         LEFT JOIN gauntlet_leaderboard_items gli ON gli.gauntlet_season = gs.season AND gli.last_updated = mlu.max_last_updated
-        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id 
-        LEFT JOIN guilds g ON g.id = glig.guild_id 
+        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id
+        LEFT JOIN guilds g ON g.id = glig.guild_id
         WHERE g.id = ?;
     `, [id]);
 
@@ -414,8 +411,7 @@ async function getGuildSeasonStats(id: number) {
 }
 
 async function getMe(playerId: number, guildId: number) {
-    // TODO : type
-    const [players] = await db.select<any[]>(`
+    const [players] = await db.select<DB_PLAYER_ME[]>(`
         SELECT p.id, pn.name, pd.icon_filename
         FROM players p
         LEFT JOIN player_names pn ON pn.player_id = p.id
@@ -424,7 +420,7 @@ async function getMe(playerId: number, guildId: number) {
         LIMIT 1
     `, [playerId]);
 
-    const [guilds] = await db.select<any[]>(`
+    const [guilds] = await db.select<DB_GUILD_ME[]>(`
         SELECT g.id, g.tag, gd.icon_filename
         FROM guilds g
         LEFT JOIN guilds_data gd ON gd.guild_id = g.id
@@ -437,8 +433,7 @@ async function getMe(playerId: number, guildId: number) {
     };
 }
 
-async function getTrials(page: number, behemothId?: number) {
-    // TODO: type
+async function getTrials(page: number = 1, behemothId?: number) {
     const params = [];
     if (behemothId !== undefined) params.push(behemothId);
     params.push((page - 1) * 20);
@@ -479,68 +474,67 @@ async function getTrials(page: number, behemothId?: number) {
         LIMIT 20 OFFSET ?
     `, params);
 
-    const [totals] = await db.select<COUNT[]>(`SELECT COUNT(*) as total FROM trial_weeks tw WHERE tw.behemoth_id = ${behemothId === undefined ? 'tw.behemoth_id' : '?'}`, [behemothId === undefined ? '' : behemothId]);
+    const [totals] = await db.select<DB_COUNT[]>(`SELECT COUNT(*) as total FROM trial_weeks tw WHERE tw.behemoth_id = ${behemothId === undefined ? 'tw.behemoth_id' : '?'}`, [behemothId === undefined ? '' : behemothId]);
 
     return {
-        trials,
+        data: trials,
         total: totals[0].total
     };
 }
 
 async function getBehemoths() {
-    // TODO: type
-    const [behemoths] = await db.select<any[]>(`SELECT * FROM behemoths b ORDER BY b.name`);
+    const [behemoths] = await db.select<DB_BEHEMOTH[]>(`SELECT * FROM behemoths b ORDER BY b.name`);
     return behemoths;
 }
 
-async function getPlayers(page: number, textSearch: string, orderByField: string, orderByDirection: 'ASC' | 'DESC') {
-    // TODO: type
-    const [players] = await db.select<any[]>(`
-WITH MaxLastUpdated AS (
-    SELECT trial_week, MAX(last_updated) AS max_last_updated
-    FROM trial_leaderboard_items
-    GROUP BY trial_week
-)
-SELECT
-    p.id,
-    pd.icon_filename,
-    JSON_ARRAYAGG(JSON_OBJECT(
-        'platform_id', pn.platform_id,
-        'name', pn.name
-    )) AS player_names,
-    SUM(tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop1,
-    SUM(tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop5,
-    SUM(tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop100,
-    SUM(CASE WHEN tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop1,
-    SUM(CASE WHEN tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop5,
-    SUM(CASE WHEN tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop100
-FROM trial_weeks tw
-LEFT JOIN MaxLastUpdated mlu ON mlu.trial_week = tw.week
-LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = mlu.max_last_updated
-LEFT JOIN trial_leaderboard_items_players tlip ON tlip.trial_leaderboard_item_id = tli.id 
-LEFT JOIN players p ON p.id = tlip.player_id 
-LEFT JOIN players_data pd ON pd.player_id = tlip.player_id 
-LEFT JOIN player_names pn ON pn.player_id = p.id
-WHERE pn.name LIKE ?
-GROUP BY p.id, pd.icon_filename, pn.platform_id, pn.name
-ORDER BY ?? ${orderByDirection}
-LIMIT 20 OFFSET ?
-    `, [
-        `%${textSearch}%`,
-        orderByField,
-        (page - 1) * 20
-    ]);
+// async function getPlayers(page: number, textSearch: string, orderByField: string, orderByDirection: 'ASC' | 'DESC') {
+//     // TODO: type
+//     const [players] = await db.select<any[]>(`
+// WITH MaxLastUpdated AS (
+//     SELECT trial_week, MAX(last_updated) AS max_last_updated
+//     FROM trial_leaderboard_items
+//     GROUP BY trial_week
+// )
+// SELECT
+//     p.id,
+//     pd.icon_filename,
+//     JSON_ARRAYAGG(JSON_OBJECT(
+//         'platform_id', pn.platform_id,
+//         'name', pn.name
+//     )) AS player_names,
+//     SUM(tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop1,
+//     SUM(tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop5,
+//     SUM(tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop100,
+//     SUM(CASE WHEN tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop1,
+//     SUM(CASE WHEN tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop5,
+//     SUM(CASE WHEN tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop100
+// FROM trial_weeks tw
+// LEFT JOIN MaxLastUpdated mlu ON mlu.trial_week = tw.week
+// LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = mlu.max_last_updated
+// LEFT JOIN trial_leaderboard_items_players tlip ON tlip.trial_leaderboard_item_id = tli.id
+// LEFT JOIN players p ON p.id = tlip.player_id
+// LEFT JOIN players_data pd ON pd.player_id = tlip.player_id
+// LEFT JOIN player_names pn ON pn.player_id = p.id
+// WHERE pn.name LIKE ?
+// GROUP BY p.id, pd.icon_filename, pn.platform_id, pn.name
+// ORDER BY ?? ${orderByDirection}
+// LIMIT 20 OFFSET ?
+//     `, [
+//         `%${textSearch}%`,
+//         orderByField,
+//         (page - 1) * 20
+//     ]);
 
-    const [totals] = await db.select<COUNT[]>(`
-        SELECT COUNT(DISTINCT p.id) as total
-        FROM players p
-        LEFT JOIN player_names pn ON pn.player_id = p.id
-        WHERE pn.name LIKE ?
-    `, [`%${textSearch}%`]
-    );
+//     const [totals] = await db.select<COUNT[]>(`
+//         SELECT COUNT(DISTINCT p.id) as total
+//         FROM players p
+//         LEFT JOIN player_names pn ON pn.player_id = p.id
+//         WHERE pn.name LIKE ?
+//     `, [`%${textSearch}%`]
+//     );
 
-    return {
-        players,
-        total: totals[0].total
-    };
-}
+//     return {
+//         players,
+//         total: totals[0].total
+//     };
+// }
