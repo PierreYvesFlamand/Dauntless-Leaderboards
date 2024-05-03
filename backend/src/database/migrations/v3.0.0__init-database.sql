@@ -27,8 +27,8 @@ CREATE TABLE `trial_leaderboard_items_groups` (`id` INT NOT NULL AUTO_INCREMENT 
 ALTER TABLE `trial_leaderboard_items_groups` ADD FOREIGN KEY (`trial_leaderboard_item_id`) REFERENCES `trial_leaderboard_items`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE `trial_leaderboard_items_groups` ADD FOREIGN KEY (`trial_leaderboard_item_type_id`) REFERENCES `trial_leaderboard_item_type`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 ALTER TABLE `trial_leaderboard_items_groups` ADD UNIQUE(`trial_leaderboard_item_id`, `trial_leaderboard_item_type_id`, `rank`);
-CREATE TABLE `trial_leaderboard_items_trial_groups_players` (`trial_leaderboard_items_trial_groups_id` int NOT NULL , `player_id` int NOT NULL , `platform_id` int NOT NULL , `weapon_id` int NOT NULL , `role_id` varchar(30) NOT NULL) ENGINE = InnoDB;
-ALTER TABLE `trial_leaderboard_items_trial_groups_players` ADD FOREIGN KEY (`trial_leaderboard_items_trial_groups_id`) REFERENCES `trial_leaderboard_items_groups`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE `trial_leaderboard_items_trial_groups_players` ADD FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE `trial_leaderboard_items_trial_groups_players` ADD FOREIGN KEY (`platform_id`) REFERENCES `platforms`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE `trial_leaderboard_items_trial_groups_players` ADD UNIQUE(`trial_leaderboard_items_trial_groups_id`, `player_id`);
+CREATE TABLE `trial_leaderboard_items_groups_players` (`trial_leaderboard_items_trial_groups_id` int NOT NULL , `player_id` int NOT NULL , `platform_id` int NOT NULL , `weapon_id` int NOT NULL , `role_id` varchar(30) NOT NULL) ENGINE = InnoDB;
+ALTER TABLE `trial_leaderboard_items_groups_players` ADD FOREIGN KEY (`trial_leaderboard_items_trial_groups_id`) REFERENCES `trial_leaderboard_items_groups`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `trial_leaderboard_items_groups_players` ADD FOREIGN KEY (`player_id`) REFERENCES `players`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `trial_leaderboard_items_groups_players` ADD FOREIGN KEY (`platform_id`) REFERENCES `platforms`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `trial_leaderboard_items_groups_players` ADD UNIQUE(`trial_leaderboard_items_trial_groups_id`, `player_id`);

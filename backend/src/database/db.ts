@@ -1,4 +1,4 @@
-import mysql, { QueryResult } from 'mysql2/promise';
+import mysql, { QueryResult, ResultSetHeader } from 'mysql2/promise';
 import { migrate } from './migrate';
 
 let db!: mysql.Connection;
@@ -26,7 +26,7 @@ export default {
 
     async insert(query: string, params: (string | number)[] = []) {
         try {
-            return this.db.query(query, params);
+            return this.db.query<ResultSetHeader>(query, params);
         } catch (error) {
             console.log(error);
             throw new Error();

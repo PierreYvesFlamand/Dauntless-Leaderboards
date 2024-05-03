@@ -9,12 +9,12 @@ export async function startTrialsImport(authorizationCode: string) {
     await initRefreshToken(authorizationCode);
     await refreshSessionToken();
 
-    // console.log('Checking if all older weeks are in the database');
-    // const [trial_weeks] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks`);
-    // for (let i = 1; i < getCurrentWeek(); i++) {
-    //     if (trial_weeks.find(tw => tw.week === i)) continue;
-    //     await importTrials(i);
-    // }
+    console.log('Checking if all older weeks are in the database');
+    const [trial_weeks] = await db.select<TRIAL_WEEK[]>(`SELECT * FROM trial_weeks`);
+    for (let i = 1; i < getCurrentWeek(); i++) {
+        if (trial_weeks.find(tw => tw.week === i)) continue;
+        await importTrials(i);
+    }
 
     console.log('Starting current week import');
     await importTrials();
@@ -73,9 +73,11 @@ async function importTrials(week: number = getCurrentWeek()) {
             getTimestampFromDate(lastUpdated)
         ]);
 
-        // SOLO
-        const values: (string | number)[] = [];
+        const groups: (string | number)[] = [];
+        const players: [number, number, number, number | string, string][] = [];
+        let playerId: number = 0;
 
+        // SOLO
         for (const trialLeaderboardsItemType of trialLeaderboardsItemTypes.filter(tlit => tlit.type !== 'group')) {
             for (const dauntlessTrialLeaderboardItem of (<DAUNTLESS_TRIAL_SOLO_DETAIL>(<any>dauntlessTrial.payload.world.solo)[trialLeaderboardsItemType.type]).entries) {
                 let [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = ?`, [dauntlessTrialLeaderboardItem.phx_account_id]);
@@ -113,12 +115,17 @@ async function importTrials(week: number = getCurrentWeek()) {
                     dauntlessTrialLeaderboardItem.weapon = ['hammer', 'axe', 'sword', 'chainblades', 'pike', 'repeaters', 'strikers'].findIndex(w => w === trialLeaderboardsItemType.type) + 1;
                 }
 
-                values.push(trialLeaderboardItem[0].id, type.id, player[0].id, platform.id, dauntlessTrialLeaderboardItem.objectives_completed, dauntlessTrialLeaderboardItem.completion_time, dauntlessTrialLeaderboardItem.weapon, dauntlessTrialLeaderboardItem.player_role_id, dauntlessTrialLeaderboardItem.rank);
+                players.push([playerId, player[0].id, platform.id, dauntlessTrialLeaderboardItem.weapon, dauntlessTrialLeaderboardItem.player_role_id]);
+                groups.push(trialLeaderboardItem[0].id, type.id, dauntlessTrialLeaderboardItem.objectives_completed, dauntlessTrialLeaderboardItem.completion_time, dauntlessTrialLeaderboardItem.rank);
+                playerId++;
             }
         }
 
         // GROUP
         for (const dauntlessTrialLeaderboardItem of dauntlessTrial.payload.world.group.entries) {
+            const type = trialLeaderboardsItemTypes.find(tlit => tlit.type === 'group');
+            if (!type) continue;
+
             for (const dauntlessTrialLeaderboardItemEntries of dauntlessTrialLeaderboardItem.entries) {
                 let [player] = await db.select<PLAYER[]>(`SELECT * FROM players WHERE phx_id = ?`, [dauntlessTrialLeaderboardItemEntries.phx_account_id]);
                 if (!player.length) {
@@ -147,18 +154,21 @@ async function importTrials(week: number = getCurrentWeek()) {
                         dauntlessTrialLeaderboardItemEntries.platform_name.replace(/'/g, "''")
                     ]);
                 }
-
-                const type = trialLeaderboardsItemTypes.find(tlit => tlit.type === 'group');
-                if (!type) continue;
-
-                values.push(trialLeaderboardItem[0].id, type.id, player[0].id, platform.id, dauntlessTrialLeaderboardItem.objectives_completed, dauntlessTrialLeaderboardItem.completion_time, dauntlessTrialLeaderboardItemEntries.weapon, dauntlessTrialLeaderboardItemEntries.player_role_id, dauntlessTrialLeaderboardItem.rank);
+                players.push([playerId, player[0].id, platform.id, dauntlessTrialLeaderboardItemEntries.weapon, dauntlessTrialLeaderboardItemEntries.player_role_id]);
             }
+            groups.push(trialLeaderboardItem[0].id, type.id, dauntlessTrialLeaderboardItem.objectives_completed, dauntlessTrialLeaderboardItem.completion_time, dauntlessTrialLeaderboardItem.rank);
+            playerId++;
         }
 
+        const [inserted] = await db.insert(`
+            INSERT INTO trial_leaderboard_items_groups (trial_leaderboard_item_id, trial_leaderboard_item_type_id, objectives_completed, completion_time, \`rank\`)
+            VALUES ${'(?,?,?,?,?)'.repeat(groups.length / 5).split(')(').join('),(')}
+        `, groups);
+
         await db.insert(`
-        INSERT INTO trial_leaderboard_items_players (trial_leaderboard_item_id, trial_leaderboard_item_type_id, player_id, platform_id, objectives_completed, completion_time, weapon_id, role_id, \`rank\`)
-            VALUES ${'(?,?,?,?,?,?,?,?,?)'.repeat(values.length / 9).split(')(').join('),(')}
-        `, values);
+            INSERT INTO trial_leaderboard_items_groups_players (trial_leaderboard_items_trial_groups_id, player_id, platform_id, weapon_id, role_id)
+            VALUES ${'(?,?,?,?,?)'.repeat((players.length / 5) * 5).split(')(').join('),(')}
+        `, players.reduce<(number | string)[]>((all, p) => [...all, p[0] + inserted.insertId, p[1], p[2], p[3], p[4]], []));
     } catch (error) {
         console.error(error);
     }

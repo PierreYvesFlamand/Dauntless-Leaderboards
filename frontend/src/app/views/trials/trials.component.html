@@ -53,8 +53,8 @@
                             </td>
                             <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.solo_completion_time, true)">
                                 {{sharedService.convertTrialTime(trial.solo_completion_time, sharedService.trialDecimals)}}
-                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.solo_weapon_id + '.png', 'weapons')" />
-                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="trial.solo_role_id" [src]="sharedService.getImgPath(trial.solo_role_id + '.png', 'omnicells')" />
+                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.solo_player[0].weapon_id + '.png', 'weapons')" />
+                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="trial.solo_player[0].role_id" [src]="sharedService.getImgPath(trial.solo_player[0].role_id + '.png', 'omnicells')" />
                             </td>
                             <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.group_completion_time, true)">
                                 {{sharedService.convertTrialTime(trial.group_completion_time, sharedService.trialDecimals)}}
@@ -65,10 +65,10 @@
                                 </ng-container>
                             </td>
                             <td style="vertical-align: middle; width: 10rem;">
-                                {{trial.trial_start_time| date:'YYYY MMMM d'}}
+                                {{trial.start_at| date:'YYYY MMMM d'}}
                             </td>
                             <td style="vertical-align: middle; width: 10rem;">
-                                {{trial.trial_end_time| date:'MMMM d'}}
+                                {{trial.end_at| date:'MMMM d'}}
                             </td>
                         </tr>
                     </tbody>

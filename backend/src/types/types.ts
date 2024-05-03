@@ -276,16 +276,18 @@ export type TRIAL_LIST_DATA = {
 export type TRIAL_DATA = {
     week: number
     behemoth_name: string
-    trial_start_time: Date
-    trial_end_time: Date
-    solo_weapon_id: number
-    solo_role_id: string
+    start_at: Date
+    end_at: Date
     solo_completion_time: number
-    group_players: {
+    solo_player: {
         weapon_id: number
         role_id: string
     }[]
     group_completion_time: number
+    group_players: {
+        weapon_id: number
+        role_id: string
+    }[]
 }
 
 export type BEHEMOTH_LIST = {

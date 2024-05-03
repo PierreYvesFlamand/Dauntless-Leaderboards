@@ -3,19 +3,13 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { startGauntletsImport } from './importers/gauntlets';
-import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LEADERBOARD_ITEM, TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES } from './types/types';
-import { startTrialsImport } from './importers/trials';
+import { COUNT, SEASON_INFO, SEASON_LEADERBOARD_ITEM_GUILD, TRIAL_INFO, TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES } from './types/types';
 
 (async () => {
     await db.init();
 
-    // await startTrialsImport('938f568d84bb41c0b8982fef70abe4c7');
-    // await startGauntletsImport();
-
-    console.log(await db.insert(`INSERT INTO players (phx_id) VALUES (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?)`, ['aa', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb', 'bb']));
-    
-
-    process.exit();
+    // await startTrialsImport('9f4d5e0d32844d1487b73037f9bbeb41');
+    await startGauntletsImport();
 
     const app = express();
     app.use(cors());
@@ -298,32 +292,30 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
 
     let [trialLeaderboard] = await db.select<any[]>(`
         SELECT
-            MAX(tlip.rank) AS \`rank\`,
-            MAX(tlip.completion_time) AS completion_time,
+            tlig.rank,
+            tlig.completion_time,
             JSON_ARRAYAGG(JSON_OBJECT(
-                'weapon_id', tlip.weapon_id,
-                'role_id', tlip.role_id,
-                'player_id', tlip.player_id,
-                'player_name', pn.name,
+                'player_id', tligp.player_id,
                 'player_icon_filename', pd.icon_filename,
-                'platform_id', tlip.platform_id
+                'player_name', pn.name,
+                'platform_id', tligp.platform_id,
+                'weapon_id', tligp.weapon_id,
+                'role_id', tligp.role_id
             )) AS players
         FROM trial_leaderboard_items tli
-        LEFT JOIN trial_leaderboard_items_players tlip ON tlip.trial_leaderboard_item_id = tli.id
-        LEFT JOIN trial_leaderboard_item_type tlit ON tlit.id = tlip.trial_leaderboard_item_type_id
         LEFT JOIN (
-            SELECT tl.player_id, tl.platform_id, MAX(tli.last_updated) as max_last_updated
+            SELECT MAX(tli.last_updated) as max_last_updated
             FROM trial_leaderboard_items tli
-            LEFT JOIN trial_leaderboard_items_players tl ON tl.trial_leaderboard_item_id = tli.id
+            LEFT JOIN trial_leaderboard_items_groups tl ON tl.trial_leaderboard_item_id = tli.id
             WHERE tli.trial_week = ?
-            GROUP BY tl.player_id, tl.platform_id
-        ) max_last_updated ON max_last_updated.player_id = tlip.player_id AND max_last_updated.platform_id = tlip.platform_id
-        LEFT JOIN players p ON p.id = tlip.player_id
-        LEFT JOIN player_names pn ON pn.player_id = p.id AND pn.platform_id = tlip.platform_id
-        LEFT JOIN players_data pd ON pd.player_id = p.id
-        WHERE tlip.rank >= 1 AND tlip.rank <= ? AND tli.trial_week = ? AND tlit.id = ? AND tli.last_updated = max_last_updated.max_last_updated
-        GROUP BY tlip.rank
-        ORDER BY tlip.rank ASC
+        ) max_last_updated ON tli.last_updated = max_last_updated.max_last_updated
+        LEFT JOIN trial_leaderboard_items_groups tlig ON tlig.trial_leaderboard_item_id = tli.id
+        LEFT JOIN trial_leaderboard_items_groups_players tligp ON tligp.trial_leaderboard_items_trial_groups_id = tlig.id
+        LEFT JOIN player_names pn ON pn.player_id = tligp.player_id AND pn.platform_id = tligp.platform_id
+        LEFT JOIN players_data pd ON pd.player_id = tligp.player_id
+        WHERE tlig.rank >= 1 AND tlig.rank <= ? AND tli.trial_week = ? AND tlig.trial_leaderboard_item_type_id = ?
+        GROUP BY tlig.rank, tlig.completion_time
+        ORDER BY tlig.rank ASC
     `, [
         week,
         limit,
@@ -455,14 +447,23 @@ async function getTrials(page: number, behemothId?: number) {
         SELECT
             tw.week,
             b.name AS behemoth_name,
-            tw.start_at AS trial_start_time,
-            tw.end_at AS trial_end_time,
-            tlips.weapon_id AS solo_weapon_id,
-            tlips.role_id AS solo_role_id,
-            tlips.completion_time AS solo_completion_time,
-            JSON_ARRAYAGG(JSON_OBJECT('weapon_id', tlipg.weapon_id, 'role_id', tlipg.role_id)) AS group_players,
-            MAX(tlipg.completion_time) AS group_completion_time
+            tw.start_at,
+            tw.end_at,
+            tlig_s.solo_player,
+            tlig_s.completion_time AS solo_completion_time,
+            JSON_ARRAYAGG(JSON_OBJECT('weapon_id', tligp_g.weapon_id, 'role_id', tligp_g.role_id)) AS group_players,
+            tlig_g.completion_time AS group_completion_time
         FROM trial_weeks tw
+        LEFT JOIN (
+            SELECT
+                tli.trial_week,
+                JSON_ARRAYAGG(JSON_OBJECT('weapon_id', tligp_s.weapon_id, 'role_id', tligp_s.role_id)) AS solo_player,
+                tlig_s.completion_time
+            FROM trial_leaderboard_items tli
+            LEFT JOIN trial_leaderboard_items_groups tlig_s ON tlig_s.trial_leaderboard_item_id = tli.id AND tlig_s.trial_leaderboard_item_type_id = 1 AND tlig_s.rank = 1
+            LEFT JOIN trial_leaderboard_items_groups_players tligp_s ON tligp_s.trial_leaderboard_items_trial_groups_id = tlig_s.id
+            GROUP BY tli.trial_week, tlig_s.completion_time
+        ) tlig_s ON tlig_s.trial_week = tw.week
         LEFT JOIN (
             SELECT MAX(last_updated) as max_last_updated, trial_week
             FROM trial_leaderboard_items
@@ -470,10 +471,10 @@ async function getTrials(page: number, behemothId?: number) {
         ) tli_max ON tli_max.trial_week = tw.week
         LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = tli_max.max_last_updated
         LEFT JOIN behemoths b ON tw.behemoth_id = b.id
-        LEFT JOIN trial_leaderboard_items_players tlips ON tlips.trial_leaderboard_item_id = tli.id AND tlips.trial_leaderboard_item_type_id = 1 AND tlips.rank = 1
-        LEFT JOIN trial_leaderboard_items_players tlipg ON tlipg.trial_leaderboard_item_id = tli.id AND tlipg.trial_leaderboard_item_type_id = 2 AND tlipg.rank = 1
+        LEFT JOIN trial_leaderboard_items_groups tlig_g ON tlig_g.trial_leaderboard_item_id = tli.id AND tlig_g.trial_leaderboard_item_type_id = 2 AND tlig_g.rank = 1
+        LEFT JOIN trial_leaderboard_items_groups_players tligp_g ON tligp_g.trial_leaderboard_items_trial_groups_id = tlig_g.id
         WHERE b.id = ${behemothId === undefined ? 'b.id' : '?'}
-        GROUP BY tw.week, b.name, tw.start_at, tw.end_at, tlips.weapon_id, tlips.role_id, tlips.completion_time
+        GROUP BY tw.week, b.name, tw.start_at, tw.end_at, tlig_s.completion_time, tlig_g.completion_time
         ORDER BY tw.week DESC
         LIMIT 20 OFFSET ?
     `, params);
@@ -536,7 +537,7 @@ LIMIT 20 OFFSET ?
         LEFT JOIN player_names pn ON pn.player_id = p.id
         WHERE pn.name LIKE ?
     `, [`%${textSearch}%`]
-);
+    );
 
     return {
         players,
