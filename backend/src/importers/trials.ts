@@ -12,7 +12,7 @@ export async function startTrialsImport(authorizationCode: string) {
     console.log('Checking if all older weeks are in the database');
     const [trial_weeks] = await db.select<DB_TRIAL_WEEK[]>(`SELECT * FROM trial_weeks`);
 
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < getCurrentWeek(); i++) {
         if (trial_weeks.find(tw => tw.week === i)) continue;
         await importTrials(i);
     }

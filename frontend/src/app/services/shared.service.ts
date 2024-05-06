@@ -100,6 +100,35 @@ export class SharedService {
     }
     public get favoriteGuilds(): number[] { return this.favoriteGuildsSubject.value; }
 
+    // Favorite Players
+    private favoritePlayersSubject = new BehaviorSubject<number[]>([]);
+    favoritePlayers$ = this.favoritePlayersSubject.asObservable();
+    updateFavoritePlayers(value: number[]) {
+        this.localstorageService.setByKey('favorite-players', value);
+        this.favoritePlayersSubject.next(value);
+    }
+    addFavoritePlayers(value: number) {
+        const newArray = [...this.favoritePlayers, value];
+        this.localstorageService.setByKey('favorite-players', newArray);
+        this.favoritePlayersSubject.next(newArray);
+    }
+    removeFavoritePlayers(value: number) {
+        const newArray = this.favoritePlayers.filter(v => v !== value);
+        this.localstorageService.setByKey('favorite-players', newArray);
+        this.favoritePlayersSubject.next(newArray);
+    }
+    hasFavoritePlayer(value: number): boolean {
+        return this.favoritePlayers.includes(value);
+    }
+    toggleFavoritePlayer(value: number) {
+        if (this.hasFavoritePlayer(value)) {
+            this.removeFavoritePlayers(value);
+        } else {
+            this.addFavoritePlayers(value);
+        }
+    }
+    public get favoritePlayers(): number[] { return this.favoritePlayersSubject.value; }
+
     // UTILS
     public getImgPath(iconFilename: string, subFolder: string = ''): string {
         return `${environment.backendUrl}/assets/img/${subFolder}/${iconFilename}`;

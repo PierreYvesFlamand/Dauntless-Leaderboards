@@ -1,6 +1,12 @@
 <ng-container *ngIf="playerData">
     <div class="d-flex justify-content-between align-items-center">
-        <h1>{{playerData.player_info.names[0].name}}</h1>
+        <h1>
+            <ng-container *ngFor="let name of playerData.player_info.names; let last = last">
+                {{name.name}}
+                <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="name.platform_id" [src]="sharedService.getImgPath(name.platform_id + '.png', 'platforms')" />
+                {{!last ? ' / ' : ''}}
+            </ng-container>
+        </h1>
         <div>
             <i class="px-1 fa-{{sharedService.hasFavoriteGuild(playerData.player_info.id) ? 'solid' : 'regular'}} fa-star text-warning" style="font-size: 1.2rem;" role="button" (click)="sharedService.toggleFavoriteGuild(playerData.player_info.id)"></i>
             <i class="px-1 fa-solid fa-{{playerData.player_info.id === sharedService.guildId ? 'lock' : 'lock-open'}} text-info" style="font-size: 1.2rem;" role="button" (click)="sharedService.updateGuildId(playerData.player_info.id === sharedService.guildId ? -1 : playerData.player_info.id)"></i>
@@ -11,55 +17,55 @@
         <div class="card-body">
             <ul class="nav nav-tabs" id="trial-switch" role="tablist">
                 <li *ngIf="getRowByTypeId(1).length > 0" class="nav-item" role="button">
-                    <a id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" class="nav-link link-color active h-100">
+                    <a id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" [class.active]="firstActive === 1" class="nav-link link-color h-100">
                         Solo
                         ({{getRowByTypeId(1).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(2).length > 0" class="nav-item" role="button">
-                    <a id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" class="nav-link link-color h-100">
+                    <a id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" [class.active]="firstActive === 2" class="nav-link link-color h-100">
                         Group
                         ({{getRowByTypeId(2).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(5).length > 0" class="nav-item" role="button">
-                    <a id="hammer-tab" data-toggle="pill" href="#hammer" role="tab" aria-controls="hammer" class="nav-link link-color">
+                    <a id="hammer-tab" data-toggle="pill" href="#hammer" role="tab" aria-controls="hammer" [class.active]="firstActive === 5" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('1.png', 'weapons')">
                         ({{getRowByTypeId(5).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(4).length > 0" class="nav-item" role="button">
-                    <a id="axe-tab" data-toggle="pill" href="#axe" role="tab" aria-controls="axe" class="nav-link link-color">
+                    <a id="axe-tab" data-toggle="pill" href="#axe" role="tab" aria-controls="axe" [class.active]="firstActive === 4" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('2.png', 'weapons')">
                         ({{getRowByTypeId(4).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(3).length > 0" class="nav-item" role="button">
-                    <a id="sword-tab" data-toggle="pill" href="#sword" role="tab" aria-controls="sword" class="nav-link link-color">
+                    <a id="sword-tab" data-toggle="pill" href="#sword" role="tab" aria-controls="sword" [class.active]="firstActive === 3" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('3.png', 'weapons')">
                         ({{getRowByTypeId(3).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(6).length > 0" class="nav-item" role="button">
-                    <a id="chainblades-tab" data-toggle="pill" href="#chainblades" role="tab" aria-controls="chainblades" class="nav-link link-color">
+                    <a id="chainblades-tab" data-toggle="pill" href="#chainblades" role="tab" aria-controls="chainblades" [class.active]="firstActive === 6" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('4.png', 'weapons')">
                         ({{getRowByTypeId(6).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(7).length > 0" class="nav-item" role="button">
-                    <a id="pike-tab" data-toggle="pill" href="#pike" role="tab" aria-controls="pike" class="nav-link link-color">
+                    <a id="pike-tab" data-toggle="pill" href="#pike" role="tab" aria-controls="pike" [class.active]="firstActive === 7" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('5.png', 'weapons')">
                         ({{getRowByTypeId(7).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(8).length > 0" class="nav-item" role="button">
-                    <a id="repeaters-tab" data-toggle="pill" href="#repeaters" role="tab" aria-controls="repeaters" class="nav-link link-color">
+                    <a id="repeaters-tab" data-toggle="pill" href="#repeaters" role="tab" aria-controls="repeaters" [class.active]="firstActive === 8" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('6.png', 'weapons')">
                         ({{getRowByTypeId(8).length}})
                     </a>
                 </li>
                 <li *ngIf="getRowByTypeId(9).length > 0" class="nav-item" role="button">
-                    <a id="strikers-tab" data-toggle="pill" href="#strikers" role="tab" aria-controls="strikers" class="nav-link link-color">
+                    <a id="strikers-tab" data-toggle="pill" href="#strikers" role="tab" aria-controls="strikers" [class.active]="firstActive === 9" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('7.png', 'weapons')">
                         ({{getRowByTypeId(9).length}})
                     </a>
@@ -67,7 +73,7 @@
             </ul>
 
             <div class="tab-content" id="trial-switchContent">
-                <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="all-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 1" id="all" role="tabpanel" aria-labelledby="all-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -100,7 +106,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="group" role="tabpanel" aria-labelledby="group-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 2" id="group" role="tabpanel" aria-labelledby="group-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -153,7 +159,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="hammer" role="tabpanel" aria-labelledby="hammer-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 5" id="hammer" role="tabpanel" aria-labelledby="hammer-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -186,7 +192,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="axe" role="tabpanel" aria-labelledby="axe-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 4" id="axe" role="tabpanel" aria-labelledby="axe-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -219,7 +225,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="sword" role="tabpanel" aria-labelledby="sword-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 3" id="sword" role="tabpanel" aria-labelledby="sword-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -252,7 +258,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="chainblades" role="tabpanel" aria-labelledby="chainblades-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 6" id="chainblades" role="tabpanel" aria-labelledby="chainblades-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -285,7 +291,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="pike" role="tabpanel" aria-labelledby="pike-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 7" id="pike" role="tabpanel" aria-labelledby="pike-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -318,7 +324,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="repeaters" role="tabpanel" aria-labelledby="repeaters-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 8" id="repeaters" role="tabpanel" aria-labelledby="repeaters-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
@@ -351,7 +357,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="tab-pane fade show" id="strikers" role="tabpanel" aria-labelledby="strikers-tab">
+                <div class="tab-pane fade show" [class.active]="firstActive === 9" id="strikers" role="tabpanel" aria-labelledby="strikers-tab">
                     <div class="table-responsive" style="max-height: 70vh;">
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>

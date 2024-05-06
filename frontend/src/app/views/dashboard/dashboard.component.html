@@ -31,8 +31,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let leaderboardItem of dashboardData.current_season_leaderboard;" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button">
-                                <ng-container *ngIf="leaderboardItem.rank <= 5 || leaderboardItem.guild_id === sharedService.guildId">
+                            <tr *ngFor="let leaderboardItem of dashboardData.current_season_leaderboard;" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId" [enhancedRouterLink]="'/guilds/' + leaderboardItem.guild_id" role="button">
+                                <ng-container *ngIf="leaderboardItem.rank <= 5">
                                     <td class="text-center">{{leaderboardItem.rank}}.</td>
                                     <td>
                                         <img *ngIf="leaderboardItem.guild_icon_filename" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.guild_icon_filename, 'guilds')">

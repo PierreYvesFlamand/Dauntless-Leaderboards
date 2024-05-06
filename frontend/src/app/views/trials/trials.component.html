@@ -2,7 +2,7 @@
 <div class="row mt-4">
     <div class="col-lg-3">
         <div class="input-group">
-            <select class="form-control" [(ngModel)]="filters.behemothId" (ngModelChange)="applyFilter();">
+            <select class="form-control" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page === 1; applyFilter();">
                 <option [ngValue]="0">All behemoths</option>
                 <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
                     {{behemoth.name}}

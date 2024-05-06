@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 const KEY_PREFIX = 'settings';
-export type LOCALSTORAGE_KEYS = 'theme' | 'language' | 'player-id' | 'guild-id' | 'trial-decimals' | 'favorite-guilds';
+export type LOCALSTORAGE_KEYS = 'theme' | 'language' | 'player-id' | 'guild-id' | 'trial-decimals' | 'favorite-guilds' | 'favorite-players';
 
 const defaultSettings = {
     'theme': 'dark',
@@ -9,7 +9,8 @@ const defaultSettings = {
     'player-id': -1,
     'guild-id': -1,
     'trial-decimals': 1,
-    'favorite-guilds': []
+    'favorite-guilds': [],
+    'favorite-players': []
 }
 
 @Injectable({

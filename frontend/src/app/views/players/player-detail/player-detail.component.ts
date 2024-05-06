@@ -11,6 +11,7 @@ import { API_PLAYER } from '../../../../../../backend/src/types/types';
 })
 export class PlayerDetailComponent {
   public playerData?: API_PLAYER;
+  public firstActive: number = 0;
 
   constructor(
     private databaseService: DatabaseService,
@@ -28,6 +29,11 @@ export class PlayerDetailComponent {
   public async fetchData(id: number) {
     this.playerData = await this.databaseService.fetch<API_PLAYER>(`players/${id}`);
     if (!this.playerData) this.router.navigate(['players']);
+
+    for (const id of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+      if (this.firstActive) continue;      
+      if (this.getRowByTypeId(id).length) this.firstActive = id;
+    }
   }
 
   public Number: (str: string) => number = str => Number(str);

@@ -7,7 +7,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { RouterLinkDirective } from './directives/router-link.directive';
+import { EnhancedRouterLinkDirective } from './directives/enhanced-router-link.directive';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { SeasonsComponent } from './views/seasons/seasons.component';
@@ -29,7 +29,7 @@ import { PlayerDetailComponent } from './views/players/player-detail/player-deta
     HeaderComponent,
     FooterComponent,
     DashboardComponent,
-    RouterLinkDirective,
+    EnhancedRouterLinkDirective,
     SidebarComponent,
     SeasonsComponent,
     FlourishFrameComponent,
