@@ -18,9 +18,10 @@ export default {
 
             await migrate();
         } catch (error) {
-            console.log('Waiting on database container');
-            await new Promise(resolve => setTimeout(resolve, 1000 * 2));
-            this.init();
+            console.log(error);
+            console.log('Retry database connection in 5 seconds');
+            await new Promise(resolve => setTimeout(resolve, 1000 * 5));
+            await this.init();
         }
     },
 
