@@ -1,6 +1,7 @@
+import config from '../../config';
+import path from 'path';
 // @ts-ignore
 import DbMigrate from 'simple-mysql-migrate';
-import config from '../../config';
 
 export async function migrate() {
     try {
@@ -11,8 +12,8 @@ export async function migrate() {
             password: config.DB_PASSWORD,
             database: config.DB_DATABASE,
         });
-
-        migration.setMigrationPath('./src/database/migrations');
+        
+        migration.setMigrationPath(path.resolve(__dirname, './src/database/migrations'));
         await migration.migrate();
     } catch (error) {
         console.error(error);
