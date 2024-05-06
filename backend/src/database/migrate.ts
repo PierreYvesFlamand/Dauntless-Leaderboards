@@ -13,7 +13,7 @@ export async function migrate() {
             database: config.DB_DATABASE,
         });
         
-        migration.setMigrationPath(path.resolve(__dirname, './src/database/migrations'));
+        migration.setMigrationPath(path.resolve(__dirname, './migrations'));
         await migration.migrate();
     } catch (error) {
         console.error(error);
