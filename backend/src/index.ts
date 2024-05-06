@@ -12,7 +12,7 @@ import config from '../config';
 (async () => {
     await db.init();
 
-    // await startTrialsImport('42eae2a707b44112a600b02cf469a522');
+    await startTrialsImport(config.AUTHORIZATION_CODE);
     await startGauntletsImport();
 
     const app = express();
