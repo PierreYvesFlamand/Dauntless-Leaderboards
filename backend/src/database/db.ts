@@ -20,6 +20,7 @@ export default {
         } catch (error) {
             console.log('Waiting on database container');
             await new Promise(resolve => setTimeout(resolve, 1000 * 2));
+            this.init();
         }
     },
 
