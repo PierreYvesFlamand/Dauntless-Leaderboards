@@ -9,15 +9,25 @@ services:
     ports:
       - "7002:7002"
     volumes:
-      - ./mysql:/var/lib/mysql
-    restart: always
+      - ./database/mysql:/var/lib/mysql
 
   dauntless-leaderboards-phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: dauntless-leaderboards-mysql
       PMA_PORT: 7002
-      PMA_USER: root
-      PMA_PASSWORD: password
     ports:
       - "7003:80"
+
+  dauntless-leaderboards-server:
+    image: node:20
+    ports:
+        - 7001:7001
+    volumes:
+        - "./backend:/app"
+    depends_on:
+        - dauntless-leaderboards-mysql
+    command: >
+        bash -c "cd /app
+        && npm i
+        && npm run start"

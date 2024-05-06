@@ -1,7 +1,6 @@
 import mysql, { QueryResult, ResultSetHeader } from 'mysql2/promise';
 import { migrate } from './migrate';
-
-let db!: mysql.Connection;
+import config from '../../config';
 
 export default {
     db: {} as mysql.Connection,
@@ -9,18 +8,18 @@ export default {
     async init() {
         try {
             this.db = await mysql.createConnection({
-                host: '127.0.0.1',
-                port: 7002,
-                user: 'root',
-                password: 'password',
-                database: 'dauntless-leaderboards',
+                host: config.DB_HOST,
+                port: config.DB_PORT,
+                user: config.DB_USER,
+                password: config.DB_PASSWORD,
+                database: config.DB_DATABASE,
                 timezone: 'Z'
             });
 
             await migrate();
         } catch (error) {
-            console.error(error);
-            process.exit();
+            console.log('Waiting on database container');
+            await new Promise(resolve => setTimeout(resolve, 1000 * 2));
         }
     },
 

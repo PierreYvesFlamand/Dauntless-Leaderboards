@@ -5,18 +5,19 @@ import path from 'path';
 import { startGauntletsImport } from './importers/gauntlets';
 import { startTrialsImport } from './importers/trials';
 import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_GUILD_LIST_ITEM, DB_GUILD_ME, DB_PLAYER_ME, DB_SEASON_INFO, DB_SEASON_LEADERBOARD, DB_TRIAL_INFO, DB_TRIAL_LEADERBOARD, DB_TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES, DB_PLAYER_LIST_ITEM, DB_PLAYER_TRIAL_ITEM } from './types/types';
+import config from '../config';
+
+// Needs true folder structure for this part
 
 (async () => {
     await db.init();
 
     // await startTrialsImport('42eae2a707b44112a600b02cf469a522');
-    // await startGauntletsImport();
+    await startGauntletsImport();
 
     const app = express();
     app.use(cors());
     app.use(express.json());
-
-    app.use('/assets', express.static(path.resolve(__dirname, '../public')));
 
     app.get('/api/me', async (req, res) => {
         try {
@@ -201,7 +202,13 @@ import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_G
         }
     });
 
-    app.listen(7001, () => console.log('Server listening on port 7001'));
+    app.use(express.static(path.resolve(__dirname, '../public/frontend/browser')));
+    app.use('/assets', express.static(path.resolve(__dirname, '../public')));
+    app.get('*', (_req, res) => {
+        res.sendFile(path.resolve(__dirname, '../public/frontend/browser/index.html'));
+    });
+
+    app.listen(config.EXPRESS_PORT, () => console.log(`Server listening on port ${config.EXPRESS_PORT}`));
 })();
 
 async function getAllSeasonsInfo() {
@@ -437,7 +444,7 @@ async function getMe(playerId: number, guildId: number) {
 }
 
 async function getTrials(page: number = 1, behemothId?: number) {
-    const params = [];
+    const params: (string | number)[] = [];
     if (behemothId !== undefined) params.push(behemothId);
     params.push((page - 1) * 20);
 

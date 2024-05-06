@@ -1,14 +1,15 @@
 // @ts-ignore
 import DbMigrate from 'simple-mysql-migrate';
+import config from '../../config';
 
 export async function migrate() {
     try {
-        const migration = new DbMigrate({
-            host: '127.0.0.1',
-            port: 7002,
-            username: 'root',
-            password: 'password',
-            database: 'dauntless-leaderboards'
+        const migration = new DbMigrate({            
+            host: config.DB_HOST,
+            port: config.DB_PORT,
+            user: config.DB_USER,
+            password: config.DB_PASSWORD,
+            database: config.DB_DATABASE,
         });
 
         migration.setMigrationPath('./src/database/migrations');

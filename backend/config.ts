@@ -13,13 +13,23 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 // as someone could skip these varibales or not setup a .env file at all
 
 interface ENV {
-    EXPRESS_PORT: number | undefined;
-    AUTHORIZATION_CODE: string | undefined;
+    EXPRESS_PORT: number | undefined
+    AUTHORIZATION_CODE: string | undefined
+    DB_HOST: string | undefined
+    DB_PORT: number | undefined
+    DB_USER: string | undefined
+    DB_PASSWORD: string | undefined
+    DB_DATABASE: string | undefined
 }
 
 interface Config {
-    EXPRESS_PORT: number;
-    AUTHORIZATION_CODE: string;
+    EXPRESS_PORT: number
+    AUTHORIZATION_CODE: string
+    DB_HOST: string
+    DB_PORT: number
+    DB_USER: string
+    DB_PASSWORD: string
+    DB_DATABASE: string
 }
 
 // Loading process.env as ENV interface
@@ -27,7 +37,12 @@ interface Config {
 const getConfig = (): ENV => {
     return {
         EXPRESS_PORT: process.env.EXPRESS_PORT ? Number(process.env.EXPRESS_PORT) : undefined,
-        AUTHORIZATION_CODE: process.env.AUTHORIZATION_CODE
+        AUTHORIZATION_CODE: process.env.AUTHORIZATION_CODE,
+        DB_HOST: process.env.DB_HOST,
+        DB_PORT: process.env.DB_PORT ? Number(process.env.DB_PORT) : undefined,
+        DB_USER: process.env.DB_USER,
+        DB_PASSWORD: process.env.DB_PASSWORD,
+        DB_DATABASE: process.env.DB_DATABASE
     };
 };
 
@@ -46,8 +61,6 @@ const getSanitzedConfig = (config: ENV): Config => {
     return config as Config;
 };
 
-const config = getConfig();
+const config = getSanitzedConfig(getConfig());
 
-const sanitizedConfig = getSanitzedConfig(config);
-
-export default sanitizedConfig;
+export default config;
