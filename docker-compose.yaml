@@ -2,9 +2,11 @@ version: "3.8"
 services:
   dauntless-leaderboards-mysql:
     image: mysql
+    env_file:
+      - ./backend/.env
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: dauntless-leaderboards
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_TCP_PORT: 7002
     ports:
       - "7002:7002"
@@ -19,15 +21,16 @@ services:
     ports:
       - "7003:80"
 
-  dauntless-leaderboards-server:
-    image: node:20
-    ports:
-        - 7001:7001
-    volumes:
-        - "./backend:/app"
-    depends_on:
-        - dauntless-leaderboards-mysql
-    command: >
-        bash -c "cd /app
-        && npm i
-        && npm run start"
+  # ONLY FOR DEPLOY PURPOSE
+  # dauntless-leaderboards-server:
+  #   image: node:20
+  #   ports:
+  #       - 7001:7001
+  #   volumes:
+  #       - "./backend:/app"
+  #   depends_on:
+  #       - dauntless-leaderboards-mysql
+  #   command: >
+  #       bash -c "cd /app
+  #       && npm i
+  #       && npm run start"
