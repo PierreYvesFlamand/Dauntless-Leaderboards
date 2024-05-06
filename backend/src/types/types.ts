@@ -25,7 +25,7 @@ export type DAUNTLESS_SEASON_LEADERBOARD_ITEM = {
     remaining_sec: number
 }
 export interface DB_GAUNTLET_SEASON extends GAUNTLET_SEASON, RowDataPacket { }
-type GAUNTLET_SEASON = {
+export type GAUNTLET_SEASON = {
     season: number
     start_at: Date
     end_at: Date
@@ -33,14 +33,14 @@ type GAUNTLET_SEASON = {
 }
 
 export interface DB_GAUNTLET_LEADERBOARD_ITEM extends GAUNTLET_LEADERBOARD_ITEM, RowDataPacket { }
-type GAUNTLET_LEADERBOARD_ITEM = {
+export type GAUNTLET_LEADERBOARD_ITEM = {
     id: number
     gauntlet_season: number
     last_updated: Date
 }
 
 export interface DB_GUILD extends GUILD, RowDataPacket { }
-type GUILD = {
+export type GUILD = {
     id: number
     name: string
     tag: string
@@ -125,7 +125,7 @@ type TRIAL_LEADERBOARD_ITEM_TYPE = {
 }
 
 export interface DB_BEHEMOTH extends BEHEMOTH, RowDataPacket { }
-type BEHEMOTH = {
+export type BEHEMOTH = {
     id: number
     name: string
 }
@@ -202,21 +202,21 @@ export interface DB_COUNT extends COUNT, RowDataPacket { }
 type COUNT = { total: number }
 
 export interface DB_PLAYER_ME extends PLAYER_ME, RowDataPacket { }
-type PLAYER_ME = {
+export type PLAYER_ME = {
     id: number
     name: string
     icon_filename: string
 }
 
 export interface DB_GUILD_ME extends GUILD_ME, RowDataPacket { }
-type GUILD_ME = {
+export type GUILD_ME = {
     id: number
     tag: string
     icon_filename: string
 }
 
 export interface DB_GUILD_LIST_ITEM extends GUILD_LIST_ITEM, RowDataPacket { }
-type GUILD_LIST_ITEM = {
+export type GUILD_LIST_ITEM = {
     id: number
     icon_filename: string
     name: string
@@ -227,6 +227,21 @@ type GUILD_LIST_ITEM = {
     nbrTop20: string
     nbrTop100: string
     totalLevelCleared: string
+    discord_link: string
+    detail_html: string
+}
+
+export interface DB_PLAYER_LIST_ITEM extends PLAYER_LIST_ITEM, RowDataPacket { }
+export type PLAYER_LIST_ITEM = {
+    player_id: number
+    nbrSoloTop1: number
+    nbrSoloTop5: number
+    nbrSoloTop100: number
+    nbrGroupTop1: number
+    nbrGroupTop5: number
+    nbrGroupTop100: number
+    player_names: { name: string, platform_id: number }[]
+    icon_filename: string
 }
 
 export interface DB_GUILD_INFO extends GUILD_INFO, RowDataPacket { }
@@ -246,13 +261,13 @@ type GUILD_INFO = {
 }
 
 export interface DB_GUILD_GAUNTLET_STAT_ITEM extends GUILD_GAUNTLET_STAT_ITEM, RowDataPacket { }
-type GUILD_GAUNTLET_STAT_ITEM = {
+export type GUILD_GAUNTLET_STAT_ITEM = {
     season: number
     rank: number
 }
 
 export interface DB_TRIAL_LIST_ITEM extends TRIAL_LIST_ITEM, RowDataPacket { }
-type TRIAL_LIST_ITEM = {
+export type TRIAL_LIST_ITEM = {
     week: number
     behemoth_name: string
     start_at: Date
@@ -261,6 +276,24 @@ type TRIAL_LIST_ITEM = {
     solo_completion_time: number
     group_players: { role_id: string, weapon_id: number }[]
     group_completion_time: number
+}
+
+export interface DB_PLAYER_TRIAL_ITEM extends PLAYER_TRIAL_ITEM, RowDataPacket { }
+export type PLAYER_TRIAL_ITEM = {
+    trial_leaderboard_item_type_id: number
+    week: number
+    rank: number
+    players: {
+        player_id: number
+        weapon_id: number
+        role_id: string
+        player_name: string
+        platform_id: number
+        player_icon_filename: string
+    }[],
+    completion_time: number
+    start_at: Date
+    end_at: Date
 }
 
 // API
@@ -280,7 +313,7 @@ export type API_ME = {
 export type API_SEASON = {
     all_seasons_info: SEASON_INFO[]
     season_info: SEASON_INFO
-    season_leaderboard: TRIAL_LEADERBOARD[]
+    season_leaderboard: SEASON_LEADERBOARD[]
 }
 
 type API_DATA_LIST<T> = {
@@ -292,13 +325,15 @@ export type API_GUILD_LIST = API_DATA_LIST<GUILD_LIST_ITEM>
 
 export type API_TRIAL_LIST = API_DATA_LIST<TRIAL_LIST_ITEM>
 
+export type API_PLAYER_LIST = API_DATA_LIST<PLAYER_LIST_ITEM>
+
 export type API_GUILD = {
     guild_info: GUILD_LIST_ITEM
-    guild_season_stats: GUILD_GAUNTLET_STAT_ITEM[]
+    guild_gauntlet_stats: GUILD_GAUNTLET_STAT_ITEM[]
 }
 
 export type API_TRIAL = {
-    trial_info: TRIAL_INFO
+    info: TRIAL_INFO
     all_leaderboard: TRIAL_LEADERBOARD[]
     group_leaderboard: TRIAL_LEADERBOARD[]
     hammer_leaderboard: TRIAL_LEADERBOARD[]
@@ -308,4 +343,13 @@ export type API_TRIAL = {
     repeaters_leaderboard: TRIAL_LEADERBOARD[]
     pike_leaderboard: TRIAL_LEADERBOARD[]
     strikers_leaderboard: TRIAL_LEADERBOARD[]
+}
+
+export type API_PLAYER = {
+    player_info: {
+        id: number,
+        icon_filename: string
+        names: { name: string, platform_id: number }[]
+    },
+    player_trials: PLAYER_TRIAL_ITEM[]
 }

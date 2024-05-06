@@ -4,12 +4,12 @@ import cors from 'cors';
 import path from 'path';
 import { startGauntletsImport } from './importers/gauntlets';
 import { startTrialsImport } from './importers/trials';
-import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_GUILD_LIST_ITEM, DB_GUILD_ME, DB_PLAYER_ME, DB_SEASON_INFO, DB_SEASON_LEADERBOARD, DB_TRIAL_INFO, DB_TRIAL_LEADERBOARD, DB_TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES } from './types/types';
+import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_GUILD_LIST_ITEM, DB_GUILD_ME, DB_PLAYER_ME, DB_SEASON_INFO, DB_SEASON_LEADERBOARD, DB_TRIAL_INFO, DB_TRIAL_LEADERBOARD, DB_TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES, DB_PLAYER_LIST_ITEM, DB_PLAYER_TRIAL_ITEM } from './types/types';
 
 (async () => {
     await db.init();
 
-    await startTrialsImport('1a520b31daf9438e831d348856eeecec');
+    // await startTrialsImport('42eae2a707b44112a600b02cf469a522');
     // await startGauntletsImport();
 
     const app = express();
@@ -36,7 +36,7 @@ import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_G
 
     app.get('/api/dashboard', async (_req, res) => {
         try {
-            const current_season_info = await getSeasonInfo(1);
+            const current_season_info = await getSeasonInfo();
             const current_season_leaderboard = await getSeasonLeaderboard(current_season_info.season, 5);
             const current_trial_info = await getTrialInfo();
             const current_trial_leaderboard_solo = await getTrialLeaderboard(current_trial_info.week, 'all', 5);
@@ -107,7 +107,7 @@ import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_G
             res.status(500).json({ message: 'Internal Server Error', error });
         }
     });
-    
+
     app.get('/api/trials', async (req, res) => {
         try {
             let page = Number(req.query['page']);
@@ -122,7 +122,7 @@ import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_G
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
         }
-    });    
+    });
 
     app.get('/api/trials/:id', async (req, res) => {
         try {
@@ -158,33 +158,48 @@ import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_G
         }
     });
 
-    // app.get('/api/players', async (req, res) => {
-    //     try {
-    //         let page = Number(req.query['page']);
-    //         if (isNaN(page)) page = 1;
+    app.get('/api/players', async (req, res) => {
+        try {
+            let page = Number(req.query['page']);
+            if (isNaN(page)) page = 1;
 
-    //         let textSearch = String(req.query['textSearch']) || '';
+            let textSearch = String(req.query['textSearch']) || '';
 
-    //         let orderByField = String(req.query['orderByField']) || 'DESC';
-    //         const allowedOrderByFields = ['nbrSoloTop1', 'nbrSoloTop5', 'nbrSoloTop100', 'nbrGroupTop1', 'nbrGroupTop5', 'nbrGroupTop100'];
-    //         if (!allowedOrderByFields.includes(orderByField)) {
-    //             orderByField = allowedOrderByFields[0];
-    //         }
+            let orderByField = String(req.query['orderByField']) || 'DESC';
+            const allowedOrderByFields = ['nbrSoloTop1', 'nbrSoloTop5', 'nbrSoloTop100', 'nbrGroupTop1', 'nbrGroupTop5', 'nbrGroupTop100'];
+            if (!allowedOrderByFields.includes(orderByField)) {
+                orderByField = allowedOrderByFields[0];
+            }
 
-    //         let orderByDirection = String(req.query['orderByDirection']) || '';
-    //         const allowedOrderByDirections = ['DESC', 'ASC'];
-    //         if (!allowedOrderByDirections.includes(orderByDirection)) {
-    //             orderByDirection = allowedOrderByDirections[0];
-    //         }
+            let orderByDirection = String(req.query['orderByDirection']) || '';
+            const allowedOrderByDirections = ['DESC', 'ASC'];
+            if (!allowedOrderByDirections.includes(orderByDirection)) {
+                orderByDirection = allowedOrderByDirections[0];
+            }
 
-    //         const guildList = await getPlayers(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
+            const player_list = await getPlayers(page, textSearch, orderByField, orderByDirection as 'ASC' | 'DESC');
 
-    //         res.status(200).json(guildList);
-    //     } catch (error) {
-    //         console.error(error);
-    //         res.status(500).json({ message: 'Internal Server Error', error });
-    //     }
-    // });
+            res.status(200).json(player_list);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.get('/api/players/:id', async (req, res) => {
+        try {
+            const player_id = Number(req.params.id);
+            if (isNaN(player_id)) throw new Error(`Player id should be a number`);
+
+            const player_info = await getPlayerInfo(player_id);
+            const player_trials = await getPlayer(player_id);
+
+            res.status(200).json({ player_info, player_trials });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
 
     app.listen(7001, () => console.log('Server listening on port 7001'));
 })();
@@ -273,11 +288,6 @@ async function getTrialInfo(week: number | 'current' = 'current') {
         LEFT JOIN behemoths b ON b.id = tw.behemoth_id
         CROSS JOIN MaxTrialWeek
         WHERE tw.week = MaxTrialWeek.max_week
-        AND tli.last_updated = (
-            SELECT MAX(last_updated)
-            FROM trial_leaderboard_items
-            WHERE trial_week = MaxTrialWeek.max_week
-        )
     `, [
         week === 'current' ? '' : week
     ]);
@@ -303,12 +313,6 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
                 'role_id', tligp.role_id
             )) AS players
         FROM trial_leaderboard_items tli
-        LEFT JOIN (
-            SELECT MAX(tli.last_updated) as max_last_updated
-            FROM trial_leaderboard_items tli
-            LEFT JOIN trial_leaderboard_items_groups tl ON tl.trial_leaderboard_item_id = tli.id
-            WHERE tli.trial_week = ?
-        ) max_last_updated ON tli.last_updated = max_last_updated.max_last_updated
         LEFT JOIN trial_leaderboard_items_groups tlig ON tlig.trial_leaderboard_item_id = tli.id
         LEFT JOIN trial_leaderboard_items_groups_players tligp ON tligp.trial_leaderboard_items_trial_groups_id = tlig.id
         LEFT JOIN player_names pn ON pn.player_id = tligp.player_id AND pn.platform_id = tligp.platform_id
@@ -317,7 +321,6 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
         GROUP BY tlig.rank, tlig.completion_time
         ORDER BY tlig.rank ASC
     `, [
-        week,
         limit,
         week,
         selectedType[0].id
@@ -328,7 +331,7 @@ async function getTrialLeaderboard(week: number, type: TRIAL_LEADERBOARD_ITEM_TY
 
 async function getGuilds(page: number = 1, textSearch: string = '', orderByField: string = 'g.id', orderByDirection: 'ASC' | 'DESC' = 'ASC') {
     const [guilds] = await db.select<DB_GUILD_LIST_ITEM[]>(`
-        SELECT g.id, gd.icon_filename, g.name, g.tag,
+        SELECT g.id, gd.icon_filename, g.name, g.tag, gd.discord_link, gd.detail_html,
             (100 / 646) * SUM((100 - glig.rank) * (gs.season / 12)) as rating,
             SUM(glig.rank = 1) as nbrTop1,
             SUM(glig.rank <= 5) as nbrTop5,
@@ -459,12 +462,7 @@ async function getTrials(page: number = 1, behemothId?: number) {
             LEFT JOIN trial_leaderboard_items_groups_players tligp_s ON tligp_s.trial_leaderboard_items_trial_groups_id = tlig_s.id
             GROUP BY tli.trial_week, tlig_s.completion_time
         ) tlig_s ON tlig_s.trial_week = tw.week
-        LEFT JOIN (
-            SELECT MAX(last_updated) as max_last_updated, trial_week
-            FROM trial_leaderboard_items
-            GROUP BY trial_week
-        ) tli_max ON tli_max.trial_week = tw.week
-        LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = tli_max.max_last_updated
+        LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week
         LEFT JOIN behemoths b ON tw.behemoth_id = b.id
         LEFT JOIN trial_leaderboard_items_groups tlig_g ON tlig_g.trial_leaderboard_item_id = tli.id AND tlig_g.trial_leaderboard_item_type_id = 2 AND tlig_g.rank = 1
         LEFT JOIN trial_leaderboard_items_groups_players tligp_g ON tligp_g.trial_leaderboard_items_trial_groups_id = tlig_g.id
@@ -487,54 +485,96 @@ async function getBehemoths() {
     return behemoths;
 }
 
-// async function getPlayers(page: number, textSearch: string, orderByField: string, orderByDirection: 'ASC' | 'DESC') {
-//     // TODO: type
-//     const [players] = await db.select<any[]>(`
-// WITH MaxLastUpdated AS (
-//     SELECT trial_week, MAX(last_updated) AS max_last_updated
-//     FROM trial_leaderboard_items
-//     GROUP BY trial_week
-// )
-// SELECT
-//     p.id,
-//     pd.icon_filename,
-//     JSON_ARRAYAGG(JSON_OBJECT(
-//         'platform_id', pn.platform_id,
-//         'name', pn.name
-//     )) AS player_names,
-//     SUM(tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop1,
-//     SUM(tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop5,
-//     SUM(tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 1) AS nbrSoloTop100,
-//     SUM(CASE WHEN tlip.rank <= 1 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop1,
-//     SUM(CASE WHEN tlip.rank <= 5 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop5,
-//     SUM(CASE WHEN tlip.rank <= 100 AND tlip.trial_leaderboard_item_type_id = 2 THEN 1 ELSE 0 END) AS nbrGroupTop100
-// FROM trial_weeks tw
-// LEFT JOIN MaxLastUpdated mlu ON mlu.trial_week = tw.week
-// LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week AND tli.last_updated = mlu.max_last_updated
-// LEFT JOIN trial_leaderboard_items_players tlip ON tlip.trial_leaderboard_item_id = tli.id
-// LEFT JOIN players p ON p.id = tlip.player_id
-// LEFT JOIN players_data pd ON pd.player_id = tlip.player_id
-// LEFT JOIN player_names pn ON pn.player_id = p.id
-// WHERE pn.name LIKE ?
-// GROUP BY p.id, pd.icon_filename, pn.platform_id, pn.name
-// ORDER BY ?? ${orderByDirection}
-// LIMIT 20 OFFSET ?
-//     `, [
-//         `%${textSearch}%`,
-//         orderByField,
-//         (page - 1) * 20
-//     ]);
+async function getPlayers(page: number = 1, textSearch: string = '', orderByField: string = 'player_list.player_id', orderByDirection: 'ASC' | 'DESC' = 'ASC') {
+    const [players] = await db.select<DB_PLAYER_LIST_ITEM[]>(`
+        SELECT
+            player_list.*,
+            JSON_ARRAYAGG(JSON_OBJECT('platform_id', pn.platform_id, 'name', pn.name)) AS player_names,
+            pd.icon_filename
+        FROM (
+            SELECT
+                p.id AS player_id,
+                SUM(tlig.rank <= 1 AND tlig.trial_leaderboard_item_type_id = 1) AS nbrSoloTop1,
+                SUM(tlig.rank <= 5 AND tlig.trial_leaderboard_item_type_id = 1) AS nbrSoloTop5,
+                SUM(tlig.rank <= 100 AND tlig.trial_leaderboard_item_type_id = 1) AS nbrSoloTop100,
+                SUM(tlig.rank <= 1 AND tlig.trial_leaderboard_item_type_id = 2) AS nbrGroupTop1,
+                SUM(tlig.rank <= 5 AND tlig.trial_leaderboard_item_type_id = 2) AS nbrGroupTop5,
+                SUM(tlig.rank <= 100 AND tlig.trial_leaderboard_item_type_id = 2) AS nbrGroupTop100
+            FROM trial_weeks tw
+            LEFT JOIN trial_leaderboard_items tli ON tli.trial_week = tw.week
+            LEFT JOIN trial_leaderboard_items_groups tlig ON tlig.trial_leaderboard_item_id = tli.id
+            LEFT JOIN trial_leaderboard_items_groups_players tligp ON tligp.trial_leaderboard_items_trial_groups_id = tlig.id
+            LEFT JOIN players p ON p.id = tligp.player_id
+            GROUP BY p.id
+        ) player_list
+        LEFT JOIN player_names pn ON pn.player_id = player_list.player_id
+        LEFT JOIN players_data pd ON pd.player_id = player_list.player_id
+        WHERE pn.name LIKE ?
+        GROUP BY pn.player_id
+        ORDER BY ?? ${orderByDirection}
+        LIMIT 20 OFFSET ?
+    `, [
+        `%${textSearch}%`,
+        orderByField,
+        (page - 1) * 20
+    ]);
 
-//     const [totals] = await db.select<COUNT[]>(`
-//         SELECT COUNT(DISTINCT p.id) as total
-//         FROM players p
-//         LEFT JOIN player_names pn ON pn.player_id = p.id
-//         WHERE pn.name LIKE ?
-//     `, [`%${textSearch}%`]
-//     );
+    const [totals] = await db.select<DB_COUNT[]>(`
+        SELECT COUNT(DISTINCT p.id) as total
+        FROM players p
+        LEFT JOIN player_names pn ON pn.player_id = p.id
+        WHERE pn.name LIKE ?
+    `, [`%${textSearch}%`]
+    );
 
-//     return {
-//         players,
-//         total: totals[0].total
-//     };
-// }
+    return {
+        data: players,
+        total: totals[0].total
+    };
+}
+
+async function getPlayerInfo(id: number) {
+    const [player_info] = await db.select<DB_PLAYER_TRIAL_ITEM[]>(`
+        SELECT
+            p.id,
+            pd.icon_filename,
+            JSON_ARRAYAGG(JSON_OBJECT('name', pn.name, 'platform_id', pn.platform_id)) AS names
+        FROM players p
+        LEFT JOIN player_names pn ON pn.player_id = p.id
+        LEFT JOIN players_data pd ON pd.player_id = p.id
+        WHERE p.id = ?
+        GROUP BY p.id, pd.icon_filename
+    `, [id]);
+    if (!player_info.length) throw new Error('Error on player_info select');
+
+    return player_info[0];
+}
+
+async function getPlayer(id: number) {
+    const [player_trials] = await db.select<DB_PLAYER_TRIAL_ITEM[]>(`
+        SELECT
+            tlig.trial_leaderboard_item_type_id,
+            tw.week,
+            tlig.rank,
+            JSON_ARRAYAGG(JSON_OBJECT('weapon_id', tligp.weapon_id, 'role_id', tligp.role_id, 'player_name', pn.name, 'platform_id', tligp.platform_id, 'player_icon_filename', pd.icon_filename, 'player_id', tligp.player_id)) AS players,
+            tlig.completion_time,
+            tw.start_at,
+            tw.end_at
+        FROM trial_leaderboard_items_groups tlig
+        LEFT JOIN trial_leaderboard_items tli ON tli.id = tlig.trial_leaderboard_item_id
+        LEFT JOIN trial_weeks tw ON tw.week = tli.trial_week
+        LEFT JOIN trial_leaderboard_items_groups_players tligp ON tligp.trial_leaderboard_items_trial_groups_id = tlig.id
+        LEFT JOIN player_names pn ON pn.player_id = tligp.player_id AND pn.platform_id = tligp.platform_id
+        LEFT JOIN players_data pd ON pd.player_id = tligp.player_id
+        WHERE tlig.id IN (
+            SELECT trial_leaderboard_items_trial_groups_id
+            FROM trial_leaderboard_items_groups_players
+            WHERE player_id = ?
+        )
+        GROUP BY tlig.trial_leaderboard_item_type_id, tw.week, tlig.rank, tlig.completion_time, tw.start_at, tw.end_at
+        ORDER BY tlig.trial_leaderboard_item_type_id ASC, tw.week DESC
+        LIMIT 9999 OFFSET 0
+    `, [id]);
+
+    return player_trials;
+}

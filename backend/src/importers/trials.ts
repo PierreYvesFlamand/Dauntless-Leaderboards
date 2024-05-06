@@ -6,20 +6,20 @@ let REFRESH_TOKEN = '';
 let SESSION_TOKEN = '';
 
 export async function startTrialsImport(authorizationCode: string) {
-    // await initRefreshToken(authorizationCode);
-    // await refreshSessionToken();
-    SESSION_TOKEN = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJIMkhZTUEyRFRWRkpGR0tNQUZJRE4zQU1MUSIsInJvbGVzIjoicGxheWVyIiwiaXNzIjoiZ2FtZV9zZXNzaW9uX2FwaSIsImlhdCI6MTcxNDcyOTcxMywiZXhwIjoxNzE1MDMyMTEzLCJsYW5ndWFnZSI6ImZyIiwiZGlzcGxheV9uYW1lIjoiUG9sZnl5IiwiZXBpY19pZCI6ImQ2MDcwYWRlODYwMzQwYjJiYmI2M2YxZGFmZmRmZTBmIiwiZHRsIjp7ImN0cnkiOiJCRSJ9LCJhdXRodG9rZW50eXBlIjoiR2FtZSIsImlwIjoiOTEuMTgzLjEzNC4xNzEifQ.dPr2H-wFDD0qWvYRcxB-wFr9WvZBzf8GjoO53UBk-AEVnfjqdPvOUEIH6vt5RbojDvveQdOhFGl58sqyU8-qyw';
+    await initRefreshToken(authorizationCode);
+    await refreshSessionToken();
 
     console.log('Checking if all older weeks are in the database');
     const [trial_weeks] = await db.select<DB_TRIAL_WEEK[]>(`SELECT * FROM trial_weeks`);
-    for (let i = 1; i < 4; i++) {
+
+    for (let i = 1; i < getCurrentWeek(); i++) {
         if (trial_weeks.find(tw => tw.week === i)) continue;
         await importTrials(i);
     }
-    
-    // console.log('Starting current week import');
-    // await importTrials();
-    // setInterval(importTrials, 1000 * 60 * 10);
+
+    console.log('Starting current week import');
+    await importTrials();
+    setInterval(importTrials, 1000 * 60 * 10);
 }
 
 async function importTrials(week: number = getCurrentWeek()) {
@@ -214,6 +214,11 @@ async function importTrials(week: number = getCurrentWeek()) {
             INSERT INTO trial_leaderboard_items_groups_players (trial_leaderboard_items_trial_groups_id, player_id, platform_id, weapon_id, role_id)
             VALUES ${'(?,?,?,?,?)'.repeat((players.length / 5) * 5).split(')(').join('),(')}
         `, players.reduce<(number | string)[]>((all, p) => [...all, p[0] + inserted.insertId, p[1], p[2], p[3], p[4]], []));
+
+        await db.query(`
+            DELETE FROM trial_leaderboard_items
+            WHERE trial_week = ? AND last_updated < FROM_UNIXTIME(?)
+        `, [week, getTimestampFromDate(lastUpdated)]);
     } catch (error) {
         console.error(error);
     }

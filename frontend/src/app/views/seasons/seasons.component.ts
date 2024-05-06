@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SEASON_DATA } from '../../../../../backend/src/types/types';
 import { SharedService } from '../../services/shared.service';
+import { API_SEASON } from '../../../../../backend/src/types/types';
 
 @Component({
   selector: 'dl-seasons',
@@ -10,7 +10,7 @@ import { SharedService } from '../../services/shared.service';
   styleUrl: './seasons.component.scss'
 })
 export class SeasonsComponent {
-  public seasonData?: SEASON_DATA;
+  public seasonData?: API_SEASON;
   public selectedSeasonId: number = 0;
   public showChart: boolean = false;
 
@@ -33,17 +33,17 @@ export class SeasonsComponent {
   private async fetchData(seasonId: number, shouldReplaceUrl: boolean = true) {
     if (seasonId !== this.selectedSeasonId) {
       this.seasonData = undefined;
-      this.seasonData = await this.databaseService.fetch<SEASON_DATA>(`season/${seasonId}`);
+      this.seasonData = await this.databaseService.fetch<API_SEASON>(`season/${seasonId}`);
     }
     if (!this.seasonData) return;
 
-    const segments: (string | number)[] = ['seasons', this.seasonData.seasonInfo.season];
+    const segments: (string | number)[] = ['seasons', this.seasonData.season_info.season];
 
-    if (this.showChart && this.seasonData.seasonInfo.flourish_id) segments.push('chart');
+    if (this.showChart && this.seasonData.season_info.flourish_id) segments.push('chart');
     else this.showChart = false;
 
     this.router.navigate(segments, { replaceUrl: shouldReplaceUrl });
-    this.selectedSeasonId = this.seasonData.seasonInfo.season;
+    this.selectedSeasonId = this.seasonData.season_info.season;
   }
 
   public async onSeasonChange(seasonId: number) {

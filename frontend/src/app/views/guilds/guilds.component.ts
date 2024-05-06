@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { DatabaseService } from '../../services/database.service';
-import { GUILD_DATA, GUILD_LIST_DATA } from '../../../../../backend/src/types/types';
+import { API_GUILD_LIST, GUILD_LIST_ITEM } from '../../../../../backend/src/types/types';
 
 @Component({
   selector: 'dl-guilds',
@@ -18,7 +18,7 @@ export class GuildsComponent implements AfterViewInit {
     this.applyFilter();
   }
 
-  public guilds: GUILD_DATA[] = [];
+  public guilds: GUILD_LIST_ITEM[] = [];
   public total: number = 0;
   public isLoading: boolean = true;
   public filters: {
@@ -37,10 +37,10 @@ export class GuildsComponent implements AfterViewInit {
     this.guilds = [];
     this.isLoading = true;
     const paramsAsString = Object.keys(this.filters).reduce<string[]>((p, k) => { return [...p, `${k}=${(<any>this.filters)[k] || ''}`] }, []).join('&');
-    const response = await this.databaseService.fetch<GUILD_LIST_DATA>(`guilds?${paramsAsString}`);
+    const response = await this.databaseService.fetch<API_GUILD_LIST>(`guilds?${paramsAsString}`);
     if (!response) return;
     this.isLoading = false;
-    this.guilds = response.guilds;
+    this.guilds = response.data;
     this.total = response.total;
   }
 

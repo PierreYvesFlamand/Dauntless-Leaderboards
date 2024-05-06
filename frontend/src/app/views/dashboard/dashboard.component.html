@@ -7,11 +7,11 @@
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
                     <h3 class="card-title d-flex align-items-center">
                         <img class="mr-2" style="width: 1.333rem;" src="assets/img/gauntlet_icon.png" />
-                        Gauntlet Season {{dashboardData.seasonInfo.season}}
+                        Gauntlet Season {{dashboardData.current_season_info.season}}
                     </h3>
                     <div class="d-flex flex-column align-items-center d-md-block">
-                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [routerLink]="'/seasons/' + dashboardData.seasonInfo.season">View detail</button>
-                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.seasonInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
+                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [routerLink]="'/seasons/' + dashboardData.current_season_info.season">View detail</button>
+                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.current_season_info.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let leaderboardItem of dashboardData.seasonLeaderboard;" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button">
+                            <tr *ngFor="let leaderboardItem of dashboardData.current_season_leaderboard;" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button">
                                 <ng-container *ngIf="leaderboardItem.rank <= 5 || leaderboardItem.guild_id === sharedService.guildId">
                                     <td class="text-center">{{leaderboardItem.rank}}.</td>
                                     <td>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex">
-                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.seasonInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
+                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.current_season_info.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
             </div>
         </div>
     </div>
@@ -60,12 +60,12 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
                     <h3 class="card-title flex-grow-1">
-                        <img class="mr-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(dashboardData.trialInfo.behemoth_name + '.png', 'behemoths')" [title]="dashboardData.trialInfo.behemoth_name" />
+                        <img class="mr-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(dashboardData.current_trial_info.behemoth_name + '.png', 'behemoths')" [title]="dashboardData.current_trial_info.behemoth_name" />
                         Solo Trial
                     </h3>
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.trialInfo.week">View all</button>
-                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.trialInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
+                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.current_trial_info.week">View all</button>
+                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.current_trial_info.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let leaderboardItem of dashboardData.trialLeaderboardSolo" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                            <tr *ngFor="let leaderboardItem of dashboardData.current_trial_leaderboard_solo" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
                                 <td style="vertical-align: middle" class="text-center">
                                     {{leaderboardItem.rank}}.
                                 </td>
@@ -103,7 +103,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex">
-                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.trialInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
+                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.current_trial_info.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
             </div>
         </div>
     </div>
@@ -112,12 +112,12 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
                     <h3 class="card-title flex-grow-1">
-                        <img class="mr-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(dashboardData.trialInfo.behemoth_name + '.png', 'behemoths')" [title]="dashboardData.trialInfo.behemoth_name" />
+                        <img class="mr-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(dashboardData.current_trial_info.behemoth_name + '.png', 'behemoths')" [title]="dashboardData.current_trial_info.behemoth_name" />
                         Group Trial
                     </h3>
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.trialInfo.week">View all</button>
-                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.trialInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
+                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.current_trial_info.week">View all</button>
+                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.current_trial_info.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let leaderboardItem of dashboardData.trialLeaderboardGroup">
+                            <tr *ngFor="let leaderboardItem of dashboardData.current_trial_leaderboard_group">
                                 <td style="vertical-align: middle" class="text-center">
                                     {{leaderboardItem.rank}}.
                                 </td>
@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="card-footer d-flex">
-                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.trialInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
+                <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.current_trial_info.last_updated | date:'YYYY/MM/dd HH:mm'}}</span>
             </div>
         </div>
     </div>

@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { DatabaseService } from '../../../services/database.service';
 import { SharedService } from '../../../services/shared.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { API_GUILD } from '../../../../../../backend/src/types/types';
+import { API_PLAYER } from '../../../../../../backend/src/types/types';
 
 @Component({
-  selector: 'dl-guild-detail',
-  templateUrl: './guild-detail.component.html',
-  styleUrl: './guild-detail.component.scss'
+  selector: 'dl-player-detail',
+  templateUrl: './player-detail.component.html',
+  styleUrl: './player-detail.component.scss'
 })
-export class GuildDetailComponent {
-  public guildData?: API_GUILD;
+export class PlayerDetailComponent {
+  public playerData?: API_PLAYER;
 
   constructor(
     private databaseService: DatabaseService,
@@ -20,15 +20,20 @@ export class GuildDetailComponent {
   ) {
     this.activatedRoute.params.subscribe(params => {
       const id = params['id'] || -1;
-      if (id < 0 || isNaN(id)) this.router.navigate(['guilds']);
+      if (id < 0 || isNaN(id)) this.router.navigate(['players']);
       this.fetchData(id);
     });
   }
 
   public async fetchData(id: number) {
-    this.guildData = await this.databaseService.fetch<API_GUILD>(`guilds/${id}`);
-    if (!this.guildData) this.router.navigate(['guilds']);
+    this.playerData = await this.databaseService.fetch<API_PLAYER>(`players/${id}`);
+    if (!this.playerData) this.router.navigate(['players']);
   }
 
   public Number: (str: string) => number = str => Number(str);
+
+  public getRowByTypeId(id: number) {
+    if (!this.playerData) return [];
+    return this.playerData.player_trials.filter(p => p.trial_leaderboard_item_type_id === id);
+  }
 }

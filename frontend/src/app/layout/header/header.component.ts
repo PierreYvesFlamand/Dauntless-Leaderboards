@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { DatabaseService } from '../../services/database.service';
-import { ME } from '../../../../../backend/src/types/types';
+import { API_ME } from '../../../../../backend/src/types/types';
 
 @Component({
   selector: 'dl-header',
@@ -12,7 +12,7 @@ export class HeaderComponent {
   public theme: string = '';
   public playerId: number = -1;
   public guildId: number = -1;
-  public me?: ME;
+  public me?: API_ME;
 
   constructor(
     public sharedService: SharedService,
@@ -30,6 +30,6 @@ export class HeaderComponent {
   }
 
   public async onGuildIdOrPlayerIdUpdate() {
-    this.me = await this.databaseService.fetch<ME>(`me?playerId=${this.playerId}&guildId=${this.guildId}`);
+    this.me = await this.databaseService.fetch<API_ME>(`me?playerId=${this.playerId}&guildId=${this.guildId}`);
   }
 }

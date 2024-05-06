@@ -1,7 +1,8 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { DatabaseService } from '../../services/database.service';
-import { PLAYER_DATA, PLAYER_LIST_DATA } from '../../../../../backend/src/types/types';
+import { API_PLAYER_LIST, PLAYER_LIST_ITEM } from '../../../../../backend/src/types/types';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'dl-players',
@@ -9,16 +10,20 @@ import { PLAYER_DATA, PLAYER_LIST_DATA } from '../../../../../backend/src/types/
   styleUrl: './players.component.scss'
 })
 export class PlayersComponent implements AfterViewInit {
+  public textSearchUpdate = new Subject<string>();
+
   constructor(
     public sharedService: SharedService,
     public databaseService: DatabaseService
-  ) { }
+  ) {
+    this.textSearchUpdate.pipe(debounceTime(1250), distinctUntilChanged()).subscribe(this.applyFilter.bind(this));
+  }
 
   ngAfterViewInit(): void {
     this.applyFilter();
   }
 
-  public players: PLAYER_DATA[] = [];
+  public players: PLAYER_LIST_ITEM[] = [];
   public total: number = 0;
   public isLoading: boolean = true;
   public filters: {
@@ -37,10 +42,10 @@ export class PlayersComponent implements AfterViewInit {
     this.players = [];
     this.isLoading = true;
     const paramsAsString = Object.keys(this.filters).reduce<string[]>((p, k) => { return [...p, `${k}=${(<any>this.filters)[k] || ''}`] }, []).join('&');
-    const response = await this.databaseService.fetch<PLAYER_LIST_DATA>(`players?${paramsAsString}`);
+    const response = await this.databaseService.fetch<API_PLAYER_LIST>(`players?${paramsAsString}`);
     if (!response) return;
     this.isLoading = false;
-    this.players = response.players;
+    this.players = response.data;
     this.total = response.total;
   }
 

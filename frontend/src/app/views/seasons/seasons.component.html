@@ -1,10 +1,10 @@
 <ng-container>
-    <h1 class="mt-1">Season {{seasonData?.seasonInfo?.season || ''}}</h1>
+    <h1 class="mt-1">Season {{seasonData?.season_info?.season || ''}}</h1>
     <div class="row mt-3">
         <div class="col-lg-3 order-lg-2">
             <div class="forced-bg">
                 <select class="form-control" [ngModel]="selectedSeasonId" (ngModelChange)="onSeasonChange($event)">
-                    <option *ngFor="let item of (seasonData?.allSeasonsInfo || []).reverse()" [ngValue]="item.season">Season {{ item.season }}</option>
+                    <option *ngFor="let item of (seasonData?.all_seasons_info || []).reverse()" [ngValue]="item.season">Season {{ item.season }}</option>
                 </select>
 
                 <div *ngIf="!seasonData" class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
@@ -12,17 +12,17 @@
                 </div>
                 <div class="p-3" *ngIf="seasonData">
                     <h6 class="font-weight-bold">Start at</h6>
-                    <p>{{seasonData.seasonInfo.start_at | date:'YYYY/MM/dd HH:mm'}}</p>
+                    <p>{{seasonData.season_info.start_at | date:'YYYY/MM/dd HH:mm'}}</p>
 
                     <h6 class="font-weight-bold">End at</h6>
-                    <p>{{seasonData.seasonInfo.end_at | date:'YYYY/MM/dd HH:mm'}}</p>
+                    <p>{{seasonData.season_info.end_at | date:'YYYY/MM/dd HH:mm'}}</p>
 
-                    <ng-container *ngIf="seasonData.seasonInfo.season === seasonData.allSeasonsInfo.length">
+                    <ng-container *ngIf="seasonData.season_info.season === seasonData.all_seasons_info.length">
                         <h6 class="font-weight-bold">Last updated</h6>
-                        <p>{{seasonData.seasonInfo.last_updated | date:'YYYY/MM/dd HH:mm'}}</p>
+                        <p>{{seasonData.season_info.last_updated | date:'YYYY/MM/dd HH:mm'}}</p>
                     </ng-container>
 
-                    <button *ngIf="seasonData.seasonInfo.flourish_id" class="btn btn-primary btn-block btn-icon mt-3" (click)="toggleShowChart()">
+                    <button *ngIf="seasonData.season_info.flourish_id" class="btn btn-primary btn-block btn-icon mt-3" (click)="toggleShowChart()">
                         <ng-container *ngIf="!showChart"><i class="fa-solid fa-chart-bar mr-1"></i>Bar Chart Race</ng-container>
                         <ng-container *ngIf="showChart"><i class="fa-solid fa-arrow-left mr-1"></i>Leaderboard</ng-container>
                     </button>
@@ -52,7 +52,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr *ngFor="let leaderboardItem of seasonData?.seasonLeaderboard;" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId">
+                        <tr *ngFor="let leaderboardItem of seasonData?.season_leaderboard;" [routerLink]="'/guilds/' + leaderboardItem.guild_id" role="button" [class.text-info]="leaderboardItem.guild_id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guild_id) && leaderboardItem.guild_id !== sharedService.guildId">
                             <td class="text-center">{{leaderboardItem.rank}}.</td>
                             <td>
                                 <img *ngIf="leaderboardItem.guild_icon_filename" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.guild_icon_filename, 'guilds')">
@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
             </div>
-            <dl-flourish-frame *ngIf="showChart && seasonData?.seasonInfo?.flourish_id" [url]="getFlourishUrl(seasonData!.seasonInfo.flourish_id)"></dl-flourish-frame>
+            <dl-flourish-frame *ngIf="showChart && seasonData?.season_info?.flourish_id" [url]="getFlourishUrl(seasonData!.season_info.flourish_id)"></dl-flourish-frame>
         </div>
     </div>
 </ng-container>

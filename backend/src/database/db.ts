@@ -24,6 +24,15 @@ export default {
         }
     },
 
+    async query(query: string, params: (string | number)[] = []) {
+        try {
+            return this.db.query(query, params);
+        } catch (error) {
+            console.log(error);
+            throw new Error();
+        }
+    },
+
     async insert(query: string, params: (string | number)[] = []) {
         try {
             return this.db.query<ResultSetHeader>(query, params);

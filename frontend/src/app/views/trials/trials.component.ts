@@ -1,7 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { DatabaseService } from '../../services/database.service';
 import { SharedService } from '../../services/shared.service';
-import { BEHEMOTH_LIST, TRIAL_DATA, TRIAL_LIST_DATA } from '../../../../../backend/src/types/types';
+import { API_TRIAL_LIST, BEHEMOTH, TRIAL_LIST_ITEM } from '../../../../../backend/src/types/types';
 
 @Component({
   selector: 'dl-trials',
@@ -19,8 +19,8 @@ export class TrialsComponent implements AfterViewInit {
     this.loadBehemoths();
   }
 
-  public behemoths: BEHEMOTH_LIST[] = [];
-  public trials: TRIAL_DATA[] = [];
+  public behemoths: BEHEMOTH[] = [];
+  public trials: TRIAL_LIST_ITEM[] = [];
   public total: number = 0;
   public isLoading: boolean = true;
   public filters: {
@@ -35,15 +35,15 @@ export class TrialsComponent implements AfterViewInit {
     this.trials = [];
     this.isLoading = true;
     const paramsAsString = Object.keys(this.filters).reduce<string[]>((p, k) => { return [...p, `${k}=${(<any>this.filters)[k] || ''}`] }, []).join('&');
-    const response = await this.databaseService.fetch<TRIAL_LIST_DATA>(`trials?${paramsAsString}`);
+    const response = await this.databaseService.fetch<API_TRIAL_LIST>(`trials?${paramsAsString}`);
     if (!response) return;
     this.isLoading = false;
-    this.trials = response.trials;
+    this.trials = response.data;
     this.total = response.total;
   }
 
   public async loadBehemoths() {
-    this.behemoths = (await this.databaseService.fetch<BEHEMOTH_LIST[]>(`behemoths`)) || [];
+    this.behemoths = (await this.databaseService.fetch<BEHEMOTH[]>(`behemoths`)) || [];
   }
 
   public Number: (str: string) => number = str => Number(str);

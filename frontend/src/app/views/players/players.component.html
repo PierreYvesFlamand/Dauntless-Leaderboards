@@ -2,7 +2,7 @@
 <div class="row mt-4">
     <div class="col-lg-3">
         <div class="input-group">
-            <input class="form-control" placeholder="Search for a player" [ngModel]="''" (ngModelChange)="filters.textSearch = $event; filters.page = 1; applyFilter();" />
+            <input class="form-control" placeholder="Search for a player" [(ngModel)]="filters.textSearch" (ngModelChange)="textSearchUpdate.next($event)" />
             <div class="input-group-append">
                 <button class="btn btn-default" style="cursor: default;"><i class="fas fa-search"></i></button>
             </div>
@@ -52,24 +52,27 @@
 
                     <tbody>
                         <tr *ngIf="isLoading" style="user-select: none;">
-                            <td colspan="6">
+                            <td colspan="7">
                                 <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
                                     <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
                                 </div>
                             </td>
                         </tr>
-                        <tr *ngFor="let player of players" [routerLink]="'/players/' + player.id" role="button">
+                        <tr *ngFor="let player of players" [routerLink]="'/players/' + player.player_id" role="button">
                             <td>
-                                <span *ngIf="player.player_names[0].name === 'diamond'">💎</span>
+                                <span *ngIf="player.icon_filename === 'diamond'">💎</span>
                                 <img *ngIf="player.icon_filename && player.icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.icon_filename, 'players')">
-                                {{player.player_names[0].name}}
+                                <span *ngFor="let player_name of player.player_names" class="px-1">
+                                    {{player_name.name}}
+                                    <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player_name.platform_id + '.png', 'platforms')" />
+                                </span>
                             </td>
-                            <td style="width: 90px;">{{Number(player.nbrSoloTop1) ? player.nbrSoloTop1 : ''}}</td>
-                            <td style="width: 90px;">{{Number(player.nbrSoloTop5) ? player.nbrSoloTop5 : ''}}</td>
-                            <td style="width: 90px;">{{Number(player.nbrSoloTop100) ? player.nbrSoloTop100 : ''}}</td>
-                            <td style="width: 90px;">{{Number(player.nbrGroupTop1) ? player.nbrGroupTop1 : ''}}</td>
-                            <td style="width: 90px;">{{Number(player.nbrGroupTop5) ? player.nbrGroupTop5 : ''}}</td>
-                            <td style="width: 90px;">{{Number(player.nbrGroupTop100) ? player.nbrGroupTop100 : ''}}</td>
+                            <td style="width: 90px;">{{player.nbrSoloTop1 ? player.nbrSoloTop1 : ''}}</td>
+                            <td style="width: 90px;">{{player.nbrSoloTop5 ? player.nbrSoloTop5 : ''}}</td>
+                            <td style="width: 90px;">{{player.nbrSoloTop100 ? player.nbrSoloTop100 : ''}}</td>
+                            <td style="width: 90px;">{{player.nbrGroupTop1 ? player.nbrGroupTop1 : ''}}</td>
+                            <td style="width: 90px;">{{player.nbrGroupTop5 ? player.nbrGroupTop5 : ''}}</td>
+                            <td style="width: 90px;">{{player.nbrGroupTop100 ? player.nbrGroupTop100 : ''}}</td>
                         </tr>
                     </tbody>
                 </table>

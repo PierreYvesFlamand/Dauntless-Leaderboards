@@ -11,6 +11,7 @@ import { GuildDetailComponent } from './views/guilds/guild-detail/guild-detail.c
 import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 import { PlayersComponent } from './views/players/players.component';
+import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
       { path: 'trials/:id', component: TrialDetailComponent },
 
       { path: 'players', component: PlayersComponent },
-      // { path: 'players/:id', component: PlayerDetailComponent },
+      { path: 'players/:id', component: PlayerDetailComponent },
 
       { path: 'about', component: AboutComponent },
       { path: 'settings', component: SettingsComponent },
