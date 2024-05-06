@@ -3,7 +3,7 @@ services:
   dauntless-leaderboards-mysql:
     image: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ROOT
       MYSQL_USER: dauntless-leaderboards
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: dauntless-leaderboards
@@ -12,8 +12,6 @@ services:
       - "7002:7002"
     volumes:
       - ./database/mysql:/var/lib/mysql
-    networks:
-        - dauntless-leaderboards
 
   dauntless-leaderboards-phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -22,8 +20,6 @@ services:
       PMA_PORT: 7002
     ports:
       - "7003:80"
-    networks:
-        - dauntless-leaderboards
 
   dauntless-leaderboards-server:
     image: node:20
@@ -37,8 +33,3 @@ services:
         bash -c "cd /app
         && npm i
         && npm run start"
-    networks:
-        - dauntless-leaderboards
-
-networks:
-  dauntless-leaderboards:
