@@ -12,6 +12,8 @@ services:
       - "7002:7002"
     volumes:
       - ./database/mysql:/var/lib/mysql
+    networks:
+        - backend
 
   dauntless-leaderboards-phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -20,6 +22,8 @@ services:
       PMA_PORT: 7002
     ports:
       - "7003:80"
+    networks:
+        - backend
 
   dauntless-leaderboards-server:
     image: node:20
@@ -33,3 +37,8 @@ services:
         bash -c "cd /app
         && npm i
         && npm run start"
+    networks:
+        - backend
+
+networks:
+  dauntless-leaderboards:
