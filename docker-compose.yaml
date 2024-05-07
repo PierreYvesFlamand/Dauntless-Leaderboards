@@ -13,11 +13,13 @@ services:
     volumes:
       - ./database/mysql:/var/lib/mysql
 
+  # ONLY FOR DEV PURPOSE
   dauntless-leaderboards-phpmyadmin:
     image: phpmyadmin/phpmyadmin
     environment:
       PMA_HOST: dauntless-leaderboards-mysql
       PMA_PORT: 7002
+      UPLOAD_LIMIT: 500M
     ports:
       - "7003:80"
 

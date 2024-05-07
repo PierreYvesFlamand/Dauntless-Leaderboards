@@ -562,6 +562,7 @@ async function getPlayer(id: number) {
         SELECT
             tlig.trial_leaderboard_item_type_id,
             tw.week,
+            b.name AS behemoth_name,
             tlig.rank,
             JSON_ARRAYAGG(JSON_OBJECT('weapon_id', tligp.weapon_id, 'role_id', tligp.role_id, 'player_name', pn.name, 'platform_id', tligp.platform_id, 'player_icon_filename', pd.icon_filename, 'player_id', tligp.player_id)) AS players,
             tlig.completion_time,
@@ -573,12 +574,13 @@ async function getPlayer(id: number) {
         LEFT JOIN trial_leaderboard_items_groups_players tligp ON tligp.trial_leaderboard_items_trial_groups_id = tlig.id
         LEFT JOIN player_names pn ON pn.player_id = tligp.player_id AND pn.platform_id = tligp.platform_id
         LEFT JOIN players_data pd ON pd.player_id = tligp.player_id
+        LEFT JOIN behemoths b ON b.id = tw.behemoth_id
         WHERE tlig.id IN (
             SELECT trial_leaderboard_items_trial_groups_id
             FROM trial_leaderboard_items_groups_players
             WHERE player_id = ?
         )
-        GROUP BY tlig.trial_leaderboard_item_type_id, tw.week, tlig.rank, tlig.completion_time, tw.start_at, tw.end_at
+        GROUP BY tlig.trial_leaderboard_item_type_id, tw.week, b.name, tlig.rank, tlig.completion_time, tw.start_at, tw.end_at
         ORDER BY tlig.trial_leaderboard_item_type_id ASC, tw.week DESC
         LIMIT 9999 OFFSET 0
     `, [id]);

@@ -18,6 +18,7 @@ export class SharedService {
         this.updateGuildId(this.localstorageService.getByKey<number>('guild-id'));
         this.updateTrialDecimals(this.localstorageService.getByKey<number>('trial-decimals'));
         this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('favorite-guilds'));
+        this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('favorite-players'));
     }
 
     // Theme
@@ -45,7 +46,7 @@ export class SharedService {
     // Player id
     private playerIdSubject = new BehaviorSubject<number>(-1);
     playerId$ = this.playerIdSubject.asObservable();
-    updatePlayerId(value: number) {
+    updatePlayerId(value: number) {        
         this.localstorageService.setByKey('player-id', value);
         this.playerIdSubject.next(value);
     }

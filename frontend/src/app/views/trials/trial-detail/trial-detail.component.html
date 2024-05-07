@@ -80,7 +80,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.all_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.all_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -113,7 +113,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.group_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.group_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -123,7 +123,7 @@
                                         <td style="vertical-align: middle;">
                                             <div class="d-none d-md-block">
                                                 <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                                    <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                                    <div *ngFor="let player of leaderboardItem.players" [enhancedRouterLink]="'/players/' + player.player_id" role="button" [class.text-info]="player.player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.player_id) && player.player_id !== sharedService.playerId">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
                                                         <span class="mx-2">
@@ -137,7 +137,7 @@
                                             </div>
                                             <div class="d-md-none">
                                                 <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                                    <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                                    <div *ngFor="let player of leaderboardItem.players" [enhancedRouterLink]="'/players/' + player.player_id" role="button" [class.text-info]="player.player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.player_id) && player.player_id !== sharedService.playerId">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
                                                         <span class="mx-2">
@@ -166,7 +166,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.hammer_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.hammer_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -199,7 +199,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.axe_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.axe_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -232,7 +232,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.sword_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.sword_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -265,7 +265,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.chainblades_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.chainblades_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -298,7 +298,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.pike_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.pike_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -331,7 +331,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.repeaters_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.repeaters_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>
@@ -364,7 +364,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let leaderboardItem of trial.strikers_leaderboard; let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                    <tr *ngFor="let leaderboardItem of trial.strikers_leaderboard; let index = index" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                         <td style="vertical-align: middle" class="text-center">
                                             {{leaderboardItem.rank}}.
                                         </td>

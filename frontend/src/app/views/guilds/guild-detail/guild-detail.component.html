@@ -32,7 +32,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let seasonRank of guildData.guild_gauntlet_stats.reverse()" role="button" [routerLink]="'/seasons/' + seasonRank.season">
+                                    <tr *ngFor="let seasonRank of guildData.guild_gauntlet_stats.reverse()" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
                                         <td class="text-center px-0" style="width: 90px">{{seasonRank.season}} </td>
                                         <td class="text-center px-0" style="width: 90px">{{seasonRank.rank}}</td>
                                     </tr>
@@ -65,7 +65,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let seasonRank of guildData.guild_gauntlet_stats.reverse()" role="button" [routerLink]="'/seasons/' + seasonRank.season">
+                                <tr *ngFor="let seasonRank of guildData.guild_gauntlet_stats.reverse()" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
                                     <td class="text-center px-0" style="width: 90px">{{seasonRank.season}} </td>
                                     <td class="text-center px-0" style="width: 90px">{{seasonRank.rank}}</td>
                                 </tr>

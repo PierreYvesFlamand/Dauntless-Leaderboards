@@ -282,6 +282,7 @@ export interface DB_PLAYER_TRIAL_ITEM extends PLAYER_TRIAL_ITEM, RowDataPacket {
 export type PLAYER_TRIAL_ITEM = {
     trial_leaderboard_item_type_id: number
     week: number
+    behemoth_name: string
     rank: number
     players: {
         player_id: number

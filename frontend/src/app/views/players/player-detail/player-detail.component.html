@@ -1,3 +1,8 @@
+<div class="col" *ngIf="!playerData">
+    <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+        <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+    </div>
+</div>
 <ng-container *ngIf="playerData">
     <div class="d-flex justify-content-between align-items-center">
         <h1>
@@ -8,66 +13,66 @@
             </ng-container>
         </h1>
         <div>
-            <i class="px-1 fa-{{sharedService.hasFavoriteGuild(playerData.player_info.id) ? 'solid' : 'regular'}} fa-star text-warning" style="font-size: 1.2rem;" role="button" (click)="sharedService.toggleFavoriteGuild(playerData.player_info.id)"></i>
-            <i class="px-1 fa-solid fa-{{playerData.player_info.id === sharedService.guildId ? 'lock' : 'lock-open'}} text-info" style="font-size: 1.2rem;" role="button" (click)="sharedService.updateGuildId(playerData.player_info.id === sharedService.guildId ? -1 : playerData.player_info.id)"></i>
+            <i class="px-1 fa-{{sharedService.hasFavoritePlayer(playerData.player_info.id) ? 'solid' : 'regular'}} fa-star text-warning" style="font-size: 1.2rem;" role="button" (click)="sharedService.toggleFavoritePlayer(playerData.player_info.id)"></i>
+            <i class="px-1 fa-solid fa-{{playerData.player_info.id === sharedService.playerId ? 'lock' : 'lock-open'}} text-info" style="font-size: 1.2rem;" role="button" (click)="sharedService.updatePlayerId(playerData.player_info.id === sharedService.playerId ? -1 : playerData.player_info.id)"></i>
         </div>
     </div>
 
     <div class="card">
         <div class="card-body">
             <ul class="nav nav-tabs" id="trial-switch" role="tablist">
-                <li *ngIf="getRowByTypeId(1).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.all.length > 0" class="nav-item" role="button">
                     <a id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" [class.active]="firstActive === 1" class="nav-link link-color h-100">
                         Solo
-                        ({{getRowByTypeId(1).length}})
+                        ({{leaderboards.all.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(2).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.group.length > 0" class="nav-item" role="button">
                     <a id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" [class.active]="firstActive === 2" class="nav-link link-color h-100">
                         Group
-                        ({{getRowByTypeId(2).length}})
+                        ({{leaderboards.group.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(5).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.hammer.length > 0" class="nav-item" role="button">
                     <a id="hammer-tab" data-toggle="pill" href="#hammer" role="tab" aria-controls="hammer" [class.active]="firstActive === 5" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('1.png', 'weapons')">
-                        ({{getRowByTypeId(5).length}})
+                        ({{leaderboards.hammer.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(4).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.axe.length > 0" class="nav-item" role="button">
                     <a id="axe-tab" data-toggle="pill" href="#axe" role="tab" aria-controls="axe" [class.active]="firstActive === 4" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('2.png', 'weapons')">
-                        ({{getRowByTypeId(4).length}})
+                        ({{leaderboards.axe.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(3).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.sword.length > 0" class="nav-item" role="button">
                     <a id="sword-tab" data-toggle="pill" href="#sword" role="tab" aria-controls="sword" [class.active]="firstActive === 3" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('3.png', 'weapons')">
-                        ({{getRowByTypeId(3).length}})
+                        ({{leaderboards.sword.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(6).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.chainblades.length > 0" class="nav-item" role="button">
                     <a id="chainblades-tab" data-toggle="pill" href="#chainblades" role="tab" aria-controls="chainblades" [class.active]="firstActive === 6" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('4.png', 'weapons')">
-                        ({{getRowByTypeId(6).length}})
+                        ({{leaderboards.chainblades.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(7).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.pike.length > 0" class="nav-item" role="button">
                     <a id="pike-tab" data-toggle="pill" href="#pike" role="tab" aria-controls="pike" [class.active]="firstActive === 7" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('5.png', 'weapons')">
-                        ({{getRowByTypeId(7).length}})
+                        ({{leaderboards.pike.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(8).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.repeaters.length > 0" class="nav-item" role="button">
                     <a id="repeaters-tab" data-toggle="pill" href="#repeaters" role="tab" aria-controls="repeaters" [class.active]="firstActive === 8" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('6.png', 'weapons')">
-                        ({{getRowByTypeId(8).length}})
+                        ({{leaderboards.repeaters.length}})
                     </a>
                 </li>
-                <li *ngIf="getRowByTypeId(9).length > 0" class="nav-item" role="button">
+                <li *ngIf="leaderboards.strikers.length > 0" class="nav-item" role="button">
                     <a id="strikers-tab" data-toggle="pill" href="#strikers" role="tab" aria-controls="strikers" [class.active]="firstActive === 9" class="nav-link link-color">
                         <img style="width: 2rem" [src]="sharedService.getImgPath('7.png', 'weapons')">
-                        ({{getRowByTypeId(9).length}})
+                        ({{leaderboards.strikers.length}})
                     </a>
                 </li>
             </ul>
@@ -78,13 +83,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(1); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.all" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -100,6 +112,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -111,50 +129,67 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
-                                    <th>Player</th>
+                                    <th>Players</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(2); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
-                                    <td style="vertical-align: middle" class="text-center">
-                                        {{leaderboardItem.rank}}.
-                                    </td>
-                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completion_time, true)">
-                                        {{sharedService.convertTrialTime(leaderboardItem.completion_time, sharedService.trialDecimals)}}
-                                    </td>
-                                    <td style="vertical-align: middle;">
-                                        <div class="d-none d-md-block">
-                                            <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                                <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
-                                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
-                                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
-                                                    <span class="mx-2">
-                                                        <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
-                                                        <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
-                                                        {{player.player_name}}
-                                                    </span>
-                                                    <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                <ng-container *ngFor="let leaderboardItem of leaderboards.group">
+                                    <tr *ngFor="let group of leaderboardItem.groups; let first = first">
+                                        <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{leaderboardItem.week}}
+                                            <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                        </td>
+
+                                        <td style="vertical-align: middle" class="text-center" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{group.rank}}.
+                                        </td>
+                                        <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(group.completion_time, true)" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{sharedService.convertTrialTime(group.completion_time, sharedService.trialDecimals)}}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-none d-md-block">
+                                                <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of group.players" [enhancedRouterLink]="'/players/' + player.player_id" role="button" [class.text-info]="player.player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.player_id) && player.player_id !== sharedService.playerId">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                                        <span class="mx-2">
+                                                            <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
+                                                            <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
+                                                            {{player.player_name}}
+                                                        </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="d-md-none">
-                                            <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                                <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
-                                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
-                                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
-                                                    <span class="mx-2">
-                                                        <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
-                                                        <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
-                                                        {{player.player_name}}
-                                                    </span>
-                                                    <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                            <div class="d-md-none">
+                                                <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of group.players" [enhancedRouterLink]="'/players/' + player.player_id" role="button" [class.text-info]="player.player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.player_id) && player.player_id !== sharedService.playerId">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                                        <span class="mx-2">
+                                                            <span *ngIf="player.player_icon_filename === 'diamond'">💎</span>
+                                                            <img *ngIf="player.player_icon_filename && player.player_icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.player_icon_filename, 'players')">
+                                                            {{player.player_name}}
+                                                        </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platform_id" [src]="sharedService.getImgPath(player.platform_id + '.png', 'platforms')" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+
+                                        <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 10rem;" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                        </td>
+                                        <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 10rem;" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{leaderboardItem.end_at| date:'MMMM d'}}
+                                        </td>
+                                    </tr>
+                                </ng-container>
                             </tbody>
                         </table>
                     </div>
@@ -164,13 +199,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(5); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.hammer" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -186,6 +228,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -197,13 +245,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(4); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.axe" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -219,6 +274,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -230,13 +291,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(3); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.sword" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -252,6 +320,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -263,13 +337,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(6); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.chainblades" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -285,6 +366,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -296,13 +383,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(7); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.pike" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -318,6 +412,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -329,13 +429,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(8); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.repeaters" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -351,6 +458,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -362,13 +475,20 @@
                         <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
                             <thead>
                                 <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
                                     <th style="width: 2rem;" class="text-center">Rank</th>
                                     <th style="width: 6rem;" class="text-center">Time</th>
                                     <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let leaderboardItem of getRowByTypeId(9); let index = index" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                                <tr *ngFor="let leaderboardItem of leaderboards.strikers" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemoth_name">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemoth_name + '.png', 'behemoths')" />
+                                    </td>
                                     <td style="vertical-align: middle" class="text-center">
                                         {{leaderboardItem.rank}}.
                                     </td>
@@ -384,6 +504,12 @@
                                             {{leaderboardItem.players[0].player_name}}
                                         </span>
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platform_id" [src]="sharedService.getImgPath(leaderboardItem.players[0].platform_id + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.start_at| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.end_at| date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>

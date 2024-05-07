@@ -46,7 +46,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr *ngFor="let trial of trials" [routerLink]="'/trials/' + trial.week" role="button">
+                        <tr *ngFor="let trial of trials" [enhancedRouterLink]="'/trials/' + trial.week" role="button">
                             <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="trial.behemoth_name">
                                 {{trial.week}}
                                 <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(trial.behemoth_name + '.png', 'behemoths')" />

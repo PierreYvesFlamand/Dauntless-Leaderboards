@@ -10,7 +10,7 @@
                         Gauntlet Season {{dashboardData.current_season_info.season}}
                     </h3>
                     <div class="d-flex flex-column align-items-center d-md-block">
-                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [routerLink]="'/seasons/' + dashboardData.current_season_info.season">View detail</button>
+                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [enhancedRouterLink]="'/seasons/' + dashboardData.current_season_info.season">View detail</button>
                         <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.current_season_info.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         Solo Trial
                     </h3>
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.current_trial_info.week">View all</button>
+                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [enhancedRouterLink]="'/trials/' + dashboardData.current_trial_info.week">View detail</button>
                         <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.current_trial_info.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let leaderboardItem of dashboardData.current_trial_leaderboard_solo" [routerLink]="'/players/' + leaderboardItem.players[0].player_id" role="button">
+                            <tr *ngFor="let leaderboardItem of dashboardData.current_trial_leaderboard_solo" [enhancedRouterLink]="'/players/' + leaderboardItem.players[0].player_id" role="button" [class.text-info]="leaderboardItem.players[0].player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(leaderboardItem.players[0].player_id) && leaderboardItem.players[0].player_id !== sharedService.playerId">
                                 <td style="vertical-align: middle" class="text-center">
                                     {{leaderboardItem.rank}}.
                                 </td>
@@ -116,7 +116,7 @@
                         Group Trial
                     </h3>
                     <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
-                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [routerLink]="'/trials/' + dashboardData.current_trial_info.week">View all</button>
+                        <button class="btn btn-xs btn-primary mt-2 mt-md-0 mr-0 mr-md-2" [enhancedRouterLink]="'/trials/' + dashboardData.current_trial_info.week">View detail</button>
                         <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.current_trial_info.end_at | date:'YYYY/MM/dd HH:mm'}}</span>
                     </div>
                 </div>
@@ -142,7 +142,7 @@
                                 <td style="vertical-align: middle;">
                                     <div class="d-none d-md-block">
                                         <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                            <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                            <div *ngFor="let player of leaderboardItem.players" [enhancedRouterLink]="'/players/' + player.player_id" role="button" [class.text-info]="player.player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.player_id) && player.player_id !== sharedService.playerId">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
                                                 <span class="mx-2">
@@ -156,7 +156,7 @@
                                     </div>
                                     <div class="d-md-none">
                                         <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
-                                            <div *ngFor="let player of leaderboardItem.players" [routerLink]="'/players/' + player.player_id" role="button">
+                                            <div *ngFor="let player of leaderboardItem.players" [enhancedRouterLink]="'/players/' + player.player_id" role="button" [class.text-info]="player.player_id === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.player_id) && player.player_id !== sharedService.playerId">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
                                                 <span class="mx-2">

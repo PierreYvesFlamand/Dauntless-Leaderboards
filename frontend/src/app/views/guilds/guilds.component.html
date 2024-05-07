@@ -55,7 +55,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr *ngFor="let guild of guilds" [routerLink]="'/guilds/' + guild.id" role="button" [class.text-info]="guild.id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(guild.id) && guild.id !== sharedService.guildId">
+                        <tr *ngFor="let guild of guilds" [enhancedRouterLink]="'/guilds/' + guild.id" role="button" [class.text-info]="guild.id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(guild.id) && guild.id !== sharedService.guildId">
                             <td>
                                 <img *ngIf="guild.icon_filename" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(guild.icon_filename, 'guilds')">
                                 {{guild.name}} <span class="font-weight-light h6">[{{guild.tag}}]</span>
