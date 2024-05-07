@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
             </div>
-            <dl-flourish-frame *ngIf="showChart && seasonData?.season_info?.flourish_id" [url]="getFlourishUrl(seasonData!.season_info.flourish_id)"></dl-flourish-frame>
+            <dl-flourish-frame *ngIf="showChart && seasonData?.season_info?.flourish_id" [url]="getFlourishUrl()"></dl-flourish-frame>
         </div>
     </div>
 </ng-container>

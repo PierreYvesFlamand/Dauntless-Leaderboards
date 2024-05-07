@@ -1,10 +1,17 @@
 [
     {
+        "version": "3.0.2",
+        "date": "2024/05/07",
+        "changelogItems": [
+            "Fix: Season list change order for no reason",
+            "Fix: Bar Chart Race blink on html update"
+        ]
+    },
+    {
         "version": "3.0.1",
         "date": "2024/05/07",
         "changelogItems": [
-            "Import old data from v2 for Bar Chart Race to work",
-            "Fix: Season list change order for no reason"
+            "Import old data from v2 for Bar Chart Race to work"
         ]
     },
     {
