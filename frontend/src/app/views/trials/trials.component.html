@@ -1,0 +1,78 @@
+<h1>Trials</h1>
+<div class="row mt-4">
+    <div class="col-lg-3">
+        <div class="input-group">
+            <select class="form-control" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page === 1; applyFilter();">
+                <option [ngValue]="0">All behemoths</option>
+                <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
+                    {{behemoth.name}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-9 mt-2 mt-lg-0">
+        <div *ngIf="total > 0" class="d-flex flex-column flex-lg-row align-items-center justify-content-lg-end">
+            <div class="pr-2">{{1 + (filters.page - 1) * 20}} - {{1 + filters.page * 20 < total ? 1 + filters.page * 20 : total}} of {{total}} trials </div>
+                    <div class="d-flex align-items-center justify-content-center flex-wrap mt-2 mt-lg-0">
+                        <i class="fa-solid fa-angles-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page = 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angle-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page = filters.page - 1; applyFilter();"></i>
+                        <input class="form-control no-arrows p-1 text-center" type="number" style="width: 2rem; height: 2rem;" [ngModel]="filters.page" (ngModelChange)="filters.page = ($event > 1 ? ($event < getNumberOfPages() ? $event : getNumberOfPages()) : 1); applyFilter();" />
+                        <span class="px-2"> / {{getNumberOfPages()}}</span>
+                        <i class="fa-solid fa-angle-right px-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page = filters.page + 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angles-right pl-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page = getNumberOfPages(); applyFilter();"></i>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="table-responsive forced-bg" style="max-height: 75vh;">
+                <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 6rem;" class="text-center px-0">Week</th>
+                            <th>Top 1 solo</th>
+                            <th>Top 1 group</th>
+                            <th style="width: 10rem;">From</th>
+                            <th style="width: 10rem;">To</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngIf="isLoading" style="user-select: none;">
+                            <td colspan="6">
+                                <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+                                    <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let trial of trials" [enhancedRouterLink]="'/trials/' + trial.week" role="button">
+                            <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="trial.behemoth_name">
+                                {{trial.week}}
+                                <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(trial.behemoth_name + '.png', 'behemoths')" />
+                            </td>
+                            <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.solo_completion_time, true)">
+                                {{sharedService.convertTrialTime(trial.solo_completion_time, sharedService.trialDecimals)}}
+                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.solo_player[0].weapon_id + '.png', 'weapons')" />
+                                <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="trial.solo_player[0].role_id" [src]="sharedService.getImgPath(trial.solo_player[0].role_id + '.png', 'omnicells')" />
+                            </td>
+                            <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.group_completion_time, true)">
+                                {{sharedService.convertTrialTime(trial.group_completion_time, sharedService.trialDecimals)}}
+                                <ng-container *ngFor="let player of trial.group_players">
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weapon_id + '.png', 'weapons')" />
+                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.role_id" [src]="sharedService.getImgPath(player.role_id + '.png', 'omnicells')" />
+                                    <span class="ml-3"></span>
+                                </ng-container>
+                            </td>
+                            <td style="vertical-align: middle; width: 10rem;">
+                                {{trial.start_at| date:'YYYY MMMM d'}}
+                            </td>
+                            <td style="vertical-align: middle; width: 10rem;">
+                                {{trial.end_at| date:'MMMM d'}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

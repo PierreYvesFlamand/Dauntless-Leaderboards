@@ -1,0 +1,32 @@
+<footer class="main-footer user-select-none">
+    <ng-container *ngIf="changelog.length">
+        <div role="button" (click)="showChangelog = true" class="float-right">
+            <b>Version</b> {{changelog[0].version}}
+        </div>
+    </ng-container>
+    Made by <span [enhancedRouterLink]="'/players/2'" role="button">Polfyy</span> from <span [enhancedRouterLink]="'/guilds/1'" role="button">ThraxEnjoyers</span>
+</footer>
+
+<div class="modal fade" [class.show]="showChangelog" [style.display]="showChangelog ? 'block' : 'none'" style="background-color: rgba(0, 0, 0, 0.6);">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Changelog</h4>
+                <button type="button" class="close" (click)="showChangelog = false" aria-label="Close">
+                    <span>×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div *ngFor="let changelogVersion of changelog; let last = last" [class.mb-4]="!last">
+                    <div class="d-flex align-items-center">
+                        <h3 class="m-0 mr-3">Version {{changelogVersion.version}}</h3>
+                        <span class="badge badge-info">{{changelogVersion.date}}</span>
+                    </div>
+                    <ul>
+                        <li *ngFor="let changelogItem of changelogVersion.changelogItems;">{{changelogItem}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
