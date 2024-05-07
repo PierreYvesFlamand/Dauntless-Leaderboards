@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedService } from './services/shared.service';
+import { HtmlTagsService } from './services/html-tags.service';
 
 @Component({
   selector: 'dl-root',
@@ -8,7 +9,8 @@ import { SharedService } from './services/shared.service';
 })
 export class AppComponent {
   constructor(
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private htmlTagsService: HtmlTagsService
   ) {
     console.info(
       `\n%c👋 Welcome in the Console 👋%c \nDo whatever you want in here 🤷‍♂️\nIf you feel it or find an issue, please join our Discord: https://discord.gg/JGTVcqMDfm\nEnjoy your stay !\n\n%c`,
@@ -16,6 +18,8 @@ export class AppComponent {
       'font-weight: bold; font-size: 1rem;color: #ceb73f;',
       "color: #ceb73f; font-size: 0.75rem; font-family: Tahoma, 'Trebuchet MS', Helvetica;",
     );
+
+    this.htmlTagsService.set();
 
     this.sharedService.theme$.subscribe(value => {
       document.querySelector('body')?.classList.add(`${value === 'dark' ? 'dark' : 'light'}-mode`);
