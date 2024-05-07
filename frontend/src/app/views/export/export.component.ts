@@ -11,16 +11,19 @@ export class ExportComponent {
   public seasonId: string = '';
 
   public async export(type: 'csv' | 'flourish') {
+    const id = this.seasonId.split('-')[0];
+    const pwd = this.seasonId.split('-')[1];
+    this.seasonId = '';
+    
     try {
-      const res = await fetch(`${environment.backendUrl}/api/season/full/${this.seasonId.split('-')[0]}`, {
+      const res = await fetch(`${environment.backendUrl}/api/season/full/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ pwd: this.seasonId.split('-')[1] })
+        body: JSON.stringify({ pwd })
       });
       const data: GAUNTLET_EXPORT[] = await res.json();
-      this.seasonId = '';
 
       const headers: Array<string> = ['Full date'];
       let lines: any = [];
