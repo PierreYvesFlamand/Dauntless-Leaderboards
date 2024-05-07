@@ -11,8 +11,8 @@ import config from '../config';
 (async () => {
     await db.init();
 
-    startTrialsImport(config.AUTHORIZATION_CODE);
-    startGauntletsImport();
+    await startTrialsImport(config.AUTHORIZATION_CODE);
+    await startGauntletsImport();
 
     const app = express();
     app.use(cors());
