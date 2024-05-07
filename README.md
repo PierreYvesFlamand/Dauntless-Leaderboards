@@ -5,36 +5,7 @@ Join our community on [Discord](https://discord.gg/JGTVcqMDfm)
 
 ## How to use
 
-Versions used:
-- Node 18.16.0
-- Npm 9.5.1
-
-Clone or Fork the project
-`git clone `
-`cd Dauntless-Leaderboards`
-
-### Server
-`cd server`
-
-Create a `.env` file by using `example.env` as a template
-
-Install server dependencies
-`npm i`
-
-Start the Express server
-`npm run server`
-
-Start the scraps
-`npm run fetch`
-
-### Client
-`cd client`
-
-Install server dependencies
-`npm i`
-
-Dev mode
-`npm run start`
+TO DO
 
 ## How to Contribute
 

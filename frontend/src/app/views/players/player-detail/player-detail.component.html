@@ -6,6 +6,8 @@
 <ng-container *ngIf="playerData">
     <div class="d-flex justify-content-between align-items-center">
         <h1>
+            <span *ngIf="playerData.player_info.icon_filename === 'diamond'">💎</span>
+            <img *ngIf="playerData.player_info.icon_filename && playerData.player_info.icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(playerData.player_info.icon_filename, 'players')">
             <ng-container *ngFor="let name of playerData.player_info.names; let last = last">
                 {{name.name}}
                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="name.platform_id" [src]="sharedService.getImgPath(name.platform_id + '.png', 'platforms')" />

@@ -12,7 +12,8 @@
             <a role="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown" aria-expanded="false">
                 <div class="d-flex align-items-center">
                     <i *ngIf="!me?.player?.icon_filename" class="fa-solid fa-user mr-md-2"></i>
-                    <img *ngIf="me && me.player && me.player.icon_filename" style="width: 1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(me.player.icon_filename, 'players')">
+                    <span class="mx-1" *ngIf="me && me.player && me.player.icon_filename === 'diamond'">💎</span>
+                    <img *ngIf="me && me.player && me.player.icon_filename && me.player.icon_filename !== 'diamond'" style="width: 1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(me.player.icon_filename, 'players')">
                     <span *ngIf="me && me.player">{{me.player.name}}</span>
                     <span class="d-none d-sm-inline ml-2">
                         <img *ngIf="me && me.guild && me.guild.icon_filename" style="width: 1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(me.guild.icon_filename, 'guilds')">
