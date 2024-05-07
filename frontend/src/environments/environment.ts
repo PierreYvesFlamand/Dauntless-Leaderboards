@@ -1,3 +1,3 @@
 export const environment = {
-    backendUrl: 'https://www.dauntless-leaderboards.com'
+    backendUrl: 'https://dauntless-leaderboards.com'
 };
