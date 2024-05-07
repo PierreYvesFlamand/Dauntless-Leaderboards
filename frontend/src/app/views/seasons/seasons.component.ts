@@ -36,7 +36,7 @@ export class SeasonsComponent {
       this.seasonData = await this.databaseService.fetch<API_SEASON>(`season/${seasonId}`);
     }
     if (!this.seasonData) return;
-    this.seasonData.all_seasons_info = this.seasonData.all_seasons_info.reverse();
+    this.seasonData.all_seasons_info = this.seasonData.all_seasons_info.sort((a, b) => b.season - a.season);
 
     const segments: (string | number)[] = ['seasons', this.seasonData.season_info.season];
 
@@ -56,7 +56,8 @@ export class SeasonsComponent {
     this.fetchData(this.selectedSeasonId, false);
   }
 
-  public getFlourishUrl(flourishId: string = ''): string {
-    return `https://flo.uri.sh/visualisation/${flourishId}/embed`;
+  public getFlourishUrl(): string {
+    if (!this.seasonData) return '';
+    return `https://flo.uri.sh/visualisation/${this.seasonData.season_info.flourish_id}/embed`;
   }
 }
