@@ -19,7 +19,7 @@ export async function startTrialsImport(authorizationCode: string) {
 
     console.log('Starting current week import');
     await importTrials();
-    setInterval(importTrials, 1000 * 60 * 10);
+    setInterval(importTrials, 1000 * 60 * 3);
 }
 
 async function importTrials(week: number = getCurrentWeek()) {

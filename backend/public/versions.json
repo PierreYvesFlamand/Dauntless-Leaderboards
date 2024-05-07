@@ -1,7 +1,15 @@
 [
     {
+        "version": "3.0.1",
+        "date": "2024/05/07",
+        "changelogItems": [
+            "Import old data from v2 for Bar Chart Race to work",
+            "Fix: Season list change order for no reason"
+        ]
+    },
+    {
         "version": "3.0.0",
-        "date": "2024/",
+        "date": "2024/05/07",
         "changelogItems": [
             "Change internal data storage from JSON file to mysql"
         ]

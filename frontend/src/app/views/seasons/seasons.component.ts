@@ -36,6 +36,7 @@ export class SeasonsComponent {
       this.seasonData = await this.databaseService.fetch<API_SEASON>(`season/${seasonId}`);
     }
     if (!this.seasonData) return;
+    this.seasonData.all_seasons_info = this.seasonData.all_seasons_info.reverse();
 
     const segments: (string | number)[] = ['seasons', this.seasonData.season_info.season];
 

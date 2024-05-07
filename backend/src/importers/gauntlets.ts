@@ -43,6 +43,8 @@ async function importGauntlets() {
                 ]);
             }
 
+            if (new Date(season[0].end_at).getTime() < new Date().getTime()) continue;
+
             const dauntlessSeason = await fetchSeasonData(dauntlessAllSeasonDetail.gauntlet_id);
             if (!dauntlessSeason) return;
 
@@ -107,10 +109,12 @@ async function importGauntlets() {
                 rank++;
             }
 
-            await db.insert(`
-                INSERT INTO gauntlet_leaderboard_items_guilds (gauntlet_leaderboard_item_id, guild_id, level, remaining_sec, \`rank\`)
-                VALUES ${'(?,?,?,?,?)'.repeat(values.length / 5).split(')(').join('),(')}
-            `, values);
+            if (values.length) {
+                await db.insert(`
+                    INSERT INTO gauntlet_leaderboard_items_guilds (gauntlet_leaderboard_item_id, guild_id, level, remaining_sec, \`rank\`)
+                    VALUES ${'(?,?,?,?,?)'.repeat(values.length / 5).split(')(').join('),(')}
+                `, values);
+            }
         } catch (error) {
             console.error(error);
         }

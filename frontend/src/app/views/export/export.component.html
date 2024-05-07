@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-12">
+        <div class="alert alert-warning">
+            <h5><i class="icon fas fa-exclamation-triangle"></i> Warning</h5>
+            <p>Big files can be loaded !<br />Use at your own risk.</p>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Seasons</h3>
+            </div>
+            <div class="card-body">
+                <input class="form-control mb-3" placeholder="Season Id" [(ngModel)]="seasonId" />
+                <button class="btn btn-primary btn-block mb-3" (click)="export('csv')">
+                    .csv
+                </button>
+                <button class="btn btn-primary btn-block" (click)="export('flourish')">
+                    Flourish
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

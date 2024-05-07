@@ -46,6 +46,17 @@ export type GUILD = {
     tag: string
 }
 
+export interface DB_GAUNTLET_EXPORT extends GAUNTLET_EXPORT, RowDataPacket { }
+export type GAUNTLET_EXPORT = {
+    last_updated: Date
+    leaderboard: {
+        guild_name: string
+        guild_tag: string
+        level: number
+        remaining_sec: number
+    }[]
+}
+
 // TRIALS
 export type DAUNTLESS_TRIAL = {
     code: any // TODO

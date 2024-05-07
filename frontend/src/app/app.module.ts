@@ -21,6 +21,7 @@ import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
+import { ExportComponent } from './views/export/export.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { PlayerDetailComponent } from './views/players/player-detail/player-deta
     TrialsComponent,
     TrialDetailComponent,
     PlayersComponent,
-    PlayerDetailComponent
+    PlayerDetailComponent,
+    ExportComponent
   ],
   imports: [
     BrowserModule,

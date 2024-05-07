@@ -14,6 +14,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 interface ENV {
     EXPRESS_PORT: number | undefined
+    EXPORT_PWD: string | undefined
     AUTHORIZATION_CODE: string | undefined
     DB_HOST: string | undefined
     DB_PORT: number | undefined
@@ -24,6 +25,7 @@ interface ENV {
 
 interface Config {
     EXPRESS_PORT: number
+    EXPORT_PWD: string
     AUTHORIZATION_CODE: string
     DB_HOST: string
     DB_PORT: number
@@ -37,6 +39,7 @@ interface Config {
 const getConfig = (): ENV => {
     return {
         EXPRESS_PORT: process.env.EXPRESS_PORT ? Number(process.env.EXPRESS_PORT) : undefined,
+        EXPORT_PWD: process.env.EXPORT_PWD,
         AUTHORIZATION_CODE: process.env.AUTHORIZATION_CODE,
         DB_HOST: process.env.DB_HOST,
         DB_PORT: process.env.DB_PORT ? Number(process.env.DB_PORT) : undefined,
