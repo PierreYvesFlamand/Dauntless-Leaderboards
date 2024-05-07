@@ -4,7 +4,7 @@
         <div class="col-lg-3 order-lg-2">
             <div class="forced-bg">
                 <select class="form-control" [ngModel]="selectedSeasonId" (ngModelChange)="onSeasonChange($event)">
-                    <option *ngFor="let item of (seasonData?.all_seasons_info || []).reverse()" [ngValue]="item.season">Season {{ item.season }}</option>
+                    <option *ngFor="let item of (seasonData?.all_seasons_info || [])" [ngValue]="item.season">Season {{ item.season }}</option>
                 </select>
 
                 <div *ngIf="!seasonData" class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">

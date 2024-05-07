@@ -4,7 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import { startGauntletsImport } from './importers/gauntlets';
 import { startTrialsImport } from './importers/trials';
-import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_GUILD_LIST_ITEM, DB_GUILD_ME, DB_PLAYER_ME, DB_SEASON_INFO, DB_SEASON_LEADERBOARD, DB_TRIAL_INFO, DB_TRIAL_LEADERBOARD, DB_TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES, DB_PLAYER_LIST_ITEM, DB_PLAYER_TRIAL_ITEM } from './types/types';
+import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_GUILD_LIST_ITEM, DB_GUILD_ME, DB_PLAYER_ME, DB_SEASON_INFO, DB_SEASON_LEADERBOARD, DB_TRIAL_INFO, DB_TRIAL_LEADERBOARD, DB_TRIAL_LEADERBOARD_ITEM_TYPE, TRIAL_LEADERBOARD_ITEM_TYPES, DB_PLAYER_LIST_ITEM, DB_PLAYER_TRIAL_ITEM, DB_GAUNTLET_EXPORT, DB_GAUNTLET_LEADERBOARD_ITEM, DB_GUILD } from './types/types';
 import config from '../config';
 
 // Needs true folder structure for this part
@@ -195,6 +195,23 @@ import config from '../config';
             const player_trials = await getPlayer(player_id);
 
             res.status(200).json({ player_info, player_trials });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Internal Server Error', error });
+        }
+    });
+
+    app.post('/api/season/full/:id', async (req, res) => {
+        try {
+            let pwd = req.body['pwd']
+            if (pwd !== config.EXPORT_PWD) throw new Error(`It's a no no`);
+
+            const seasonId = Number(req.params.id);
+            if (isNaN(seasonId)) throw new Error(`Season id should be a number`);
+
+            const seasonExport = await getFullSeasonExport(seasonId);
+
+            res.status(200).json(seasonExport);
         } catch (error) {
             console.error(error);
             res.status(500).json({ message: 'Internal Server Error', error });
@@ -585,4 +602,26 @@ async function getPlayer(id: number) {
     `, [id]);
 
     return player_trials;
+}
+
+async function getFullSeasonExport(id: number) {
+    const [seasonExport] = await db.select<DB_GAUNTLET_EXPORT[]>(`
+        SELECT
+            gli.last_updated,
+            JSON_ARRAYAGG(JSON_OBJECT(
+                'guild_name', g.name,
+                'guild_tag', g.tag,
+                'level', glig.level,
+                'remaining_sec', glig.remaining_sec
+            )) AS leaderboard
+        FROM gauntlet_leaderboard_items gli
+        LEFT JOIN gauntlet_leaderboard_items_guilds glig ON glig.gauntlet_leaderboard_item_id = gli.id
+        LEFT JOIN guilds g ON g.id = glig.guild_id
+        WHERE gli.gauntlet_season = ?
+        GROUP BY gli.last_updated
+        ORDER BY gli.last_updated ASC
+        LIMIT 100000
+    `, [id]);
+
+    return seasonExport;
 }
