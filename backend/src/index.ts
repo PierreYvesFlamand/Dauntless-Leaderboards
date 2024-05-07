@@ -8,12 +8,11 @@ import { DB_BEHEMOTH, DB_COUNT, DB_GUILD_GAUNTLET_STAT_ITEM, DB_GUILD_INFO, DB_G
 import config from '../config';
 
 // Needs true folder structure for this part
-
 (async () => {
     await db.init();
 
-    // await startTrialsImport(config.AUTHORIZATION_CODE);
-    // await startGauntletsImport();
+    await startTrialsImport(config.AUTHORIZATION_CODE);
+    await startGauntletsImport();
 
     const app = express();
     app.use(cors());
