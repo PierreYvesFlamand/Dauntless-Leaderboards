@@ -1,5 +1,13 @@
 [
     {
+        "version": "3.0.3",
+        "date": "2024/05/08",
+        "changelogItems": [
+            "Fix spacing issue on dashboard page",
+            "Make the guild icons a bit bigger"
+        ]
+    },
+    {
         "version": "3.0.2",
         "date": "2024/05/07",
         "changelogItems": [
