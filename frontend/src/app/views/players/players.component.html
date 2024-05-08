@@ -61,7 +61,7 @@
                         <tr *ngFor="let player of players" [enhancedRouterLink]="'/players/' + player.player_id" role="button">
                             <td>
                                 <span *ngIf="player.icon_filename === 'diamond'">💎</span>
-                                <img *ngIf="player.icon_filename && player.icon_filename !== 'diamond'" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.icon_filename, 'players')">
+                                <img *ngIf="player.icon_filename && player.icon_filename !== 'diamond'" style="width: 1.5rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(player.icon_filename, 'players')">
                                 <span *ngFor="let player_name of player.player_names" class="px-1">
                                     {{player_name.name}}
                                     <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player_name.platform_id + '.png', 'platforms')" />
