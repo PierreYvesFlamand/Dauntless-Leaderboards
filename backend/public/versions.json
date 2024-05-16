@@ -1,5 +1,14 @@
 [
     {
+        "version": "3.0.4",
+        "date": "2024/05/16",
+        "changelogItems": [
+            "Rename 'Rating' by 'Activity Rating'",
+            "Fix: Wrong text for number of level cleared labels",
+            "Fix: Multiple wrong time conversion"
+        ]
+    },
+    {
         "version": "3.0.3",
         "date": "2024/05/08",
         "changelogItems": [

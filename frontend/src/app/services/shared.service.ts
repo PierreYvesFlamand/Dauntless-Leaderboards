@@ -143,15 +143,16 @@ export class SharedService {
         const ms = Math.abs(time) % 1000;
 
         if (decimals === true) {
-            if (time >= 60000) return `${m} min ${s}.${ms} sec`;
-            if (time > 0) return `${s}.${ms} sec`;
+            decimals = 3;
+            if (time >= 60000) return `${m} min ${s}.${String(ms).padStart(decimals, '0')} sec`;
+            if (time > 0) return `${s}.${String(ms).padStart(decimals, '0')} sec`;
             if (time === 0) return `0.000 sec`;
-            if (time < 0) return `-${s}.${ms} sec`;
+            if (time < 0) return `-${s}.${String(ms).padStart(decimals, '0')} sec`;
         } else {
             if (time >= 60000) return `${m} min ${s} sec`;
-            if (time > 0) return `${s}.${Math.floor(ms / (10 ** (3 - decimals)))} sec`;
-            if (time === 0) return `0 sec`;
-            if (time < 0) return `-${s}.${Math.floor(ms / (10 ** (3 - decimals)))} sec`;
+            if (time > 0) return `${s}.${String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0')} sec`;
+            if (time === 0) return `0.000 sec`;
+            if (time < 0) return `-${s}.${String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0')} sec`;
         }
 
         return '';
