@@ -14,6 +14,7 @@ import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 import { ExportComponent } from './views/export/export.component';
 import { LevelCalculatorComponent } from './views/level-calculator/level-calculator.component';
+import { BuiderComponent } from './views/builder/builder.component';
 
 const routes: Routes = [
   {
@@ -34,7 +35,7 @@ const routes: Routes = [
       { path: 'players/:id', component: PlayerDetailComponent },
       
       { path: 'beta/level-calculator', component: LevelCalculatorComponent },
-      // { path: 'beta/builder', component: AboutComponent },
+      { path: 'beta/builder', component: BuiderComponent },
 
       { path: 'about', component: AboutComponent },
       { path: 'settings', component: SettingsComponent },
