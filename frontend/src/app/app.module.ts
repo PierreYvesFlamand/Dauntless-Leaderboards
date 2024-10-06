@@ -22,6 +22,8 @@ import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.c
 import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 import { ExportComponent } from './views/export/export.component';
+import { LevelCalculatorComponent } from './views/level-calculator/level-calculator.component';
+import { BuiderComponent } from './views/builder/builder.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { ExportComponent } from './views/export/export.component';
     TrialDetailComponent,
     PlayersComponent,
     PlayerDetailComponent,
-    ExportComponent
+    ExportComponent,
+    LevelCalculatorComponent,
+    BuiderComponent
   ],
   imports: [
     BrowserModule,
