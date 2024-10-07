@@ -1,85 +1,68 @@
-<h1>Builder</h1>
-<div class="alert alert-warning">
-    <p class="mb-0">
-        This is a super laggy tools made from a bad dev with a couple of hours 😂
-    </p>
-</div>
-<div class="alert alert-secondary">
-    <p>
-        Missing perk description on button hover<br>
-        Ping me on <a href="https://discord.gg/JGTVcqMDfm" target="_blank">discord</a> if you find any issues
-    </p>
-</div>
-<div class="alert alert-primary">
-    <h5>How to use</h5>
-    <p>
-        Click on the buttons to choose what perks you want into your build<br>
-        Buttons will show/hide if it's possible to add a specific perk based on what you already choose<br>
-        Build list is sorted to show the build with the less cells to adds (because they consume on use...)
-    </p>
-</div>
 <div class="row mt-4">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Perks</h3>
-            </div>
-            <div class="card-body">
-                <div class="d-flex flex-wrap" style="gap: 10px;">
-                    <ng-container *ngFor="let cell of possibleCells">
-                        <button *ngIf="cell.selected ? true : cell.visible"
-                            class="btn btn-sm btn{{!cell.selected ? '-outline' : ''}}-primary" title="Description TBA"
-                            (click)="cell.selected ? onRemovePerk(cell.key) : onPerkSelected(cell.key)">{{cell.name}}
-                            ({{cell.quantityNeeded}})</button>
-                    </ng-container>
-                </div>
-            </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Perks</h3>
         </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap" style="gap: 10px;"> <!-- Remplacement des styles en ligne -->
+            <ng-container *ngFor="let cell of possibleCells; trackBy: trackByCell">
+              <button *ngIf="cell.selected || cell.visible"
+                class="btn btn-sm btn{{!cell.selected ? '-outline-primary' : '-success'}}"
+                title="Description TBA"
+                (click)="cell.selected ? onRemovePerk(cell.key) : onPerkSelected(cell.key)">
+                {{cell.name}} ({{cell.quantityNeeded}})
+              </button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
     </div>
+  
     <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Build</h3>
-            </div>
-            <div class="card-body">
-                <label>Possible builds : {{possibleBuilds.length}}</label>
-                <div class="table-responsive forced-bg" style="max-height: 75vh;">
-                    <table
-                        class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th>Helm</th>
-                                <th>Chest</th>
-                                <th>Arms</th>
-                                <th>Legs</th>
-                                <th>Cells to add</th>
-                                <th>Activated perks</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr *ngFor="let possibleBuild of possibleBuilds.slice(0, 200); let i = index">
-                                <td>{{removeType(possibleBuild.pieces[0])}}</td>
-                                <td>{{removeType(possibleBuild.pieces[1])}}</td>
-                                <td>{{removeType(possibleBuild.pieces[2])}}</td>
-                                <td>{{removeType(possibleBuild.pieces[3])}}</td>
-                                <td>
-                                    <ul class="mb-0">
-                                        <li *ngFor="let cell of possibleBuild.cellsToAdd">{{cell.quantityNeeded}}
-                                            {{cell.name}}</li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <ul class="mb-0">
-                                        <li *ngFor="let cell of possibleBuild.activatedPerks" style="cursor: default;"
-                                            [title]="cell.description">{{cell.name}}</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Build</h3>
         </div>
+        <div class="card-body">
+          <label>Possible builds : {{possibleBuilds.length}}</label>
+          <div class="table-responsive forced-bg" style="max-height: 75vh;">
+            <cdk-virtual-scroll-viewport itemSize="50" class="viewport" style="height: 75vh;">
+                <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Helm</th>
+                      <th>Chest</th>
+                      <th>Arms</th>
+                      <th>Legs</th>
+                      <th>Cells to add</th>
+                      <th>Activated perks</th>
+                    </tr>
+                  </thead>
+              
+                  <tbody>
+                    <tr *cdkVirtualFor="let possibleBuild of possibleBuilds; let i = index; trackBy: trackByBuild">
+                      <td>{{possibleBuild.pieces[0]}}</td>
+                      <td>{{possibleBuild.pieces[1]}}</td>
+                      <td>{{possibleBuild.pieces[2]}}</td>
+                      <td>{{possibleBuild.pieces[3]}}</td>
+                      <td>
+                        <ul class="mb-0">
+                          <li *ngFor="let cell of possibleBuild.cellsToAdd">{{cell.quantityNeeded}} {{cell.name}}</li>
+                        </ul>
+                      </td>
+                      <td>
+                        <ul class="mb-0">
+                          <li *ngFor="let cell of possibleBuild.activatedPerks" style="cursor: default;"
+                            [title]="cell.description">{{cell.name}}</li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </cdk-virtual-scroll-viewport>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>

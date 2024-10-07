@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'dl-builder',
   templateUrl: './builder.component.html',
-  styleUrls: ['./builder.component.scss']
+  styleUrls: ['./builder.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BuiderComponent implements OnInit {
+export class BuilderComponent implements OnInit {
   public cells: any = {
     "berserker": {
       key: "berserker",
@@ -324,7 +325,7 @@ export class BuiderComponent implements OnInit {
     },
     "knockout_king": {
       key: "knockout_king",
-      name: "Knockout_king",
+      name: "Knockout king",
       quantityNeeded: 4,
       type: "",
       description: "Description TBA"
@@ -761,7 +762,7 @@ export class BuiderComponent implements OnInit {
     "gnasher's helm":
     {
       slot: "helm",
-      perks: [{ cellKey: "water", quantity: 3 }, { cellKey: "aetheric_armour", quantity: 2 }, { cellKey: "ragehunter", quantity: "2" }]
+      perks: [{ cellKey: "water", quantity: 3 }, { cellKey: "aetheric_armour", quantity: 2 }, { cellKey: "ragehunter", quantity: 2 }]
     },
     "gnasher's chest": {
       slot: "chest",
@@ -1115,39 +1116,37 @@ export class BuiderComponent implements OnInit {
   }
 
   public generateArmorCombinations(armors: any) {
-
-
     const armorSlots = ["helm", "chest", "arms", "legs"];
-
     const armorGroups = armorSlots.map(slot => {
       return Object.keys(armors).filter(armorName => armors[armorName].slot === slot);
     });
 
-    const combinations: any = [];
+    const combinations: any[] = [];
+    const [helmArmors, chestArmors, armsArmors, legsArmors] = armorGroups;
 
-    armorGroups[0].forEach(helm => {
-      armorGroups[1].forEach(chest => {
-        armorGroups[2].forEach(arms => {
-          armorGroups[3].forEach(legs => {
+    // Utilisation de boucles classiques pour de meilleures performances
+    for (const helm of helmArmors) {
+      for (const chest of chestArmors) {
+        for (const arms of armsArmors) {
+          for (const legs of legsArmors) {
             const pieces = [helm, chest, arms, legs];
-            const perks = this.combinePerks(pieces);
-
+            const perksMap = this.combinePerksMap(pieces);
             combinations.push({
               pieces: pieces,
-              perks: perks
+              perksMap: perksMap
             });
-          });
-        });
-      });
-    });
+          }
+        }
+      }
+    }
 
     return combinations;
   }
 
-  public combinePerks(armorList: any) {
-    const perksMap: any = {};
+  public combinePerksMap(armorList: any[]) {
+    const perksMap: { [key: string]: number } = {};
 
-    armorList.forEach((armorName: any) => {
+    armorList.forEach(armorName => {
       this.armors[armorName].perks.forEach((perk: any) => {
         if (perksMap[perk.cellKey]) {
           perksMap[perk.cellKey] += perk.quantity;
@@ -1157,10 +1156,7 @@ export class BuiderComponent implements OnInit {
       });
     });
 
-    return Object.keys(perksMap).map(cell => ({
-      cell: cell,
-      quantity: perksMap[cell]
-    }));
+    return perksMap;
   }
 
   public onPerkSelected(cellKey: string) {
@@ -1178,85 +1174,115 @@ export class BuiderComponent implements OnInit {
   }
 
   public updatePossibleBuilds() {
-    const canBeAdded: any = [];
+    const canBeAdded: Set<string> = new Set();
+    const selectedPerkKeys = new Set(this.selectedPerks.map((p: any) => p.key));
 
-    this.possibleBuilds = this.possibleSets.filter((set: any) => {
+    // Création d'une map pour un accès rapide aux quantités nécessaires
+    const selectedPerkMap: { [key: string]: number } = {};
+    this.selectedPerks.forEach((perk: any) => {
+      selectedPerkMap[perk.key] = perk.quantityNeeded;
+    });
+
+    this.possibleBuilds = [];
+    canBeAdded.clear();
+
+    for (const set of this.possibleSets) {
       let isOk = true;
-      set.cellsToAdd = [];
-      set.activatedPerks = [];
+      const cellsToAdd: any[] = [];
+      const activatedPerks: any[] = [];
+      let cellsToAddSum = 0;
 
-      for (const selectedPerk of this.selectedPerks) {
-        if (!isOk) continue;
+      // Vérification des perks sélectionnés
+      for (const perkKey in selectedPerkMap) {
+        const requiredQuantity = selectedPerkMap[perkKey];
+        const availableQuantity = set.perksMap[perkKey] || 0;
 
-        const setPerk = set.perks.filter((sp: any) => sp.cell === selectedPerk.key);
-
-        if (!setPerk.length) {
-          set.cellsToAdd.push({
-            name: selectedPerk.name,
-            quantityNeeded: selectedPerk.quantityNeeded
+        if (availableQuantity < requiredQuantity) {
+          const needed = requiredQuantity - availableQuantity;
+          cellsToAdd.push({
+            name: this.cells[perkKey].name,
+            quantityNeeded: needed
           });
-          if (set.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0) > 6) isOk = false;
-          continue;
+          cellsToAddSum += needed;
+
+          if (cellsToAddSum > 6) {
+            isOk = false;
+            break; // Pas besoin de continuer si la limite est dépassée
+          }
         }
 
-        if (setPerk[0].quantity < selectedPerk.quantityNeeded) {
-          set.cellsToAdd.push({
-            name: selectedPerk.name,
-            quantityNeeded: selectedPerk.quantityNeeded - setPerk[0].quantity
+        if (availableQuantity >= requiredQuantity) {
+          activatedPerks.push({
+            name: this.cells[perkKey].name,
+            description: this.cells[perkKey].description
           });
-          if (set.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0) > 6) isOk = false;
-          continue;
         }
       }
 
-      if (isOk) {
-        const added: any = [];
-        for (const perk of this.selectedPerks) {
-          set.activatedPerks.push({
-            name: perk.name,
-            description: perk.description
-          });
-          added.push(perk.name);
-        }
+      if (!isOk) continue; // Passer à la combinaison suivante
 
-        const freeSlots = 6 - set.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0);
-        for (const perk of set.perks) {
-          if (!canBeAdded.includes(perk.cell) && this.cells[perk.cell].quantityNeeded <= perk.quantity + freeSlots) {
-            canBeAdded.push(perk.cell);
-          }
+      const freeSlots = 6 - cellsToAddSum;
 
-          if (!added.includes(this.cells[perk.cell].name) && this.cells[perk.cell].quantityNeeded <= perk.quantity) {
-            set.activatedPerks.push({
-              name: this.cells[perk.cell].name,
-              description: this.cells[perk.cell].description
+      // Identification des perks supplémentaires pouvant être ajoutés
+      for (const perkKey in set.perksMap) {
+        if (selectedPerkKeys.has(perkKey)) continue; // Déjà traité
+
+        const cell = this.cells[perkKey];
+        if (cell.quantityNeeded <= set.perksMap[perkKey] + freeSlots) {
+          canBeAdded.add(perkKey);
+          if (set.perksMap[perkKey] >= cell.quantityNeeded) {
+            activatedPerks.push({
+              name: cell.name,
+              description: cell.description
             });
           }
         }
+      }
 
-        for (const key in this.cells) {
-          if (!canBeAdded.includes(key) && this.cells[key].quantityNeeded <= freeSlots) {
-            canBeAdded.push(key);
-          }
+      // Vérification des perks pouvant être ajoutés sans les perks du set
+      for (const key in this.cells) {
+        if (!canBeAdded.has(key) && this.cells[key].quantityNeeded <= freeSlots) {
+          canBeAdded.add(key);
         }
       }
 
-      return isOk;
-    });
-
-    this.possibleCells = [];
-    for (const key in this.cells) {
-      const selectedPerksKeys = this.selectedPerks.map((s: any) => s.key);
-      this.possibleCells.push({
-        ...this.cells[key],
-        visible: canBeAdded.includes(key),
-        selected: selectedPerksKeys.includes(key)
+      // Ajout de la combinaison valide aux builds possibles
+      this.possibleBuilds.push({
+        pieces: set.pieces,
+        cellsToAdd: cellsToAdd,
+        activatedPerks: activatedPerks
       });
     }
 
-    this.possibleBuilds.sort((a: any, b: any) => (a.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0)) - (b.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0)));
+    // Mise à jour des cellules possibles avec visibilité et sélection
+    const canBeAddedArray = Array.from(canBeAdded);
+    this.possibleCells = Object.keys(this.cells).map(key => ({
+      ...this.cells[key],
+      visible: canBeAddedArray.includes(key),
+      selected: selectedPerkKeys.has(key)
+    }));
+
+    // Tri des builds possibles par somme des cellsToAdd
+    this.possibleBuilds.sort((a: any, b: any) => {
+      const sumA = a.cellsToAddSum || a.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0);
+      const sumB = b.cellsToAddSum || b.cellsToAdd.reduce((sum: number, c: any) => sum + c.quantityNeeded, 0);
+      return sumA - sumB;
+    });
+
+    this.possibleBuilds.forEach((build: any) => {
+      build.piecesDisplay = build.pieces.map((piece: any) => this.removeType(piece));
+    });
   }
 
   public removeType(str: string): string {
     return str.replace(/'s (helm|chest|arms|legs)/i, '').toUpperCase();
+  }
+
+  public trackByCell(index: number, cell: any): string {
+    return cell.key;
+  }
+
+  public trackByBuild(index: number, build: any): string {
+    return build.pieces.join('-'); // Assure que chaque build a une clé unique
   }
 }
