@@ -1109,6 +1109,8 @@ export class BuilderComponent implements OnInit {
 
   public possibleCells: any = [];
 
+  public perkSearchInput: string = '';
+
   ngOnInit(): void {
     // I know this is horrible but hey it's BETA
     this.possibleSets = this.generateArmorCombinations(this.armors);
