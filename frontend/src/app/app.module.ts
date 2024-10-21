@@ -25,6 +25,7 @@ import { ExportComponent } from './views/export/export.component';
 import { LevelCalculatorComponent } from './views/level-calculator/level-calculator.component';
 import { BuilderComponent } from './views/builder/builder.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { UnseenTranslatorComponent } from './views/unseen-translator/unseen-translator.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     PlayerDetailComponent,
     ExportComponent,
     LevelCalculatorComponent,
-    BuilderComponent
+    BuilderComponent,
+    UnseenTranslatorComponent
   ],
   imports: [
     BrowserModule,

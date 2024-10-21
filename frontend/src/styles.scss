@@ -48,7 +48,14 @@ h1 {
 
 .dark-mode .forced-bg {
     background-color: #343a40 !important;
+}
 
+.dark-mode pre {
+    color: white !important;
+}
+
+.dark-mode hr {
+    background-color: white !important;
 }
 
 // Number Input without arrows

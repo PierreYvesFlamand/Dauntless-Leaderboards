@@ -15,6 +15,7 @@ import { PlayerDetailComponent } from './views/players/player-detail/player-deta
 import { ExportComponent } from './views/export/export.component';
 import { LevelCalculatorComponent } from './views/level-calculator/level-calculator.component';
 import { BuilderComponent } from './views/builder/builder.component';
+import { UnseenTranslatorComponent } from './views/unseen-translator/unseen-translator.component';
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'players', component: PlayersComponent },
       { path: 'players/:id', component: PlayerDetailComponent },
       
+      { path: 'unseen-translator', component: UnseenTranslatorComponent },
       { path: 'beta/level-calculator', component: LevelCalculatorComponent },
       { path: 'beta/builder', component: BuilderComponent },
 
