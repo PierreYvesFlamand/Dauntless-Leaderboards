@@ -63,7 +63,7 @@ export class UnseenTranslatorComponent implements OnInit {
 
   private translateUnseedAlphabetToLatinAlphabet(text: string): string {
     return text.split('').map((char) => {
-      const match = this.alphabet.find(([unseen]) => unseen.toLowerCase() === char.toLowerCase());
+      const match = this.alphabet.find(([, unseen]) => unseen === char);
       return match ? match[0] : char;
     }).join('');
   }
