@@ -1,0 +1,43 @@
+<h1>Unseen translator</h1>
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Translator</h3>
+            </div>
+            <div class="card-body">
+                <label>Unseen alphabet</label>
+                <textarea class="form-control" placeholder="Latin alphabet text" [(ngModel)]="unseenAlphabetText" (ngModelChange)="onUnseenAlphabetTextChange($event)"></textarea>
+                <label class="mt-3">Latin alphabet translation</label>
+                <pre class="p-0 m-0">{{unseenAlphabetTextToLatinAlphabet}}</pre>
+                <br>
+                <hr>
+                <br>
+                <label>Latin alphabet</label>
+                <textarea class="form-control" placeholder="Latin alphabet text" [(ngModel)]="latinAlphabetText" (ngModelChange)="onLatinAlphabetTextChange($event)"></textarea>
+                <label class="mt-3">Unseen alphabet translation</label>
+                <pre class="p-0 m-0">{{latinAlphabetTextToUnseenAlphabet}}</pre>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Alphabet</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive forced-bg" style="max-width: 200px;">
+                    <table
+                        class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                        <tbody>
+                            <tr *ngFor="let item of [].constructor(13); let i = index">
+                                <td>{{alphabet[i * 2][0]}} = {{alphabet[i * 2][1]}}</td>
+                                <td>{{alphabet[(i * 2) + 1][0]}} = {{alphabet[(i * 2) + 1][1]}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="wrapper">
+  <dl-header *ngIf="databaseService.data.loaded" />
+
+  <dl-sidebar />
+
+  <div class="content-wrapper pb-3">
+    <section class="content">
+      <div class="container pt-2">
+        <router-outlet *ngIf="databaseService.data.loaded" />
+        <div *ngIf="!databaseService.data.loaded" class="card">
+          <div class="card-header">
+              <h3 class="card-title">Loading...</h3>
+          </div>
+          <div class="card-body">
+              <p>
+                  Fetching and formatting data. Be patient 😊
+              </p>
+          </div>
+      </div>
+      </div>
+    </section>
+  </div>
+
+  <dl-footer />
+</div>

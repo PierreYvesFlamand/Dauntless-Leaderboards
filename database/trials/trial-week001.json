@@ -1,0 +1,5563 @@
+{
+    "info": {
+        "week": 1,
+        "behemothId": 1,
+        "startAt": "2019-07-18T18:00:00.000Z",
+        "endAt": "2019-07-25T18:00:00.000Z",
+        "lastUpdated": "2024-12-02T17:16:58.684Z"
+    },
+    "all": [
+        {
+            "rank": 1,
+            "completionTime": 113933,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 3,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 148562,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 4,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 3,
+            "completionTime": 157295,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 5,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 4,
+            "completionTime": 157787,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 6,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 5,
+            "completionTime": 169550,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 6,
+            "completionTime": 177010,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 8,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 7,
+            "completionTime": 180086,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 9,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 8,
+            "completionTime": 181079,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 10,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 9,
+            "completionTime": 184974,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 11,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 10,
+            "completionTime": 186967,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 12,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 11,
+            "completionTime": 187124,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 13,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 12,
+            "completionTime": 187971,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 14,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 13,
+            "completionTime": 189418,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 15,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 14,
+            "completionTime": 192967,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 16,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 15,
+            "completionTime": 193216,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 17,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 16,
+            "completionTime": 194820,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 18,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 17,
+            "completionTime": 195050,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 19,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 18,
+            "completionTime": 197254,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 20,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 19,
+            "completionTime": 198793,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 21,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 20,
+            "completionTime": 199942,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 22,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 21,
+            "completionTime": 202039,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 23,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 22,
+            "completionTime": 204765,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 24,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 23,
+            "completionTime": 205300,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 25,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 24,
+            "completionTime": 207962,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 26,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 25,
+            "completionTime": 213357,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 27,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 26,
+            "completionTime": 213928,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 28,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 27,
+            "completionTime": 214982,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 29,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 28,
+            "completionTime": 216287,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 30,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 29,
+            "completionTime": 217083,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 31,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 30,
+            "completionTime": 219255,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 32,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 31,
+            "completionTime": 219903,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 33,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 32,
+            "completionTime": 219980,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 34,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 33,
+            "completionTime": 220393,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 35,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 34,
+            "completionTime": 220563,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 36,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 35,
+            "completionTime": 221364,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 37,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 36,
+            "completionTime": 221428,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 38,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 37,
+            "completionTime": 221829,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 39,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 38,
+            "completionTime": 223985,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 40,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 39,
+            "completionTime": 224473,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 41,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 40,
+            "completionTime": 227371,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 42,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 41,
+            "completionTime": 227734,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 43,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 42,
+            "completionTime": 227828,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 44,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 43,
+            "completionTime": 227932,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 45,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 44,
+            "completionTime": 228536,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 46,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 45,
+            "completionTime": 228698,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 47,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 46,
+            "completionTime": 229236,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 48,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 47,
+            "completionTime": 232285,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 49,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 48,
+            "completionTime": 233491,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 50,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 49,
+            "completionTime": 233539,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 51,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 50,
+            "completionTime": 234147,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 52,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 51,
+            "completionTime": 234479,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 53,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 52,
+            "completionTime": 234740,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 54,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 53,
+            "completionTime": 234799,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 55,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 54,
+            "completionTime": 235791,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 56,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 55,
+            "completionTime": 236351,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 57,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 56,
+            "completionTime": 237478,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 58,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 57,
+            "completionTime": 237490,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 59,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 58,
+            "completionTime": 237584,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 60,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 59,
+            "completionTime": 237842,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 61,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 60,
+            "completionTime": 237970,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 62,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 61,
+            "completionTime": 238423,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 63,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 62,
+            "completionTime": 238687,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 64,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 63,
+            "completionTime": 239952,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 65,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 64,
+            "completionTime": 240559,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 66,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 65,
+            "completionTime": 242833,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 67,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 66,
+            "completionTime": 243626,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 68,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 67,
+            "completionTime": 244064,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 69,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 68,
+            "completionTime": 245370,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 70,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 69,
+            "completionTime": 246423,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 71,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 70,
+            "completionTime": 247354,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 72,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 71,
+            "completionTime": 248969,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 73,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 72,
+            "completionTime": 252206,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 74,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 73,
+            "completionTime": 252281,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 75,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 74,
+            "completionTime": 252354,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 76,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 75,
+            "completionTime": 252385,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 77,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 76,
+            "completionTime": 252407,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 78,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 77,
+            "completionTime": 253367,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 79,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 78,
+            "completionTime": 255069,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 80,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 79,
+            "completionTime": 255708,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 81,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 80,
+            "completionTime": 258771,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 82,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 81,
+            "completionTime": 260479,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 83,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 82,
+            "completionTime": 260821,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 84,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 83,
+            "completionTime": 260823,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 85,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 84,
+            "completionTime": 261351,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 86,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 85,
+            "completionTime": 263131,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 87,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 86,
+            "completionTime": 264003,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 88,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 87,
+            "completionTime": 265064,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 89,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 88,
+            "completionTime": 265200,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 90,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 89,
+            "completionTime": 265263,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 91,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 90,
+            "completionTime": 266056,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 92,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 91,
+            "completionTime": 268665,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 93,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 92,
+            "completionTime": 269979,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 94,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 93,
+            "completionTime": 272659,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 95,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 94,
+            "completionTime": 274914,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 96,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 95,
+            "completionTime": 275384,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 97,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 96,
+            "completionTime": 275821,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 98,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 97,
+            "completionTime": 276937,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 99,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 98,
+            "completionTime": 277581,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 100,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 99,
+            "completionTime": 278537,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 101,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 100,
+            "completionTime": 278964,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 102,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        }
+    ],
+    "group": [
+        {
+            "rank": 1,
+            "completionTime": 73968,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 106,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 78444,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 97,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 107,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 108,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 3,
+            "completionTime": 81269,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 4,
+            "completionTime": 92627,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 5,
+            "completionTime": 93517,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 110,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 111,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 112,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 6,
+            "completionTime": 94211,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 113,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 7,
+            "completionTime": 94424,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 22,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 114,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 115,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 116,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 8,
+            "completionTime": 99004,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 117,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 118,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 119,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 120,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 9,
+            "completionTime": 99790,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 121,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 10,
+            "completionTime": 100530,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 122,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 123,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 124,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 125,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 11,
+            "completionTime": 102225,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 126,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 127,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 6,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 128,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 12,
+            "completionTime": 103512,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 129,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 130,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 131,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 13,
+            "completionTime": 104048,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 132,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 133,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 134,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 135,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 14,
+            "completionTime": 104539,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 136,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 137,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 138,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 139,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 15,
+            "completionTime": 104924,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 141,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 142,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 143,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 16,
+            "completionTime": 105165,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 144,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 145,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 146,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 147,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 17,
+            "completionTime": 105237,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 84,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 148,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 149,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 5
+                },
+                {
+                    "playerId": 150,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 18,
+            "completionTime": 105729,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 141,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 151,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 152,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 19,
+            "completionTime": 106214,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 122,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 153,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 124,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 19,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 20,
+            "completionTime": 106275,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 154,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 155,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 156,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 157,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 21,
+            "completionTime": 107184,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 158,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 5
+                },
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 22,
+            "completionTime": 107615,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 159,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 23,
+            "completionTime": 107735,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 160,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 161,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 162,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 24,
+            "completionTime": 108353,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 163,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 25,
+            "completionTime": 108833,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 164,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 165,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 166,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 167,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 26,
+            "completionTime": 109030,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 168,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 27,
+            "completionTime": 110648,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 169,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 28,
+            "completionTime": 111051,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 132,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 98,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 135,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 29,
+            "completionTime": 111857,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 170,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 171,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 172,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 30,
+            "completionTime": 111929,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 160,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 173,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 174,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 90,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 31,
+            "completionTime": 112568,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 175,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 70,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 176,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 177,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 32,
+            "completionTime": 112739,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 178,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 33,
+            "completionTime": 112861,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 179,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 100,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 180,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 34,
+            "completionTime": 116648,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 181,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 35,
+            "completionTime": 117343,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 182,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 183,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 184,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 185,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 36,
+            "completionTime": 117430,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 186,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 37,
+            "completionTime": 117944,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 187,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 188,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 189,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 190,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 38,
+            "completionTime": 119401,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 191,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 192,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 193,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 194,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 39,
+            "completionTime": 119645,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 195,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 196,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 197,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 198,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 40,
+            "completionTime": 119718,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 199,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 200,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 201,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 202,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 41,
+            "completionTime": 121031,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 203,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 49,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 204,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 42,
+            "completionTime": 122031,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 173,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 205,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                },
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 43,
+            "completionTime": 122350,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 206,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 207,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 208,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 5
+                }
+            ]
+        },
+        {
+            "rank": 44,
+            "completionTime": 123583,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 209,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 156,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 157,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 134,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 45,
+            "completionTime": 124081,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 97,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 210,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 211,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 212,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 46,
+            "completionTime": 124405,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 213,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 214,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 215,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 216,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 47,
+            "completionTime": 124783,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 217,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 218,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 219,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 220,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 48,
+            "completionTime": 124892,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 221,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 49,
+            "completionTime": 125102,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 222,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 130,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 223,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 224,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 50,
+            "completionTime": 125313,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 209,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 225,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 226,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 227,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 51,
+            "completionTime": 125619,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 228,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 68,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 229,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 52,
+            "completionTime": 126759,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 77,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 230,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 15,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 53,
+            "completionTime": 126823,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 231,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 142,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 232,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 54,
+            "completionTime": 127376,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 233,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 234,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 235,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 236,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 55,
+            "completionTime": 127837,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 141,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 237,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 238,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 239,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 56,
+            "completionTime": 128630,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 240,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 241,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 242,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 243,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 57,
+            "completionTime": 128640,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 244,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 245,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 246,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 223,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 58,
+            "completionTime": 128655,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 247,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 248,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 249,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 250,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 59,
+            "completionTime": 128706,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 113,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 60,
+            "completionTime": 128934,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 209,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 251,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 252,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 253,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 61,
+            "completionTime": 129214,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 254,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 255,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 256,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 257,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 62,
+            "completionTime": 129426,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 258,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 63,
+            "completionTime": 129485,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 259,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 260,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 261,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 262,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 64,
+            "completionTime": 129700,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 263,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 264,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 265,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 266,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 65,
+            "completionTime": 130122,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 267,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 268,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 269,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 66,
+            "completionTime": 132010,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 270,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 271,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 272,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 67,
+            "completionTime": 132161,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 222,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 273,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 223,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 274,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 68,
+            "completionTime": 132417,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 270,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 275,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 276,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 69,
+            "completionTime": 132858,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 277,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 278,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 279,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 280,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 70,
+            "completionTime": 132866,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 144,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 145,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 281,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 146,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 71,
+            "completionTime": 132988,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 175,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 70,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 176,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 72,
+            "completionTime": 133019,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 104,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 282,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 283,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 73,
+            "completionTime": 133285,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 284,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 285,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 286,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 287,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 74,
+            "completionTime": 133377,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 288,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 111,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 112,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 75,
+            "completionTime": 133400,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 289,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 290,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 291,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 292,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 76,
+            "completionTime": 133653,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 33,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 293,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 294,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 295,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 77,
+            "completionTime": 134198,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 296,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 297,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 298,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 78,
+            "completionTime": 134461,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 33,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 299,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 293,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 300,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 79,
+            "completionTime": 134715,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 301,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 302,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 303,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 304,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 80,
+            "completionTime": 134728,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 158,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 76,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 109,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 5
+                },
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 81,
+            "completionTime": 134818,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 33,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 305,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 293,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 295,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 82,
+            "completionTime": 136254,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 306,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 307,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 83,
+            "completionTime": 136434,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 308,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 309,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 310,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 311,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 84,
+            "completionTime": 137096,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 246,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 116,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 223,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 312,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 85,
+            "completionTime": 137149,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 313,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 314,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 315,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 316,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 86,
+            "completionTime": 138485,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 317,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 318,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 319,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 87,
+            "completionTime": 138920,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 320,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 321,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 322,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 323,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 88,
+            "completionTime": 138928,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 324,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 325,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 326,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 327,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 89,
+            "completionTime": 139479,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 140,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 328,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 329,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                },
+                {
+                    "playerId": 151,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 90,
+            "completionTime": 139678,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 330,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 331,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 332,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 333,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 91,
+            "completionTime": 139986,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 107,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 334,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 108,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 212,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 92,
+            "completionTime": 140074,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 320,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 322,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 335,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 336,
+                    "platformId": 3,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 93,
+            "completionTime": 140389,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 247,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 248,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 249,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 94,
+            "completionTime": 140952,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 337,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 338,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 339,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                },
+                {
+                    "playerId": 340,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 95,
+            "completionTime": 141087,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 341,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 107,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 342,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 5
+                },
+                {
+                    "playerId": 343,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 96,
+            "completionTime": 142116,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 103,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 105,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 97,
+            "completionTime": 142492,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 344,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 345,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 69,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 98,
+            "completionTime": 143200,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 346,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                },
+                {
+                    "playerId": 246,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 116,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 223,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 99,
+            "completionTime": 143736,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 347,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 348,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 349,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 350,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 100,
+            "completionTime": 143741,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 351,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                },
+                {
+                    "playerId": 352,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 353,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                },
+                {
+                    "playerId": 19,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        }
+    ],
+    "hammer": [
+        {
+            "rank": 1,
+            "completionTime": 239952,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 65,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 255708,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 81,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 3,
+            "completionTime": 265263,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 91,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 4,
+            "completionTime": 274914,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 96,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 5,
+            "completionTime": 277581,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 100,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 1
+                }
+            ]
+        }
+    ],
+    "axe": [
+        {
+            "rank": 1,
+            "completionTime": 227371,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 42,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 234740,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 54,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 3,
+            "completionTime": 236351,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 57,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 4,
+            "completionTime": 263131,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 87,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 5,
+            "completionTime": 265200,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 90,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        },
+        {
+            "rank": 6,
+            "completionTime": 266056,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 92,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 2
+                }
+            ]
+        }
+    ],
+    "sword": [
+        {
+            "rank": 1,
+            "completionTime": 275384,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 97,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 276937,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 99,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 3
+                }
+            ]
+        }
+    ],
+    "chainblades": [
+        {
+            "rank": 1,
+            "completionTime": 181079,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 10,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 193216,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 17,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 3,
+            "completionTime": 194820,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 18,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 4,
+            "completionTime": 195050,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 19,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 5,
+            "completionTime": 202039,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 23,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 6,
+            "completionTime": 220563,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 36,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 7,
+            "completionTime": 228698,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 47,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 8,
+            "completionTime": 234799,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 55,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 9,
+            "completionTime": 235791,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 56,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 10,
+            "completionTime": 246423,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 71,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        },
+        {
+            "rank": 11,
+            "completionTime": 265064,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 89,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 4
+                }
+            ]
+        }
+    ],
+    "repeaters": [
+        {
+            "rank": 1,
+            "completionTime": 113933,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 3,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 2,
+            "completionTime": 148562,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 4,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 3,
+            "completionTime": 157295,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 5,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 4,
+            "completionTime": 157787,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 6,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 5,
+            "completionTime": 169550,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 7,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 6,
+            "completionTime": 177010,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 8,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 7,
+            "completionTime": 180086,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 9,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 8,
+            "completionTime": 184974,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 11,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 9,
+            "completionTime": 186967,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 12,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 10,
+            "completionTime": 187124,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 13,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 11,
+            "completionTime": 187971,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 14,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 12,
+            "completionTime": 189418,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 15,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 13,
+            "completionTime": 192967,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 16,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 14,
+            "completionTime": 197254,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 20,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 15,
+            "completionTime": 198793,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 21,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 16,
+            "completionTime": 199942,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 22,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 17,
+            "completionTime": 204765,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 24,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 18,
+            "completionTime": 205300,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 25,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 19,
+            "completionTime": 207962,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 26,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 20,
+            "completionTime": 213357,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 27,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 21,
+            "completionTime": 213928,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 28,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 22,
+            "completionTime": 214982,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 29,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 23,
+            "completionTime": 216287,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 30,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 24,
+            "completionTime": 217083,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 31,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 25,
+            "completionTime": 219255,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 32,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 26,
+            "completionTime": 219903,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 33,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 27,
+            "completionTime": 219980,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 34,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 28,
+            "completionTime": 220393,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 35,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 29,
+            "completionTime": 221364,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 37,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 30,
+            "completionTime": 221428,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 38,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 31,
+            "completionTime": 221829,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 39,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 32,
+            "completionTime": 223985,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 40,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 33,
+            "completionTime": 224473,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 41,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 34,
+            "completionTime": 227734,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 43,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 35,
+            "completionTime": 227828,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 44,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 36,
+            "completionTime": 227932,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 45,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 37,
+            "completionTime": 228536,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 46,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 38,
+            "completionTime": 229236,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 48,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 39,
+            "completionTime": 232285,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 49,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 40,
+            "completionTime": 233491,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 50,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 41,
+            "completionTime": 233539,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 51,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 42,
+            "completionTime": 234147,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 52,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 43,
+            "completionTime": 234479,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 53,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 44,
+            "completionTime": 237478,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 58,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 45,
+            "completionTime": 237490,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 59,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 46,
+            "completionTime": 237584,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 60,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 47,
+            "completionTime": 237842,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 61,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 48,
+            "completionTime": 237970,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 62,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 49,
+            "completionTime": 238423,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 63,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 50,
+            "completionTime": 238687,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 64,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 51,
+            "completionTime": 240559,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 66,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 52,
+            "completionTime": 242833,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 67,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 53,
+            "completionTime": 243626,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 68,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 54,
+            "completionTime": 244064,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 69,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 55,
+            "completionTime": 245370,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 70,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 56,
+            "completionTime": 247354,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 72,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 57,
+            "completionTime": 248969,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 73,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 58,
+            "completionTime": 252206,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 74,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 59,
+            "completionTime": 252281,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 75,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 60,
+            "completionTime": 252354,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 76,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 61,
+            "completionTime": 252385,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 77,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 62,
+            "completionTime": 252407,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 78,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 63,
+            "completionTime": 253367,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 79,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 64,
+            "completionTime": 255069,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 80,
+                    "platformId": 2,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 65,
+            "completionTime": 258771,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 82,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 66,
+            "completionTime": 260479,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 83,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 67,
+            "completionTime": 260821,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 84,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 68,
+            "completionTime": 260823,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 85,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 69,
+            "completionTime": 261351,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 86,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 70,
+            "completionTime": 264003,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 88,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 71,
+            "completionTime": 268665,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 93,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 72,
+            "completionTime": 269979,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 94,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 73,
+            "completionTime": 272659,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 95,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 74,
+            "completionTime": 275821,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 98,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 75,
+            "completionTime": 278537,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 101,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        },
+        {
+            "rank": 76,
+            "completionTime": 278964,
+            "objectivesCompleted": 1,
+            "players": [
+                {
+                    "playerId": 102,
+                    "platformId": 1,
+                    "roleId": null,
+                    "weaponId": 6
+                }
+            ]
+        }
+    ],
+    "pike": [],
+    "strikers": []
+}

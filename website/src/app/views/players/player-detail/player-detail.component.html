@@ -1,0 +1,502 @@
+<div class="col" *ngIf="!playerData">
+    <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+        <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+    </div>
+</div>
+<ng-container *ngIf="playerData">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>
+            <ng-container *ngFor="let name of playerData.playerNames; let last = last">
+                {{name.name}}
+                <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="name.platformId" [src]="sharedService.getImgPath(name.platformId + '.png', 'platforms')" />
+                {{!last ? ' / ' : ''}}
+            </ng-container>
+        </h1>
+        <div>
+            <i class="px-1 fa-{{sharedService.hasFavoritePlayer(playerData.id) ? 'solid' : 'regular'}} fa-star text-warning" style="font-size: 1.2rem;" role="button" (click)="sharedService.toggleFavoritePlayer(playerData.id)"></i>
+            <i class="px-1 fa-solid fa-{{playerData.id === sharedService.playerId ? 'lock' : 'lock-open'}} text-info" style="font-size: 1.2rem;" role="button" (click)="sharedService.updatePlayerId(playerData.id === sharedService.playerId ? -1 : playerData.id)"></i>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <ul class="nav nav-tabs" id="trial-switch" role="tablist">
+                <li *ngIf="leaderboards.all.length > 0" class="nav-item" role="button">
+                    <a id="all-tab" data-toggle="pill" href="#all" role="tab" aria-controls="all" [class.active]="firstActive === 1" class="nav-link link-color h-100">
+                        Solo
+                        ({{leaderboards.all.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.group.length > 0" class="nav-item" role="button">
+                    <a id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" [class.active]="firstActive === 2" class="nav-link link-color h-100">
+                        Group
+                        ({{leaderboards.group.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.hammer.length > 0" class="nav-item" role="button">
+                    <a id="hammer-tab" data-toggle="pill" href="#hammer" role="tab" aria-controls="hammer" [class.active]="firstActive === 5" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('1.png', 'weapons')">
+                        ({{leaderboards.hammer.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.axe.length > 0" class="nav-item" role="button">
+                    <a id="axe-tab" data-toggle="pill" href="#axe" role="tab" aria-controls="axe" [class.active]="firstActive === 4" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('2.png', 'weapons')">
+                        ({{leaderboards.axe.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.sword.length > 0" class="nav-item" role="button">
+                    <a id="sword-tab" data-toggle="pill" href="#sword" role="tab" aria-controls="sword" [class.active]="firstActive === 3" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('3.png', 'weapons')">
+                        ({{leaderboards.sword.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.chainblades.length > 0" class="nav-item" role="button">
+                    <a id="chainblades-tab" data-toggle="pill" href="#chainblades" role="tab" aria-controls="chainblades" [class.active]="firstActive === 6" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('4.png', 'weapons')">
+                        ({{leaderboards.chainblades.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.pike.length > 0" class="nav-item" role="button">
+                    <a id="pike-tab" data-toggle="pill" href="#pike" role="tab" aria-controls="pike" [class.active]="firstActive === 7" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('5.png', 'weapons')">
+                        ({{leaderboards.pike.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.repeaters.length > 0" class="nav-item" role="button">
+                    <a id="repeaters-tab" data-toggle="pill" href="#repeaters" role="tab" aria-controls="repeaters" [class.active]="firstActive === 8" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('6.png', 'weapons')">
+                        ({{leaderboards.repeaters.length}})
+                    </a>
+                </li>
+                <li *ngIf="leaderboards.strikers.length > 0" class="nav-item" role="button">
+                    <a id="strikers-tab" data-toggle="pill" href="#strikers" role="tab" aria-controls="strikers" [class.active]="firstActive === 9" class="nav-link link-color">
+                        <img style="width: 2rem" [src]="sharedService.getImgPath('7.png', 'weapons')">
+                        ({{leaderboards.strikers.length}})
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="trial-switchContent">
+                <div class="tab-pane fade show" [class.active]="firstActive === 1" id="all" role="tabpanel" aria-labelledby="all-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.all" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 2" id="group" role="tabpanel" aria-labelledby="group-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Players</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let leaderboardItem of leaderboards.group">
+                                    <tr *ngFor="let group of leaderboardItem.groups; let first = first">
+                                        <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{leaderboardItem.week}}
+                                            <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                        </td>
+
+                                        <td style="vertical-align: middle" class="text-center" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{group.rank}}.
+                                        </td>
+                                        <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(group.completionTime, true)" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{sharedService.convertTrialTime(group.completionTime, sharedService.trialDecimals)}}
+                                        </td>
+                                        <td style="vertical-align: middle;">
+                                            <div class="d-none d-md-block">
+                                                <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of group.players" [enhancedRouterLink]="'/players/' + player.playerId" role="button" [class.text-info]="player.playerId === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.playerId) && player.playerId !== sharedService.playerId">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
+                                                        <span class="mx-2">
+                                                            {{player.playerName}}
+                                                        </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platformId" [src]="sharedService.getImgPath(player.platformId + '.png', 'platforms')" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-md-none">
+                                                <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
+                                                    <div *ngFor="let player of group.players" [enhancedRouterLink]="'/players/' + player.playerId" role="button" [class.text-info]="player.playerId === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.playerId) && player.playerId !== sharedService.playerId">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')">
+                                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
+                                                        <span class="mx-2">
+                                                            {{player.playerName}}
+                                                        </span>
+                                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platformId" [src]="sharedService.getImgPath(player.platformId + '.png', 'platforms')" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 10rem;" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        </td>
+                                        <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 10rem;" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                            {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 5" id="hammer" role="tabpanel" aria-labelledby="hammer-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.hammer" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 4" id="axe" role="tabpanel" aria-labelledby="axe-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.axe" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 3" id="sword" role="tabpanel" aria-labelledby="sword-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.sword" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 6" id="chainblades" role="tabpanel" aria-labelledby="chainblades-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.chainblades" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 7" id="pike" role="tabpanel" aria-labelledby="pike-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.pike" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 8" id="repeaters" role="tabpanel" aria-labelledby="repeaters-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.repeaters" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show" [class.active]="firstActive === 9" id="strikers" role="tabpanel" aria-labelledby="strikers-tab">
+                    <div class="table-responsive" style="max-height: 70vh;">
+                        <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 6rem;" class="text-center px-0">Week</th>
+                                    <th style="width: 2rem;" class="text-center">Rank</th>
+                                    <th style="width: 6rem;" class="text-center">Time</th>
+                                    <th>Player</th>
+                                    <th style="width: 10rem;">From</th>
+                                    <th style="width: 10rem;">To</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let leaderboardItem of leaderboards.strikers" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
+                                    <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="leaderboardItem.behemothName">
+                                        {{leaderboardItem.week}}
+                                        <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(leaderboardItem.behemothName + '.png', 'behemoths')" />
+                                    </td>
+                                    <td style="vertical-align: middle" class="text-center">
+                                        {{leaderboardItem.rank}}.
+                                    </td>
+                                    <td style="vertical-align: middle; width: 6rem; cursor: default;" class="text-center" [title]="sharedService.convertTrialTime(leaderboardItem.completionTime, true)">
+                                        {{sharedService.convertTrialTime(leaderboardItem.completionTime, sharedService.trialDecimals)}}
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
+                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
+                                        <span class="mx-2">
+                                            {{leaderboardItem.players[0].playerName}}
+                                        </span>
+                                        <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                    </td>
+                                    <td style="vertical-align: middle; width: 10rem;">
+                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

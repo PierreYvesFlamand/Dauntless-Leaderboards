@@ -1,0 +1,73 @@
+<h1>Guilds</h1>
+<div class="row mt-4">
+    <div class="col-lg-3">
+        <div class="input-group">
+            <input class="form-control" placeholder="Search for a guild" [ngModel]="''" (ngModelChange)="filters.textSearch = $event; filters.page = 1; applyFilter();" />
+            <div class="input-group-append">
+                <button class="btn btn-default" style="cursor: default;"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 mt-2 mt-lg-0">
+        <div *ngIf="total > 0" class="d-flex flex-column flex-lg-row align-items-center justify-content-lg-end">
+            <div class="pr-2">{{1 + (filters.page - 1) * 20}} - {{1 + filters.page * 20 < total ? 1 + filters.page * 20 : total}} of {{total}} guilds </div>
+                    <div class="d-flex align-items-center justify-content-center flex-wrap mt-2 mt-lg-0">
+                        <i class="fa-solid fa-angles-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page = 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angle-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page = filters.page - 1; applyFilter();"></i>
+                        <input class="form-control no-arrows p-1 text-center" type="number" style="width: 2rem; height: 2rem;" [ngModel]="filters.page" (ngModelChange)="filters.page = ($event > 1 ? ($event < getNumberOfPages() ? $event : getNumberOfPages()) : 1); applyFilter();" />
+                        <span class="px-2"> / {{getNumberOfPages()}}</span>
+                        <i class="fa-solid fa-angle-right px-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page = filters.page + 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angles-right pl-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page = getNumberOfPages(); applyFilter();"></i>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="table-responsive forced-bg" style="max-height: 75vh;">
+                <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Guild</th>
+                            <th style="width: 90px;" role="button" (click)="changeFilter('rating')">
+                                <div class="d-flex align-items-center">Activity Rating <i class="pl-2 fa-solid fa-circle-info" title="Activity Rating is calculated based on rank each seasons with diminishing return the older the season is"></i> <i class="pl-2 ml-auto fa-solid {{getArrowIcon('rating')}}"></i></div>
+                            </th>
+                            <th style="width: 90px;" role="button" (click)="changeFilter('nbrTop1')">
+                                <div class="d-flex align-items-center">Top 1s <i class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrTop1')}}"></i></div>
+                            </th>
+                            <th style="width: 90px;" role="button" (click)="changeFilter('nbrTop5')">
+                                <div class="d-flex align-items-center">Top 5s <i class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrTop5')}}"></i></div>
+                            </th>
+                            <th style="width: 90px;" role="button" (click)="changeFilter('nbrTop100')">
+                                <div class="d-flex align-items-center">Top 100s <i class="pl-2 ml-auto fa-solid {{getArrowIcon('nbrTop100')}}"></i></div>
+                            </th>
+                            <th style="width: 120px;" role="button" (click)="changeFilter('totalLevelCleared')">
+                                <div class="d-flex align-items-center">Total levels <i class="pl-2 ml-auto fa-solid {{getArrowIcon('totalLevelCleared')}}"></i></div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngIf="isLoading" style="user-select: none;">
+                            <td colspan="6">
+                                <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
+                                    <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let guild of guilds" [enhancedRouterLink]="'/guilds/' + guild.id" role="button" [class.text-info]="guild.id === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(guild.id) && guild.id !== sharedService.guildId">
+                            <td>
+                                <img *ngIf="guild.iconFilename" style="width: 1.2rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(guild.iconFilename, 'guilds')">
+                                {{guild.name}} <span class="font-weight-light h6">[{{guild.tag}}]</span>
+                            </td>
+                            <td style="width: 90px;">{{guild.rating.toFixed(2)}} </td>
+                            <td style="width: 90px;">{{guild.nbrTop1}}</td>
+                            <td style="width: 90px;">{{guild.nbrTop5}}</td>
+                            <td style="width: 90px;">{{guild.nbrTop100}}</td>
+                            <td style="width: 120px;">{{guild.totalLevelCleared}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>

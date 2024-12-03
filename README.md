@@ -3,10 +3,6 @@
 Project used for https://dauntless-leaderboards.com
 Join our community on [Discord](https://discord.gg/JGTVcqMDfm)
 
-## How to use
-
-TO DO
-
 ## How to Contribute
 
 You can use the `suggestions` and `bug-reports` form on our [Discord](https://discord.gg/JGTVcqMDfm)

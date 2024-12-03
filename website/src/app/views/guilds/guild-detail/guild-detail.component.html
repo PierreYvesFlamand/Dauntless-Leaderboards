@@ -1,0 +1,79 @@
+<ng-container *ngIf="guildData">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1> {{guildData.name}} [{{guildData.tag}}] </h1>
+        <div>
+            <i class="px-1 fa-{{sharedService.hasFavoriteGuild(guildData.id) ? 'solid' : 'regular'}} fa-star text-warning" style="font-size: 1.2rem;" role="button" (click)="sharedService.toggleFavoriteGuild(guildData.id)"></i>
+            <i class="px-1 fa-solid fa-{{guildData.id === sharedService.guildId ? 'lock' : 'lock-open'}} text-info" style="font-size: 1.2rem;" role="button" (click)="sharedService.updateGuildId(guildData.id === sharedService.guildId ? -1 : guildData.id)"></i>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 order-lg-2 col-xl-3">
+            <div class="d-flex flex-column" style="gap: 0.5rem">
+                <img *ngIf="guildData.iconFilename" class="w-100" [src]="sharedService.getImgPath(guildData.iconFilename, 'guilds')" />
+                <a *ngIf="guildData.discordLink" class="btn btn-block btn-primary" [href]="guildData.discordLink" target="_blank">
+                    <i class="fa-brands fa-discord mr-2"></i>
+                    Discord
+                </a>
+                <div class="d-none d-lg-block card">
+                    <div class="card-body p-0">
+                        <div class="p-2">
+                            <h6><i>Activity Rating <i class="px-1 fa-solid fa-circle-info" title="Activity Rating is calculated based on rank each seasons with diminishing return the older the season is"></i></i>: <b>{{guildData.rating.toFixed(2)}}</b></h6>
+                            <h6><i>Number of Top 1</i>: <b>{{guildData.nbrTop1}}</b></h6>
+                            <h6><i>Number of Top 5</i>: <b>{{guildData.nbrTop5}}</b></h6>
+                            <h6><i>Number of Top 100</i>: <b>{{guildData.nbrTop100}}</b></h6>
+                            <h6><i>Total levels</i>: <b>{{guildData.totalLevelCleared}}</b></h6>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped table-hover table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center px-0" style="width: 90px">Season</th>
+                                        <th class="text-center px-0" style="width: 90px">Position</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let seasonRank of guildData.guildGauntletStats.reverse()" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
+                                        <td class="text-center px-0" style="width: 90px">{{seasonRank.season}} </td>
+                                        <td class="text-center px-0" style="width: 90px">{{seasonRank.rank}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="guildData.detailHtml" class="col-12 col-lg-8 order-lg-1 col-xl-9">
+            <div class="mt-2" [innerHTML]="guildData.detailHtml"></div>
+        </div>
+        <div class="col-12 d-lg-none">
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="p-2">
+                        <h6><i>Activity Rating <i class="px-1 fa-solid fa-circle-info" title="Activity Rating is calculated based on rank each seasons with diminishing return the older the season is"></i></i>: <b>{{guildData.rating.toFixed(2)}}</b></h6>
+                        <h6><i>Number of Top 1</i>: <b>{{guildData.nbrTop1}}</b></h6>
+                        <h6><i>Number of Top 5</i>: <b>{{guildData.nbrTop5}}</b></h6>
+                        <h6><i>Number of Top 100</i>: <b>{{guildData.nbrTop100}}</b></h6>
+                        <h6><i>Total levels</i>: <b>{{guildData.totalLevelCleared}}</b></h6>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped table-hover table-bordered mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-center px-0" style="width: 90px">Season</th>
+                                    <th class="text-center px-0" style="width: 90px">Position</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let seasonRank of guildData.guildGauntletStats.reverse()" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
+                                    <td class="text-center px-0" style="width: 90px">{{seasonRank.season}} </td>
+                                    <td class="text-center px-0" style="width: 90px">{{seasonRank.rank}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
