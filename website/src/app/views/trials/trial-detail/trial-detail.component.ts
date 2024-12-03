@@ -26,7 +26,7 @@ export class TrialDetailComponent {
   }
 
   public fetchData(id: number) {
-    this.trial = this.databaseService.data.trials[id - 1];
+    this.trial = this.databaseService.data.trials.reverse()[id - 1];
     if (!this.trial) this.router.navigate(['trials']);
   }
 }
