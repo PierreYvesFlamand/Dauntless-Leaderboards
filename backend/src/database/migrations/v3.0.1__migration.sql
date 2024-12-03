@@ -1,2 +1,0 @@
-ALTER TABLE `gauntlet_leaderboard_items_guilds` DROP FOREIGN KEY `gauntlet_leaderboard_items_guilds_ibfk_1`;
-ALTER TABLE `gauntlet_leaderboard_items_guilds` ADD CONSTRAINT `gauntlet_leaderboard_items_guilds_ibfk_1` FOREIGN KEY (`gauntlet_leaderboard_item_id`) REFERENCES `gauntlet_leaderboard_items`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

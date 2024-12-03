@@ -1,0 +1,607 @@
+{
+    "startAt": "2024-11-07 18:00:00Z",
+    "endAt": "2024-12-03T18:00:00Z",
+    "lastUpdated": "2024-12-03T09:20:04Z",
+    "leaderboard": [
+        {
+            "guildId": 1,
+            "rank": 1,
+            "level": 800,
+            "remainingSec": 949
+        },
+        {
+            "guildId": 354,
+            "rank": 2,
+            "level": 800,
+            "remainingSec": 887
+        },
+        {
+            "guildId": 3,
+            "rank": 3,
+            "level": 800,
+            "remainingSec": 793
+        },
+        {
+            "guildId": 653,
+            "rank": 4,
+            "level": 800,
+            "remainingSec": 714
+        },
+        {
+            "guildId": 6,
+            "rank": 5,
+            "level": 800,
+            "remainingSec": 577
+        },
+        {
+            "guildId": 624,
+            "rank": 6,
+            "level": 800,
+            "remainingSec": 409
+        },
+        {
+            "guildId": 35,
+            "rank": 7,
+            "level": 441,
+            "remainingSec": 827
+        },
+        {
+            "guildId": 619,
+            "rank": 8,
+            "level": 428,
+            "remainingSec": 331
+        },
+        {
+            "guildId": 111,
+            "rank": 9,
+            "level": 409,
+            "remainingSec": 223
+        },
+        {
+            "guildId": 436,
+            "rank": 10,
+            "level": 275,
+            "remainingSec": 945
+        },
+        {
+            "guildId": 393,
+            "rank": 11,
+            "level": 254,
+            "remainingSec": 184
+        },
+        {
+            "guildId": 579,
+            "rank": 12,
+            "level": 249,
+            "remainingSec": 433
+        },
+        {
+            "guildId": 654,
+            "rank": 13,
+            "level": 229,
+            "remainingSec": 527
+        },
+        {
+            "guildId": 319,
+            "rank": 14,
+            "level": 223,
+            "remainingSec": 228
+        },
+        {
+            "guildId": 203,
+            "rank": 15,
+            "level": 222,
+            "remainingSec": 392
+        },
+        {
+            "guildId": 618,
+            "rank": 16,
+            "level": 219,
+            "remainingSec": 755
+        },
+        {
+            "guildId": 357,
+            "rank": 17,
+            "level": 219,
+            "remainingSec": 470
+        },
+        {
+            "guildId": 671,
+            "rank": 18,
+            "level": 199,
+            "remainingSec": 859
+        },
+        {
+            "guildId": 492,
+            "rank": 19,
+            "level": 189,
+            "remainingSec": 349
+        },
+        {
+            "guildId": 510,
+            "rank": 20,
+            "level": 183,
+            "remainingSec": 353
+        },
+        {
+            "guildId": 87,
+            "rank": 21,
+            "level": 182,
+            "remainingSec": 375
+        },
+        {
+            "guildId": 89,
+            "rank": 22,
+            "level": 174,
+            "remainingSec": 318
+        },
+        {
+            "guildId": 21,
+            "rank": 23,
+            "level": 163,
+            "remainingSec": 354
+        },
+        {
+            "guildId": 686,
+            "rank": 24,
+            "level": 149,
+            "remainingSec": 1607
+        },
+        {
+            "guildId": 392,
+            "rank": 25,
+            "level": 149,
+            "remainingSec": 1284
+        },
+        {
+            "guildId": 114,
+            "rank": 26,
+            "level": 136,
+            "remainingSec": 1126
+        },
+        {
+            "guildId": 245,
+            "rank": 27,
+            "level": 124,
+            "remainingSec": 1097
+        },
+        {
+            "guildId": 435,
+            "rank": 28,
+            "level": 109,
+            "remainingSec": 1312
+        },
+        {
+            "guildId": 658,
+            "rank": 29,
+            "level": 100,
+            "remainingSec": 624
+        },
+        {
+            "guildId": 660,
+            "rank": 30,
+            "level": 90,
+            "remainingSec": 2109
+        },
+        {
+            "guildId": 468,
+            "rank": 31,
+            "level": 89,
+            "remainingSec": 1018
+        },
+        {
+            "guildId": 44,
+            "rank": 32,
+            "level": 84,
+            "remainingSec": 1301
+        },
+        {
+            "guildId": 622,
+            "rank": 33,
+            "level": 80,
+            "remainingSec": 1188
+        },
+        {
+            "guildId": 655,
+            "rank": 34,
+            "level": 77,
+            "remainingSec": 1077
+        },
+        {
+            "guildId": 632,
+            "rank": 35,
+            "level": 75,
+            "remainingSec": 1379
+        },
+        {
+            "guildId": 432,
+            "rank": 36,
+            "level": 73,
+            "remainingSec": 1320
+        },
+        {
+            "guildId": 646,
+            "rank": 37,
+            "level": 69,
+            "remainingSec": 1321
+        },
+        {
+            "guildId": 674,
+            "rank": 38,
+            "level": 65,
+            "remainingSec": 1438
+        },
+        {
+            "guildId": 687,
+            "rank": 39,
+            "level": 63,
+            "remainingSec": 1069
+        },
+        {
+            "guildId": 172,
+            "rank": 40,
+            "level": 60,
+            "remainingSec": 418
+        },
+        {
+            "guildId": 663,
+            "rank": 41,
+            "level": 55,
+            "remainingSec": 1266
+        },
+        {
+            "guildId": 395,
+            "rank": 42,
+            "level": 55,
+            "remainingSec": 1171
+        },
+        {
+            "guildId": 688,
+            "rank": 43,
+            "level": 47,
+            "remainingSec": 911
+        },
+        {
+            "guildId": 617,
+            "rank": 44,
+            "level": 43,
+            "remainingSec": 1181
+        },
+        {
+            "guildId": 662,
+            "rank": 45,
+            "level": 32,
+            "remainingSec": 1602
+        },
+        {
+            "guildId": 689,
+            "rank": 46,
+            "level": 31,
+            "remainingSec": 1237
+        },
+        {
+            "guildId": 308,
+            "rank": 47,
+            "level": 31,
+            "remainingSec": 1066
+        },
+        {
+            "guildId": 2,
+            "rank": 48,
+            "level": 30,
+            "remainingSec": 2073
+        },
+        {
+            "guildId": 657,
+            "rank": 49,
+            "level": 30,
+            "remainingSec": 1800
+        },
+        {
+            "guildId": 257,
+            "rank": 50,
+            "level": 30,
+            "remainingSec": 1633
+        },
+        {
+            "guildId": 690,
+            "rank": 51,
+            "level": 28,
+            "remainingSec": 1247
+        },
+        {
+            "guildId": 691,
+            "rank": 52,
+            "level": 26,
+            "remainingSec": 1469
+        },
+        {
+            "guildId": 692,
+            "rank": 53,
+            "level": 26,
+            "remainingSec": 1163
+        },
+        {
+            "guildId": 42,
+            "rank": 54,
+            "level": 25,
+            "remainingSec": 1110
+        },
+        {
+            "guildId": 173,
+            "rank": 55,
+            "level": 25,
+            "remainingSec": 978
+        },
+        {
+            "guildId": 445,
+            "rank": 56,
+            "level": 25,
+            "remainingSec": 218
+        },
+        {
+            "guildId": 693,
+            "rank": 57,
+            "level": 23,
+            "remainingSec": 1260
+        },
+        {
+            "guildId": 399,
+            "rank": 58,
+            "level": 23,
+            "remainingSec": 1101
+        },
+        {
+            "guildId": 694,
+            "rank": 59,
+            "level": 23,
+            "remainingSec": 1018
+        },
+        {
+            "guildId": 92,
+            "rank": 60,
+            "level": 21,
+            "remainingSec": 1296
+        },
+        {
+            "guildId": 489,
+            "rank": 61,
+            "level": 21,
+            "remainingSec": 1244
+        },
+        {
+            "guildId": 695,
+            "rank": 62,
+            "level": 20,
+            "remainingSec": 1061
+        },
+        {
+            "guildId": 696,
+            "rank": 63,
+            "level": 20,
+            "remainingSec": 1037
+        },
+        {
+            "guildId": 80,
+            "rank": 64,
+            "level": 20,
+            "remainingSec": 703
+        },
+        {
+            "guildId": 581,
+            "rank": 65,
+            "level": 19,
+            "remainingSec": 2511
+        },
+        {
+            "guildId": 697,
+            "rank": 66,
+            "level": 19,
+            "remainingSec": 2334
+        },
+        {
+            "guildId": 698,
+            "rank": 67,
+            "level": 19,
+            "remainingSec": 2231
+        },
+        {
+            "guildId": 664,
+            "rank": 68,
+            "level": 18,
+            "remainingSec": 1345
+        },
+        {
+            "guildId": 673,
+            "rank": 69,
+            "level": 18,
+            "remainingSec": 1303
+        },
+        {
+            "guildId": 659,
+            "rank": 70,
+            "level": 18,
+            "remainingSec": 1224
+        },
+        {
+            "guildId": 667,
+            "rank": 71,
+            "level": 18,
+            "remainingSec": 961
+        },
+        {
+            "guildId": 699,
+            "rank": 72,
+            "level": 17,
+            "remainingSec": 1474
+        },
+        {
+            "guildId": 700,
+            "rank": 73,
+            "level": 17,
+            "remainingSec": 780
+        },
+        {
+            "guildId": 633,
+            "rank": 74,
+            "level": 16,
+            "remainingSec": 1313
+        },
+        {
+            "guildId": 677,
+            "rank": 75,
+            "level": 15,
+            "remainingSec": 1451
+        },
+        {
+            "guildId": 701,
+            "rank": 76,
+            "level": 15,
+            "remainingSec": 1320
+        },
+        {
+            "guildId": 702,
+            "rank": 77,
+            "level": 15,
+            "remainingSec": 1118
+        },
+        {
+            "guildId": 703,
+            "rank": 78,
+            "level": 15,
+            "remainingSec": 1029
+        },
+        {
+            "guildId": 717,
+            "rank": 79,
+            "level": 14,
+            "remainingSec": 1039
+        },
+        {
+            "guildId": 597,
+            "rank": 80,
+            "level": 13,
+            "remainingSec": 1347
+        },
+        {
+            "guildId": 704,
+            "rank": 81,
+            "level": 13,
+            "remainingSec": 1178
+        },
+        {
+            "guildId": 607,
+            "rank": 82,
+            "level": 13,
+            "remainingSec": 1049
+        },
+        {
+            "guildId": 542,
+            "rank": 83,
+            "level": 12,
+            "remainingSec": 1409
+        },
+        {
+            "guildId": 634,
+            "rank": 84,
+            "level": 12,
+            "remainingSec": 1214
+        },
+        {
+            "guildId": 363,
+            "rank": 85,
+            "level": 12,
+            "remainingSec": 1174
+        },
+        {
+            "guildId": 705,
+            "rank": 86,
+            "level": 12,
+            "remainingSec": 1076
+        },
+        {
+            "guildId": 155,
+            "rank": 87,
+            "level": 11,
+            "remainingSec": 1254
+        },
+        {
+            "guildId": 706,
+            "rank": 88,
+            "level": 11,
+            "remainingSec": 1190
+        },
+        {
+            "guildId": 707,
+            "rank": 89,
+            "level": 11,
+            "remainingSec": 1061
+        },
+        {
+            "guildId": 358,
+            "rank": 90,
+            "level": 10,
+            "remainingSec": 2316
+        },
+        {
+            "guildId": 708,
+            "rank": 91,
+            "level": 10,
+            "remainingSec": 2288
+        },
+        {
+            "guildId": 709,
+            "rank": 92,
+            "level": 10,
+            "remainingSec": 2227
+        },
+        {
+            "guildId": 710,
+            "rank": 93,
+            "level": 10,
+            "remainingSec": 2208
+        },
+        {
+            "guildId": 711,
+            "rank": 94,
+            "level": 10,
+            "remainingSec": 2188
+        },
+        {
+            "guildId": 712,
+            "rank": 95,
+            "level": 10,
+            "remainingSec": 2151
+        },
+        {
+            "guildId": 143,
+            "rank": 96,
+            "level": 10,
+            "remainingSec": 2042
+        },
+        {
+            "guildId": 713,
+            "rank": 97,
+            "level": 10,
+            "remainingSec": 2005
+        },
+        {
+            "guildId": 714,
+            "rank": 98,
+            "level": 10,
+            "remainingSec": 1898
+        },
+        {
+            "guildId": 715,
+            "rank": 99,
+            "level": 10,
+            "remainingSec": 1776
+        },
+        {
+            "guildId": 636,
+            "rank": 100,
+            "level": 10,
+            "remainingSec": 1720
+        }
+    ]
+}
