@@ -38,7 +38,7 @@ export class PlayersComponent implements AfterViewInit {
     };
 
   public async applyFilter() {
-    
+
     this.players = [];
     this.isLoading = true;
 
@@ -47,7 +47,7 @@ export class PlayersComponent implements AfterViewInit {
       total: 0
     };
 
-    response.data = response.data.filter(r => r.playerNames.map(n=>n.name).join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
+    response.data = response.data.filter(r => r.playerNames.map(n => n.name).join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
 
     response.data.sort((a, b) => {
       let val1, val2;
@@ -55,10 +55,25 @@ export class PlayersComponent implements AfterViewInit {
         case 'nbrSoloTop1': val1 = a.nbrSoloTop1; val2 = b.nbrSoloTop1; break;
         case 'nbrSoloTop5': val1 = a.nbrSoloTop5; val2 = b.nbrSoloTop5; break;
         case 'nbrSoloTop100': val1 = a.nbrSoloTop100; val2 = b.nbrSoloTop100; break;
+        case 'nbrSoloTop1PreAwekening': val1 = a.nbrSoloTop1PreAwakening; val2 = b.nbrSoloTop1PreAwakening; break;
+        case 'nbrSoloTop5PreAwekening': val1 = a.nbrSoloTop5PreAwakening; val2 = b.nbrSoloTop5PreAwakening; break;
+        case 'nbrSoloTop100PreAwekening': val1 = a.nbrSoloTop100PreAwakening; val2 = b.nbrSoloTop100PreAwakening; break;
+        case 'nbrSoloTop1PostAwekening': val1 = a.nbrSoloTop1PostAwakening; val2 = b.nbrSoloTop1PostAwakening; break;
+        case 'nbrSoloTop5PostAwekening': val1 = a.nbrSoloTop5PostAwakening; val2 = b.nbrSoloTop5PostAwakening; break;
+        case 'nbrSoloTop100PostAwekening': val1 = a.nbrSoloTop100PostAwakening; val2 = b.nbrSoloTop100PostAwakening; break;
         case 'nbrGroupTop1': val1 = a.nbrGroupTop1; val2 = b.nbrGroupTop1; break;
         case 'nbrGroupTop5': val1 = a.nbrGroupTop5; val2 = b.nbrGroupTop5; break;
         case 'nbrGroupTop100': val1 = a.nbrGroupTop100; val2 = b.nbrGroupTop100; break;
-        default: val1 = a.nbrSoloTop1; val2 = b.nbrSoloTop1;
+        case 'nbrGroupTop1PreAwekening': val1 = a.nbrSoloTop1PreAwakening; val2 = b.nbrSoloTop1PreAwakening; break;
+        case 'nbrGroupTop5PreAwekening': val1 = a.nbrGroupTop5PreAwakening; val2 = b.nbrGroupTop5PreAwakening; break;
+        case 'nbrGroupTop100PreAwekening': val1 = a.nbrGroupTop100PreAwakening; val2 = b.nbrGroupTop100PreAwakening; break;
+        case 'nbrGroupTop1PostAwekening': val1 = a.nbrGroupTop1PostAwakening; val2 = b.nbrGroupTop1PostAwakening; break;
+        case 'nbrGroupTop5PostAwekening': val1 = a.nbrGroupTop5PostAwakening; val2 = b.nbrGroupTop5PostAwakening; break;
+        case 'nbrGroupTop100PostAwekening': val1 = a.nbrGroupTop100PostAwakening; val2 = b.nbrGroupTop100PostAwakening; break;
+        default:
+          if (this.sharedService.showPreAwakening && !this.sharedService.showPostAwakening) { val1 = a.nbrSoloTop1PreAwakening; val2 = b.nbrSoloTop1PreAwakening; }
+          else if (!this.sharedService.showPreAwakening && this.sharedService.showPostAwakening) { val1 = a.nbrSoloTop1PostAwakening; val2 = b.nbrSoloTop1PostAwakening; }
+          else { val1 = a.nbrSoloTop1; val2 = b.nbrSoloTop1; }
       }
 
       if (this.filters.orderByDirection === 'ASC' && this.filters.orderByField) return val1 - val2;

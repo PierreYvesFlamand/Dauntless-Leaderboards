@@ -98,9 +98,21 @@ export type WEBSITE_PLAYER = {
     nbrSoloTop1: number
     nbrSoloTop5: number
     nbrSoloTop100: number
+    nbrSoloTop1PreAwakening: number
+    nbrSoloTop5PreAwakening: number
+    nbrSoloTop100PreAwakening: number
+    nbrSoloTop1PostAwakening: number
+    nbrSoloTop5PostAwakening: number
+    nbrSoloTop100PostAwakening: number
     nbrGroupTop1: number
     nbrGroupTop5: number
     nbrGroupTop100: number
+    nbrGroupTop1PreAwakening: number
+    nbrGroupTop5PreAwakening: number
+    nbrGroupTop100PreAwakening: number
+    nbrGroupTop1PostAwakening: number
+    nbrGroupTop5PostAwakening: number
+    nbrGroupTop100PostAwakening: number
     playerNames: { name: string, platformId: number }[]
     playerTrials: PLAYER_TRIAL_ITEM[]
 }
@@ -331,7 +343,7 @@ export class DatabaseService {
 
             // Final rating calculation, ensuring it doesn't go below zero
             guild.rating = Math.max(0, (100 / perfectRawRating * guildRawRating) - penalty);
-        }        
+        }
 
         if (!shouldFetch) {
             if (this.data.dashboard) {
@@ -354,9 +366,21 @@ export class DatabaseService {
                     nbrSoloTop1: 0,
                     nbrSoloTop5: 0,
                     nbrSoloTop100: 0,
+                    nbrSoloTop1PreAwakening: 0,
+                    nbrSoloTop5PreAwakening: 0,
+                    nbrSoloTop100PreAwakening: 0,
+                    nbrSoloTop1PostAwakening: 0,
+                    nbrSoloTop5PostAwakening: 0,
+                    nbrSoloTop100PostAwakening: 0,
                     nbrGroupTop1: 0,
                     nbrGroupTop5: 0,
                     nbrGroupTop100: 0,
+                    nbrGroupTop1PreAwakening: 0,
+                    nbrGroupTop5PreAwakening: 0,
+                    nbrGroupTop100PreAwakening: 0,
+                    nbrGroupTop1PostAwakening: 0,
+                    nbrGroupTop5PostAwakening: 0,
+                    nbrGroupTop100PostAwakening: 0,
                     playerNames: item.names,
                     playerTrials: []
                 }
@@ -392,6 +416,12 @@ export class DatabaseService {
                                     if (item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1++;
                                     if (item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5++;
                                     if (item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100++;
+                                    if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PreAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PostAwakening++;
 
                                     this.data.players[player.playerId - 1].playerTrials.push({
                                         trialLeaderboardItemTypeId: 1,
@@ -440,6 +470,12 @@ export class DatabaseService {
                                     if (item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1++;
                                     if (item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5++;
                                     if (item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100++;
+                                    if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PreAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PostAwakening++;
 
                                     this.data.players[player.playerId - 1].playerTrials.push({
                                         trialLeaderboardItemTypeId: 2,

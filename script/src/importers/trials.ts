@@ -325,14 +325,14 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | nu
             const oldData = (await res.json()).payload.entries;
 
             data.payload.world.solo = {
-                all: { entries: oldData },
-                hammer: { entries: oldData.filter((e: any) => e.weapon === 1).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                axe: { entries: oldData.filter((e: any) => e.weapon === 2).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                sword: { entries: oldData.filter((e: any) => e.weapon === 3).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                chainblades: { entries: oldData.filter((e: any) => e.weapon === 4).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                pike: { entries: oldData.filter((e: any) => e.weapon === 5).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                repeaters: { entries: oldData.filter((e: any) => e.weapon === 6).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                strikers: { entries: oldData.filter((e: any) => e.weapon === 7).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) }
+                all: { entries: oldData.slice(0, 100) },
+                hammer: { entries: oldData.filter((e: any) => e.weapon === 1).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                axe: { entries: oldData.filter((e: any) => e.weapon === 2).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                sword: { entries: oldData.filter((e: any) => e.weapon === 3).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                chainblades: { entries: oldData.filter((e: any) => e.weapon === 4).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                pike: { entries: oldData.filter((e: any) => e.weapon === 5).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                repeaters: { entries: oldData.filter((e: any) => e.weapon === 6).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                strikers: { entries: oldData.filter((e: any) => e.weapon === 7).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) }
             }
         }
 

@@ -47,8 +47,10 @@ export class PlayerDetailComponent {
   }
 
   public async fetchData(id: number) {
-    this.playerData = this.databaseService.data.players[id - 1];
+    this.playerData = JSON.parse(JSON.stringify(this.databaseService.data.players[id - 1])) as WEBSITE_PLAYER;
     if (!this.playerData) this.router.navigate(['players']);
+
+    this.playerData.playerTrials = this.playerData.playerTrials.filter(t => (this.sharedService.showPreAwakening && t.week < 282) || (this.sharedService.showPostAwakening && t.week >= 282));
 
     for (const id of [1, 2, 3, 4, 5, 6, 7, 8, 9]) {
       if (this.firstActive) continue;
@@ -115,7 +117,7 @@ type PLAYER_TRIAL_ITEM_FOR_GROUP = {
     players: {
       playerId: number
       weaponId: number
-      roleId: number|null
+      roleId: number | null
       playerName: string
       platformId: number
     }[]
