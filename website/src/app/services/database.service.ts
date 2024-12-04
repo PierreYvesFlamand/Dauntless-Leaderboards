@@ -331,7 +331,7 @@ export class DatabaseService {
 
             // Final rating calculation, ensuring it doesn't go below zero
             guild.rating = Math.max(0, (100 / perfectRawRating * guildRawRating) - penalty);
-        }
+        }        
 
         if (!shouldFetch) {
             if (this.data.dashboard) {
@@ -362,7 +362,6 @@ export class DatabaseService {
                 }
             ]
         }, []);
-
 
         // trials
         this.data.trials = allData.trials.reverse().reduce((arr: WEBSITE_TRIAL[], trial): WEBSITE_TRIAL[] => {
