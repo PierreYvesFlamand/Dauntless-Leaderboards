@@ -32,37 +32,37 @@
                     <li *ngIf="trial.group.length > 0" class="nav-item" role="button">
                         <a id="group-tab" data-toggle="pill" href="#group" role="tab" aria-controls="group" class="nav-link link-color h-100">Group</a>
                     </li>
-                    <li *ngIf="trial.hammer.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.hammer.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="hammer-tab" data-toggle="pill" href="#hammer" role="tab" aria-controls="hammer" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('1.png', 'weapons')">
                         </a>
                     </li>
-                    <li *ngIf="trial.axe.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.axe.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="axe-tab" data-toggle="pill" href="#axe" role="tab" aria-controls="axe" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('2.png', 'weapons')">
                         </a>
                     </li>
-                    <li *ngIf="trial.sword.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.sword.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="sword-tab" data-toggle="pill" href="#sword" role="tab" aria-controls="sword" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('3.png', 'weapons')">
                         </a>
                     </li>
-                    <li *ngIf="trial.chainblades.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.chainblades.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="chainblades-tab" data-toggle="pill" href="#chainblades" role="tab" aria-controls="chainblades" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('4.png', 'weapons')">
                         </a>
                     </li>
-                    <li *ngIf="trial.pike.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.pike.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="pike-tab" data-toggle="pill" href="#pike" role="tab" aria-controls="pike" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('5.png', 'weapons')">
                         </a>
                     </li>
-                    <li *ngIf="trial.repeaters.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.repeaters.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="repeaters-tab" data-toggle="pill" href="#repeaters" role="tab" aria-controls="repeaters" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('6.png', 'weapons')">
                         </a>
                     </li>
-                    <li *ngIf="trial.strikers.length > 0 && trial.week <= 280" class="nav-item" role="button">
+                    <li *ngIf="trial.strikers.length > 0 && trial.week < 282" class="nav-item" role="button">
                         <a id="strikers-tab" data-toggle="pill" href="#strikers" role="tab" aria-controls="strikers" class="nav-link link-color">
                             <img style="width: 2rem" [src]="sharedService.getImgPath('7.png', 'weapons')">
                         </a>
@@ -89,7 +89,7 @@
                                         </td>
                                         <td style="vertical-align: middle;">
                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
-                                            <img *ngIf="trial.week >= 281" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].secondaryWeaponId + '.png', 'weapons')">
+                                            <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].secondaryWeaponId + '.png', 'weapons')">
                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                             <span class="mx-2">
                                                 {{leaderboardItem.players[0].playerName}}
@@ -124,7 +124,7 @@
                                                 <div style="display: grid; grid-template-columns: max-content 1fr; row-gap: 0.3rem; column-gap: 1rem;">
                                                     <div *ngFor="let player of leaderboardItem.players" [enhancedRouterLink]="'/players/' + player.playerId" role="button" [class.text-info]="player.playerId === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.playerId) && player.playerId !== sharedService.playerId">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')">
-                                                        <img *ngIf="trial.week >= 281" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')">
+                                                        <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
                                                         <span class="mx-2">
                                                             {{player.playerName}}
@@ -137,7 +137,7 @@
                                                 <div style="display: grid; grid-template-columns: 1fr; row-gap: 0.3rem; column-gap: 1rem;">
                                                     <div *ngFor="let player of leaderboardItem.players" [enhancedRouterLink]="'/players/' + player.playerId" role="button" [class.text-info]="player.playerId === sharedService.playerId" [class.text-warning]="sharedService.hasFavoritePlayer(player.playerId) && player.playerId !== sharedService.playerId">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')">
-                                                        <img *ngIf="trial.week >= 281" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')">
+                                                        <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')">
                                                         <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
                                                         <span class="mx-2">
                                                             {{player.playerName}}
