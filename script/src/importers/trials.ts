@@ -62,7 +62,7 @@ async function importTrials(week: number = getCurrentWeek()) {
 
         // SOLO
         for (const trialLeaderboardsItemType of TRIAL_LEADERBOARDS_ITEM_TYPES.filter(tlit => tlit !== 'group')) {
-            for (const dauntlessTrialLeaderboardItem of (<DAUNTLESS_TRIAL_SOLO_DETAIL>(<any>dauntlessTrial.payload.world.solo)[trialLeaderboardsItemType]).entries) {
+            for (const dauntlessTrialLeaderboardItem of (<DAUNTLESS_TRIAL_SOLO_DETAIL>(<any>dauntlessTrial.payload.world.solo)[trialLeaderboardsItemType])?.entries || []) {
 
                 let player = players.find(p => p.phxId === dauntlessTrialLeaderboardItem.phx_account_id);
                 if (!player) {
@@ -304,7 +304,8 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | nu
         );
         const data = await res.json();
 
-        if (!isNew && week <= 90) {
+        // week === 281 is because of an error during the v4.0.0 switch :(
+        if (week === 281 - 185 || !isNew && week <= 90) {
             const res = await fetch('https://leaderboards-prod.steelyard.ca/trials/leaderboards/solo',
                 {
                     headers: {
