@@ -54,12 +54,14 @@
                             <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.soloCompletionTime, true)">
                                 {{sharedService.convertTrialTime(trial.soloCompletionTime, sharedService.trialDecimals)}}
                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.soloPlayer[0].weaponId + '.png', 'weapons')" />
+                                <img *ngIf="trial.week >= 281" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.soloPlayer[0].secondaryWeaponId + '.png', 'weapons')" />
                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="trial.soloPlayer[0].roleId" [src]="sharedService.getImgPath(trial.soloPlayer[0].roleId + '.png', 'omnicells')" />
                             </td>
                             <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.groupCompletionTime, true)">
                                 {{sharedService.convertTrialTime(trial.groupCompletionTime, sharedService.trialDecimals)}}
                                 <ng-container *ngFor="let player of trial.groupPlayers">
                                     <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')" />
+                                    <img *ngIf="trial.week >= 281" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')" />
                                     <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
                                     <span class="ml-3"></span>
                                 </ng-container>

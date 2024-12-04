@@ -99,7 +99,8 @@ async function importTrials(week: number = getCurrentWeek()) {
                             playerId: player.id,
                             platformId: platform.id,
                             roleId: roles.find(r => r.name === dauntlessTrialLeaderboardItem.player_role_id)?.id || null,
-                            weaponId: weapons.find(w => w.id === dauntlessTrialLeaderboardItem.weapon || w.name === dauntlessTrialLeaderboardItem.weapon)!.id
+                            weaponId: weapons.find(w => w.id === dauntlessTrialLeaderboardItem.weapon || w.name === dauntlessTrialLeaderboardItem.weapon)?.id || 0,
+                            secondaryWeaponId: weapons.find(w => w.id === dauntlessTrialLeaderboardItem.secondary_weapon || w.name === dauntlessTrialLeaderboardItem.secondary_weapon)?.id || 0
                         }
                     ]
                 });
@@ -141,7 +142,8 @@ async function importTrials(week: number = getCurrentWeek()) {
                     playerId: player.id,
                     platformId: platform.id,
                     roleId: roles.find(r => r.name === groupPlayer.player_role_id)?.id || null,
-                    weaponId: weapons.find(w => w.id === groupPlayer.weapon || w.name === groupPlayer.weapon)!.id
+                    weaponId: weapons.find(w => w.id === groupPlayer.weapon || w.name === groupPlayer.weapon)?.id || 0,
+                    secondaryWeaponId: weapons.find(w => w.id === groupPlayer.secondary_weapon || w.name === groupPlayer.secondary_weapon)?.id || 0
                 });
             }
 
@@ -270,8 +272,8 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | nu
      * Explanation for posterity
      * 
      * trial_id:
-     * - 'Arena_MatchmakerHunt_Elite_XXX' for week from 1 to 185
-     * - 'Arena_MatchmakerHunt_Elite_New_XXXX' for week from 185 to now (need to remove 185 from the week as it restart at 1)
+     * - 'Arena_MatchmakerHunt_Elite_XXX' : week 1 to 185
+     * - 'Arena_MatchmakerHunt_Elite_New_XXXX' : week 185 to now (need to remove 185 from the week as it restart at 1)
      * 
      * endpoint:
      * - Have to fetch on '/solo' for week before 91 as it was before weapon specific weapon (Dauntless 1.6.0)

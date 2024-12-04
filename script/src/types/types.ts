@@ -80,6 +80,7 @@ export type DAUNTLESS_TRIAL = {
                         platform_name: string
                         player_role_id: string
                         weapon: number | string
+                        secondary_weapon: number | string | undefined // TODO: Not sure about undefined
                     }[]
                     objectives_completed: number
                     rank: number
@@ -112,6 +113,7 @@ export type DAUNTLESS_TRIAL_SOLO_DETAIL = {
         player_role_id: string
         rank: number
         weapon: number | string
+        secondary_weapon: number | string | undefined // TODO: Not sure about undefined
     }[]
     page: number
     page_size: number
@@ -150,6 +152,7 @@ export type TRIAL_LEADERBOARD_PLAYER = {
     roleId: number | null
     playerId: number
     weaponId: number
+    secondaryWeaponId: number
     platformId: number
 }
 
