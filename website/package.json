@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href=/",
-    "deploy": "ng deploy --base-href=/",
+    "build": "ng build",
+    "deploy": "ng deploy --cname=dauntless-leaderboards.com",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
