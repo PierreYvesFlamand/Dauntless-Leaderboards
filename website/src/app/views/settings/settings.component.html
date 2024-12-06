@@ -56,6 +56,26 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="form-group">
+                    <label class="m-0 d-flex justify-content-between align-items-center" for="showPreAwakening" role="button">
+                        <span class="flex-grow-1"><i class="fa-solid fa-gear mr-2"></i>Show/hide Pre Awakening Trials</span>
+                        <div class="switch">
+                            <input type="checkbox" id="showPreAwakening" [ngModel]="sharedService.showPreAwakening === true" (ngModelChange)="sharedService.updateShowPreAwakening($event ? true : false)">
+                            <span class="slider round"></span>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label class="m-0 d-flex justify-content-between align-items-center" for="showPostAwakening" role="button">
+                        <span class="flex-grow-1"><i class="fa-solid fa-gear mr-2"></i>Show/hide Post Awakening Trials</span>
+                        <div class="switch">
+                            <input type="checkbox" id="showPostAwakening" [ngModel]="sharedService.showPostAwakening === true" (ngModelChange)="sharedService.updateShowPostAwakening($event ? true : false)">
+                            <span class="slider round"></span>
+                        </div>
+                    </label>
+                </div>
             </div>
         </div>
         <div class="card">

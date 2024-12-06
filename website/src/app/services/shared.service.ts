@@ -18,6 +18,8 @@ export class SharedService {
         this.updateTrialDecimals(this.localstorageService.getByKey<number>('trial-decimals'));
         this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
         this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
+        this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
+        this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening'));
     }
 
     // Theme
@@ -45,7 +47,7 @@ export class SharedService {
     // Player id
     private playerIdSubject = new BehaviorSubject<number>(-1);
     playerId$ = this.playerIdSubject.asObservable();
-    updatePlayerId(value: number) {        
+    updatePlayerId(value: number) {
         this.localstorageService.setByKey('player-id', value);
         this.playerIdSubject.next(value);
     }
@@ -156,4 +158,26 @@ export class SharedService {
 
         return '';
     }
+
+    // ShowPreAwakening
+    private allowedShowPreAwakenings = [true, false];
+    private showPreAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPreAwakenings[0]);
+    showPreAwakening$ = this.showPreAwakeningSubject.asObservable();
+    updateShowPreAwakening(value: boolean) {
+        if (!this.allowedShowPreAwakenings.includes(value)) value = this.allowedShowPreAwakenings[0];
+        this.localstorageService.setByKey('showPreAwakening', value);
+        this.showPreAwakeningSubject.next(value);
+    }
+    public get showPreAwakening(): boolean { return this.showPreAwakeningSubject.value; }
+
+    // ShowPostAwakening
+    private allowedShowPostAwakenings = [true, false];
+    private showPostAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPostAwakenings[0]);
+    showPostAwakening$ = this.showPostAwakeningSubject.asObservable();
+    updateShowPostAwakening(value: boolean) {
+        if (!this.allowedShowPostAwakenings.includes(value)) value = this.allowedShowPostAwakenings[0];
+        this.localstorageService.setByKey('showPostAwakening', value);
+        this.showPostAwakeningSubject.next(value);
+    }
+    public get showPostAwakening(): boolean { return this.showPostAwakeningSubject.value; }
 }

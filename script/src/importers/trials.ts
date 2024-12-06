@@ -26,7 +26,7 @@ export async function startImportTrials(authorizationCode: string = config.AUTHO
 }
 
 async function importTrials(week: number = getCurrentWeek()) {
-    console.log(`Start trial week ${week} import at ${new Date().toUTCString()}`);
+    console.log(`Start trial week ${week} import`);
 
     const dauntlessTrial = await fetchTrialLeaderboard(week);
     if (!dauntlessTrial?.payload?.world) return;
@@ -99,7 +99,8 @@ async function importTrials(week: number = getCurrentWeek()) {
                             playerId: player.id,
                             platformId: platform.id,
                             roleId: roles.find(r => r.name === dauntlessTrialLeaderboardItem.player_role_id)?.id || null,
-                            weaponId: weapons.find(w => w.id === dauntlessTrialLeaderboardItem.weapon || w.name === dauntlessTrialLeaderboardItem.weapon)!.id
+                            weaponId: weapons.find(w => w.id === dauntlessTrialLeaderboardItem.weapon || w.name === dauntlessTrialLeaderboardItem.weapon)?.id || 0,
+                            secondaryWeaponId: weapons.find(w => w.id === dauntlessTrialLeaderboardItem.secondary_weapon || w.name === dauntlessTrialLeaderboardItem.secondary_weapon)?.id || 0
                         }
                     ]
                 });
@@ -141,7 +142,8 @@ async function importTrials(week: number = getCurrentWeek()) {
                     playerId: player.id,
                     platformId: platform.id,
                     roleId: roles.find(r => r.name === groupPlayer.player_role_id)?.id || null,
-                    weaponId: weapons.find(w => w.id === groupPlayer.weapon || w.name === groupPlayer.weapon)!.id
+                    weaponId: weapons.find(w => w.id === groupPlayer.weapon || w.name === groupPlayer.weapon)?.id || 0,
+                    secondaryWeaponId: weapons.find(w => w.id === groupPlayer.secondary_weapon || w.name === groupPlayer.secondary_weapon)?.id || 0
                 });
             }
 
@@ -160,7 +162,7 @@ async function importTrials(week: number = getCurrentWeek()) {
         console.error(error);
     }
 
-    console.log(`End of trial week ${week} import at ${new Date().toUTCString()}`);
+    console.log(`End of trial week ${week} import`);
 }
 
 async function initRefreshToken(authorization_code: string) {
@@ -264,14 +266,13 @@ async function refreshSessionToken() {
     }
 }
 
-// 281 is last before dual weapon
 async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | null> {
     /**
      * Explanation for posterity
      * 
      * trial_id:
-     * - 'Arena_MatchmakerHunt_Elite_XXX' for week from 1 to 185
-     * - 'Arena_MatchmakerHunt_Elite_New_XXXX' for week from 185 to now (need to remove 185 from the week as it restart at 1)
+     * - 'Arena_MatchmakerHunt_Elite_XXX' : week 1 to 185
+     * - 'Arena_MatchmakerHunt_Elite_New_XXXX' : week 185 to now (need to remove 185 from the week as it restart at 1)
      * 
      * endpoint:
      * - Have to fetch on '/solo' for week before 91 as it was before weapon specific weapon (Dauntless 1.6.0)
@@ -302,8 +303,7 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | nu
         );
         const data = await res.json();
 
-        // week === 281 is because of an error during the v4.0.0 switch :(
-        if (week === 281 - 185 || !isNew && week <= 90) {
+        if (!isNew && week <= 90) {
             const res = await fetch('https://leaderboards-prod.steelyard.ca/trials/leaderboards/solo',
                 {
                     headers: {
@@ -323,14 +323,14 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | nu
             const oldData = (await res.json()).payload.entries;
 
             data.payload.world.solo = {
-                all: { entries: oldData },
-                hammer: { entries: oldData.filter((e: any) => e.weapon === 1).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                axe: { entries: oldData.filter((e: any) => e.weapon === 2).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                sword: { entries: oldData.filter((e: any) => e.weapon === 3).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                chainblades: { entries: oldData.filter((e: any) => e.weapon === 4).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                pike: { entries: oldData.filter((e: any) => e.weapon === 5).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                repeaters: { entries: oldData.filter((e: any) => e.weapon === 6).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) },
-                strikers: { entries: oldData.filter((e: any) => e.weapon === 7).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []) }
+                all: { entries: oldData.slice(0, 100) },
+                hammer: { entries: oldData.filter((e: any) => e.weapon === 1).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                axe: { entries: oldData.filter((e: any) => e.weapon === 2).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                sword: { entries: oldData.filter((e: any) => e.weapon === 3).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                chainblades: { entries: oldData.filter((e: any) => e.weapon === 4).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                pike: { entries: oldData.filter((e: any) => e.weapon === 5).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                repeaters: { entries: oldData.filter((e: any) => e.weapon === 6).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) },
+                strikers: { entries: oldData.filter((e: any) => e.weapon === 7).reduce((arr: any[], e: any, i: number) => { return [...arr, { ...e, rank: i + 1 }] }, []).slice(0, 100) }
             }
         }
 

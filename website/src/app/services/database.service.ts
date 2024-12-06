@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import pako from 'pako'
 
-import { ALL_DATA, BEHEMOTH, DAUNTLESS_GAUNTLET_SEASON, GAUNTLET_SEASON_LEADERBOARD_ITEM } from '../../../../script/src/types/types';
+import { ALL_DATA, BEHEMOTH, DAUNTLESS_GAUNTLET_SEASON, GAUNTLET_SEASON_LEADERBOARD_ITEM, GUILD_DATA } from '../../../../script/src/types/types';
 
 export type WEBSITE_GAUNTLET = {
     allGauntletsInfo: GAUNTLET_INFO[]
@@ -61,9 +61,9 @@ export type WEBSITE_TRIAL = {
     endAt: Date
     lastUpdated: Date
 
-    soloPlayer: { roleId: number | null, weaponId: number }[]
+    soloPlayer: { roleId: number | null, weaponId: number, secondaryWeaponId: number }[]
     soloCompletionTime: number
-    groupPlayers: { roleId: number | null, weaponId: number }[]
+    groupPlayers: { roleId: number | null, weaponId: number, secondaryWeaponId: number }[]
     groupCompletionTime: number
 
     all: TRIAL_LEADERBOARD[]
@@ -88,6 +88,7 @@ type TRIAL_LEADERBOARD_PLAYER = {
     roleId: number | null
     playerId: number
     weaponId: number
+    secondaryWeaponId: number
     platformId: number
     playerName: string
 }
@@ -97,9 +98,21 @@ export type WEBSITE_PLAYER = {
     nbrSoloTop1: number
     nbrSoloTop5: number
     nbrSoloTop100: number
+    nbrSoloTop1PreAwakening: number
+    nbrSoloTop5PreAwakening: number
+    nbrSoloTop100PreAwakening: number
+    nbrSoloTop1PostAwakening: number
+    nbrSoloTop5PostAwakening: number
+    nbrSoloTop100PostAwakening: number
     nbrGroupTop1: number
     nbrGroupTop5: number
     nbrGroupTop100: number
+    nbrGroupTop1PreAwakening: number
+    nbrGroupTop5PreAwakening: number
+    nbrGroupTop100PreAwakening: number
+    nbrGroupTop1PostAwakening: number
+    nbrGroupTop5PostAwakening: number
+    nbrGroupTop100PostAwakening: number
     playerNames: { name: string, platformId: number }[]
     playerTrials: PLAYER_TRIAL_ITEM[]
 }
@@ -190,6 +203,8 @@ export class DatabaseService {
         const arrayBuffer = await res.arrayBuffer();
         const allData = JSON.parse(pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' })) as ALL_DATA;
 
+        allData.trials.pop();
+
         try {
             const res = await fetch(`https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-season${String(allData.gauntlets.length).padStart(2, '0')}.json?_=${new Date()}`);
             const dauntlessData = await res.json() as DAUNTLESS_GAUNTLET_SEASON;
@@ -232,11 +247,15 @@ export class DatabaseService {
             ]
         }, []);
 
-        for (const guildData of allData.guildsData) {
-            this.data.guilds[guildData.guildId - 1].iconFilename = guildData.iconFilename
-            this.data.guilds[guildData.guildId - 1].discordLink = guildData.discordLink
-            this.data.guilds[guildData.guildId - 1].detailHtml = guildData.detailHtml
-        }
+        try {
+            const guildsData = await (await fetch('data/guildsData.json')).json() as GUILD_DATA[];
+
+            for (const guildData of guildsData) {
+                this.data.guilds[guildData.guildId - 1].iconFilename = guildData.iconFilename
+                this.data.guilds[guildData.guildId - 1].discordLink = guildData.discordLink
+                this.data.guilds[guildData.guildId - 1].detailHtml = guildData.detailHtml
+            }
+        } catch (error) { }
 
         // Gauntlets
         const flourishIds = [
@@ -353,15 +372,26 @@ export class DatabaseService {
                     nbrSoloTop1: 0,
                     nbrSoloTop5: 0,
                     nbrSoloTop100: 0,
+                    nbrSoloTop1PreAwakening: 0,
+                    nbrSoloTop5PreAwakening: 0,
+                    nbrSoloTop100PreAwakening: 0,
+                    nbrSoloTop1PostAwakening: 0,
+                    nbrSoloTop5PostAwakening: 0,
+                    nbrSoloTop100PostAwakening: 0,
                     nbrGroupTop1: 0,
                     nbrGroupTop5: 0,
                     nbrGroupTop100: 0,
+                    nbrGroupTop1PreAwakening: 0,
+                    nbrGroupTop5PreAwakening: 0,
+                    nbrGroupTop100PreAwakening: 0,
+                    nbrGroupTop1PostAwakening: 0,
+                    nbrGroupTop5PostAwakening: 0,
+                    nbrGroupTop100PostAwakening: 0,
                     playerNames: item.names,
                     playerTrials: []
                 }
             ]
         }, []);
-
 
         // trials
         this.data.trials = allData.trials.reverse().reduce((arr: WEBSITE_TRIAL[], trial): WEBSITE_TRIAL[] => {
@@ -374,10 +404,10 @@ export class DatabaseService {
                     endAt: trial.info.endAt,
                     lastUpdated: trial.info.lastUpdated,
 
-                    soloPlayer: [{ roleId: trial.all[0].players[0].roleId, weaponId: trial.all[0].players[0].weaponId }],
+                    soloPlayer: [{ roleId: trial.all[0].players[0].roleId, weaponId: trial.all[0].players[0].weaponId, secondaryWeaponId: trial.all[0].players[0].secondaryWeaponId }],
                     soloCompletionTime: trial.all[0].completionTime,
-                    groupPlayers: trial.group[0].players.reduce((arr: { roleId: number | null, weaponId: number }[], item): { roleId: number | null, weaponId: number }[] => {
-                        return [...arr, { roleId: item.roleId, weaponId: item.weaponId }];
+                    groupPlayers: trial.group[0].players.reduce((arr: { roleId: number | null, weaponId: number, secondaryWeaponId: number }[], item): { roleId: number | null, weaponId: number, secondaryWeaponId: number }[] => {
+                        return [...arr, { roleId: item.roleId, weaponId: item.weaponId, secondaryWeaponId: item.secondaryWeaponId }];
                     }, []),
                     groupCompletionTime: trial.group[0].completionTime,
 
@@ -392,6 +422,12 @@ export class DatabaseService {
                                     if (item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1++;
                                     if (item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5++;
                                     if (item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100++;
+                                    if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PreAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PostAwakening++;
 
                                     this.data.players[player.playerId - 1].playerTrials.push({
                                         trialLeaderboardItemTypeId: 1,
@@ -404,6 +440,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -420,6 +457,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -438,6 +476,12 @@ export class DatabaseService {
                                     if (item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1++;
                                     if (item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5++;
                                     if (item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100++;
+                                    if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PreAwakening++;
+                                    if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PreAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PostAwakening++;
+                                    if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PostAwakening++;
 
                                     this.data.players[player.playerId - 1].playerTrials.push({
                                         trialLeaderboardItemTypeId: 2,
@@ -450,6 +494,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -466,6 +511,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -493,6 +539,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -509,6 +556,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -536,6 +584,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -552,6 +601,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -579,6 +629,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -595,6 +646,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -622,6 +674,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -638,6 +691,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -665,6 +719,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -681,6 +736,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -708,6 +764,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -724,6 +781,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]
@@ -751,6 +809,7 @@ export class DatabaseService {
                                                 playerId: item.playerId,
                                                 roleId: item.roleId,
                                                 weaponId: item.weaponId,
+                                                secondaryWeaponId: item.secondaryWeaponId,
                                                 playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
                                             }];
                                         }, []),
@@ -767,6 +826,7 @@ export class DatabaseService {
                                             playerId: player.playerId,
                                             roleId: player.roleId,
                                             weaponId: player.weaponId,
+                                            secondaryWeaponId: player.secondaryWeaponId,
                                             playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
                                         }
                                     ]

@@ -40,8 +40,6 @@ const routes: Routes = [
       { path: 'about', component: AboutComponent },
       { path: 'settings', component: SettingsComponent },
 
-      // { path: 'export', component: ExportComponent },
-
       { path: '**', component: NotFoundComponent }
     ]
   }

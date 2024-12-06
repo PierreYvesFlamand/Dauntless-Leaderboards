@@ -6,13 +6,16 @@ import { getSeasonNumberFromSeasonId } from '../utils/utils';
 import { DAUNTLESS_GAUNTLET_ALL_SEASONS, DAUNTLESS_GAUNTLET_SEASON, DAUNTLESS_GAUNTLET_SEASON_FORMATED, DAUNTLESS_GAUNTLET_SEASON_LEADERBOARD_ITEM, GAUNTLET_SEASON, GAUNTLET_SEASON_LEADERBOARD_ITEM, GUILD } from '../types/types';
 
 export async function startGauntletsImport() {
-    console.log('Start gauntlet import at ' + new Date().toUTCString());
+    console.log('Start gauntlet import');
 
     const dauntlessAllSeasons = await fetchAllSeasons();
     if (!dauntlessAllSeasons) return;
 
     for (const dauntlessSeasonDetail of [...dauntlessAllSeasons.past_seasons, dauntlessAllSeasons.active_season]) {
-        if (fs.existsSync(`../database/dauntlessData/gauntlets/${dauntlessSeasonDetail.gauntlet_id}.json`) && getSeasonNumberFromSeasonId(dauntlessSeasonDetail.gauntlet_id) !== config.ACTIVE_SEASON) continue;
+        if (
+            fs.existsSync(`../database/dauntlessData/gauntlets/${dauntlessSeasonDetail.gauntlet_id}.json`) &&
+            getSeasonNumberFromSeasonId(dauntlessSeasonDetail.gauntlet_id) !== config.ACTIVE_SEASON
+        ) continue;
 
         console.log(`Updating gauntlet season ${dauntlessSeasonDetail.gauntlet_id}`);
 
@@ -46,11 +49,11 @@ export async function startGauntletsImport() {
             startAt: dauntlessSeasonDetail.start_at,
             endAt: dauntlessSeasonContent.end_at,
             lastUpdated: dauntlessSeasonContent.last_updated,
-            leaderboard: dauntlessSeasonContent.leaderboard.reduce((array: GAUNTLET_SEASON_LEADERBOARD_ITEM[], item: DAUNTLESS_GAUNTLET_SEASON_LEADERBOARD_ITEM, index: number): GAUNTLET_SEASON_LEADERBOARD_ITEM[] => {
+            leaderboard: dauntlessSeasonContent.leaderboard.reduce((array: GAUNTLET_SEASON_LEADERBOARD_ITEM[], item, index): GAUNTLET_SEASON_LEADERBOARD_ITEM[] => {
                 return [
                     ...array,
                     {
-                        guildId: guilds.find(g => g.tag === item.guild_nameplate)!.id,
+                        guildId: guilds.find(g => g.tag === item.guild_nameplate)?.id || 0,
                         rank: index + 1,
                         level: item.level,
                         remainingSec: item.remaining_sec
@@ -61,7 +64,7 @@ export async function startGauntletsImport() {
         fs.writeFileSync(`../database/gauntlets/${dauntlessSeasonDetail.gauntlet_id}.json`, JSON.stringify(gauntletSeason, null, 4));
     }
 
-    console.log('End of gauntlet import at ' + new Date().toUTCString());
+    console.log('End of gauntlet import');
 }
 
 async function fetchAllSeasons(): Promise<DAUNTLESS_GAUNTLET_ALL_SEASONS | null> {

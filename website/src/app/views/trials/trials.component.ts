@@ -37,9 +37,11 @@ export class TrialsComponent implements AfterViewInit {
     this.isLoading = true;
 
     let response = {
-      data: this.databaseService.data.trials,
+      data: JSON.parse(JSON.stringify(this.databaseService.data.trials)) as WEBSITE_TRIAL[],
       total: 0
     };
+
+    response.data = response.data.filter(t => (this.sharedService.showPreAwakening && t.week < 282) || (this.sharedService.showPostAwakening && t.week >= 282));
 
     if (this.filters.behemothId) {
       response.data = response.data.filter(r => r.behemothName === this.databaseService.data.behemoths[this.filters.behemothId - 1].name);

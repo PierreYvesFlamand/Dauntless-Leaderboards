@@ -27,6 +27,10 @@ h1 {
     font-size: 2rem;
 }
 
+p {
+    word-break: break-word;
+}
+
 // Invert platform icon color on light mode
 .light-mode .platform-icon {
     filter: invert(0.667);

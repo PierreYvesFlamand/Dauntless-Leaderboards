@@ -65,12 +65,38 @@
                                     <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player_name.platformId + '.png', 'platforms')" />
                                 </span>
                             </td>
-                            <td style="width: 90px;">{{player.nbrSoloTop1}}</td>
-                            <td style="width: 90px;">{{player.nbrSoloTop5}}</td>
-                            <td style="width: 90px;">{{player.nbrSoloTop100}}</td>
-                            <td style="width: 90px;">{{player.nbrGroupTop1}}</td>
-                            <td style="width: 90px;">{{player.nbrGroupTop5}}</td>
-                            <td style="width: 90px;">{{player.nbrGroupTop100}}</td>
+                            <ng-container *ngIf="sharedService.showPreAwakening && sharedService.showPostAwakening">
+                                <td style="width: 90px;">{{player.nbrSoloTop1}}</td>
+                                <td style="width: 90px;">{{player.nbrSoloTop5}}</td>
+                                <td style="width: 90px;">{{player.nbrSoloTop100}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop1}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop5}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop100}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="sharedService.showPreAwakening && !sharedService.showPostAwakening">
+                                <td style="width: 90px;">{{player.nbrSoloTop1PreAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrSoloTop5PreAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrSoloTop100PreAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop1PreAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop5PreAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop100PreAwakening}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="!sharedService.showPreAwakening && sharedService.showPostAwakening">
+                                <td style="width: 90px;">{{player.nbrSoloTop1PostAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrSoloTop5PostAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrSoloTop100PostAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop1PostAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop5PostAwakening}}</td>
+                                <td style="width: 90px;">{{player.nbrGroupTop100PostAwakening}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="!sharedService.showPreAwakening && !sharedService.showPostAwakening">
+                                <td style="width: 90px;"></td>
+                                <td style="width: 90px;"></td>
+                                <td style="width: 90px;"></td>
+                                <td style="width: 90px;"></td>
+                                <td style="width: 90px;"></td>
+                                <td style="width: 90px;"></td>
+                            </ng-container>
                         </tr>
                     </tbody>
                 </table>
