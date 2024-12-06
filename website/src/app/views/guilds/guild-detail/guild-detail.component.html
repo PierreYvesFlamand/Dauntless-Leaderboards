@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-12 col-md-6 col-lg-4 order-lg-2 col-xl-3">
             <div class="d-flex flex-column" style="gap: 0.5rem">
-                <img *ngIf="guildData.iconFilename" class="w-100" [src]="sharedService.getImgPath(guildData.iconFilename, 'guilds')" />
+                <img *ngIf="guildData.iconFilename" class="w-100" [src]="sharedService.getImgPath(guildData.iconFilename, 'guilds')" style="border-radius: .25rem;" />
                 <a *ngIf="guildData.discordLink" class="btn btn-block btn-primary" [href]="guildData.discordLink" target="_blank">
                     <i class="fa-brands fa-discord mr-2"></i>
                     Discord
