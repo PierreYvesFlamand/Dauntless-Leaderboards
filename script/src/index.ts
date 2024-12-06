@@ -23,13 +23,9 @@ import { ALL_DATA, BEHEMOTH, GAUNTLET_SEASON, GUILD, GUILD_DATA, PLATFORM, PLAYE
     const allData: ALL_DATA = {
         gauntlets,
         guilds: JSON.parse(fs.readFileSync('../database/guilds.json', 'utf8')) as GUILD[],
-        guildsData: JSON.parse(fs.readFileSync('../database/guildsData.json', 'utf8')) as GUILD_DATA[],
         trials,
         behemoths: JSON.parse(fs.readFileSync('../database/behemoths.json', 'utf8')) as BEHEMOTH[],
-        players: JSON.parse(fs.readFileSync('../database/players.json', 'utf8')) as PLAYER[],
-        platforms: JSON.parse(fs.readFileSync('../database/platforms.json', 'utf8')) as PLATFORM[],
-        roles: JSON.parse(fs.readFileSync('../database/roles.json', 'utf8')) as ROLE[],
-        weapons: JSON.parse(fs.readFileSync('../database/weapons.json', 'utf8')) as WEAPON[]
+        players: JSON.parse(fs.readFileSync('../database/players.json', 'utf8')) as PLAYER[]
     };
 
     let allDataToText = JSON.stringify(allData);
@@ -41,8 +37,6 @@ import { ALL_DATA, BEHEMOTH, GAUNTLET_SEASON, GUILD, GUILD_DATA, PLATFORM, PLAYE
     const dataTimestamp = new Date().getTime();
     fs.writeFileSync('../database/allDataVersion.json', JSON.stringify({ timestamp: dataTimestamp }));
     fs.writeFileSync('../website/public/data/allDataVersion.json', JSON.stringify({ timestamp: dataTimestamp }));
-
-    fs.writeFileSync('../website/public/data/versions.json', fs.readFileSync('../database/versions.json', 'utf8'));
 
     console.log('Done ✅');
 })();

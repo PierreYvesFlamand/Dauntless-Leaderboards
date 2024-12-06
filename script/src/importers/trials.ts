@@ -26,7 +26,7 @@ export async function startImportTrials(authorizationCode: string = config.AUTHO
 }
 
 async function importTrials(week: number = getCurrentWeek()) {
-    console.log(`Start trial week ${week} import at ${new Date().toUTCString()}`);
+    console.log(`Start trial week ${week} import`);
 
     const dauntlessTrial = await fetchTrialLeaderboard(week);
     if (!dauntlessTrial?.payload?.world) return;
@@ -162,7 +162,7 @@ async function importTrials(week: number = getCurrentWeek()) {
         console.error(error);
     }
 
-    console.log(`End of trial week ${week} import at ${new Date().toUTCString()}`);
+    console.log(`End of trial week ${week} import`);
 }
 
 async function initRefreshToken(authorization_code: string) {
@@ -266,7 +266,6 @@ async function refreshSessionToken() {
     }
 }
 
-// 281 is last before dual weapon
 async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | null> {
     /**
      * Explanation for posterity
@@ -304,8 +303,7 @@ async function fetchTrialLeaderboard(week: number): Promise<DAUNTLESS_TRIAL | nu
         );
         const data = await res.json();
 
-        // week === 281 is because of an error during the v4.0.0 switch :(
-        if (week === 281 - 185 || !isNew && week <= 90) {
+        if (!isNew && week <= 90) {
             const res = await fetch('https://leaderboards-prod.steelyard.ca/trials/leaderboards/solo',
                 {
                     headers: {

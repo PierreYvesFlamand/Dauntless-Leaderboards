@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import pako from 'pako'
 
-import { ALL_DATA, BEHEMOTH, DAUNTLESS_GAUNTLET_SEASON, GAUNTLET_SEASON_LEADERBOARD_ITEM } from '../../../../script/src/types/types';
+import { ALL_DATA, BEHEMOTH, DAUNTLESS_GAUNTLET_SEASON, GAUNTLET_SEASON_LEADERBOARD_ITEM, GUILD_DATA } from '../../../../script/src/types/types';
 
 export type WEBSITE_GAUNTLET = {
     allGauntletsInfo: GAUNTLET_INFO[]
@@ -203,6 +203,8 @@ export class DatabaseService {
         const arrayBuffer = await res.arrayBuffer();
         const allData = JSON.parse(pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' })) as ALL_DATA;
 
+        allData.trials.pop();
+
         try {
             const res = await fetch(`https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-season${String(allData.gauntlets.length).padStart(2, '0')}.json?_=${new Date()}`);
             const dauntlessData = await res.json() as DAUNTLESS_GAUNTLET_SEASON;
@@ -245,11 +247,15 @@ export class DatabaseService {
             ]
         }, []);
 
-        for (const guildData of allData.guildsData) {
-            this.data.guilds[guildData.guildId - 1].iconFilename = guildData.iconFilename
-            this.data.guilds[guildData.guildId - 1].discordLink = guildData.discordLink
-            this.data.guilds[guildData.guildId - 1].detailHtml = guildData.detailHtml
-        }
+        try {
+            const guildsData = await (await fetch('data/guildsData.json')).json() as GUILD_DATA[];
+
+            for (const guildData of guildsData) {
+                this.data.guilds[guildData.guildId - 1].iconFilename = guildData.iconFilename
+                this.data.guilds[guildData.guildId - 1].discordLink = guildData.discordLink
+                this.data.guilds[guildData.guildId - 1].detailHtml = guildData.detailHtml
+            }
+        } catch (error) { }
 
         // Gauntlets
         const flourishIds = [

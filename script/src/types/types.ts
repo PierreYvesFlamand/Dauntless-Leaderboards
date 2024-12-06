@@ -192,11 +192,8 @@ export type PLAYER_DATA = {
 export type ALL_DATA = {
     gauntlets: GAUNTLET_SEASON[]
     guilds: GUILD[]
-    guildsData: GUILD_DATA[]
+    
     trials: TRIAL[]
     behemoths: BEHEMOTH[]
     players: PLAYER[]
-    platforms: PLATFORM[]
-    roles: ROLE[]
-    weapons: WEAPON[]
 }
