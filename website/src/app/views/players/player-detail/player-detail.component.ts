@@ -117,6 +117,7 @@ type PLAYER_TRIAL_ITEM_FOR_GROUP = {
     players: {
       playerId: number
       weaponId: number
+      secondaryWeaponId: number
       roleId: number | null
       playerName: string
       platformId: number
