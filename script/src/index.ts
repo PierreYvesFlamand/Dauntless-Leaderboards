@@ -8,7 +8,7 @@ import { ALL_DATA, BEHEMOTH, GAUNTLET_SEASON, GUILD, GUILD_DATA, PLATFORM, PLAYE
 
 (async () => {
     await startGauntletsImport();
-    // await startImportTrials();
+    await startImportTrials();
 
     const gauntlets: GAUNTLET_SEASON[] = [];
     for (const filename of fs.readdirSync('../database/gauntlets')) {
