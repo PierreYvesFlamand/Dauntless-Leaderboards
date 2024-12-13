@@ -203,8 +203,6 @@ export class DatabaseService {
         const arrayBuffer = await res.arrayBuffer();
         const allData = JSON.parse(pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' })) as ALL_DATA;
 
-        allData.trials.pop();
-
         try {
             const res = await fetch(`https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-season${String(allData.gauntlets.length).padStart(2, '0')}.json?_=${new Date()}`);
             const dauntlessData = await res.json() as DAUNTLESS_GAUNTLET_SEASON;
@@ -397,444 +395,465 @@ export class DatabaseService {
         this.data.trials = allData.trials.reverse().reduce((arr: WEBSITE_TRIAL[], trial): WEBSITE_TRIAL[] => {
             return [
                 ...arr,
-                {
-                    week: trial.info.week,
-                    behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                    startAt: trial.info.startAt,
-                    endAt: trial.info.endAt,
-                    lastUpdated: trial.info.lastUpdated,
+                trial.info.week === 282 || trial.info.week === 283 ?
+                    {
+                        week: trial.info.week,
+                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                        startAt: trial.info.startAt,
+                        endAt: trial.info.endAt,
+                        lastUpdated: trial.info.lastUpdated,
+                        soloPlayer: [],
+                        soloCompletionTime: 0,
+                        groupPlayers: [],
+                        groupCompletionTime: 0,
+                        all: [],
+                        group: [],
+                        axe: [],
+                        sword: [],
+                        chainblades: [],
+                        repeaters: [],
+                        strikers: [],
+                        hammer: [],
+                        pike: []
+                    } :
+                    {
+                        week: trial.info.week,
+                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                        startAt: trial.info.startAt,
+                        endAt: trial.info.endAt,
+                        lastUpdated: trial.info.lastUpdated,
 
-                    soloPlayer: [{ roleId: trial.all[0].players[0].roleId, weaponId: trial.all[0].players[0].weaponId, secondaryWeaponId: trial.all[0].players[0].secondaryWeaponId }],
-                    soloCompletionTime: trial.all[0].completionTime,
-                    groupPlayers: trial.group[0].players.reduce((arr: { roleId: number | null, weaponId: number, secondaryWeaponId: number }[], item): { roleId: number | null, weaponId: number, secondaryWeaponId: number }[] => {
-                        return [...arr, { roleId: item.roleId, weaponId: item.weaponId, secondaryWeaponId: item.secondaryWeaponId }];
-                    }, []),
-                    groupCompletionTime: trial.group[0].completionTime,
+                        soloPlayer: [{ roleId: trial.all[0].players[0].roleId, weaponId: trial.all[0].players[0].weaponId, secondaryWeaponId: trial.all[0].players[0].secondaryWeaponId }],
+                        soloCompletionTime: trial.all[0].completionTime,
+                        groupPlayers: trial.group[0].players.reduce((arr: { roleId: number | null, weaponId: number, secondaryWeaponId: number }[], item): { roleId: number | null, weaponId: number, secondaryWeaponId: number }[] => {
+                            return [...arr, { roleId: item.roleId, weaponId: item.weaponId, secondaryWeaponId: item.secondaryWeaponId }];
+                        }, []),
+                        groupCompletionTime: trial.group[0].completionTime,
 
-                    all: trial.all.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
-                                    if (item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1++;
-                                    if (item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5++;
-                                    if (item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100++;
-                                    if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PreAwakening++;
-                                    if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PreAwakening++;
-                                    if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PreAwakening++;
-                                    if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PostAwakening++;
-                                    if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PostAwakening++;
-                                    if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PostAwakening++;
+                        all: trial.all.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        if (item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1++;
+                                        if (item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5++;
+                                        if (item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100++;
+                                        if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PreAwakening++;
+                                        if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PreAwakening++;
+                                        if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PreAwakening++;
+                                        if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PostAwakening++;
+                                        if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PostAwakening++;
+                                        if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PostAwakening++;
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 1,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 1,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    group: trial.group.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
-                                    if (item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1++;
-                                    if (item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5++;
-                                    if (item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100++;
-                                    if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PreAwakening++;
-                                    if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PreAwakening++;
-                                    if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PreAwakening++;
-                                    if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PostAwakening++;
-                                    if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PostAwakening++;
-                                    if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PostAwakening++;
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        group: trial.group.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        if (item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1++;
+                                        if (item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5++;
+                                        if (item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100++;
+                                        if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PreAwakening++;
+                                        if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PreAwakening++;
+                                        if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PreAwakening++;
+                                        if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PostAwakening++;
+                                        if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PostAwakening++;
+                                        if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PostAwakening++;
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 2,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 2,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    hammer: trial.hammer.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        hammer: trial.hammer.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 5,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 5,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    axe: trial.axe.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        axe: trial.axe.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 4,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 4,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    sword: trial.sword.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        sword: trial.sword.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 3,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 3,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    chainblades: trial.chainblades.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        chainblades: trial.chainblades.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 6,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 6,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    repeaters: trial.repeaters.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        repeaters: trial.repeaters.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 8,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 8,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    pike: trial.pike.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        pike: trial.pike.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 7,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 7,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, []),
-                    strikers: trial.strikers.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
-                        return [
-                            ...arr,
-                            {
-                                rank: item.rank,
-                                completionTime: item.completionTime,
-                                objectivesCompleted: item.objectivesCompleted,
-                                players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, []),
+                        strikers: trial.strikers.reduce((arr: TRIAL_LEADERBOARD[], item): TRIAL_LEADERBOARD[] => {
+                            return [
+                                ...arr,
+                                {
+                                    rank: item.rank,
+                                    completionTime: item.completionTime,
+                                    objectivesCompleted: item.objectivesCompleted,
+                                    players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
 
-                                    this.data.players[player.playerId - 1].playerTrials.push({
-                                        trialLeaderboardItemTypeId: 9,
-                                        week: trial.info.week,
-                                        behemothName: allData.behemoths[trial.info.behemothId - 1].name,
-                                        rank: item.rank,
-                                        players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
-                                            return [...arr, {
-                                                platformId: item.platformId,
-                                                playerId: item.playerId,
-                                                roleId: item.roleId,
-                                                weaponId: item.weaponId,
-                                                secondaryWeaponId: item.secondaryWeaponId,
-                                                playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
-                                            }];
-                                        }, []),
-                                        completionTime: item.completionTime,
-                                        objectivesCompleted: item.objectivesCompleted,
-                                        startAt: trial.info.startAt,
-                                        endAt: trial.info.endAt
-                                    });
+                                        this.data.players[player.playerId - 1].playerTrials.push({
+                                            trialLeaderboardItemTypeId: 9,
+                                            week: trial.info.week,
+                                            behemothName: allData.behemoths[trial.info.behemothId - 1].name,
+                                            rank: item.rank,
+                                            players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], item): TRIAL_LEADERBOARD_PLAYER[] => {
+                                                return [...arr, {
+                                                    platformId: item.platformId,
+                                                    playerId: item.playerId,
+                                                    roleId: item.roleId,
+                                                    weaponId: item.weaponId,
+                                                    secondaryWeaponId: item.secondaryWeaponId,
+                                                    playerName: allData.players[item.playerId - 1].names.find(n => n.platformId === item.platformId)?.name || ''
+                                                }];
+                                            }, []),
+                                            completionTime: item.completionTime,
+                                            objectivesCompleted: item.objectivesCompleted,
+                                            startAt: trial.info.startAt,
+                                            endAt: trial.info.endAt
+                                        });
 
-                                    return [
-                                        ...arr,
-                                        {
-                                            platformId: player.platformId,
-                                            playerId: player.playerId,
-                                            roleId: player.roleId,
-                                            weaponId: player.weaponId,
-                                            secondaryWeaponId: player.secondaryWeaponId,
-                                            playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
-                                        }
-                                    ]
-                                }, []),
-                            }
-                        ]
-                    }, [])
-                }
+                                        return [
+                                            ...arr,
+                                            {
+                                                platformId: player.platformId,
+                                                playerId: player.playerId,
+                                                roleId: player.roleId,
+                                                weaponId: player.weaponId,
+                                                secondaryWeaponId: player.secondaryWeaponId,
+                                                playerName: allData.players[player.playerId - 1].names.find(n => n.platformId === player.platformId)?.name || ''
+                                            }
+                                        ]
+                                    }, []),
+                                }
+                            ]
+                        }, [])
+                    }
             ]
         }, []);
 

@@ -16,13 +16,13 @@ export async function startImportTrials(authorizationCode: string = config.AUTHO
     console.log('Checking if all older weeks are in the database');
     const existingTrialFilenames = fs.readdirSync('../database/trials');
 
-    for (let i = 1; i < getCurrentWeek(); i++) {
+    for (let i = 1; i < getCurrentWeek() - 1; i++) {
         if (existingTrialFilenames.findIndex(filename => Number(filename.substring(10, 13)) === i) >= 0) continue;
         await importTrials(i);
         await new Promise(resolve => setTimeout(resolve, 3000));
     }
-    console.log('Starting current week import');
-    await importTrials();
+    console.log('Starting last week import');
+    await importTrials(getCurrentWeek() - 1);
 }
 
 async function importTrials(week: number = getCurrentWeek()) {
@@ -58,6 +58,19 @@ async function importTrials(week: number = getCurrentWeek()) {
             repeaters: [],
             pike: [],
             strikers: []
+        }
+
+        // Sad if statement because of golden claw exploit
+        if (trial.info.week === 282 || trial.info.week === 283) {
+            dauntlessTrial.payload.world.solo.all.entries = [];
+            dauntlessTrial.payload.world.solo.axe.entries = [];
+            dauntlessTrial.payload.world.solo.chainblades.entries = [];
+            dauntlessTrial.payload.world.solo.hammer.entries = [];
+            dauntlessTrial.payload.world.solo.pike.entries = [];
+            dauntlessTrial.payload.world.solo.strikers.entries = [];
+            dauntlessTrial.payload.world.solo.repeaters.entries = [];
+            dauntlessTrial.payload.world.solo.sword.entries = [];
+            dauntlessTrial.payload.world.group.entries = [];
         }
 
         // SOLO

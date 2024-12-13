@@ -92,6 +92,7 @@ export type DAUNTLESS_TRIAL = {
             solo: {
                 all: DAUNTLESS_TRIAL_SOLO_DETAIL
                 axe: DAUNTLESS_TRIAL_SOLO_DETAIL
+                sword: DAUNTLESS_TRIAL_SOLO_DETAIL
                 chainblades: DAUNTLESS_TRIAL_SOLO_DETAIL
                 hammer: DAUNTLESS_TRIAL_SOLO_DETAIL
                 pike: DAUNTLESS_TRIAL_SOLO_DETAIL
