@@ -1,79 +1,271 @@
 {
     "start_at": "2024-12-03 18:00:00Z",
     "end_at": "2025-01-16T18:00:00Z",
-    "last_updated": "2024-12-08T00:00:05Z",
+    "last_updated": "2024-12-13T09:30:04Z",
     "leaderboard": [
         {
-            "guild_name": "UNVEIL",
-            "guild_nameplate": "UNVEIL",
-            "level": 23,
-            "remaining_sec": 1127
-        },
-        {
-            "guild_name": "GNASHERBASHERZ",
-            "guild_nameplate": "BASHR",
-            "level": 23,
-            "remaining_sec": 1100
+            "guild_name": "ThraxEnjoyers",
+            "guild_nameplate": "THRAAX",
+            "level": 180,
+            "remaining_sec": 629
         },
         {
             "guild_name": "SHlELDS",
             "guild_nameplate": "SHlELD",
-            "level": 21,
-            "remaining_sec": 791
-        },
-        {
-            "guild_name": "ALLBLACKS",
-            "guild_nameplate": "Maunga",
-            "level": 20,
-            "remaining_sec": 1189
+            "level": 164,
+            "remaining_sec": 867
         },
         {
             "guild_name": "HORSECULT",
             "guild_nameplate": "HONCLT",
-            "level": 17,
-            "remaining_sec": 1215
+            "level": 105,
+            "remaining_sec": 1412
         },
         {
-            "guild_name": "HAFFAXgaming",
-            "guild_nameplate": "HAFFAX",
-            "level": 17,
-            "remaining_sec": 876
+            "guild_name": "GNASHERBASHERZ",
+            "guild_nameplate": "BASHR",
+            "level": 58,
+            "remaining_sec": 1193
         },
         {
-            "guild_name": "Clan300",
-            "guild_nameplate": "C300",
-            "level": 16,
-            "remaining_sec": 1002
+            "guild_name": "KermyDoesOmegle",
+            "guild_nameplate": "TheBGC",
+            "level": 56,
+            "remaining_sec": 1421
         },
         {
-            "guild_name": "FrogCult",
-            "guild_nameplate": "FRGCLT",
-            "level": 15,
-            "remaining_sec": 1346
+            "guild_name": "ThePanthe0n",
+            "guild_nameplate": "Sik0s",
+            "level": 53,
+            "remaining_sec": 1314
         },
         {
             "guild_name": "DFrance",
             "guild_nameplate": "DFR1",
-            "level": 15,
-            "remaining_sec": 1219
+            "level": 48,
+            "remaining_sec": 1221
         },
         {
-            "guild_name": "ThraxEnjoyers",
-            "guild_nameplate": "THRAAX",
-            "level": 15,
-            "remaining_sec": 1017
+            "guild_name": "ALLBLACKS",
+            "guild_nameplate": "Maunga",
+            "level": 44,
+            "remaining_sec": 1328
+        },
+        {
+            "guild_name": "freeSouIs",
+            "guild_nameplate": "xS0ULS",
+            "level": 44,
+            "remaining_sec": 1227
+        },
+        {
+            "guild_name": "SeekDarkness",
+            "guild_nameplate": "SkDrk",
+            "level": 43,
+            "remaining_sec": 1500
+        },
+        {
+            "guild_name": "StriveAchieve",
+            "guild_nameplate": "hr2hlp",
+            "level": 42,
+            "remaining_sec": 1049
+        },
+        {
+            "guild_name": "UNVEIL",
+            "guild_nameplate": "UNVEIL",
+            "level": 41,
+            "remaining_sec": 1316
+        },
+        {
+            "guild_name": "HAFFAXgaming",
+            "guild_nameplate": "HAFFAX",
+            "level": 41,
+            "remaining_sec": 1057
+        },
+        {
+            "guild_name": "Interim",
+            "guild_nameplate": "INTRM",
+            "level": 40,
+            "remaining_sec": 1093
+        },
+        {
+            "guild_name": "GermanBehemoths",
+            "guild_nameplate": "Germot",
+            "level": 35,
+            "remaining_sec": 1157
+        },
+        {
+            "guild_name": "ShrowdWitchers",
+            "guild_nameplate": "SpaWnx",
+            "level": 31,
+            "remaining_sec": 1106
+        },
+        {
+            "guild_name": "ThornyDragons",
+            "guild_nameplate": "MEL2NY",
+            "level": 30,
+            "remaining_sec": 1147
+        },
+        {
+            "guild_name": "FrogCult",
+            "guild_nameplate": "FRGCLT",
+            "level": 29,
+            "remaining_sec": 891
         },
         {
             "guild_name": "TeamUpSlayers",
             "guild_nameplate": "TeamUp",
-            "level": 13,
-            "remaining_sec": 1228
+            "level": 26,
+            "remaining_sec": 860
         },
         {
             "guild_name": "SpaceXPyrates",
             "guild_nameplate": "4DABTY",
+            "level": 25,
+            "remaining_sec": 1294
+        },
+        {
+            "guild_name": "Giorenpas",
+            "guild_nameplate": "Giove",
+            "level": 24,
+            "remaining_sec": 1050
+        },
+        {
+            "guild_name": "SAMURAIjamboree",
+            "guild_nameplate": "MICKEY",
+            "level": 24,
+            "remaining_sec": 994
+        },
+        {
+            "guild_name": "TOPPUSA",
+            "guild_nameplate": "TTOPUS",
+            "level": 24,
+            "remaining_sec": 809
+        },
+        {
+            "guild_name": "EvilTigers",
+            "guild_nameplate": "Tiggel",
+            "level": 23,
+            "remaining_sec": 1323
+        },
+        {
+            "guild_name": "Clan300",
+            "guild_nameplate": "C300",
+            "level": 21,
+            "remaining_sec": 921
+        },
+        {
+            "guild_name": "WeSoon",
+            "guild_nameplate": "WeSwo",
+            "level": 20,
+            "remaining_sec": 948
+        },
+        {
+            "guild_name": "MazikeenSmith",
+            "guild_nameplate": "MAZZIK",
+            "level": 17,
+            "remaining_sec": 1149
+        },
+        {
+            "guild_name": "3776jp",
+            "guild_nameplate": "3776jp",
+            "level": 17,
+            "remaining_sec": 1115
+        },
+        {
+            "guild_name": "FuzzyBeans",
+            "guild_nameplate": "Fleecy",
+            "level": 16,
+            "remaining_sec": 1003
+        },
+        {
+            "guild_name": "Demon1",
+            "guild_nameplate": "Lazer2",
+            "level": 16,
+            "remaining_sec": 852
+        },
+        {
+            "guild_name": "Puroscompas",
+            "guild_nameplate": "CTMD2",
+            "level": 15,
+            "remaining_sec": 1339
+        },
+        {
+            "guild_name": "ShadowSeekerz",
+            "guild_nameplate": "Sdwskz",
+            "level": 15,
+            "remaining_sec": 321
+        },
+        {
+            "guild_name": "Jinnis",
+            "guild_nameplate": "Jinni",
+            "level": 14,
+            "remaining_sec": 1353
+        },
+        {
+            "guild_name": "XEN0HUNTERS",
+            "guild_nameplate": "XEN0HT",
+            "level": 14,
+            "remaining_sec": 1100
+        },
+        {
+            "guild_name": "EclipseWyvern",
+            "guild_nameplate": "Ewyvrn",
+            "level": 13,
+            "remaining_sec": 586
+        },
+        {
+            "guild_name": "TOPMASTERS",
+            "guild_nameplate": "TOPMTS",
+            "level": 12,
+            "remaining_sec": 1255
+        },
+        {
+            "guild_name": "NovaCrownsG2",
+            "guild_nameplate": "NvCrw2",
+            "level": 12,
+            "remaining_sec": 1113
+        },
+        {
+            "guild_name": "KNALLER",
+            "guild_nameplate": "KNLLR",
             "level": 11,
-            "remaining_sec": 821
+            "remaining_sec": 1294
+        },
+        {
+            "guild_name": "Lucky777",
+            "guild_nameplate": "Luck7",
+            "level": 11,
+            "remaining_sec": 1158
+        },
+        {
+            "guild_name": "Xenohunters2",
+            "guild_nameplate": "XEN02",
+            "level": 11,
+            "remaining_sec": 1099
+        },
+        {
+            "guild_name": "ChronoFather",
+            "guild_nameplate": "Havard",
+            "level": 11,
+            "remaining_sec": 1077
+        },
+        {
+            "guild_name": "DinoTari",
+            "guild_nameplate": "DTARI",
+            "level": 11,
+            "remaining_sec": 965
+        },
+        {
+            "guild_name": "KrowdKontrol",
+            "guild_nameplate": "KROWOL",
+            "level": 10,
+            "remaining_sec": 1319
+        },
+        {
+            "guild_name": "OverDiver",
+            "guild_nameplate": "WTover",
+            "level": 10,
+            "remaining_sec": 1300
         },
         {
             "guild_name": "PayItForward",
@@ -82,10 +274,82 @@
             "remaining_sec": 1214
         },
         {
+            "guild_name": "UrskaLove",
+            "guild_nameplate": "RSKA",
+            "level": 10,
+            "remaining_sec": 1023
+        },
+        {
+            "guild_name": "loskamikazees",
+            "guild_nameplate": "kmkze",
+            "level": 10,
+            "remaining_sec": 989
+        },
+        {
+            "guild_name": "ToteParty",
+            "guild_nameplate": "DeadPt",
+            "level": 10,
+            "remaining_sec": 890
+        },
+        {
+            "guild_name": "CZECHCLUB",
+            "guild_nameplate": "CZTYM",
+            "level": 10,
+            "remaining_sec": 888
+        },
+        {
+            "guild_name": "xINFIERNOx",
+            "guild_nameplate": "INFRN",
+            "level": 10,
+            "remaining_sec": 821
+        },
+        {
+            "guild_name": "booof",
+            "guild_nameplate": "bo0of",
+            "level": 10,
+            "remaining_sec": 804
+        },
+        {
+            "guild_name": "DauntlessAwoken",
+            "guild_nameplate": "RoII20",
+            "level": 10,
+            "remaining_sec": 796
+        },
+        {
             "guild_name": "7eedr",
             "guild_nameplate": "7eedr",
             "level": 10,
             "remaining_sec": 737
+        },
+        {
+            "guild_name": "Glocktober",
+            "guild_nameplate": "iGlock",
+            "level": 10,
+            "remaining_sec": 733
+        },
+        {
+            "guild_name": "lSlayersl",
+            "guild_nameplate": "GuiIda",
+            "level": 10,
+            "remaining_sec": 699
+        },
+        {
+            "guild_name": "Just1c4r",
+            "guild_nameplate": "Algozz",
+            "level": 10,
+            "remaining_sec": 555
+        },
+        {
+            "guild_name": "MugiwaranoBTV",
+            "guild_nameplate": "MBTV03",
+            "level": 10,
+            "remaining_sec": 537
+        },
+        {
+            "guild_name": "DisunifiedTrash",
+            "guild_nameplate": "DTDT",
+            "level": 10,
+            "remaining_sec": 449
         },
         {
             "guild_name": "KnightsofHavel",
@@ -94,22 +358,46 @@
             "remaining_sec": 314
         },
         {
-            "guild_name": "EvilTigers",
-            "guild_nameplate": "Tiggel",
+            "guild_name": "MenOfPink",
+            "guild_nameplate": "PINKEN",
             "level": 10,
-            "remaining_sec": 209
+            "remaining_sec": 263
         },
         {
-            "guild_name": "KermyDoesOmegle",
-            "guild_nameplate": "TheBGC",
+            "guild_name": "assaisonner",
+            "guild_nameplate": "zewola",
             "level": 9,
-            "remaining_sec": 1166
+            "remaining_sec": 1025
         },
         {
-            "guild_name": "ShadowSeekerz",
-            "guild_nameplate": "Sdwskz",
+            "guild_name": "AngeliCaduti",
+            "guild_nameplate": "EDEN1",
             "level": 9,
-            "remaining_sec": 1027
+            "remaining_sec": 978
+        },
+        {
+            "guild_name": "HappyDrum",
+            "guild_nameplate": "HappyD",
+            "level": 9,
+            "remaining_sec": 969
+        },
+        {
+            "guild_name": "TailChasers726",
+            "guild_nameplate": "TCS726",
+            "level": 9,
+            "remaining_sec": 606
+        },
+        {
+            "guild_name": "ThyRoundTable",
+            "guild_nameplate": "ThyTbl",
+            "level": 9,
+            "remaining_sec": 241
+        },
+        {
+            "guild_name": "TheKidsNextDoor",
+            "guild_nameplate": "zKID",
+            "level": 8,
+            "remaining_sec": 1350
         },
         {
             "guild_name": "MorboCombo",
@@ -118,16 +406,28 @@
             "remaining_sec": 1110
         },
         {
-            "guild_name": "CZECHCLUB",
-            "guild_nameplate": "CZTYM",
+            "guild_name": "Esquizomakakos",
+            "guild_nameplate": "Cook5",
             "level": 8,
-            "remaining_sec": 1083
+            "remaining_sec": 1069
         },
         {
-            "guild_name": "XEN0HUNTERS",
-            "guild_nameplate": "XEN0HT",
+            "guild_name": "IdiotsBlabla",
+            "guild_nameplate": "Thesht",
             "level": 8,
-            "remaining_sec": 644
+            "remaining_sec": 1017
+        },
+        {
+            "guild_name": "MarvaKarvaLarva",
+            "guild_nameplate": "MVKVLV",
+            "level": 8,
+            "remaining_sec": 948
+        },
+        {
+            "guild_name": "Mortal0slayerss",
+            "guild_nameplate": "Epic3e",
+            "level": 8,
+            "remaining_sec": 918
         },
         {
             "guild_name": "AOTEAROA",
@@ -136,34 +436,64 @@
             "remaining_sec": 602
         },
         {
-            "guild_name": "StriveAchieve",
-            "guild_nameplate": "hr2hlp",
+            "guild_name": "Grimsonraiders",
+            "guild_nameplate": "GRXMM",
             "level": 8,
-            "remaining_sec": 472
+            "remaining_sec": 584
         },
         {
-            "guild_name": "Giorenpas",
-            "guild_nameplate": "Giove",
+            "guild_name": "KrakabumMinions",
+            "guild_nameplate": "KrSuMi",
             "level": 7,
-            "remaining_sec": 1233
+            "remaining_sec": 1213
         },
         {
-            "guild_name": "SeekDarkness",
-            "guild_nameplate": "SkDrk",
+            "guild_name": "SlayerGangPR",
+            "guild_nameplate": "SGPR",
             "level": 7,
-            "remaining_sec": 1050
+            "remaining_sec": 1172
         },
         {
-            "guild_name": "Xenohunters2",
-            "guild_nameplate": "XEN02",
-            "level": 6,
-            "remaining_sec": 1402
+            "guild_name": "bungie777",
+            "guild_nameplate": "BNG777",
+            "level": 7,
+            "remaining_sec": 1157
         },
         {
-            "guild_name": "SAMURAIjamboree",
-            "guild_nameplate": "MICKEY",
+            "guild_name": "Titans0Hand",
+            "guild_nameplate": "0VIF0",
+            "level": 7,
+            "remaining_sec": 1118
+        },
+        {
+            "guild_name": "FearLessRift",
+            "guild_nameplate": "65tijh",
+            "level": 7,
+            "remaining_sec": 1091
+        },
+        {
+            "guild_name": "AFF3NmitWAFF3N",
+            "guild_nameplate": "AFF3N",
+            "level": 7,
+            "remaining_sec": 1076
+        },
+        {
+            "guild_name": "WH0B0B3RS",
+            "guild_nameplate": "WhoB0B",
+            "level": 7,
+            "remaining_sec": 722
+        },
+        {
+            "guild_name": "TEMPEROLANDIA",
+            "guild_nameplate": "TEPERO",
             "level": 6,
-            "remaining_sec": 1065
+            "remaining_sec": 1257
+        },
+        {
+            "guild_name": "xXBlade00BavaXx",
+            "guild_nameplate": "Ax00",
+            "level": 6,
+            "remaining_sec": 1181
         },
         {
             "guild_name": "Doobsz",
@@ -172,10 +502,28 @@
             "remaining_sec": 1063
         },
         {
+            "guild_name": "Urskaenjoyers",
+            "guild_nameplate": "Ur5ka",
+            "level": 6,
+            "remaining_sec": 1006
+        },
+        {
             "guild_name": "DauntMisfits",
             "guild_nameplate": "Aikm",
             "level": 6,
             "remaining_sec": 810
+        },
+        {
+            "guild_name": "Jaguaraiada",
+            "guild_nameplate": "JGRDA",
+            "level": 6,
+            "remaining_sec": 718
+        },
+        {
+            "guild_name": "MAFIAGANG",
+            "guild_nameplate": "MFGNG",
+            "level": 6,
+            "remaining_sec": 618
         },
         {
             "guild_name": "Clomlets",
@@ -184,10 +532,46 @@
             "remaining_sec": 1839
         },
         {
-            "guild_name": "ThornyDragons",
-            "guild_nameplate": "MEL2NY",
+            "guild_name": "Casareria",
+            "guild_nameplate": "a1a1a",
             "level": 5,
-            "remaining_sec": 1536
+            "remaining_sec": 1647
+        },
+        {
+            "guild_name": "Fartfy",
+            "guild_nameplate": "Fartfy",
+            "level": 5,
+            "remaining_sec": 1598
+        },
+        {
+            "guild_name": "TheEvilWaifus",
+            "guild_nameplate": "EVLWFU",
+            "level": 5,
+            "remaining_sec": 1587
+        },
+        {
+            "guild_name": "THEMAN65970",
+            "guild_nameplate": "IASDA",
+            "level": 5,
+            "remaining_sec": 1578
+        },
+        {
+            "guild_name": "LockeNLoad",
+            "guild_nameplate": "Lewded",
+            "level": 5,
+            "remaining_sec": 1565
+        },
+        {
+            "guild_name": "ZeaI",
+            "guild_nameplate": "ZeaI",
+            "level": 5,
+            "remaining_sec": 1563
+        },
+        {
+            "guild_name": "AMAZINGksa",
+            "guild_nameplate": "AS6ER",
+            "level": 5,
+            "remaining_sec": 1562
         },
         {
             "guild_name": "N1nj4",
@@ -196,412 +580,28 @@
             "remaining_sec": 1527
         },
         {
-            "guild_name": "Glocktober",
-            "guild_nameplate": "iGlock",
+            "guild_name": "CoolClicksClan",
+            "guild_nameplate": "CCCs",
             "level": 5,
-            "remaining_sec": 1481
+            "remaining_sec": 1448
         },
         {
-            "guild_name": "3776jp",
-            "guild_nameplate": "3776jp",
+            "guild_name": "BlackTears",
+            "guild_nameplate": "1Tears",
             "level": 5,
-            "remaining_sec": 1456
+            "remaining_sec": 1406
         },
         {
-            "guild_name": "TOPMASTERS",
-            "guild_nameplate": "TOPMTS",
+            "guild_name": "Cookablasters",
+            "guild_nameplate": "COKB",
             "level": 5,
-            "remaining_sec": 1372
+            "remaining_sec": 1346
         },
         {
-            "guild_name": "northlittlebear",
-            "guild_nameplate": "bear66",
+            "guild_name": "OneLightBelow",
+            "guild_nameplate": "ILight",
             "level": 5,
-            "remaining_sec": 1299
-        },
-        {
-            "guild_name": "Grimsonraiders",
-            "guild_nameplate": "GRXMM",
-            "level": 5,
-            "remaining_sec": 1242
-        },
-        {
-            "guild_name": "Endss",
-            "guild_nameplate": "Endsss",
-            "level": 5,
-            "remaining_sec": 787
-        },
-        {
-            "guild_name": "NeonOrits",
-            "guild_nameplate": "Orit",
-            "level": 4,
-            "remaining_sec": 1223
-        },
-        {
-            "guild_name": "FearLessRift",
-            "guild_nameplate": "65tijh",
-            "level": 4,
-            "remaining_sec": 1212
-        },
-        {
-            "guild_name": "AngeliCaduti",
-            "guild_nameplate": "EDEN1",
-            "level": 4,
-            "remaining_sec": 1095
-        },
-        {
-            "guild_name": "LoneWolves69",
-            "guild_nameplate": "AIO69",
-            "level": 4,
-            "remaining_sec": 763
-        },
-        {
-            "guild_name": "BushidoSpirit",
-            "guild_nameplate": "BUJIN",
-            "level": 4,
-            "remaining_sec": 758
-        },
-        {
-            "guild_name": "OverDiver",
-            "guild_nameplate": "WTover",
-            "level": 3,
-            "remaining_sec": 1693
-        },
-        {
-            "guild_name": "DefyIstKek187",
-            "guild_nameplate": "M0NM0N",
-            "level": 3,
-            "remaining_sec": 1309
-        },
-        {
-            "guild_name": "Failventurers",
-            "guild_nameplate": "FAILV",
-            "level": 3,
-            "remaining_sec": 1282
-        },
-        {
-            "guild_name": "Urskaenjoyers",
-            "guild_nameplate": "Ur5ka",
-            "level": 3,
-            "remaining_sec": 1256
-        },
-        {
-            "guild_name": "AE666",
-            "guild_nameplate": "AE666",
-            "level": 3,
-            "remaining_sec": 1174
-        },
-        {
-            "guild_name": "DisunifiedTrash",
-            "guild_nameplate": "DTDT",
-            "level": 2,
-            "remaining_sec": 1281
-        },
-        {
-            "guild_name": "KrowdKontrol",
-            "guild_nameplate": "KROWOL",
-            "level": 2,
-            "remaining_sec": 1264
-        },
-        {
-            "guild_name": "Puroscompas",
-            "guild_nameplate": "CTMD2",
-            "level": 2,
-            "remaining_sec": 1204
-        },
-        {
-            "guild_name": "TankNoDodge",
-            "guild_nameplate": "NDodge",
-            "level": 2,
-            "remaining_sec": 1196
-        },
-        {
-            "guild_name": "Dunakavics",
-            "guild_nameplate": "Kavics",
-            "level": 2,
-            "remaining_sec": 1195
-        },
-        {
-            "guild_name": "HubOfGamers",
-            "guild_nameplate": "HubOG",
-            "level": 2,
-            "remaining_sec": 1191
-        },
-        {
-            "guild_name": "assaisonner",
-            "guild_nameplate": "zewola",
-            "level": 2,
-            "remaining_sec": 1186
-        },
-        {
-            "guild_name": "Hypickle",
-            "guild_nameplate": "HYPKLE",
-            "level": 2,
-            "remaining_sec": 1143
-        },
-        {
-            "guild_name": "ThyRoundTable",
-            "guild_nameplate": "ThyTbl",
-            "level": 2,
-            "remaining_sec": 962
-        },
-        {
-            "guild_name": "loskamikazees",
-            "guild_nameplate": "kmkze",
-            "level": 2,
-            "remaining_sec": 930
-        },
-        {
-            "guild_name": "MAFIAGANG",
-            "guild_nameplate": "MFGNG",
-            "level": 2,
-            "remaining_sec": 916
-        },
-        {
-            "guild_name": "SuperSlugs",
-            "guild_nameplate": "PaSlug",
-            "level": 2,
-            "remaining_sec": 914
-        },
-        {
-            "guild_name": "Bradra",
-            "guild_nameplate": "Bradra",
-            "level": 1,
-            "remaining_sec": 1570
-        },
-        {
-            "guild_name": "freeSouIs",
-            "guild_nameplate": "xS0ULS",
-            "level": 1,
-            "remaining_sec": 1545
-        },
-        {
-            "guild_name": "ThePanthe0n",
-            "guild_nameplate": "Sik0s",
-            "level": 1,
-            "remaining_sec": 1516
-        },
-        {
-            "guild_name": "Jinnis",
-            "guild_nameplate": "Jinni",
-            "level": 1,
-            "remaining_sec": 1496
-        },
-        {
-            "guild_name": "Overshot",
-            "guild_nameplate": "Notia",
-            "level": 1,
-            "remaining_sec": 1451
-        },
-        {
-            "guild_name": "DarkestOnes12",
-            "guild_nameplate": "ZURY",
-            "level": 1,
-            "remaining_sec": 1393
-        },
-        {
-            "guild_name": "XikoroxBR",
-            "guild_nameplate": "XKBR",
-            "level": 1,
-            "remaining_sec": 1387
-        },
-        {
-            "guild_name": "yvaNehTnioJ",
-            "guild_nameplate": "YNTJ",
-            "level": 1,
-            "remaining_sec": 1372
-        },
-        {
-            "guild_name": "XxfantaxX",
-            "guild_nameplate": "serori",
-            "level": 1,
-            "remaining_sec": 1315
-        },
-        {
-            "guild_name": "TheDarkWolves",
-            "guild_nameplate": "WDW",
-            "level": 1,
-            "remaining_sec": 1313
-        },
-        {
-            "guild_name": "AFF3NmitWAFF3N",
-            "guild_nameplate": "AFF3N",
-            "level": 1,
-            "remaining_sec": 1299
-        },
-        {
-            "guild_name": "MagnumGaming117",
-            "guild_nameplate": "M6NM",
-            "level": 1,
-            "remaining_sec": 1282
-        },
-        {
-            "guild_name": "VcTs",
-            "guild_nameplate": "VcTsS",
-            "level": 1,
-            "remaining_sec": 1272
-        },
-        {
-            "guild_name": "FuzzyBeans",
-            "guild_nameplate": "Fleecy",
-            "level": 1,
-            "remaining_sec": 1270
-        },
-        {
-            "guild_name": "KrakabumMinions",
-            "guild_nameplate": "KrSuMi",
-            "level": 1,
-            "remaining_sec": 1266
-        },
-        {
-            "guild_name": "GermanBehemoths",
-            "guild_nameplate": "Germot",
-            "level": 1,
-            "remaining_sec": 1257
-        },
-        {
-            "guild_name": "ZeroMillennium",
-            "guild_nameplate": "acazz",
-            "level": 1,
-            "remaining_sec": 1256
-        },
-        {
-            "guild_name": "PIUSultra01",
-            "guild_nameplate": "Soword",
-            "level": 1,
-            "remaining_sec": 1228
-        },
-        {
-            "guild_name": "LuiQuandoBoom",
-            "guild_nameplate": "LQBita",
-            "level": 1,
-            "remaining_sec": 1221
-        },
-        {
-            "guild_name": "AnimeG",
-            "guild_nameplate": "Deador",
-            "level": 1,
-            "remaining_sec": 1206
-        },
-        {
-            "guild_name": "VanishedVoid",
-            "guild_nameplate": "VNVD",
-            "level": 1,
-            "remaining_sec": 1197
-        },
-        {
-            "guild_name": "Calamit0us",
-            "guild_nameplate": "T0U5",
-            "level": 1,
-            "remaining_sec": 1192
-        },
-        {
-            "guild_name": "ACEsz",
-            "guild_nameplate": "ACEsz",
-            "level": 1,
-            "remaining_sec": 1192
-        },
-        {
-            "guild_name": "ChronoFather",
-            "guild_nameplate": "Havard",
-            "level": 1,
-            "remaining_sec": 1190
-        },
-        {
-            "guild_name": "ThePanasOrigins",
-            "guild_nameplate": "PANAS1",
-            "level": 1,
-            "remaining_sec": 1173
-        },
-        {
-            "guild_name": "Hellsweep",
-            "guild_nameplate": "HelSwp",
-            "level": 1,
-            "remaining_sec": 1171
-        },
-        {
-            "guild_name": "PixelPlayground",
-            "guild_nameplate": "PXLPG",
-            "level": 1,
-            "remaining_sec": 1166
-        },
-        {
-            "guild_name": "LiLChasons",
-            "guild_nameplate": "LiLCH",
-            "level": 1,
-            "remaining_sec": 1164
-        },
-        {
-            "guild_name": "TheEvilWaifus",
-            "guild_nameplate": "EVLWFU",
-            "level": 1,
-            "remaining_sec": 1161
-        },
-        {
-            "guild_name": "Esquizomakakos",
-            "guild_nameplate": "Cook5",
-            "level": 1,
-            "remaining_sec": 1160
-        },
-        {
-            "guild_name": "KhaosxDynasty1",
-            "guild_nameplate": "KxD1",
-            "level": 1,
-            "remaining_sec": 1156
-        },
-        {
-            "guild_name": "KortEnKragtig",
-            "guild_nameplate": "Wikus",
-            "level": 1,
-            "remaining_sec": 1141
-        },
-        {
-            "guild_name": "IdiotsBlabla",
-            "guild_nameplate": "Thesht",
-            "level": 1,
-            "remaining_sec": 1130
-        },
-        {
-            "guild_name": "ShrowdWitchers",
-            "guild_nameplate": "SpaWnx",
-            "level": 1,
-            "remaining_sec": 1122
-        },
-        {
-            "guild_name": "hvuexx",
-            "guild_nameplate": "hvuuu",
-            "level": 1,
-            "remaining_sec": 1112
-        },
-        {
-            "guild_name": "oOoOI3LACKOoOo",
-            "guild_nameplate": "NPRUTH",
-            "level": 1,
-            "remaining_sec": 1106
-        },
-        {
-            "guild_name": "TheBotKillers",
-            "guild_nameplate": "NBKF",
-            "level": 1,
-            "remaining_sec": 1101
-        },
-        {
-            "guild_name": "SuicideSquad00",
-            "guild_nameplate": "SS0077",
-            "level": 1,
-            "remaining_sec": 1100
-        },
-        {
-            "guild_name": "Femiisblakkk",
-            "guild_nameplate": "FIBB",
-            "level": 1,
-            "remaining_sec": 1090
-        },
-        {
-            "guild_name": "Pokemaniacs81",
-            "guild_nameplate": "DrBud",
-            "level": 1,
-            "remaining_sec": 1086
+            "remaining_sec": 1329
         }
     ]
 }
