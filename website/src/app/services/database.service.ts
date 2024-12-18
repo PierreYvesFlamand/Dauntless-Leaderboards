@@ -245,15 +245,16 @@ export class DatabaseService {
             ]
         }, []);
 
-        try {
-            const guildsData = await (await fetch('data/guildsData.json')).json() as GUILD_DATA[];
+        // // Disable by version V4.2.0
+        // try {
+        //     const guildsData = await (await fetch('data/guildsData.json')).json() as GUILD_DATA[];
 
-            for (const guildData of guildsData) {
-                this.data.guilds[guildData.guildId - 1].iconFilename = guildData.iconFilename
-                this.data.guilds[guildData.guildId - 1].discordLink = guildData.discordLink
-                this.data.guilds[guildData.guildId - 1].detailHtml = guildData.detailHtml
-            }
-        } catch (error) { }
+        //     for (const guildData of guildsData) {
+        //         this.data.guilds[guildData.guildId - 1].iconFilename = guildData.iconFilename
+        //         this.data.guilds[guildData.guildId - 1].discordLink = guildData.discordLink
+        //         this.data.guilds[guildData.guildId - 1].detailHtml = guildData.detailHtml
+        //     }
+        // } catch (error) { }
 
         // Gauntlets
         const flourishIds = [
