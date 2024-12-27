@@ -11,4 +11,25 @@ export class SettingsComponent {
   constructor(
     public sharedService: SharedService
   ) { }
+
+  public async forceWebsiteRefresh() {
+    if ('indexedDB' in window) {
+      await new Promise<void>((resolve, reject) => {
+        const deleteRequest = indexedDB.deleteDatabase('DauntlessLeaderbaordsDATA');
+
+        deleteRequest.onsuccess = () => {
+          resolve();
+        };
+
+        deleteRequest.onerror = event => {
+          reject((event.target as any).error);
+        };
+
+        deleteRequest.onblocked = () => {
+          reject(new Error('Suppression bloquée.'));
+        };
+      });
+    }
+    window.location.reload();
+  }
 }

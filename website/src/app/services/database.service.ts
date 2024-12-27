@@ -196,7 +196,7 @@ export class DatabaseService {
                 timestamp = (await res.json()).timestamp;
             } catch (error) { }
 
-            if (cachedData && timestamp < cachedData.timestamp) { cachedData.loaded = false; this.data = cachedData } else { shouldFetch = true; }
+            if (cachedData && timestamp < cachedData.timestamp) { cachedData.loaded = false; this.data = cachedData; db.close(); } else { shouldFetch = true; }
         } else { shouldFetch = true; }
 
         const res = await fetch('data/allData.json.compressed');
@@ -873,6 +873,7 @@ export class DatabaseService {
             const transaction = db.transaction('DauntlessLeaderbaordsDATA', 'readwrite');
             const store = transaction.objectStore('DauntlessLeaderbaordsDATA');
             store.put({ key: 'DauntlessLeaderbaordsDATA', data: this.data });
+            db.close();
         }
     }
 }
