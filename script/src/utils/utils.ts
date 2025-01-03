@@ -368,7 +368,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Thunderdeep_Drask,
     BEHEMOTH.Rockfall_Skarn,
     BEHEMOTH.Koshai,
-    BEHEMOTH.Shrowd
+    BEHEMOTH.Shrowd,
+    BEHEMOTH.Ragetail_Gnasher
 ];
 
 // https://playdauntless.com/trials/
