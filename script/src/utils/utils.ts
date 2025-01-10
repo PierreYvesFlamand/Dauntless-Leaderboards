@@ -53,7 +53,8 @@ enum BEHEMOTH {
     'Shadowtouched_Drask',
     'Shockjaw_Nayzaga',
     'Dreadfrost_Boreus',
-    'Bloodshot_Shrowd'
+    'Bloodshot_Shrowd',
+    'Karkonos'
 };
 
 const behemothNames = [
@@ -81,7 +82,8 @@ const behemothNames = [
     'Shadowtouched Drask',
     'Shockjaw Nayzaga',
     'Dreadfrost Boreus',
-    'Bloodshot Shrowd'
+    'Bloodshot Shrowd',
+    'Karkonos'
 ];
 
 const behemothRotationHistory = [
@@ -369,7 +371,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Rockfall_Skarn,
     BEHEMOTH.Koshai,
     BEHEMOTH.Shrowd,
-    BEHEMOTH.Ragetail_Gnasher
+    BEHEMOTH.Ragetail_Gnasher,
+    BEHEMOTH.Karkonos
 ];
 
 // https://playdauntless.com/trials/

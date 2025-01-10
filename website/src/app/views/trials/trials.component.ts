@@ -58,6 +58,13 @@ export class TrialsComponent implements AfterViewInit {
 
   public loadBehemoths() {
     this.behemoths = this.databaseService.data.behemoths;
+    this.behemoths.sort((a, b) => this.getNamePartToCompare(a.name.toLowerCase()).localeCompare(this.getNamePartToCompare(b.name.toLowerCase())));
+  }
+
+  public getNamePartToCompare(str: string): string {
+    const splits = str.split(' ');
+    if(splits.length === 2) return splits[1];
+    return splits[0];
   }
 
   public Number: (str: string) => number = str => Number(str);
