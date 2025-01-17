@@ -372,7 +372,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Koshai,
     BEHEMOTH.Shrowd,
     BEHEMOTH.Ragetail_Gnasher,
-    BEHEMOTH.Karkonos
+    BEHEMOTH.Karkonos,
+    BEHEMOTH.Winterhorn_Skraev
 ];
 
 // https://playdauntless.com/trials/
