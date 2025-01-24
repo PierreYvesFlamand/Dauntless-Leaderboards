@@ -16,7 +16,7 @@ export async function startImportTrials(authorizationCode: string = config.AUTHO
     console.log('Checking if all older weeks are in the database');
     const existingTrialFilenames = fs.readdirSync('../database/trials');
 
-    for (let i = 1; i < getCurrentWeek() - 1; i++) {
+    for (let i = 284; i < getCurrentWeek() - 1 - 1; i++) {
         if (existingTrialFilenames.findIndex(filename => Number(filename.substring(10, 13)) === i) >= 0) continue;
         await importTrials(i);
         await new Promise(resolve => setTimeout(resolve, 3000));
