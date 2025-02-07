@@ -44,7 +44,7 @@ export class TrialsComponent implements AfterViewInit {
     response.data = response.data.filter(t => (this.sharedService.showPreAwakening && t.week < 282) || (this.sharedService.showPostAwakening && t.week >= 282));
 
     if (this.filters.behemothId) {
-      response.data = response.data.filter(r => r.behemothName === this.databaseService.data.behemoths[this.filters.behemothId - 1].name);
+      response.data = response.data.filter(r => r.behemothName === this.behemoths.find(b => b.id == this.filters.behemothId)?.name || '');
     }
 
     response.total = response.data.length;
@@ -59,6 +59,7 @@ export class TrialsComponent implements AfterViewInit {
   public loadBehemoths() {
     this.behemoths = this.databaseService.data.behemoths;
     this.behemoths.sort((a, b) => this.getNamePartToCompare(a.name.toLowerCase()).localeCompare(this.getNamePartToCompare(b.name.toLowerCase())));
+    console.log(this.behemoths);
   }
 
   public getNamePartToCompare(str: string): string {
