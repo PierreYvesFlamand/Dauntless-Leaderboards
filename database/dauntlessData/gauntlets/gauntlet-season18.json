@@ -1,7 +1,7 @@
 {
     "start_at": "2024-12-03 18:00:00Z",
-    "end_at": "2025-02-13T18:00:00Z",
-    "last_updated": "2025-02-07T09:00:04Z",
+    "end_at": "2025-02-20T18:00:00Z",
+    "last_updated": "2025-02-15T17:00:05Z",
     "leaderboard": [
         {
             "guild_name": "SHlELDS",
@@ -66,8 +66,8 @@
         {
             "guild_name": "GNASHERBASHERZ",
             "guild_nameplate": "BASHR",
-            "level": 360,
-            "remaining_sec": 211
+            "level": 361,
+            "remaining_sec": 400
         },
         {
             "guild_name": "Interim",
@@ -82,10 +82,22 @@
             "remaining_sec": 899
         },
         {
+            "guild_name": "Giorenpas",
+            "guild_nameplate": "Giove",
+            "level": 305,
+            "remaining_sec": 530
+        },
+        {
             "guild_name": "7PIO",
             "guild_nameplate": "7PIO",
             "level": 300,
             "remaining_sec": 278
+        },
+        {
+            "guild_name": "MythicSeeker",
+            "guild_nameplate": "yMSy",
+            "level": 250,
+            "remaining_sec": 562
         },
         {
             "guild_name": "EclipseWyvern",
@@ -94,22 +106,10 @@
             "remaining_sec": 494
         },
         {
-            "guild_name": "MythicSeeker",
-            "guild_nameplate": "yMSy",
-            "level": 249,
-            "remaining_sec": 433
-        },
-        {
             "guild_name": "HAFFAXgaming",
             "guild_nameplate": "HAFFAX",
             "level": 235,
             "remaining_sec": 694
-        },
-        {
-            "guild_name": "Giorenpas",
-            "guild_nameplate": "Giove",
-            "level": 231,
-            "remaining_sec": 560
         },
         {
             "guild_name": "Klngsmen",
@@ -160,6 +160,12 @@
             "remaining_sec": 1102
         },
         {
+            "guild_name": "Shatterbane",
+            "guild_nameplate": "OUTFOX",
+            "level": 156,
+            "remaining_sec": 1280
+        },
+        {
             "guild_name": "ax5227",
             "guild_nameplate": "ax5227",
             "level": 150,
@@ -182,6 +188,12 @@
             "guild_nameplate": "INFRN",
             "level": 144,
             "remaining_sec": 1130
+        },
+        {
+            "guild_name": "IdiotsBlabla",
+            "guild_nameplate": "Thesht",
+            "level": 135,
+            "remaining_sec": 1204
         },
         {
             "guild_name": "H0ll0WSlayers",
@@ -208,10 +220,10 @@
             "remaining_sec": 992
         },
         {
-            "guild_name": "Shatterbane",
-            "guild_nameplate": "OUTFOX",
-            "level": 112,
-            "remaining_sec": 1037
+            "guild_name": "xENDSTATIONx",
+            "guild_nameplate": "xEDSNx",
+            "level": 106,
+            "remaining_sec": 1139
         },
         {
             "guild_name": "PayItForward",
@@ -238,34 +250,22 @@
             "remaining_sec": 917
         },
         {
+            "guild_name": "AngeliCaduti",
+            "guild_nameplate": "EDEN1",
+            "level": 100,
+            "remaining_sec": 1267
+        },
+        {
             "guild_name": "MontyxYoutube",
             "guild_nameplate": "Montyx",
             "level": 100,
             "remaining_sec": 1138
         },
         {
-            "guild_name": "xENDSTATIONx",
-            "guild_nameplate": "xEDSNx",
-            "level": 96,
-            "remaining_sec": 1083
-        },
-        {
-            "guild_name": "IdiotsBlabla",
-            "guild_nameplate": "Thesht",
-            "level": 93,
-            "remaining_sec": 1209
-        },
-        {
             "guild_name": "BlkJaguar",
             "guild_nameplate": "BlkJag",
             "level": 86,
             "remaining_sec": 1239
-        },
-        {
-            "guild_name": "AngeliCaduti",
-            "guild_nameplate": "EDEN1",
-            "level": 86,
-            "remaining_sec": 1235
         },
         {
             "guild_name": "Glocktober",
@@ -436,6 +436,18 @@
             "remaining_sec": 1195
         },
         {
+            "guild_name": "Amayadori",
+            "guild_nameplate": "Amaydr",
+            "level": 32,
+            "remaining_sec": 1301
+        },
+        {
+            "guild_name": "WH0B0B3RS",
+            "guild_nameplate": "WhoB0B",
+            "level": 31,
+            "remaining_sec": 378
+        },
+        {
             "guild_name": "LeagueOfDrip",
             "guild_nameplate": "LGEOD",
             "level": 30,
@@ -476,12 +488,6 @@
             "guild_nameplate": "NDodge",
             "level": 29,
             "remaining_sec": 1386
-        },
-        {
-            "guild_name": "Amayadori",
-            "guild_nameplate": "Amaydr",
-            "level": 29,
-            "remaining_sec": 1306
         },
         {
             "guild_name": "Theslayers02",
@@ -530,12 +536,6 @@
             "guild_nameplate": "SideHo",
             "level": 26,
             "remaining_sec": 1026
-        },
-        {
-            "guild_name": "WH0B0B3RS",
-            "guild_nameplate": "WhoB0B",
-            "level": 26,
-            "remaining_sec": 536
         },
         {
             "guild_name": "TheKidsNextDoor",
