@@ -377,7 +377,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Firebrand_Charrogg,
     BEHEMOTH.Phaelanx,
     BEHEMOTH.Tempestborne_Stormclaw,
-    BEHEMOTH.Malkarion
+    BEHEMOTH.Malkarion,
+    BEHEMOTH.Rezakiri
 ];
 
 // https://playdauntless.com/trials/
