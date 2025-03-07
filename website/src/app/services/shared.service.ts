@@ -20,7 +20,7 @@ export class SharedService {
         this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
         this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening'));
-        this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('themero'));
+        this.updateThemero(this.localstorageService.getByKey<boolean>('themero'));
     }
 
     // Theme
