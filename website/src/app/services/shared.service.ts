@@ -19,7 +19,7 @@ export class SharedService {
         this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
         this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
-        this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening'));
+        this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening2'));
         this.updateThemero(this.localstorageService.getByKey<boolean>('themero'));
     }
 
@@ -177,7 +177,7 @@ export class SharedService {
     showPostAwakening$ = this.showPostAwakeningSubject.asObservable();
     updateShowPostAwakening(value: boolean) {
         if (!this.allowedShowPostAwakening.includes(value)) value = this.allowedShowPostAwakening[0];
-        this.localstorageService.setByKey('showPostAwakening', value);
+        this.localstorageService.setByKey('showPostAwakening2', value);
         this.showPostAwakeningSubject.next(value);
     }
     public get showPostAwakening(): boolean { return this.showPostAwakeningSubject.value; }
