@@ -2,10 +2,14 @@
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <a class="brand-link user-select-none d-lg-none" routerLink="/" data-widget="pushmenu">
-    <div class="brand-text font-weight-light text-center">Dauntless Leaderboards</div>
+    <div class="brand-text font-weight-light text-center">
+      {{sharedService.themero ? "Themero" : "Dauntless"}} Leaderboards
+    </div>
   </a>
   <a class="brand-link user-select-none d-none d-lg-block" routerLink="/">
-    <div class="brand-text font-weight-light text-center">Dauntless Leaderboards</div>
+    <div class="brand-text font-weight-light text-center">
+      {{sharedService.themero ? "Themero" : "Dauntless"}} Leaderboards
+    </div>
   </a>
 
   <div class="sidebar">

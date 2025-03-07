@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dl-settings',
@@ -9,7 +10,8 @@ import { SharedService } from '../../services/shared.service';
 })
 export class SettingsComponent {
   constructor(
-    public sharedService: SharedService
+    public sharedService: SharedService,
+    private router: Router
   ) { }
 
   public async forceWebsiteRefresh() {
@@ -31,5 +33,14 @@ export class SettingsComponent {
       });
     }
     window.location.reload();
+  }
+
+  public themero = 0;
+  public onThemeroClick() {
+    this.themero++;
+    if (this.themero > 4) {
+      this.sharedService.updateThemero(!this.sharedService.themero);
+      this.themero = 0;
+    }
   }
 }

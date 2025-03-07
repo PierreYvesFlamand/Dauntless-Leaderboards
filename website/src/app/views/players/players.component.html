@@ -61,7 +61,7 @@
                         <tr *ngFor="let player of players" [enhancedRouterLink]="'/players/' + player.id" role="button">
                             <td>
                                 <span *ngFor="let player_name of player.playerNames" class="px-1">
-                                    {{player_name.name}}
+                                    {{sharedService.themero ? "Themero" : player_name.name}}
                                     <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player_name.platformId + '.png', 'platforms')" />
                                 </span>
                             </td>

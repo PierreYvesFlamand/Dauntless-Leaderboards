@@ -101,7 +101,7 @@
                                                 <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].secondaryWeaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -136,7 +136,7 @@
                                                             <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
                                                             <span class="mx-2">
-                                                                {{player.playerName}}
+                                                                {{sharedService.themero ? "Themero" : player.playerName}}
                                                             </span>
                                                             <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platformId" [src]="sharedService.getImgPath(player.platformId + '.png', 'platforms')" />
                                                         </div>
@@ -149,7 +149,7 @@
                                                             <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')">
                                                             <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
                                                             <span class="mx-2">
-                                                                {{player.playerName}}
+                                                                {{sharedService.themero ? "Themero" : player.playerName}}
                                                             </span>
                                                             <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="player.platformId" [src]="sharedService.getImgPath(player.platformId + '.png', 'platforms')" />
                                                         </div>
@@ -183,7 +183,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -214,7 +214,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -245,7 +245,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -276,7 +276,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -307,7 +307,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -338,7 +338,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>
@@ -369,7 +369,7 @@
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(leaderboardItem.players[0].weaponId + '.png', 'weapons')">
                                                 <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].roleId" [src]="sharedService.getImgPath(leaderboardItem.players[0].roleId + '.png', 'omnicells')" />
                                                 <span class="mx-2">
-                                                    {{leaderboardItem.players[0].playerName}}
+                                                    {{sharedService.themero ? "Themero" : leaderboardItem.players[0].playerName}}
                                                 </span>
                                                 <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                             </td>

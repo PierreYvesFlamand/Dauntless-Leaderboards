@@ -11,7 +11,7 @@
         <li class="nav-item dropdown">
             <a role="button" class="btn btn-outline-secondary btn-sm" data-toggle="dropdown" aria-expanded="false">
                 <div class="d-flex align-items-center">
-                    <span *ngIf="me && me.player.id > 0">{{me.player.name}}</span>
+                    <span *ngIf="me && me.player.id > 0">{{sharedService.themero ? "Themero" : me.player.name}}</span>
                     <span class="ml-1">
                         <img *ngIf="me && me.guild.id > 0 && me.guild.iconFilename" style="width: 1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(me.guild.iconFilename, 'guilds')">
                         <span *ngIf="me && me.guild.id > 0">[{{me.guild.tag}}]</span>
@@ -22,7 +22,7 @@
 
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px; min-width: max-content !important;">
                 <span class="dropdown-item dropdown-header d-sm-none" [class.d-none]="!me?.player?.name && !me?.guild?.tag">
-                    <span *ngIf="me && me.player.id > 0">{{me.player.name}}</span>
+                    <span *ngIf="me && me.player.id > 0">{{sharedService.themero ? "Themero" : me.player.name}}</span>
                     <img *ngIf="me && me.guild.id > 0 && me.guild.iconFilename" style="width: 1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(me.guild.iconFilename, 'guilds')">
                     <span *ngIf="me && me.guild.id > 0">[{{me.guild.tag}}]</span>
                 </span>

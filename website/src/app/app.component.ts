@@ -26,5 +26,17 @@ export class AppComponent {
     });
     this.sharedService.init();
     this.databaseService.loadData();
+
+    // Themero
+    const date = new Date();
+    if (
+      date.getUTCMonth() === 2 && date.getUTCDate() === 30 ||
+      date.getUTCMonth() === 2 && date.getUTCDate() === 31 ||
+      date.getUTCMonth() === 3 && date.getUTCDate() === 1
+    ) {
+      this.sharedService.updateThemero(true);
+    } else {
+      this.sharedService.updateThemero(false);
+    }
   }
 }

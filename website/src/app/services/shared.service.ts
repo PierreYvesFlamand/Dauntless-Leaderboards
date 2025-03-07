@@ -20,6 +20,7 @@ export class SharedService {
         this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
         this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening'));
+        this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('themero'));
     }
 
     // Theme
@@ -160,24 +161,35 @@ export class SharedService {
     }
 
     // ShowPreAwakening
-    private allowedShowPreAwakenings = [true, false];
-    private showPreAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPreAwakenings[0]);
+    private allowedShowPreAwakening = [true, false];
+    private showPreAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPreAwakening[0]);
     showPreAwakening$ = this.showPreAwakeningSubject.asObservable();
     updateShowPreAwakening(value: boolean) {
-        if (!this.allowedShowPreAwakenings.includes(value)) value = this.allowedShowPreAwakenings[0];
+        if (!this.allowedShowPreAwakening.includes(value)) value = this.allowedShowPreAwakening[0];
         this.localstorageService.setByKey('showPreAwakening', value);
         this.showPreAwakeningSubject.next(value);
     }
     public get showPreAwakening(): boolean { return this.showPreAwakeningSubject.value; }
 
     // ShowPostAwakening
-    private allowedShowPostAwakenings = [true, false];
-    private showPostAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPostAwakenings[0]);
+    private allowedShowPostAwakening = [true, false];
+    private showPostAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPostAwakening[0]);
     showPostAwakening$ = this.showPostAwakeningSubject.asObservable();
     updateShowPostAwakening(value: boolean) {
-        if (!this.allowedShowPostAwakenings.includes(value)) value = this.allowedShowPostAwakenings[0];
+        if (!this.allowedShowPostAwakening.includes(value)) value = this.allowedShowPostAwakening[0];
         this.localstorageService.setByKey('showPostAwakening', value);
         this.showPostAwakeningSubject.next(value);
     }
     public get showPostAwakening(): boolean { return this.showPostAwakeningSubject.value; }
+
+    // Themero
+    private allowedThemero = [true, false];
+    private themeroSubject = new BehaviorSubject<boolean>(this.allowedThemero[0]);
+    themero$ = this.themeroSubject.asObservable();
+    updateThemero(value: boolean) {
+        if (!this.allowedThemero.includes(value)) value = this.allowedThemero[0];
+        this.localstorageService.setByKey('themero', value);
+        this.themeroSubject.next(value);
+    }
+    public get themero(): boolean { return this.themeroSubject.value; }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'dl-sidebar',
@@ -6,4 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.scss'],
   standalone: false
 })
-export class SidebarComponent { }
+export class SidebarComponent {
+  constructor(
+    public sharedService: SharedService
+  ) { }
+}
