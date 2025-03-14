@@ -55,7 +55,8 @@ enum BEHEMOTH {
     'Dreadfrost_Boreus',
     'Bloodshot_Shrowd',
     'Karkonos',
-    'Frostwülf'
+    'Frostwülf',
+    'Earthshaper_Fenroar'
 };
 
 const behemothNames = [
@@ -85,7 +86,8 @@ const behemothNames = [
     'Dreadfrost Boreus',
     'Bloodshot Shrowd',
     'Karkonos',
-    'Frostwülf'
+    'Frostwülf',
+    'Earthshaper Fenroar'
 ];
 
 const behemothRotationHistory = [
@@ -383,7 +385,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Rezakiri,
     BEHEMOTH.Riftstalker,
     BEHEMOTH.Drask,
-    BEHEMOTH.Frostwülf
+    BEHEMOTH.Frostwülf,
+    BEHEMOTH.Earthshaper_Fenroar
 ];
 
 // https://playdauntless.com/trials/
