@@ -1,7 +1,7 @@
 {
     "start_at": "2024-12-03 18:00:00Z",
     "end_at": "2025-05-30T18:00:00Z",
-    "last_updated": "2025-03-07T09:50:04Z",
+    "last_updated": "2025-03-14T14:50:04Z",
     "leaderboard": [
         {
             "guild_name": "SHlELDS",
@@ -130,16 +130,16 @@
             "remaining_sec": 783
         },
         {
+            "guild_name": "TeamUpSlayers",
+            "guild_nameplate": "TeamUp",
+            "level": 213,
+            "remaining_sec": 720
+        },
+        {
             "guild_name": "TOPPUSA",
             "guild_nameplate": "TTOPUS",
             "level": 213,
             "remaining_sec": 496
-        },
-        {
-            "guild_name": "TeamUpSlayers",
-            "guild_nameplate": "TeamUp",
-            "level": 206,
-            "remaining_sec": 608
         },
         {
             "guild_name": "XEN0HUNTERS",
@@ -214,12 +214,6 @@
             "remaining_sec": 1251
         },
         {
-            "guild_name": "DauntlessLGDS",
-            "guild_nameplate": "DLGDS4",
-            "level": 120,
-            "remaining_sec": 1165
-        },
-        {
             "guild_name": "TOPMASTERS",
             "guild_nameplate": "TOPMTS",
             "level": 115,
@@ -262,16 +256,16 @@
             "remaining_sec": 1164
         },
         {
+            "guild_name": "Glocktober",
+            "guild_nameplate": "iGlock",
+            "level": 100,
+            "remaining_sec": 1216
+        },
+        {
             "guild_name": "MontyxYoutube",
             "guild_nameplate": "Montyx",
             "level": 100,
             "remaining_sec": 1138
-        },
-        {
-            "guild_name": "Glocktober",
-            "guild_nameplate": "iGlock",
-            "level": 98,
-            "remaining_sec": 1088
         },
         {
             "guild_name": "BlkJaguar",
@@ -602,6 +596,12 @@
             "guild_nameplate": "UNIT8",
             "level": 24,
             "remaining_sec": 868
+        },
+        {
+            "guild_name": "N1nj4",
+            "guild_nameplate": "n1nj4a",
+            "level": 23,
+            "remaining_sec": 1550
         }
     ]
 }
