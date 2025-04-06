@@ -1,0 +1,2047 @@
+{
+    "code": null,
+    "message": "OK",
+    "payload": {
+        "difficulty": 1,
+        "guild": {},
+        "page": 0,
+        "page_size": 100,
+        "trial_id": "Arena_MatchmakerHunt_Elite_New_0112",
+        "world": {
+            "group": {
+                "difficulty": 1,
+                "entries": [
+                    {
+                        "completion_time": 3910,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 1,
+                        "session_id": "682486_2.1.1_shipping/1e7b89f744de4b05929521e829a86596"
+                    },
+                    {
+                        "completion_time": 4011,
+                        "entries": [
+                            {
+                                "phx_account_id": "4KMUNUWDSFBKTPQ6PB242YGU4E",
+                                "platform": "PSN",
+                                "platform_name": "Reignz_Empire711",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 2,
+                        "session_id": "682486_2.1.1_shipping/4d98fcdfed4f48da84e7f239b563c310"
+                    },
+                    {
+                        "completion_time": 7387,
+                        "entries": [
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "ZSOHUWKWT5CDHB5SPLSLFCBJYQ",
+                                "platform": "WIN",
+                                "platform_name": "Théméro",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 3,
+                        "session_id": "682486_2.1.1_shipping/f00339fb13004596b7ab3c6460690fd5"
+                    },
+                    {
+                        "completion_time": 15495,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "OTSPQXXXY5AMRP3UFGWRPOR47Y",
+                                "platform": "WIN",
+                                "platform_name": "Danilo-68",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 4,
+                        "session_id": "682486_2.1.1_shipping/15058c6a68624554a018504105c5446a"
+                    },
+                    {
+                        "completion_time": 20690,
+                        "entries": [
+                            {
+                                "phx_account_id": "4JUKRBIZ75A3RFNHNQBPBU2OAM",
+                                "platform": "",
+                                "platform_name": "Sailem",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "4KMUNUWDSFBKTPQ6PB242YGU4E",
+                                "platform": "PSN",
+                                "platform_name": "Reignz_Empire711",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 5,
+                        "session_id": "682486_2.1.1_shipping/26a30ad8438b46eaa1629e7eba48decc"
+                    },
+                    {
+                        "completion_time": 20879,
+                        "entries": [
+                            {
+                                "phx_account_id": "4JUKRBIZ75A3RFNHNQBPBU2OAM",
+                                "platform": "",
+                                "platform_name": "Sailem",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 6,
+                        "session_id": "682486_2.1.1_shipping/efaf8df88f1f47afba0dec5d683abd49"
+                    },
+                    {
+                        "completion_time": 32041,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "ZUIUIBCWEZD6JNJPQY3TCZMGYM",
+                                "platform": "WIN",
+                                "platform_name": "工0uxx",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 7,
+                        "session_id": "682486_2.1.1_shipping/9a9b240c63f0478e96901b8d6fcb3960"
+                    },
+                    {
+                        "completion_time": 34611,
+                        "entries": [
+                            {
+                                "phx_account_id": "OTSPQXXXY5AMRP3UFGWRPOR47Y",
+                                "platform": "WIN",
+                                "platform_name": "Danilo-68",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "ZUIUIBCWEZD6JNJPQY3TCZMGYM",
+                                "platform": "WIN",
+                                "platform_name": "工0uxx",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 8,
+                        "session_id": "682486_2.1.1_shipping/66157622952844e09f16894307412801"
+                    },
+                    {
+                        "completion_time": 60357,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 2,
+                                "weapon": 5
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 9,
+                        "session_id": "682486_2.1.1_shipping/5bc0fa16610b4ba1b0b0553c47786a10"
+                    },
+                    {
+                        "completion_time": 68426,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "67NTCTNFSVEJRGZPZOQXFMMWMM",
+                                "platform": "PSN",
+                                "platform_name": "Hoohan1",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "W3T7BLNPJRFMJCUZ5RD6OMDPNU",
+                                "platform": "PSN",
+                                "platform_name": "hracgastan",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 10,
+                        "session_id": "682486_2.1.1_shipping/3e07dd25c3d144b2957a32ea9c7d0c7d"
+                    },
+                    {
+                        "completion_time": 76889,
+                        "entries": [
+                            {
+                                "phx_account_id": "4KMUNUWDSFBKTPQ6PB242YGU4E",
+                                "platform": "PSN",
+                                "platform_name": "Reignz_Empire711",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "EXOF2XFPENHG3GDFDC55ZWFR24",
+                                "platform": "PSN",
+                                "platform_name": "GobLeeN_",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 11,
+                        "session_id": "682486_2.1.1_shipping/c5d2a78d1d344f38a2649b3f1ec3077a"
+                    },
+                    {
+                        "completion_time": 100944,
+                        "entries": [
+                            {
+                                "phx_account_id": "CQBVCDSL5JBY3LOQWW6TTQRFSQ",
+                                "platform": "",
+                                "platform_name": "Mazen_potato",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "FQ7KKTLGDVHMLCDA56ATKFQ4T4",
+                                "platform": "WIN",
+                                "platform_name": "az_ro4",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 12,
+                        "session_id": "682486_2.1.1_shipping/caecb1e2572e4c8391b0a91408878d63"
+                    },
+                    {
+                        "completion_time": 118605,
+                        "entries": [
+                            {
+                                "phx_account_id": "GO4VF2MUX5ESNDQQH3SPWLMHLM",
+                                "platform": "WIN",
+                                "platform_name": "Nacrolepser",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 1,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "WU6FSK6NSNB6NPUVFOZ2BX2VYI",
+                                "platform": "PSN",
+                                "platform_name": "KennyBean1-",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 13,
+                        "session_id": "682486_2.1.1_shipping/fdc01d047b8845cdaf91f38c5b64c8ef"
+                    },
+                    {
+                        "completion_time": 130838,
+                        "entries": [
+                            {
+                                "phx_account_id": "E755KITYZJHFFKGYEE3YYV6QOU",
+                                "platform": "WIN",
+                                "platform_name": "l_Iori Yagami_l",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "RGFEPKP2FRF3XKIX5GOGKLGJYU",
+                                "platform": "PSN",
+                                "platform_name": "hdliker",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 3,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 14,
+                        "session_id": "682486_2.1.1_shipping/30524318f4b446ac92fa8db375cf2e80"
+                    },
+                    {
+                        "completion_time": 175764,
+                        "entries": [
+                            {
+                                "phx_account_id": "3HQGTO3P3BC27EVSZ5SZQ54BXI",
+                                "platform": "XBL",
+                                "platform_name": "Poem8649",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 5,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "5TOBFNKAVBFF5PU3BJO2O3HNR4",
+                                "platform": "XBL",
+                                "platform_name": "Voodoo5651",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 7,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 15,
+                        "session_id": "682486_2.1.1_shipping/b84633b004784027b3e1b0526f675ff8"
+                    },
+                    {
+                        "completion_time": 205826,
+                        "entries": [
+                            {
+                                "phx_account_id": "7KVENMSJL5GFJFNOBYI7LN2STI",
+                                "platform": "WIN",
+                                "platform_name": "WishMakerYT",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 4
+                            },
+                            {
+                                "phx_account_id": "EHSJONFZRRCOPP2UAL5KOCWCXQ",
+                                "platform": "WIN",
+                                "platform_name": "Void The Demon6",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 3,
+                                "weapon": 4
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 16,
+                        "session_id": "682486_2.1.1_shipping/2cd38af1a81348c68284e4a054630e7e"
+                    },
+                    {
+                        "completion_time": 235015,
+                        "entries": [
+                            {
+                                "phx_account_id": "7C6TR3754JEEJN42RJT5JDW5IU",
+                                "platform": "XBL",
+                                "platform_name": "Cosminiion",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 4
+                            },
+                            {
+                                "phx_account_id": "EDTWF4VI6ZDEBHJPB5MZQG2KXY",
+                                "platform": "PSN",
+                                "platform_name": "DonFerozo",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 17,
+                        "session_id": "682486_2.1.1_shipping/fc2fa90edd78488b9ab5e442f95734f9"
+                    },
+                    {
+                        "completion_time": 286037,
+                        "entries": [
+                            {
+                                "phx_account_id": "FDU2RSRTU5GXPLXKTBWFQPBYIQ",
+                                "platform": "WIN",
+                                "platform_name": "WhySoSerjous",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 4,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "Q2N7AZ44GBEHHL4O37MWGTJ42Y",
+                                "platform": "PSN",
+                                "platform_name": "Mat1as_ignacio",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 3
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 18,
+                        "session_id": "682486_2.1.1_shipping/ec068c060fe5429fb3af0acb7e05b338"
+                    },
+                    {
+                        "completion_time": 287962,
+                        "entries": [
+                            {
+                                "phx_account_id": "FDU2RSRTU5GXPLXKTBWFQPBYIQ",
+                                "platform": "WIN",
+                                "platform_name": "WhySoSerjous",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 5,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "VMVE4S2BZBE2ZKUYRHEPAM74PI",
+                                "platform": "",
+                                "platform_name": "Yyosh",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 4
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 19,
+                        "session_id": "682486_2.1.1_shipping/66ea21e4e5cf4d9c83238d551db0ef70"
+                    },
+                    {
+                        "completion_time": 32857,
+                        "entries": [
+                            {
+                                "phx_account_id": "4JUKRBIZ75A3RFNHNQBPBU2OAM",
+                                "platform": "",
+                                "platform_name": "Sailem",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "4KMUNUWDSFBKTPQ6PB242YGU4E",
+                                "platform": "PSN",
+                                "platform_name": "Reignz_Empire711",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "EXOF2XFPENHG3GDFDC55ZWFR24",
+                                "platform": "PSN",
+                                "platform_name": "GobLeeN_",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 20,
+                        "session_id": "682486_2.1.1_shipping/87c9c2117d404cfd81a7b835a7f3790c"
+                    },
+                    {
+                        "completion_time": 39593,
+                        "entries": [
+                            {
+                                "phx_account_id": "4KMUNUWDSFBKTPQ6PB242YGU4E",
+                                "platform": "PSN",
+                                "platform_name": "Reignz_Empire711",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "EXOF2XFPENHG3GDFDC55ZWFR24",
+                                "platform": "PSN",
+                                "platform_name": "GobLeeN_",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                                "platform": "WIN",
+                                "platform_name": "Xix_SNiPs_xiX",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 21,
+                        "session_id": "682486_2.1.1_shipping/8980bb65f0a240779f87e7a882b8f2f3"
+                    },
+                    {
+                        "completion_time": 67766,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "OTSPQXXXY5AMRP3UFGWRPOR47Y",
+                                "platform": "WIN",
+                                "platform_name": "Danilo-68",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 22,
+                        "session_id": "682486_2.1.1_shipping/6a5e47b962564ea0bf7ec02b3c257443"
+                    },
+                    {
+                        "completion_time": 88188,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 5
+                            },
+                            {
+                                "phx_account_id": "V3GURNWCX5HMDOPDQQFEHFB3TM",
+                                "platform": "WIN",
+                                "platform_name": "R.I.M.AB",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 3,
+                                "weapon": 3
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 23,
+                        "session_id": "682486_2.1.1_shipping/0c021677dbc24a1881d5dc31d2678698"
+                    },
+                    {
+                        "completion_time": 134385,
+                        "entries": [
+                            {
+                                "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                                "platform": "WIN",
+                                "platform_name": "Airon.72",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "4ZRISK3KTBBQLP3JKWCSHQZVCY",
+                                "platform": "",
+                                "platform_name": "DRIFTER",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 7,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 2,
+                                "weapon": 5
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 24,
+                        "session_id": "682486_2.1.1_shipping/a7828b9a07644bbe86beaaa3eabb653f"
+                    },
+                    {
+                        "completion_time": 167955,
+                        "entries": [
+                            {
+                                "phx_account_id": "67NTCTNFSVEJRGZPZOQXFMMWMM",
+                                "platform": "PSN",
+                                "platform_name": "Hoohan1",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "W3T7BLNPJRFMJCUZ5RD6OMDPNU",
+                                "platform": "PSN",
+                                "platform_name": "hracgastan",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 25,
+                        "session_id": "682486_2.1.1_shipping/d178a9a911e44d44b0a1be331bbde81d"
+                    },
+                    {
+                        "completion_time": 174057,
+                        "entries": [
+                            {
+                                "phx_account_id": "5HF5YYQKIJGXREGLO6XWXVRHVI",
+                                "platform": "XBL",
+                                "platform_name": "SalatielJRBR",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 1,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "OBZ4BNUF5FASTBN3POJ6ACFOFA",
+                                "platform": "WIN",
+                                "platform_name": "ChicLass",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 7,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 26,
+                        "session_id": "682486_2.1.1_shipping/e82a9a7825bc436798c0e4e2c2fd485b"
+                    },
+                    {
+                        "completion_time": 183496,
+                        "entries": [
+                            {
+                                "phx_account_id": "AV53F4QFNJEFFNZTEUYGME2LYM",
+                                "platform": "WIN",
+                                "platform_name": "这PARCA",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "MQN27VDHKZBX7ECHZYQWREXC5M",
+                                "platform": "PSN",
+                                "platform_name": "IamDelta_X",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 27,
+                        "session_id": "682486_2.1.1_shipping/98dfea00bba04fb0ba5aa5be6bbfb9bb"
+                    },
+                    {
+                        "completion_time": 205810,
+                        "entries": [
+                            {
+                                "phx_account_id": "4YK5ENM5KNA65FNR5ELMMU6HIM",
+                                "platform": "WIN",
+                                "platform_name": "Utilitydroid",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 4
+                            },
+                            {
+                                "phx_account_id": "FZFWOW2PFNDCFP2KJQX6DKWKTE",
+                                "platform": "XBL",
+                                "platform_name": "JustaGhost5394",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 28,
+                        "session_id": "682486_2.1.1_shipping/3dde0aeb0b644f93b89974ef0ccb32a1"
+                    },
+                    {
+                        "completion_time": 218642,
+                        "entries": [
+                            {
+                                "phx_account_id": "W3T7BLNPJRFMJCUZ5RD6OMDPNU",
+                                "platform": "PSN",
+                                "platform_name": "hracgastan",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "ZSXOY6C3D5GSBHHC4WFBUUMX4M",
+                                "platform": "PSN",
+                                "platform_name": "Chabolax",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 6
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 29,
+                        "session_id": "682486_2.1.1_shipping/71b5cb0a420243569608397f3bfbc488"
+                    },
+                    {
+                        "completion_time": 273691,
+                        "entries": [
+                            {
+                                "phx_account_id": "JOSNXE3LGFG7RLJR3LX65627UM",
+                                "platform": "PSN",
+                                "platform_name": "outrnu-31419",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 4
+                            },
+                            {
+                                "phx_account_id": "OBZ4BNUF5FASTBN3POJ6ACFOFA",
+                                "platform": "WIN",
+                                "platform_name": "ChicLass",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 6,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "OOI5NXZ6XNHJDPHRMEFLSPR5KA",
+                                "platform": "PSN",
+                                "platform_name": "Bed_Inspector",
+                                "player_role_id": "PR_FRANK",
+                                "secondary_weapon": 1,
+                                "weapon": 4
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 30,
+                        "session_id": "682486_2.1.1_shipping/c6bc045332de44279a6a835af9c0eeb5"
+                    },
+                    {
+                        "completion_time": 277103,
+                        "entries": [
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 2,
+                                "weapon": 5
+                            },
+                            {
+                                "phx_account_id": "BU6DCLO2RRDBXMFN2DQV65YJEM",
+                                "platform": "WIN",
+                                "platform_name": "Maheswara_thegod",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "EOJQUBBD4ZE7LNNPGKGSLC5MO4",
+                                "platform": "XBL",
+                                "platform_name": "Lion kamado4515",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "YXG46ATT5ZDGZIKS2EXRZWVNWA",
+                                "platform": "",
+                                "platform_name": "† Ari †",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 31,
+                        "session_id": "682486_2.1.1_shipping/416a88dcfacb4bc89d2248ab7d453672"
+                    },
+                    {
+                        "completion_time": 286516,
+                        "entries": [
+                            {
+                                "phx_account_id": "KDMYB3PT2FFUXB6YASYE27DULY",
+                                "platform": "WIN",
+                                "platform_name": "B34R BRAND",
+                                "player_role_id": "PR_FRANK",
+                                "secondary_weapon": 3,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "OC6YQMWZZRALFJDSZ3VETECESA",
+                                "platform": "PSN",
+                                "platform_name": "kei156",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 32,
+                        "session_id": "682486_2.1.1_shipping/eafbf84c5a974a3899c0886121f9d0fa"
+                    },
+                    {
+                        "completion_time": 291778,
+                        "entries": [
+                            {
+                                "phx_account_id": "GHI6AMFVIJG3BGPQ23ZYTGGY6Q",
+                                "platform": "PSN",
+                                "platform_name": "GGKarnikl",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 6,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "Q5XLMQCSZVGV3PR2ADS22MNL4M",
+                                "platform": "WIN",
+                                "platform_name": "jgk006",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 6,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 33,
+                        "session_id": "682486_2.1.1_shipping/49dd34d0e8a649ccaf18f466227e9baf"
+                    },
+                    {
+                        "completion_time": 292697,
+                        "entries": [
+                            {
+                                "phx_account_id": "2VKHH6ZFA5CZ3JE7EGRS4UWF44",
+                                "platform": "PSN",
+                                "platform_name": "Hoplita_5",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "HV2M2MJRGBABZNZTF72H5OMLOE",
+                                "platform": "PSN",
+                                "platform_name": "hydro_khronic420",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "JVPGJTZXLNCOXMJMJFLUVLXIGY",
+                                "platform": "WIN",
+                                "platform_name": "gunnerbluejay",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 2,
+                        "rank": 34,
+                        "session_id": "682486_2.1.1_shipping/6da3c1360a064db6abba6a7ac6281800"
+                    },
+                    {
+                        "completion_time": 304171,
+                        "entries": [
+                            {
+                                "phx_account_id": "F244HL6AERADVMWP675JOUT5BA",
+                                "platform": "PSN",
+                                "platform_name": "NeYrOx_enzo",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "ZN4JAKQ2U5AOHLMFCKICUHXUHI",
+                                "platform": "PSN",
+                                "platform_name": "Enricolamalucky",
+                                "player_role_id": "PR_FRANK",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 35,
+                        "session_id": "682486_2.1.1_shipping/f4b89108ff924dbc89150fb7559dd531"
+                    },
+                    {
+                        "completion_time": 314624,
+                        "entries": [
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 2,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "BU6DCLO2RRDBXMFN2DQV65YJEM",
+                                "platform": "WIN",
+                                "platform_name": "Maheswara_thegod",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 6,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 36,
+                        "session_id": "682486_2.1.1_shipping/f09b19ca79da47cb8d6736c35e625750"
+                    },
+                    {
+                        "completion_time": 321376,
+                        "entries": [
+                            {
+                                "phx_account_id": "DA2WE6ECANAIXEJGYYNK5ALVZM",
+                                "platform": "XBL",
+                                "platform_name": "Ducknado0",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 2,
+                                "weapon": 5
+                            },
+                            {
+                                "phx_account_id": "Y5LRBZJKCNGTHHQS3XT5V2G7AE",
+                                "platform": "XBL",
+                                "platform_name": "Krakyn Zeus",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 3
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 37,
+                        "session_id": "682486_2.1.1_shipping/943d65d8d8104c208ba9686ec01f8754"
+                    },
+                    {
+                        "completion_time": 364277,
+                        "entries": [
+                            {
+                                "phx_account_id": "DJRSTZ42ORD3TKYKL3XZAJ6IZM",
+                                "platform": "XBL",
+                                "platform_name": "Ektata",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 4,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "NQKU76KAQFC23CZUCWBSVTKSQY",
+                                "platform": "PSN",
+                                "platform_name": "Phoenix_Girl_19",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 4
+                            },
+                            {
+                                "phx_account_id": "OBZ4BNUF5FASTBN3POJ6ACFOFA",
+                                "platform": "WIN",
+                                "platform_name": "ChicLass",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 7,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "OOI5NXZ6XNHJDPHRMEFLSPR5KA",
+                                "platform": "PSN",
+                                "platform_name": "Bed_Inspector",
+                                "player_role_id": "PR_FRANK",
+                                "secondary_weapon": 4,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 38,
+                        "session_id": "682486_2.1.1_shipping/be8a2a1b672d44a69090b4fcaafbab1e"
+                    },
+                    {
+                        "completion_time": 376648,
+                        "entries": [
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 5,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "EOJQUBBD4ZE7LNNPGKGSLC5MO4",
+                                "platform": "XBL",
+                                "platform_name": "Lion kamado4515",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 3
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 39,
+                        "session_id": "682486_2.1.1_shipping/6bcfed22a0ba4213a7c11a174213c04f"
+                    },
+                    {
+                        "completion_time": 379108,
+                        "entries": [
+                            {
+                                "phx_account_id": "EU6TVTY6JVFHFFH43QN5OAIENI",
+                                "platform": "PSN",
+                                "platform_name": "Alethio87",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 4,
+                                "weapon": 5
+                            },
+                            {
+                                "phx_account_id": "KXPMG7NAD5DGVEHYUEABETFPFQ",
+                                "platform": "PSN",
+                                "platform_name": "ShowMePercentage",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 6,
+                                "weapon": 3
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 40,
+                        "session_id": "682486_2.1.1_shipping/f53a9cd83be240108d477666f42637b3"
+                    },
+                    {
+                        "completion_time": 379535,
+                        "entries": [
+                            {
+                                "phx_account_id": "7HQILYXUMZDMRC6T5LSD5COWOI",
+                                "platform": "PSN",
+                                "platform_name": "jens-fleur2003",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "HP5C6ZV5Q5ATBOKBPDZALINR5U",
+                                "platform": "PSN",
+                                "platform_name": "SonicImplosion",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 4
+                            },
+                            {
+                                "phx_account_id": "NVKJRSLFHBESFIM2X324OYD3LQ",
+                                "platform": "PSN",
+                                "platform_name": "AdrianKrawiec",
+                                "player_role_id": "PR_BASTION",
+                                "secondary_weapon": 3,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "UDFKJFPRZ5EDTBQ77TM7KUCDOY",
+                                "platform": "PSN",
+                                "platform_name": "Kekzxi-x",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 41,
+                        "session_id": "682486_2.1.1_shipping/778512643e1a47e69aaacf591e3478f9"
+                    },
+                    {
+                        "completion_time": 380939,
+                        "entries": [
+                            {
+                                "phx_account_id": "7HQILYXUMZDMRC6T5LSD5COWOI",
+                                "platform": "PSN",
+                                "platform_name": "jens-fleur2003",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "TCNZSRU4DNHR5ERQEM6SAVAQX4",
+                                "platform": "PSN",
+                                "platform_name": "TheDevil_-93",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "YSI7IJXCGZGR5MUB2ACJN3TXPI",
+                                "platform": "PSN",
+                                "platform_name": "Osstos",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 4
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 42,
+                        "session_id": "682486_2.1.1_shipping/dca1a8a10ccf49cea152c28615b2db4e"
+                    },
+                    {
+                        "completion_time": 449532,
+                        "entries": [
+                            {
+                                "phx_account_id": "JN2M7ULFPRA7JLCYACNWNBYEMA",
+                                "platform": "XBL",
+                                "platform_name": "As Alex37",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "TMYXMTGCCNDG5NDRQ2AQ76ZC2A",
+                                "platform": "XBL",
+                                "platform_name": "Ale9612",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 43,
+                        "session_id": "682486_2.1.1_shipping/28388e58c27d490cb08b48a2c81e0540"
+                    },
+                    {
+                        "completion_time": 468619,
+                        "entries": [
+                            {
+                                "phx_account_id": "AEBLHHHXFJCFXF5EGW6XXDB6UI",
+                                "platform": "XBL",
+                                "platform_name": "Headshot10101",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 4,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "BHRB6ZIL5VHNZBXIIQK5C2W3UU",
+                                "platform": "XBL",
+                                "platform_name": "Talbuki",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 6,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "J7R24MJ2MJC3DMJ4Z34WXU2AZA",
+                                "platform": "XBL",
+                                "platform_name": "leingod23",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 1,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "OY7PUC3BWFB7FNCM5NBUP6XA6Y",
+                                "platform": "XBL",
+                                "platform_name": "Super EA Man",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 44,
+                        "session_id": "682486_2.1.1_shipping/2e5a8281b4f643d1aff0f3ed64445df7"
+                    },
+                    {
+                        "completion_time": 503803,
+                        "entries": [
+                            {
+                                "phx_account_id": "6GELX4XUGNBZ7I5POTLMHEWXB4",
+                                "platform": "WIN",
+                                "platform_name": "DauntlessPickle",
+                                "player_role_id": "PR_DARKNESS",
+                                "secondary_weapon": 5,
+                                "weapon": 2
+                            },
+                            {
+                                "phx_account_id": "EOJQUBBD4ZE7LNNPGKGSLC5MO4",
+                                "platform": "XBL",
+                                "platform_name": "Lion kamado4515",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 2,
+                                "weapon": 3
+                            },
+                            {
+                                "phx_account_id": "VPWE4U6MFFBUXJOWA5E5PTSRNE",
+                                "platform": "XBL",
+                                "platform_name": "FORTNITE27817",
+                                "player_role_id": "PR_DISCIPLINE",
+                                "secondary_weapon": 3,
+                                "weapon": 2
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 45,
+                        "session_id": "682486_2.1.1_shipping/fdbd1b5e977d4d5ca21a26c3d42dce84"
+                    },
+                    {
+                        "completion_time": 650751,
+                        "entries": [
+                            {
+                                "phx_account_id": "NG7NAZXEPZCUVMYY3OKLEZVHHA",
+                                "platform": "XBL",
+                                "platform_name": "ExpertDrop7471",
+                                "player_role_id": "PR_TEMPEST",
+                                "secondary_weapon": 2,
+                                "weapon": 6
+                            },
+                            {
+                                "phx_account_id": "OW56WBKCS5FUTKBU6ON3KNTCM4",
+                                "platform": "PSN",
+                                "platform_name": "BlueViolet_86",
+                                "player_role_id": "PR_ICEBORNE",
+                                "secondary_weapon": 3,
+                                "weapon": 5
+                            }
+                        ],
+                        "objectives_completed": 1,
+                        "rank": 46,
+                        "session_id": "682486_2.1.1_shipping/6c9d60e92f044e97a9b8ff64ef858aa8"
+                    }
+                ],
+                "page": 0,
+                "page_size": 100,
+                "trial_id": "Arena_MatchmakerHunt_Elite_New_0112"
+            },
+            "solo": {
+                "all": {
+                    "difficulty": 1,
+                    "entries": [
+                        {
+                            "completion_time": -602,
+                            "objectives_completed": 3,
+                            "phx_account_id": "QJWQFGA4GVFT5P7VZZ4J6CBCPA",
+                            "platform": "WIN",
+                            "platform_name": "Ten .-.",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 1,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/787410d5e98d4b789da86d2a8fb52399",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 474,
+                            "objectives_completed": 3,
+                            "phx_account_id": "3AGUBM4A7RAGLKXDJPIASC3AYY",
+                            "platform": "WIN",
+                            "platform_name": "Airon.72",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 2,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/3f5aecd1f01b4f5eb849bb8c5b0acbe2",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 2381,
+                            "objectives_completed": 3,
+                            "phx_account_id": "SAY266H6FBF2FIGZJTTMAUUMLM",
+                            "platform": "WIN",
+                            "platform_name": "Xix_SNiPs_xiX",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 3,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/0d0e96ec5b8a4c8b983256b173c83ab1",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 9354,
+                            "objectives_completed": 3,
+                            "phx_account_id": "4KMUNUWDSFBKTPQ6PB242YGU4E",
+                            "platform": "PSN",
+                            "platform_name": "Reignz_Empire711",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 4,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/d69819bca5634146a308a6a5dd07a117",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 18742,
+                            "objectives_completed": 3,
+                            "phx_account_id": "4JUKRBIZ75A3RFNHNQBPBU2OAM",
+                            "platform": "",
+                            "platform_name": "Sailem",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 5,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/fcb23bb6b45d4ee3894e7bf1fb1b8293",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 20045,
+                            "objectives_completed": 3,
+                            "phx_account_id": "ZSOHUWKWT5CDHB5SPLSLFCBJYQ",
+                            "platform": "WIN",
+                            "platform_name": "Théméro",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 6,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/ce8e25c8fc1b4159b162b7f1bdd2c9bc",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 39934,
+                            "objectives_completed": 3,
+                            "phx_account_id": "2MYU2PUBJVGXLB74MFSVSDK4GI",
+                            "platform": "WIN",
+                            "platform_name": "Lothogo",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 7,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/5bd7517ff2e749848972909b8435e142",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 42105,
+                            "objectives_completed": 3,
+                            "phx_account_id": "G24TDK7SRNAXFGVJUPWGA6ZH2A",
+                            "platform": "WIN",
+                            "platform_name": "Sluchi le goat",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 8,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/d538ed1f0a4b4b7ca7ae45589df5c090",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 42673,
+                            "objectives_completed": 3,
+                            "phx_account_id": "3YKUAAJCNNCI5PXJPTMZN4G3NY",
+                            "platform": "WIN",
+                            "platform_name": "jeffffffff.",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 9,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/e0ea33f5c7854e76b24813f4c4c2e77e",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 50812,
+                            "objectives_completed": 3,
+                            "phx_account_id": "GO4VF2MUX5ESNDQQH3SPWLMHLM",
+                            "platform": "WIN",
+                            "platform_name": "Nacrolepser",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 10,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/593132c5e40a44d4afe26484c301c16f",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 52501,
+                            "objectives_completed": 3,
+                            "phx_account_id": "7UP2EEZ6X5BW3AN5CXMK4AVCVQ",
+                            "platform": "WIN",
+                            "platform_name": "San Frаncisco",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 11,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/6d3160c3947440d7a239ab27bfe648fd",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 59821,
+                            "objectives_completed": 3,
+                            "phx_account_id": "OTSPQXXXY5AMRP3UFGWRPOR47Y",
+                            "platform": "WIN",
+                            "platform_name": "Danilo-68",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 12,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/5b6d1ab83eaa48af96bdc922507af998",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 82155,
+                            "objectives_completed": 3,
+                            "phx_account_id": "5AQJE4CP25AJ5KOKUXSLWUAMGU",
+                            "platform": "",
+                            "platform_name": "Mindark",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 13,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/9a2dff768c01499e97f9b679c5b4d5bc",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 82847,
+                            "objectives_completed": 3,
+                            "phx_account_id": "CQBVCDSL5JBY3LOQWW6TTQRFSQ",
+                            "platform": "",
+                            "platform_name": "Mazen_potato",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 14,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/46bd7b29ee144af8999679064c65241e",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 85199,
+                            "objectives_completed": 3,
+                            "phx_account_id": "PN7U23EM7NCELDSOHPNC7HS6BQ",
+                            "platform": "WIN",
+                            "platform_name": "中国3000年の歴史",
+                            "player_role_id": "PR_TEMPEST",
+                            "rank": 15,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/4aef0d794a6647eebaa34251dcb478cc",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 86733,
+                            "objectives_completed": 3,
+                            "phx_account_id": "7PNTZURRJ5H2PDRMNL2D6WD75Y",
+                            "platform": "PSN",
+                            "platform_name": "Salvatoretore33",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 16,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/b21e44ffa4b24e33ac83518b73d34a3b",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 87417,
+                            "objectives_completed": 3,
+                            "phx_account_id": "H6RHRVIRNNCFBG3DVUYKYTJKG4",
+                            "platform": "PSN",
+                            "platform_name": "Phenom_707",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 17,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/e446dfcadc6c4c7eaf2444c79ad5dc06",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 95942,
+                            "objectives_completed": 3,
+                            "phx_account_id": "V6AAUXAOO5ENDNLME6DTQ7724E",
+                            "platform": "WIN",
+                            "platform_name": "TrWarMachine",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 18,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/37c86df043e74310aa6ab9574e09dea8",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 105909,
+                            "objectives_completed": 3,
+                            "phx_account_id": "HDFR5CT3PZDYVGQVZHQYLGBL5A",
+                            "platform": "XBL",
+                            "platform_name": "Lord pollo81737",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 19,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/ea2dd9d35570411ab9c0c81f5364548d",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 109932,
+                            "objectives_completed": 3,
+                            "phx_account_id": "UFST3Q72JJCHRMUC3VLNJZYNQQ",
+                            "platform": "PSN",
+                            "platform_name": "entity_C_sub",
+                            "player_role_id": "PR_BASTION",
+                            "rank": 20,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/7d053b2975bf45538a74b2370337d588",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 111859,
+                            "objectives_completed": 3,
+                            "phx_account_id": "KOAGVYECC5GT3GVOMJXB67PBQI",
+                            "platform": "WIN",
+                            "platform_name": "Aggrolol",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 21,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/c47e9a646cce4cd584c194ae70c9a1c8",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 111882,
+                            "objectives_completed": 3,
+                            "phx_account_id": "5GNKGYOZ75GSFFA5CZT6JGYQV4",
+                            "platform": "WIN",
+                            "platform_name": "Ѕеіgеn",
+                            "player_role_id": "PR_DISCIPLINE",
+                            "rank": 22,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/1c83ba9d476c4692885625e3c58296b6",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 111972,
+                            "objectives_completed": 3,
+                            "phx_account_id": "IENA4AAWOBEMRHFU533E6QSWLM",
+                            "platform": "SWT",
+                            "platform_name": "tanaka3333",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 23,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/689b484ff9014313a65faf726cfe55be",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 112923,
+                            "objectives_completed": 3,
+                            "phx_account_id": "ENKZIOP4HJDORGVCU7WNAJUBMU",
+                            "platform": "PSN",
+                            "platform_name": "hollowkronos_",
+                            "player_role_id": "PR_TEMPEST",
+                            "rank": 24,
+                            "secondary_weapon": 4,
+                            "session_id": "682486_2.1.1_shipping/56ef556505804bed8265d731e346b6d8",
+                            "weapon": 3
+                        },
+                        {
+                            "completion_time": 113737,
+                            "objectives_completed": 3,
+                            "phx_account_id": "2RKESTOMJBFX3JALT2YWNQS32M",
+                            "platform": "WIN",
+                            "platform_name": "Jarlaxle0815",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 25,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/990694da85954095ad99b10236cb4dba",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 113766,
+                            "objectives_completed": 3,
+                            "phx_account_id": "SRMCC5767VAQRB7KMHBZOL5IAY",
+                            "platform": "WIN",
+                            "platform_name": "小小怪人阿",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 26,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/6a010616d09d47f2963cd771bc0a35d8",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 120528,
+                            "objectives_completed": 3,
+                            "phx_account_id": "AV53F4QFNJEFFNZTEUYGME2LYM",
+                            "platform": "WIN",
+                            "platform_name": "这PARCA",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 27,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/c9b1e985365040f58370a4ab34085e2b",
+                            "weapon": 3
+                        },
+                        {
+                            "completion_time": 124779,
+                            "objectives_completed": 3,
+                            "phx_account_id": "G5ANDXKUOJD2VMQQ3MFD4GQDBE",
+                            "platform": "WIN",
+                            "platform_name": "Oliver-Qeen",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 28,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/6bda57aacdf0454fadd2d8aaf0f39dc1",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 126914,
+                            "objectives_completed": 3,
+                            "phx_account_id": "CBRLIPVGBNC7ZFRA7UDH2IHGGE",
+                            "platform": "XBL",
+                            "platform_name": "Semagt78",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 29,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/37a54429cdda4b02836cb2085234d445",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 129566,
+                            "objectives_completed": 3,
+                            "phx_account_id": "VBKP6NWNH5DGHDZGSKLRI6LLV4",
+                            "platform": "PSN",
+                            "platform_name": "R95_WINCHESTER_-",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 30,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/93ec2a2052ee443bb5ab792c053b2a2b",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 130019,
+                            "objectives_completed": 3,
+                            "phx_account_id": "XLCWMIXFWNHLBOXGKAFDJ43F2A",
+                            "platform": "",
+                            "platform_name": "WiLLzin__",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 31,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/76948941719940cba9dd95c3a15cb060",
+                            "weapon": 4
+                        },
+                        {
+                            "completion_time": 131553,
+                            "objectives_completed": 3,
+                            "phx_account_id": "DNJZH3GSPVCQTJM53D6RUHETFI",
+                            "platform": "WIN",
+                            "platform_name": "KaijuKINN",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 32,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/78a8b199ca25491181f863befa8f0634",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 136883,
+                            "objectives_completed": 3,
+                            "phx_account_id": "AJM6EPQQ3RDURLQIMDGKKWW26E",
+                            "platform": "WIN",
+                            "platform_name": "ΠΦϞiⲁ",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 33,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/bcef431fcf8b49229a9f572907835057",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 138561,
+                            "objectives_completed": 3,
+                            "phx_account_id": "67JJZ353PJH5HGANOJMUJU55HQ",
+                            "platform": "",
+                            "platform_name": "Gametalent",
+                            "player_role_id": "PR_FRANK",
+                            "rank": 34,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/c06c4f96ee6c466d93c446855c9164cc",
+                            "weapon": 3
+                        },
+                        {
+                            "completion_time": 147124,
+                            "objectives_completed": 3,
+                            "phx_account_id": "JDK6AL3CLNCYFNTUWFYKVRKVBE",
+                            "platform": "PSN",
+                            "platform_name": "DEATHNOENK",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 35,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/64731afaf3a54f47b57a2a55c222ced7",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 147961,
+                            "objectives_completed": 3,
+                            "phx_account_id": "FDU2RSRTU5GXPLXKTBWFQPBYIQ",
+                            "platform": "WIN",
+                            "platform_name": "WhySoSerjous",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 36,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/50a7a2fc4fdd4658aa068f553668b56d",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 153525,
+                            "objectives_completed": 3,
+                            "phx_account_id": "HDV4HPGK7RCRPNJMSC7UXSZB3A",
+                            "platform": "PSN",
+                            "platform_name": "XxLORD_VIKTORxX",
+                            "player_role_id": "PR_BASTION",
+                            "rank": 37,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/94d7f146fcd34e95915f69e354adebc3",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 154960,
+                            "objectives_completed": 3,
+                            "phx_account_id": "QKL7Z2ZKCVGFRI5LTE3DCXW2W4",
+                            "platform": "PSN",
+                            "platform_name": "Vynndictive3",
+                            "player_role_id": "PR_BASTION",
+                            "rank": 38,
+                            "secondary_weapon": 5,
+                            "session_id": "682486_2.1.1_shipping/d79284cd8d0a466eb4617b8f6fdc4081",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 163502,
+                            "objectives_completed": 3,
+                            "phx_account_id": "EDTWF4VI6ZDEBHJPB5MZQG2KXY",
+                            "platform": "PSN",
+                            "platform_name": "DonFerozo",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 39,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/3b8b30de9f9c4b0c8a3c9fd673b85268",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 167215,
+                            "objectives_completed": 3,
+                            "phx_account_id": "VC5TV3TLGRGGHJ2NS5QJS3MNZM",
+                            "platform": "PSN",
+                            "platform_name": "ptx-003c-sp1nanb",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 40,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/e50548ba9f5d4324becc99aca5907a43",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 167749,
+                            "objectives_completed": 3,
+                            "phx_account_id": "VWSJEC4MYZAAPBP2T4EIO5YNKU",
+                            "platform": "PSN",
+                            "platform_name": "killedy-by-Demon",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 41,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/dacfa8ee60e54373a2aaf4c4b51804fa",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 180947,
+                            "objectives_completed": 3,
+                            "phx_account_id": "GMJUYLKCENDYXJ5PF23T73IIYM",
+                            "platform": "WIN",
+                            "platform_name": "不滅のドラゴン",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 42,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/38af13c96120406f923a9c22db8e1117",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 181302,
+                            "objectives_completed": 3,
+                            "phx_account_id": "67NTCTNFSVEJRGZPZOQXFMMWMM",
+                            "platform": "PSN",
+                            "platform_name": "Hoohan1",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 43,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/0b661789cbe94bfa85d8822e809e04f8",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 192095,
+                            "objectives_completed": 3,
+                            "phx_account_id": "3VHM3RUG2ZFSNJIYTNKW7ZFPDA",
+                            "platform": "WIN",
+                            "platform_name": "BigOldBaby",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 44,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/c4c34bf6032947228e685714fde9d8d6",
+                            "weapon": 7
+                        },
+                        {
+                            "completion_time": 199803,
+                            "objectives_completed": 3,
+                            "phx_account_id": "WRDHZM4LEBFWXJSV6NRZUHIACY",
+                            "platform": "WIN",
+                            "platform_name": "PikaTueur_316",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 45,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/3d0addd9f1fa43bbb154a9f987ae4b8c",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 205734,
+                            "objectives_completed": 3,
+                            "phx_account_id": "FIXRUR6L4JDIZJFW47GLYSEBEQ",
+                            "platform": "PSN",
+                            "platform_name": "Nicolas-L-Du-76",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 46,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/e88f3f4d9d084ffba53682396c3e3f14",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 207435,
+                            "objectives_completed": 3,
+                            "phx_account_id": "FCQMDZ3IF5GSJI4ZGK6ADINWCA",
+                            "platform": "",
+                            "platform_name": "котэ",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 47,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/5289a2c82e494715bffe787e30ec1a58",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 216603,
+                            "objectives_completed": 3,
+                            "phx_account_id": "RNFTEAFNBBAYZKZFBXWKCA5R5Y",
+                            "platform": "PSN",
+                            "platform_name": "IlTovi",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 48,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/97bba6fd75d7416ead1ac22cc4514c53",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 224162,
+                            "objectives_completed": 3,
+                            "phx_account_id": "E6B5ILPRE5AYZBV3PT5U42JQHM",
+                            "platform": "",
+                            "platform_name": "gusboo",
+                            "player_role_id": "PR_TEMPEST",
+                            "rank": 49,
+                            "secondary_weapon": 3,
+                            "session_id": "682486_2.1.1_shipping/1241ac76facc4f6bb3849f2a0c5beeb4",
+                            "weapon": 4
+                        },
+                        {
+                            "completion_time": 229893,
+                            "objectives_completed": 3,
+                            "phx_account_id": "IVM5DS4GONC37HMU4HON54VUXM",
+                            "platform": "WIN",
+                            "platform_name": "jee2418",
+                            "player_role_id": "PR_TEMPEST",
+                            "rank": 50,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/f4c670adad2148f686a829f1fc3251dd",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 242459,
+                            "objectives_completed": 3,
+                            "phx_account_id": "JVPGJTZXLNCOXMJMJFLUVLXIGY",
+                            "platform": "WIN",
+                            "platform_name": "gunnerbluejay",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 51,
+                            "secondary_weapon": 3,
+                            "session_id": "682486_2.1.1_shipping/f8a1565a3c49470aaea488b182e45419",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 246084,
+                            "objectives_completed": 3,
+                            "phx_account_id": "2PRGLFOEAJAYDLRZV4E6COUQAU",
+                            "platform": "XBL",
+                            "platform_name": "Ramtaro15",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 52,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/3d979d43a91f4db08ff4cbce21a4e6e2",
+                            "weapon": 7
+                        },
+                        {
+                            "completion_time": 249907,
+                            "objectives_completed": 3,
+                            "phx_account_id": "S6YDIEPTRZHZJEOQ6ECQGLJNKM",
+                            "platform": "PSN",
+                            "platform_name": "Sliktriksta",
+                            "player_role_id": "PR_BASTION",
+                            "rank": 53,
+                            "secondary_weapon": 3,
+                            "session_id": "682486_2.1.1_shipping/ac0d5b3c837a4cfbb4958a6a3f4e3e11",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 262034,
+                            "objectives_completed": 3,
+                            "phx_account_id": "KDMYB3PT2FFUXB6YASYE27DULY",
+                            "platform": "WIN",
+                            "platform_name": "B34R BRAND",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 54,
+                            "secondary_weapon": 3,
+                            "session_id": "682486_2.1.1_shipping/a2ff8849ef834cc9a39695ffa425ffc1",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 272983,
+                            "objectives_completed": 3,
+                            "phx_account_id": "OBZ4BNUF5FASTBN3POJ6ACFOFA",
+                            "platform": "WIN",
+                            "platform_name": "ChicLass",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 55,
+                            "secondary_weapon": 6,
+                            "session_id": "682486_2.1.1_shipping/e4b44c8dfa484e56a0ab6e0ff13cd9a3",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 282563,
+                            "objectives_completed": 3,
+                            "phx_account_id": "PKNXTO5EGJCAZF2PCUTM46EC54",
+                            "platform": "PSN",
+                            "platform_name": "sougol05",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 56,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/60f264d31f714310bd406232cf5bb1c6",
+                            "weapon": 2
+                        },
+                        {
+                            "completion_time": 297855,
+                            "objectives_completed": 3,
+                            "phx_account_id": "6CSPKJLYJJALVBOSDITPHJDSPY",
+                            "platform": "WIN",
+                            "platform_name": "palan 2.0",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 57,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/6fb7f6c742c142a38a94630ec16fc49d",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 368373,
+                            "objectives_completed": 2,
+                            "phx_account_id": "EFBUXPSB7VATZLUND2AVZW3BPU",
+                            "platform": "XBL",
+                            "platform_name": "JustCobra920",
+                            "player_role_id": "PR_BASTION",
+                            "rank": 58,
+                            "secondary_weapon": 4,
+                            "session_id": "682486_2.1.1_shipping/9f60625845ae4b7e97b894ca01cf244c",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 475881,
+                            "objectives_completed": 2,
+                            "phx_account_id": "5B7IQSODM5DCFOCXQP6MNENXVE",
+                            "platform": "WIN",
+                            "platform_name": "Golm123",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 59,
+                            "secondary_weapon": 5,
+                            "session_id": "682486_2.1.1_shipping/f4fbaa5e708a44ecafcfcbf6dfe9a8a7",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 520603,
+                            "objectives_completed": 2,
+                            "phx_account_id": "FJPMWIRJ5BFCJLDOIGCY2F5FVA",
+                            "platform": "PSN",
+                            "platform_name": "Ireth-mac-tire",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 60,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/e0ce141843fb439c9fa40ac8578253a8",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 801104,
+                            "objectives_completed": 2,
+                            "phx_account_id": "N5AK3NTIAVA7VBXAOQTQFK65UU",
+                            "platform": "XBL",
+                            "platform_name": "Link Fox",
+                            "player_role_id": "PR_TEMPEST",
+                            "rank": 61,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/af9d38188cbd4b05a67b467db01b5aeb",
+                            "weapon": 6
+                        },
+                        {
+                            "completion_time": 445361,
+                            "objectives_completed": 1,
+                            "phx_account_id": "N5EY2LLCN5E3XETZK4NXDN6GF4",
+                            "platform": "PSN",
+                            "platform_name": "paulojdsp",
+                            "player_role_id": "PR_ICEBORNE",
+                            "rank": 62,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/76c8534cea254407a7c0b7ba86e2c8a2",
+                            "weapon": 4
+                        }
+                    ],
+                    "page": 0,
+                    "page_size": 100,
+                    "trial_id": "Arena_MatchmakerHunt_Elite_New_0112"
+                }
+            }
+        }
+    }
+}
