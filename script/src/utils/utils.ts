@@ -60,7 +60,9 @@ enum BEHEMOTH {
     'Alyra',
     'Scorchstone_Hellion',
     'Sahvyt',
-    'Lightbound_Koshai'
+    'Lightbound_Koshai',
+    'Flameborn_Rezakiri',
+    'Torgadoro'
 };
 
 const behemothNames = [
@@ -95,7 +97,9 @@ const behemothNames = [
     'Alyra',
     'Scorchstone Hellion',
     'Sahvyt',
-    'Lightbound Koshai'
+    'Lightbound Koshai',
+    'Flameborn Rezakiri',
+    'Torgadoro'
 ];
 
 const behemothRotationHistory = [
@@ -398,7 +402,9 @@ const behemothRotationHistory = [
     BEHEMOTH.Alyra,
     BEHEMOTH.Scorchstone_Hellion,
     BEHEMOTH.Sahvyt,
-    BEHEMOTH.Lightbound_Koshai
+    BEHEMOTH.Lightbound_Koshai,
+    BEHEMOTH.Flameborn_Rezakiri,
+    BEHEMOTH.Torgadoro
 ];
 
 // https://playdauntless.com/trials/
