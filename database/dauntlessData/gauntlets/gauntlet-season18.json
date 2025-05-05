@@ -1,7 +1,7 @@
 {
     "start_at": "2024-12-03 18:00:00Z",
     "end_at": "2025-05-30T18:00:00Z",
-    "last_updated": "2025-04-26T11:40:05Z",
+    "last_updated": "2025-05-05T06:50:04Z",
     "leaderboard": [
         {
             "guild_name": "SHlELDS",
@@ -14,12 +14,6 @@
             "guild_nameplate": "MEL2NY",
             "level": 800,
             "remaining_sec": 480
-        },
-        {
-            "guild_name": "ThraxEnjoyers",
-            "guild_nameplate": "THRAAX",
-            "level": 800,
-            "remaining_sec": 264
         },
         {
             "guild_name": "SpaceXPyrates",
@@ -48,14 +42,20 @@
         {
             "guild_name": "TeamUpSlayers",
             "guild_nameplate": "TeamUp",
-            "level": 468,
-            "remaining_sec": 553
+            "level": 488,
+            "remaining_sec": 447
         },
         {
             "guild_name": "SeekDarkness",
             "guild_nameplate": "SkDrk",
             "level": 442,
             "remaining_sec": 171
+        },
+        {
+            "guild_name": "Giorenpas",
+            "guild_nameplate": "Giove",
+            "level": 428,
+            "remaining_sec": 512
         },
         {
             "guild_name": "4DWIN",
@@ -74,12 +74,6 @@
             "guild_nameplate": "Jinni",
             "level": 362,
             "remaining_sec": 536
-        },
-        {
-            "guild_name": "Giorenpas",
-            "guild_nameplate": "Giove",
-            "level": 334,
-            "remaining_sec": 685
         },
         {
             "guild_name": "Interim",
@@ -150,8 +144,8 @@
         {
             "guild_name": "IdiotsBlabla",
             "guild_nameplate": "Thesht",
-            "level": 186,
-            "remaining_sec": 273
+            "level": 194,
+            "remaining_sec": 401
         },
         {
             "guild_name": "LordsGaming",
@@ -250,16 +244,16 @@
             "remaining_sec": 1468
         },
         {
+            "guild_name": "Glocktober",
+            "guild_nameplate": "iGlock",
+            "level": 105,
+            "remaining_sec": 1260
+        },
+        {
             "guild_name": "StaggerWhen",
             "guild_nameplate": "WenTho",
             "level": 102,
             "remaining_sec": 1164
-        },
-        {
-            "guild_name": "Glocktober",
-            "guild_nameplate": "iGlock",
-            "level": 101,
-            "remaining_sec": 852
         },
         {
             "guild_name": "MontyxYoutube",
@@ -286,6 +280,12 @@
             "remaining_sec": 989
         },
         {
+            "guild_name": "Ebejibijibijt",
+            "guild_nameplate": "Im11",
+            "level": 80,
+            "remaining_sec": 955
+        },
+        {
             "guild_name": "ANDARI",
             "guild_nameplate": "ANDARI",
             "level": 78,
@@ -302,12 +302,6 @@
             "guild_nameplate": "Germot",
             "level": 75,
             "remaining_sec": 1148
-        },
-        {
-            "guild_name": "Ebejibijibijt",
-            "guild_nameplate": "Im11",
-            "level": 70,
-            "remaining_sec": 1075
         },
         {
             "guild_name": "Chiscadores",
@@ -602,6 +596,12 @@
             "guild_nameplate": "n1nj4a",
             "level": 23,
             "remaining_sec": 1550
+        },
+        {
+            "guild_name": "Patas7u7",
+            "guild_nameplate": "PATASG",
+            "level": 23,
+            "remaining_sec": 1410
         }
     ]
 }
