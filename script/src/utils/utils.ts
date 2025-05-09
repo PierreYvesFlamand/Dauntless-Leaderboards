@@ -404,7 +404,9 @@ const behemothRotationHistory = [
     BEHEMOTH.Sahvyt,
     BEHEMOTH.Lightbound_Koshai,
     BEHEMOTH.Flameborn_Rezakiri,
-    BEHEMOTH.Torgadoro
+    BEHEMOTH.Torgadoro,
+    BEHEMOTH.Bloodfire_Embermane,
+    BEHEMOTH.Shockjaw_Nayzaga
 ];
 
 // https://playdauntless.com/trials/
