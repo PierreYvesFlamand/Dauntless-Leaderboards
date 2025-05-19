@@ -406,7 +406,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Flameborn_Rezakiri,
     BEHEMOTH.Torgadoro,
     BEHEMOTH.Bloodfire_Embermane,
-    BEHEMOTH.Shockjaw_Nayzaga
+    BEHEMOTH.Shockjaw_Nayzaga,
+    BEHEMOTH.Deadeye_Quillshot
 ];
 
 // https://playdauntless.com/trials/
