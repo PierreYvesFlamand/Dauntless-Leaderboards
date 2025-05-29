@@ -408,7 +408,8 @@ const behemothRotationHistory = [
     BEHEMOTH.Bloodfire_Embermane,
     BEHEMOTH.Shadowtouched_Nayzaga,
     BEHEMOTH.Deadeye_Quillshot,
-    BEHEMOTH.Frostback_Pangar
+    BEHEMOTH.Frostback_Pangar,
+    BEHEMOTH.Razorwing_Kharabak
 ];
 
 // https://playdauntless.com/trials/

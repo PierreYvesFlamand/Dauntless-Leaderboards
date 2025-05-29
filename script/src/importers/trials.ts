@@ -22,7 +22,7 @@ export async function startImportTrials(authorizationCode: string = config.AUTHO
     //     await new Promise(resolve => setTimeout(resolve, 3000));
     // }
     console.log('Starting last week import');
-    await importTrials(getCurrentWeek() - 1);
+    await importTrials(getCurrentWeek());
 }
 
 async function importTrials(week: number = getCurrentWeek()) {
