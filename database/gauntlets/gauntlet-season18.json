@@ -1,7 +1,7 @@
 {
     "startAt": "2024-12-03 18:00:00Z",
     "endAt": "2025-05-30T18:00:00Z",
-    "lastUpdated": "2025-05-23T06:50:04Z",
+    "lastUpdated": "2025-05-29T17:50:06Z",
     "leaderboard": [
         {
             "guildId": 3,
@@ -16,28 +16,28 @@
             "remainingSec": 480
         },
         {
-            "guildId": 21,
+            "guildId": 111,
             "rank": 3,
+            "level": 634,
+            "remainingSec": 667
+        },
+        {
+            "guildId": 21,
+            "rank": 4,
             "level": 630,
             "remainingSec": 353
         },
         {
             "guildId": 6,
-            "rank": 4,
+            "rank": 5,
             "level": 624,
             "remainingSec": 273
         },
         {
             "guildId": 542,
-            "rank": 5,
+            "rank": 6,
             "level": 623,
             "remainingSec": 824
-        },
-        {
-            "guildId": 111,
-            "rank": 6,
-            "level": 544,
-            "remainingSec": 194
         },
         {
             "guildId": 2,
@@ -136,16 +136,16 @@
             "remainingSec": 496
         },
         {
-            "guildId": 319,
+            "guildId": 395,
             "rank": 23,
             "level": 201,
-            "remainingSec": 135
+            "remainingSec": 276
         },
         {
-            "guildId": 395,
+            "guildId": 319,
             "rank": 24,
-            "level": 197,
-            "remainingSec": 159
+            "level": 201,
+            "remainingSec": 135
         },
         {
             "guildId": 689,
@@ -232,16 +232,16 @@
             "remainingSec": 1226
         },
         {
-            "guildId": 674,
+            "guildId": 35,
             "rank": 39,
             "level": 106,
-            "remainingSec": 1139
+            "remainingSec": 1327
         },
         {
-            "guildId": 35,
+            "guildId": 674,
             "rank": 40,
-            "level": 105,
-            "remainingSec": 1576
+            "level": 106,
+            "remainingSec": 1139
         },
         {
             "guildId": 89,
