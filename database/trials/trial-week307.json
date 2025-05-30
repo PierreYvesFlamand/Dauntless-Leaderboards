@@ -4,7 +4,7 @@
         "behemothId": 7,
         "startAt": "2025-05-29T18:00:00.000Z",
         "endAt": "2025-06-05T18:00:00.000Z",
-        "lastUpdated": "2025-05-30T06:45:55.270Z"
+        "lastUpdated": "2025-05-30T06:47:24.336Z"
     },
     "all": [
         {
@@ -933,6 +933,20 @@
         },
         {
             "rank": 67,
+            "completionTime": 244840,
+            "objectivesCompleted": 3,
+            "players": [
+                {
+                    "playerId": 24587,
+                    "platformId": 2,
+                    "roleId": 5,
+                    "weaponId": 6,
+                    "secondaryWeaponId": 1
+                }
+            ]
+        },
+        {
+            "rank": 68,
             "completionTime": 247935,
             "objectivesCompleted": 3,
             "players": [
@@ -946,7 +960,7 @@
             ]
         },
         {
-            "rank": 68,
+            "rank": 69,
             "completionTime": 270074,
             "objectivesCompleted": 3,
             "players": [
@@ -960,7 +974,7 @@
             ]
         },
         {
-            "rank": 69,
+            "rank": 70,
             "completionTime": 366590,
             "objectivesCompleted": 2,
             "players": [
@@ -974,7 +988,7 @@
             ]
         },
         {
-            "rank": 70,
+            "rank": 71,
             "completionTime": 445427,
             "objectivesCompleted": 2,
             "players": [
