@@ -836,6 +836,30 @@
                         "session_id": "682486_2.1.1_shipping/f25fa5aebaec466a976685c1dcea686f"
                     },
                     {
+                        "completion_time": 48327,
+                        "entries": [
+                            {
+                                "phx_account_id": "2ZHLTWDYEFALFBNFQ7SZHGP6RA",
+                                "platform": "WIN",
+                                "platform_name": "あまあし",
+                                "player_role_id": "PR_DISCIPLINE",
+                                "secondary_weapon": 2,
+                                "weapon": 1
+                            },
+                            {
+                                "phx_account_id": "E7MDWXGF6JBLNBCJOF6F4KNJZQ",
+                                "platform": "WIN",
+                                "platform_name": "ワサビP",
+                                "player_role_id": "PR_DISCIPLINE",
+                                "secondary_weapon": 4,
+                                "weapon": 1
+                            }
+                        ],
+                        "objectives_completed": 3,
+                        "rank": 30,
+                        "session_id": "682486_2.1.1_shipping/37cdfd798cf44807b5ca75f48a0c1fa0"
+                    },
+                    {
                         "completion_time": 50027,
                         "entries": [
                             {
@@ -864,32 +888,8 @@
                             }
                         ],
                         "objectives_completed": 3,
-                        "rank": 30,
-                        "session_id": "682486_2.1.1_shipping/71edfdbf55e547a998d740b46fdbf690"
-                    },
-                    {
-                        "completion_time": 52201,
-                        "entries": [
-                            {
-                                "phx_account_id": "2ZHLTWDYEFALFBNFQ7SZHGP6RA",
-                                "platform": "WIN",
-                                "platform_name": "あまあし",
-                                "player_role_id": "PR_DISCIPLINE",
-                                "secondary_weapon": 2,
-                                "weapon": 1
-                            },
-                            {
-                                "phx_account_id": "E7MDWXGF6JBLNBCJOF6F4KNJZQ",
-                                "platform": "WIN",
-                                "platform_name": "ワサビP",
-                                "player_role_id": "PR_DISCIPLINE",
-                                "secondary_weapon": 4,
-                                "weapon": 1
-                            }
-                        ],
-                        "objectives_completed": 3,
                         "rank": 31,
-                        "session_id": "682486_2.1.1_shipping/188c316936c1482991a44adf6c5f9bf8"
+                        "session_id": "682486_2.1.1_shipping/71edfdbf55e547a998d740b46fdbf690"
                     },
                     {
                         "completion_time": 54986,
@@ -1973,15 +1973,39 @@
                             "weapon": 7
                         },
                         {
+                            "completion_time": 19158,
+                            "objectives_completed": 3,
+                            "phx_account_id": "YQKK6XIKXJAVJPCY754BFBRWZQ",
+                            "platform": "",
+                            "platform_name": "Rip",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 21,
+                            "secondary_weapon": 2,
+                            "session_id": "682486_2.1.1_shipping/3c0b099d2e1c433cb170a285746b3557",
+                            "weapon": 1
+                        },
+                        {
                             "completion_time": 19987,
                             "objectives_completed": 3,
                             "phx_account_id": "XK65YEGEGFBF5HUW7RMSCI3I5E",
                             "platform": "WIN",
                             "platform_name": "paleb04",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 21,
+                            "rank": 22,
                             "secondary_weapon": 2,
                             "session_id": "682486_2.1.1_shipping/c43c958428b74f24bedb85cb2c1d9955",
+                            "weapon": 1
+                        },
+                        {
+                            "completion_time": 20815,
+                            "objectives_completed": 3,
+                            "phx_account_id": "PN7U23EM7NCELDSOHPNC7HS6BQ",
+                            "platform": "WIN",
+                            "platform_name": "中国3000年の歴史",
+                            "player_role_id": "PR_DARKNESS",
+                            "rank": 23,
+                            "secondary_weapon": 1,
+                            "session_id": "682486_2.1.1_shipping/027bd46de0bd4730af17d896114bcadf",
                             "weapon": 1
                         },
                         {
@@ -1991,21 +2015,9 @@
                             "platform": "XBL",
                             "platform_name": "EyeGotGreenz",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 22,
+                            "rank": 24,
                             "secondary_weapon": 1,
                             "session_id": "682486_2.1.1_shipping/48d180b2e2ef4ef780291abe22e1a566",
-                            "weapon": 1
-                        },
-                        {
-                            "completion_time": 21365,
-                            "objectives_completed": 3,
-                            "phx_account_id": "PN7U23EM7NCELDSOHPNC7HS6BQ",
-                            "platform": "WIN",
-                            "platform_name": "中国3000年の歴史",
-                            "player_role_id": "PR_TEMPEST",
-                            "rank": 23,
-                            "secondary_weapon": 1,
-                            "session_id": "682486_2.1.1_shipping/3b09af97cf1c471a9d689e56e9dde933",
                             "weapon": 1
                         },
                         {
@@ -2015,7 +2027,7 @@
                             "platform": "WIN",
                             "platform_name": "Kujo Uzoko",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 24,
+                            "rank": 25,
                             "secondary_weapon": 2,
                             "session_id": "682486_2.1.1_shipping/a5b4bfcd959d448980988d06d53bb315",
                             "weapon": 1
@@ -2027,7 +2039,7 @@
                             "platform": "PSN",
                             "platform_name": "DonFerozo",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 25,
+                            "rank": 26,
                             "secondary_weapon": 1,
                             "session_id": "682486_2.1.1_shipping/300a6e92e6fa438ab0593d49c7dc713a",
                             "weapon": 1
@@ -2039,7 +2051,7 @@
                             "platform": "XBL",
                             "platform_name": "Lord pollo81737",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 26,
+                            "rank": 27,
                             "secondary_weapon": 1,
                             "session_id": "682486_2.1.1_shipping/1838647c19104cc9a28bc8aa0e5dbd2c",
                             "weapon": 6
@@ -2051,7 +2063,7 @@
                             "platform": "PSN",
                             "platform_name": "Phenom_707",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 27,
+                            "rank": 28,
                             "secondary_weapon": 1,
                             "session_id": "682486_2.1.1_shipping/90e94e24e28941bc9b4bd9d269a63ca5",
                             "weapon": 1
@@ -2063,7 +2075,7 @@
                             "platform": "XBL",
                             "platform_name": "CompactPath3113",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 28,
+                            "rank": 29,
                             "secondary_weapon": 2,
                             "session_id": "682486_2.1.1_shipping/0f7213b7d7394e9c87067e8aca5bfa89",
                             "weapon": 1
@@ -2075,7 +2087,7 @@
                             "platform": "PSN",
                             "platform_name": "straywolf92_",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 29,
+                            "rank": 30,
                             "secondary_weapon": 1,
                             "session_id": "682486_2.1.1_shipping/772bfeaa51af48d79e30a7b742d8dcd5",
                             "weapon": 1
@@ -2087,7 +2099,7 @@
                             "platform": "",
                             "platform_name": "loboglorioso18",
                             "player_role_id": "PR_ICEBORNE",
-                            "rank": 30,
+                            "rank": 31,
                             "secondary_weapon": 6,
                             "session_id": "682486_2.1.1_shipping/c61d3de2c3fa49158ab1f3fed27b3fd2",
                             "weapon": 1
@@ -2099,7 +2111,7 @@
                             "platform": "WIN",
                             "platform_name": "工0uxx",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 31,
+                            "rank": 32,
                             "secondary_weapon": 2,
                             "session_id": "682486_2.1.1_shipping/42465688e9c84ee1b7fab0a22d430828",
                             "weapon": 6
@@ -2111,21 +2123,9 @@
                             "platform": "PSN",
                             "platform_name": "kindafoxy_",
                             "player_role_id": "PR_DARKNESS",
-                            "rank": 32,
-                            "secondary_weapon": 2,
-                            "session_id": "682486_2.1.1_shipping/cb3959f0eb1e4eb897a0ef2b21607a82",
-                            "weapon": 1
-                        },
-                        {
-                            "completion_time": 26052,
-                            "objectives_completed": 3,
-                            "phx_account_id": "YQKK6XIKXJAVJPCY754BFBRWZQ",
-                            "platform": "",
-                            "platform_name": "Rip",
-                            "player_role_id": "PR_DARKNESS",
                             "rank": 33,
                             "secondary_weapon": 2,
-                            "session_id": "682486_2.1.1_shipping/5e75097ab3814c3da580e293f43a8068",
+                            "session_id": "682486_2.1.1_shipping/cb3959f0eb1e4eb897a0ef2b21607a82",
                             "weapon": 1
                         },
                         {
