@@ -1,7 +1,7 @@
 {
     "startAt": "2024-12-03 18:00:00Z",
     "endAt": "2025-05-30T18:00:00Z",
-    "lastUpdated": "2025-05-29T18:30:06Z",
+    "lastUpdated": "2025-05-30T04:40:05Z",
     "leaderboard": [
         {
             "guildId": 3,
@@ -18,8 +18,8 @@
         {
             "guildId": 111,
             "rank": 3,
-            "level": 634,
-            "remainingSec": 667
+            "level": 646,
+            "remainingSec": 698
         },
         {
             "guildId": 21,
@@ -346,22 +346,22 @@
             "remainingSec": 1421
         },
         {
-            "guildId": 245,
+            "guildId": 661,
             "rank": 58,
+            "level": 53,
+            "remainingSec": 935
+        },
+        {
+            "guildId": 245,
+            "rank": 59,
             "level": 52,
             "remainingSec": 1041
         },
         {
             "guildId": 215,
-            "rank": 59,
-            "level": 50,
-            "remainingSec": 1004
-        },
-        {
-            "guildId": 661,
             "rank": 60,
             "level": 50,
-            "remainingSec": 876
+            "remainingSec": 1004
         },
         {
             "guildId": 646,
