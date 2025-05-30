@@ -12,12 +12,12 @@
         <div *ngIf="total > 0" class="d-flex flex-column flex-lg-row align-items-center justify-content-lg-end">
             <div class="pr-2">{{1 + (filters.page - 1) * 20}} - {{1 + filters.page * 20 < total ? 1 + filters.page * 20 : total}} of {{total}} guilds </div>
                     <div class="d-flex align-items-center justify-content-center flex-wrap mt-2 mt-lg-0">
-                        <i class="fa-solid fa-angles-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page = 1; applyFilter();"></i>
-                        <i class="fa-solid fa-angle-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page = filters.page - 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angles-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page === 1 ? false : filters.page = 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angle-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page === 1 ? false : filters.page = filters.page - 1; applyFilter();"></i>
                         <input class="form-control no-arrows p-1 text-center" type="number" style="width: 2rem; height: 2rem;" [ngModel]="filters.page" (ngModelChange)="filters.page = ($event > 1 ? ($event < getNumberOfPages() ? $event : getNumberOfPages()) : 1); applyFilter();" />
                         <span class="px-2"> / {{getNumberOfPages()}}</span>
-                        <i class="fa-solid fa-angle-right px-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page = filters.page + 1; applyFilter();"></i>
-                        <i class="fa-solid fa-angles-right pl-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page = getNumberOfPages(); applyFilter();"></i>
+                        <i class="fa-solid fa-angle-right px-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page === getNumberOfPages() ? false : filters.page = filters.page + 1; applyFilter();"></i>
+                        <i class="fa-solid fa-angles-right pl-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page === getNumberOfPages() ? false : filters.page = getNumberOfPages(); applyFilter();"></i>
                     </div>
             </div>
         </div>

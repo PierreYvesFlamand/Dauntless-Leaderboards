@@ -203,36 +203,36 @@ export class DatabaseService {
         const arrayBuffer = await res.arrayBuffer();
         const allData = JSON.parse(pako.inflate(new Uint8Array(arrayBuffer), { to: 'string' })) as ALL_DATA;
 
-        try {
-            const res = await fetch(`https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-season${String(allData.gauntlets.length).padStart(2, '0')}.json?_=${new Date()}`);
-            const dauntlessData = await res.json() as DAUNTLESS_GAUNTLET_SEASON;
+        // try {
+        //     const res = await fetch(`https://storage.googleapis.com/dauntless-gauntlet-leaderboard/production-gauntlet-season${String(allData.gauntlets.length).padStart(2, '0')}.json?_=${new Date()}`);
+        //     const dauntlessData = await res.json() as DAUNTLESS_GAUNTLET_SEASON;
 
-            // Bärtiger Bär :)
-            // ---------------
-            dauntlessData.leaderboard = [...dauntlessData.leaderboard.slice(0, 2), {
-                guild_name: 'ThraxEnjoyers',
-                guild_nameplate: 'THRAAX',
-                level: 800,
-                remaining_sec: 264
-            }, ...dauntlessData.leaderboard.slice(2, 99)];
-            // ---------------
-            // Bärtiger Bär :)
+        //     // // Bärtiger Bär :)
+        //     // // ---------------
+        //     // dauntlessData.leaderboard = [...dauntlessData.leaderboard.slice(0, 2), {
+        //     //     guild_name: 'ThraxEnjoyers',
+        //     //     guild_nameplate: 'THRAAX',
+        //     //     level: 800,
+        //     //     remaining_sec: 264
+        //     // }, ...dauntlessData.leaderboard.slice(2, 99)];
+        //     // // ---------------
+        //     // // Bärtiger Bär :)
 
-            allData.gauntlets[allData.gauntlets.length - 1].lastUpdated = dauntlessData.last_updated;
-            allData.gauntlets[allData.gauntlets.length - 1].leaderboard = dauntlessData.leaderboard.reduce((arr: GAUNTLET_SEASON_LEADERBOARD_ITEM[], item, index): GAUNTLET_SEASON_LEADERBOARD_ITEM[] => {
-                return [
-                    ...arr,
-                    {
-                        guildId: allData.guilds.find(g => g.tag === item.guild_nameplate)?.id || 0,
-                        guildNameTag: `${item.guild_name}|||${item.guild_nameplate}`,
-                        rank: index + 1,
-                        level: item.level,
-                        remainingSec: item.remaining_sec
-                    }
-                ]
-            }, []);
+        //     allData.gauntlets[allData.gauntlets.length - 1].lastUpdated = dauntlessData.last_updated;
+        //     allData.gauntlets[allData.gauntlets.length - 1].leaderboard = dauntlessData.leaderboard.reduce((arr: GAUNTLET_SEASON_LEADERBOARD_ITEM[], item, index): GAUNTLET_SEASON_LEADERBOARD_ITEM[] => {
+        //         return [
+        //             ...arr,
+        //             {
+        //                 guildId: allData.guilds.find(g => g.tag === item.guild_nameplate)?.id || 0,
+        //                 guildNameTag: `${item.guild_name}|||${item.guild_nameplate}`,
+        //                 rank: index + 1,
+        //                 level: item.level,
+        //                 remainingSec: item.remaining_sec
+        //             }
+        //         ]
+        //     }, []);
 
-        } catch (error) { }
+        // } catch (error) { }
 
         // Guilds
         this.data.guilds = allData.guilds.reduce((arr: WEBSITE_GUILD[], item): WEBSITE_GUILD[] => {
