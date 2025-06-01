@@ -7,11 +7,13 @@
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row">
                     <h3 class="card-title d-flex align-items-center">
                         <img class="mr-2" style="width: 1.5rem;" src="img/gauntlet_icon.png" />
-                        Gauntlet Season {{dashboardData.currentGauntletInfo.season}}
+                        <!-- Gauntlet Season {{dashboardData.currentGauntletInfo.season}} -->
+                        Last Gauntlet Seasons
                     </h3>
                     <div class="d-flex flex-column align-items-center d-md-block">
-                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [enhancedRouterLink]="'/seasons/' + dashboardData.currentGauntletInfo.season">View detail</button>
-                        <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.currentGauntletInfo.endAt | date:'YYYY/MM/dd HH:mm'}}</span>
+                        <!-- <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [enhancedRouterLink]="'/seasons/' + dashboardData.currentGauntletInfo.season">View detail</button> -->
+                        <button class="btn btn-xs btn-primary mr-2 mt-2 mt-md-0" [enhancedRouterLink]="'/seasons'">View all</button>
+                        <!-- <span class="badge badge-secondary mt-2 mt-md-0">End at {{dashboardData.currentGauntletInfo.endAt | date:'YYYY/MM/dd HH:mm'}}</span> -->
                     </div>
                 </div>
             </div>
@@ -20,8 +22,10 @@
                     <table class="table text-nowrap table-sm table-striped table-hover mb-0">
                         <thead>
                             <tr>
-                                <th style="width: 14px">Rank</th>
-                                <th>Guild</th>
+                                <!-- <th style="width: 14px">Rank</th> -->
+                                <th style="width: 14px">Season</th>
+                                <!-- <th>Guild</th> -->
+                                <th>Top 1 Guild</th>
                                 <th style="width: 100px">
                                     <div class="text-center">Level</div>
                                 </th>
@@ -31,7 +35,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="height: 2.75rem;" *ngFor="let leaderboardItem of dashboardData.currentGauntletLeaderboard;" [class.text-info]="leaderboardItem.guildId === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guildId) && leaderboardItem.guildId !== sharedService.guildId" [enhancedRouterLink]="'/guilds/' + leaderboardItem.guildId" role="button">
+                            <tr style="height: 2.75rem;" *ngFor="let season of databaseService.data.gauntlets.reverse().slice(0, 10);" [class.text-info]="season.gauntletLeaderboard[0].guildId === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(season.gauntletLeaderboard[0].guildId) && season.gauntletLeaderboard[0].guildId !== sharedService.guildId" [enhancedRouterLink]="'/seasons/' + season.gauntletInfo.season" role="button">
+                                <td style="vertical-align: middle;" class="text-center">{{season.gauntletInfo.season}}.</td>
+                                <td style="vertical-align: middle;">
+                                    <img *ngIf="season.gauntletLeaderboard[0].guildIconFilename" style="width: 1.8rem; margin: -0.1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(season.gauntletLeaderboard[0].guildIconFilename, 'guilds')">
+                                    {{season.gauntletLeaderboard[0].guildName}} <span class="font-weight-light h6">[{{season.gauntletLeaderboard[0].guildTag}}]</span>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <div class="text-center">{{season.gauntletLeaderboard[0].level}}</div>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <div class="text-center">{{season.gauntletLeaderboard[0].remainingSec * 1000 | date:'mm:ss'}}</div>
+                                </td>
+                            </tr>
+                            <!-- <tr style="height: 2.75rem;" *ngFor="let leaderboardItem of dashboardData.currentGauntletLeaderboard;" [class.text-info]="leaderboardItem.guildId === sharedService.guildId" [class.text-warning]="sharedService.hasFavoriteGuild(leaderboardItem.guildId) && leaderboardItem.guildId !== sharedService.guildId" [enhancedRouterLink]="'/guilds/' + leaderboardItem.guildId" role="button">
                                 <td style="vertical-align: middle;" class="text-center">{{leaderboardItem.rank}}.</td>
                                 <td style="vertical-align: middle;">
                                     <img *ngIf="leaderboardItem.guildIconFilename" style="width: 1.8rem; margin: -0.1rem; border-radius: 50%;" class="mx-1" [src]="sharedService.getImgPath(leaderboardItem.guildIconFilename, 'guilds')">
@@ -43,14 +60,14 @@
                                 <td style="vertical-align: middle;">
                                     <div class="text-center">{{leaderboardItem.remainingSec * 1000 | date:'mm:ss'}}</div>
                                 </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer d-flex">
+            <!-- <div class="card-footer d-flex">
                 <span class="badge badge-secondary ml-auto">Last updated at {{dashboardData.currentGauntletInfo.lastUpdated | date:'YYYY/MM/dd HH:mm'}}</span>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-xl-6">
@@ -103,9 +120,9 @@
                     </table>
                 </div>
             </div>
-            <div class="card-footer d-flex">
+            <!-- <div class="card-footer d-flex">
                 <span class="badge badge-secondary ml-auto">Updated weekly</span>
-            </div>
+            </div> -->
         </div>
     </div>
     <!-- <div class="col-xl-6">

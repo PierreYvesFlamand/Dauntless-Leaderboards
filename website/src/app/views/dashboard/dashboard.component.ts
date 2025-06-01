@@ -13,7 +13,7 @@ export class DashboardComponent implements OnDestroy {
   private dashboardDataInterval;
 
   constructor(
-    private databaseService: DatabaseService,
+    public databaseService: DatabaseService,
     public sharedService: SharedService
   ) {
     this.fetchData();

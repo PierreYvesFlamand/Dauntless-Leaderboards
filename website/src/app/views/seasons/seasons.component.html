@@ -17,10 +17,10 @@
                     <h6 class="font-weight-bold">End at</h6>
                     <p>{{seasonData.gauntletInfo.endAt | date:'YYYY/MM/dd HH:mm'}}</p>
 
-                    <ng-container *ngIf="seasonData.gauntletInfo.season === seasonData.allGauntletsInfo.length">
+                    <!-- <ng-container *ngIf="seasonData.gauntletInfo.season === seasonData.allGauntletsInfo.length">
                         <h6 class="font-weight-bold">Last updated</h6>
                         <p>{{seasonData.gauntletInfo.lastUpdated | date:'YYYY/MM/dd HH:mm'}}</p>
-                    </ng-container>
+                    </ng-container> -->
 
                     <button *ngIf="seasonData.gauntletInfo.flourishId" class="btn btn-primary btn-block btn-icon mt-3" (click)="toggleShowChart()">
                         <ng-container *ngIf="!showChart"><i class="fa-solid fa-chart-bar mr-1"></i>Bar Chart Race</ng-container>

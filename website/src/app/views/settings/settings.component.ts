@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dl-settings',
@@ -10,8 +9,7 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent {
   constructor(
-    public sharedService: SharedService,
-    private router: Router
+    public sharedService: SharedService
   ) { }
 
   public async forceWebsiteRefresh() {

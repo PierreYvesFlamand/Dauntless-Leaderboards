@@ -113,10 +113,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -180,10 +180,10 @@
                                         </td>
 
                                         <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 10rem;" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
-                                            {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                            {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                         </td>
                                         <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" style="vertical-align: middle; width: 10rem;" [enhancedRouterLink]="'/trials/' + leaderboardItem.week" role="button">
-                                            {{leaderboardItem.endAt| date:'MMMM d'}}
+                                            {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                         </td>
                                     </tr>
                                 </ng-container>
@@ -226,10 +226,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -271,10 +271,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -316,10 +316,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -361,10 +361,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -406,10 +406,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -451,10 +451,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
@@ -496,10 +496,10 @@
                                         <img class="ml-1 platform-icon" style="width: 2rem; margin: -0.1rem;" *ngIf="leaderboardItem.players[0].platformId" [src]="sharedService.getImgPath(leaderboardItem.players[0].platformId + '.png', 'platforms')" />
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.startAt| date:'YYYY MMMM d'}}
+                                        {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
                                     </td>
                                     <td style="vertical-align: middle; width: 10rem;">
-                                        {{leaderboardItem.endAt| date:'MMMM d'}}
+                                        {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
                                     </td>
                                 </tr>
                             </tbody>
