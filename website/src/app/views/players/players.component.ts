@@ -22,6 +22,15 @@ export class PlayersComponent implements AfterViewInit {
     this.applyFilter();
   }
 
+  public sortColumns: { key: string, group: string, label: string }[] = [
+    { key: 'nbrSoloTop1', group: 'Solo', label: 'Top 1s' },
+    { key: 'nbrSoloTop5', group: 'Solo', label: 'Top 5s' },
+    { key: 'nbrSoloTop100', group: 'Solo', label: 'Top 100s' },
+    { key: 'nbrGroupTop1', group: 'Group', label: 'Top 1s' },
+    { key: 'nbrGroupTop5', group: 'Group', label: 'Top 5s' },
+    { key: 'nbrGroupTop100', group: 'Group', label: 'Top 100s' }
+  ];
+
   public players: WEBSITE_PLAYER[] = [];
   public total: number = 0;
   public isLoading: boolean = true;
@@ -118,6 +127,15 @@ export class PlayersComponent implements AfterViewInit {
     if (this.filters.orderByField !== key) return 'fa-arrows-up-down';
     else if (this.filters.orderByDirection === 'ASC') return 'fa-arrow-up-long';
     return 'fa-arrow-down-long';
+  }
+
+  // Stat shown in the table, depending on the Pre/Post Awakening settings
+  public getStat(player: WEBSITE_PLAYER, key: string): number | '' {
+    const { showPreAwakening, showPostAwakening } = this.sharedService;
+    if (!showPreAwakening && !showPostAwakening) return '';
+
+    const suffix = showPreAwakening && showPostAwakening ? '' : showPreAwakening ? 'PreAwakening' : 'PostAwakening';
+    return player[`${key}${suffix}` as keyof WEBSITE_PLAYER] as number;
   }
 
   public Number: (str: string) => number = str => Number(str);

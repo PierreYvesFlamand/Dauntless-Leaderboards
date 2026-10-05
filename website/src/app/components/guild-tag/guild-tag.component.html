@@ -1,0 +1,6 @@
+<img *ngIf="iconFilename; else noIcon" class="guild-ico" [src]="sharedService.getImgPath(iconFilename, 'guilds')" alt="" />
+<ng-template #noIcon>
+    <span class="guild-ico inline-flex items-center justify-center bg-surface-2 text-[0.6rem] text-muted"><i class="fa-solid fa-shield-halved"></i></span>
+</ng-template>
+<span class="ml-2 font-medium">{{name}}</span>
+<span class="ml-1.5 text-xs font-semibold tracking-wide text-muted">[{{tag}}]</span>

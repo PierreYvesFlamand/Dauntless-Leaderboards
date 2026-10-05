@@ -1,0 +1,21 @@
+<div *ngIf="total > 0" class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm sm:justify-end">
+    <span class="tabular-nums text-muted">
+        <span class="font-medium text-fg">{{rangeStart}}–{{rangeEnd}}</span> of {{total}} {{label}}
+    </span>
+    <div class="flex items-center gap-1">
+        <button class="btn-icon h-8 w-8" [disabled]="page === 1" (click)="goTo(1)" title="First page" aria-label="First page">
+            <i class="fa-solid fa-angles-left text-xs"></i>
+        </button>
+        <button class="btn-icon h-8 w-8" [disabled]="page === 1" (click)="goTo(page - 1)" title="Previous page" aria-label="Previous page">
+            <i class="fa-solid fa-angle-left text-xs"></i>
+        </button>
+        <input #pageInput class="input no-arrows h-8 w-14 px-1 py-0 text-center tabular-nums" type="number" min="1" [max]="numberOfPages" [value]="page" (change)="goTo(+pageInput.value); pageInput.value = '' + page" aria-label="Page" />
+        <span class="px-1 tabular-nums text-muted">/ {{numberOfPages}}</span>
+        <button class="btn-icon h-8 w-8" [disabled]="page === numberOfPages" (click)="goTo(page + 1)" title="Next page" aria-label="Next page">
+            <i class="fa-solid fa-angle-right text-xs"></i>
+        </button>
+        <button class="btn-icon h-8 w-8" [disabled]="page === numberOfPages" (click)="goTo(numberOfPages)" title="Last page" aria-label="Last page">
+            <i class="fa-solid fa-angles-right text-xs"></i>
+        </button>
+    </div>
+</div>

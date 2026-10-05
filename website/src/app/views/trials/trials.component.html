@@ -1,90 +1,74 @@
-<h1>Trials</h1>
-<div class="row mt-4">
-    <div class="col-lg-3">
-        <div class="input-group">
-            <select class="form-control" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page === 1; applyFilter();">
-                <option [ngValue]="0">All behemoths</option>
-                <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
-                    {{behemoth.name}}
-                </option>
-            </select>
+<div class="page-header">
+    <div class="flex items-center gap-3">
+        <img class="h-10 w-10" src="img/trial_icon.png" alt="" />
+        <div>
+            <h1 class="page-title">Trials</h1>
+            <p class="page-subtitle">Weekly Trial records, newest first.</p>
         </div>
     </div>
-    <div class="col-lg-9 mt-2 mt-lg-0">
-        <div *ngIf="total > 0" class="d-flex flex-column flex-lg-row align-items-center justify-content-lg-end">
-            <div class="pr-2">{{1 + (filters.page - 1) * 20}} - {{1 + filters.page * 20 < total ? 1 + filters.page * 20 : total}} of {{total}} trials </div>
-                    <div class="d-flex align-items-center justify-content-center flex-wrap mt-2 mt-lg-0">
-                        <i class="fa-solid fa-angles-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page === 1 ? false : filters.page = 1; applyFilter();"></i>
-                        <i class="fa-solid fa-angle-left px-2" [style.opacity]="filters.page === 1 ? 0.5 : 1" [style.cursor]="filters.page === 1 ? 'not-allowed' : 'pointer'" (click)="filters.page === 1 ? false : filters.page = filters.page - 1; applyFilter();"></i>
-                        <input class="form-control no-arrows p-1 text-center" type="number" style="width: 2rem; height: 2rem;" [ngModel]="filters.page" (ngModelChange)="filters.page = ($event > 1 ? ($event < getNumberOfPages() ? $event : getNumberOfPages()) : 1); applyFilter();" />
-                        <span class="px-2"> / {{getNumberOfPages()}}</span>
-                        <i class="fa-solid fa-angle-right px-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page === getNumberOfPages() ? false : filters.page = filters.page + 1; applyFilter();"></i>
-                        <i class="fa-solid fa-angles-right pl-2" [style.opacity]="filters.page === getNumberOfPages() ? 0.5 : 1" [style.cursor]="filters.page === getNumberOfPages() ? 'not-allowed' : 'pointer'" (click)="filters.page === getNumberOfPages() ? false : filters.page = getNumberOfPages(); applyFilter();"></i>
-                    </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="table-responsive forced-bg" style="max-height: 75vh;">
-                <table class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th style="width: 6rem;" class="text-center px-0">Week</th>
-                            <th>Top 1 solo</th>
-                            <th>Top 1 group</th>
-                            <th style="width: 10rem;">From</th>
-                            <th style="width: 10rem;">To</th>
-                        </tr>
-                    </thead>
+</div>
 
-                    <tbody>
-                        <tr *ngIf="isLoading" style="user-select: none;">
-                            <td colspan="6">
-                                <div class="w-100 d-flex justify-content-center align-items-center" style="height: 100px;">
-                                    <i class="fa-solid fa-rotate fa-spin" style="font-size: 300%; --fa-animation-duration: 2s;"></i>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr *ngFor="let trial of trials" [enhancedRouterLink]="'/trials/' + trial.week" role="button">
-                            <td style="vertical-align: middle; width: 6rem;" class="text-center px-2" [title]="trial.behemothName">
-                                {{trial.week}}
-                                <img class="ml-1" style="width: 3rem; margin: -0.5rem;" [src]="sharedService.getImgPath(trial.behemothName + '.png', 'behemoths')" />
-                            </td>
-                            <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.soloCompletionTime, true)">
-                                <ng-container *ngIf="trial.week === 282 || trial.week === 283; else defaultSolo" >
-                                    DISABLED
-                                </ng-container>
-                                <ng-template #defaultSolo>
-                                    {{sharedService.convertTrialTime(trial.soloCompletionTime, sharedService.trialDecimals)}}
-                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.soloPlayer[0].weaponId + '.png', 'weapons')" />
-                                    <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(trial.soloPlayer[0].secondaryWeaponId + '.png', 'weapons')" />
-                                    <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="trial.soloPlayer[0].roleId" [src]="sharedService.getImgPath(trial.soloPlayer[0].roleId + '.png', 'omnicells')" />
-                                </ng-template>
-                            </td>
-                            <td style="vertical-align: middle;" [title]="sharedService.convertTrialTime(trial.groupCompletionTime, true)">
-                                <ng-container *ngIf="trial.week === 282 || trial.week === 283; else defaultGroup" >
-                                    DISABLED
-                                </ng-container>
-                                <ng-template #defaultGroup>
-                                    {{sharedService.convertTrialTime(trial.groupCompletionTime, sharedService.trialDecimals)}}
-                                    <ng-container *ngFor="let player of trial.groupPlayers">
-                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')" />
-                                        <img *ngIf="trial.week >= 282" class="ml-1" style="width: 2rem; margin: -0.1rem;" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')" />
-                                        <img class="ml-1" style="width: 2rem; margin: -0.1rem;" *ngIf="player.roleId" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" />
-                                        <span class="ml-3"></span>
-                                    </ng-container>
-                                </ng-template>
-                            </td>
-                            <td style="vertical-align: middle; width: 10rem;">
-                                {{trial.startAt | date:'YYYY MMMM d'}}
-                            </td>
-                            <td style="vertical-align: middle; width: 10rem;">
-                                {{trial.week === 307 ? (trial.endAt | date:'MMMM d - hh:mm') : trial.endAt | date:'MMMM d'}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <select class="select w-full sm:max-w-xs" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page = 1; applyFilter();" aria-label="Behemoth">
+        <option [ngValue]="0">All behemoths</option>
+        <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
+            {{behemoth.name}}
+        </option>
+    </select>
+    <dl-pagination [page]="filters.page" [total]="total" label="trials" (pageChange)="filters.page = $event; applyFilter();" />
+</div>
+
+<div class="table-wrap fill">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th class="w-36">Week</th>
+                <th>Top 1 solo</th>
+                <th>Top 1 group</th>
+                <th class="w-40">From</th>
+                <th class="w-40">To</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngIf="isLoading">
+                <td colspan="5">
+                    <div class="spinner"><i class="fa-solid fa-rotate fa-spin"></i></div>
+                </td>
+            </tr>
+            <tr *ngFor="let trial of trials" class="h-14" [enhancedRouterLink]="'/trials/' + trial.week" role="button">
+                <td [title]="trial.behemothName">
+                    <span class="flex items-center gap-2">
+                        <img class="behemoth-ico" [src]="sharedService.getImgPath(trial.behemothName + '.png', 'behemoths')" alt="" />
+                        <span>
+                            <span class="block text-xs text-muted">Week {{trial.week}}</span>
+                            <span class="block max-w-[9rem] truncate font-medium">{{trial.behemothName}}</span>
+                        </span>
+                    </span>
+                </td>
+                <td [title]="sharedService.convertTrialTime(trial.soloCompletionTime, true)">
+                    <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultSolo" class="badge">DISABLED</span>
+                    <ng-template #defaultSolo>
+                        <span class="flex items-center gap-3">
+                            <span class="time w-20">{{sharedService.convertTrialTime(trial.soloCompletionTime, sharedService.trialDecimals)}}</span>
+                            <dl-player-tag [player]="trial.soloPlayer[0]" [showSecondary]="trial.week >= 282" />
+                        </span>
+                    </ng-template>
+                </td>
+                <td [title]="sharedService.convertTrialTime(trial.groupCompletionTime, true)">
+                    <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultGroup" class="badge">DISABLED</span>
+                    <ng-template #defaultGroup>
+                        <span class="flex items-center gap-3">
+                            <span class="time w-20">{{sharedService.convertTrialTime(trial.groupCompletionTime, sharedService.trialDecimals)}}</span>
+                            <span class="flex items-center gap-3">
+                                <dl-player-tag *ngFor="let player of trial.groupPlayers" [player]="player" [showSecondary]="trial.week >= 282" />
+                            </span>
+                        </span>
+                    </ng-template>
+                </td>
+                <td class="text-muted">{{trial.startAt | date:'YYYY MMMM d'}}</td>
+                <td class="text-muted">{{trial.week === 307 ? (trial.endAt | date:'MMMM d - hh:mm') : trial.endAt | date:'MMMM d'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

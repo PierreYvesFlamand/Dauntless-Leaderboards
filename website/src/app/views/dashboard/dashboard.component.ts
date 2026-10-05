@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { DatabaseService, WEBSITE_DASHBOARD } from '../../services/database.service';
+import { DatabaseService, WEBSITE_DASHBOARD, WEBSITE_GAUNTLET } from '../../services/database.service';
 import { SharedService } from '../../services/shared.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { SharedService } from '../../services/shared.service';
 })
 export class DashboardComponent implements OnDestroy {
   public dashboardData?: WEBSITE_DASHBOARD;
+  public lastSeasons: WEBSITE_GAUNTLET[] = [];
   private dashboardDataInterval;
 
   constructor(
@@ -26,5 +27,7 @@ export class DashboardComponent implements OnDestroy {
 
   private fetchData() {
     this.dashboardData = this.databaseService.data.dashboard;
+    // Copy before reversing: data.gauntlets must stay in season order for the seasons page
+    this.lastSeasons = [...this.databaseService.data.gauntlets].reverse().slice(0, 10);
   }
 }

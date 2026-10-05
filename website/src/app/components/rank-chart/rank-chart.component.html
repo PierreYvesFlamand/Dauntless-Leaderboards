@@ -1,0 +1,35 @@
+<svg class="block w-full" [attr.width]="width" [attr.height]="height" [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" aria-label="Rank by season" (mouseleave)="hoverIndex = null">
+    <!-- Grid & y axis -->
+    <g *ngFor="let tick of yTicks">
+        <line class="stroke-line" [attr.x1]="padding.left" [attr.x2]="width - padding.right" [attr.y1]="y(tick)" [attr.y2]="y(tick)" stroke-width="1" />
+        <text class="fill-muted text-[10px] tabular-nums" [attr.x]="padding.left - 8" [attr.y]="y(tick)" text-anchor="end" dominant-baseline="middle">#{{tick}}</text>
+    </g>
+
+    <!-- X axis labels -->
+    <ng-container *ngFor="let point of points; let i = index">
+        <text *ngIf="showXLabel(i)" class="fill-muted text-[10px] tabular-nums" [attr.x]="x(i)" [attr.y]="height - 8" text-anchor="middle">S{{point.season}}</text>
+    </ng-container>
+
+    <!-- Crosshair -->
+    <line *ngIf="hoverIndex !== null" class="stroke-muted/50" [attr.x1]="hoverX" [attr.x2]="hoverX" [attr.y1]="padding.top" [attr.y2]="height - padding.bottom" stroke-width="1" />
+
+    <!-- Line -->
+    <path class="stroke-chart" [attr.d]="linePath" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+
+    <!-- Markers (surface ring keeps them distinct from the line) -->
+    <ng-container *ngFor="let point of points; let i = index">
+        <circle *ngIf="point.rank !== null" class="fill-chart stroke-surface" [attr.cx]="x(i)" [attr.cy]="y(point.rank)" [attr.r]="hoverIndex === i ? 6 : 4" stroke-width="2" />
+    </ng-container>
+
+    <!-- Hit targets: full-height column per season -->
+    <rect *ngFor="let point of points; let i = index" class="cursor-default" fill="transparent" [attr.x]="x(i) - step / 2" [attr.y]="0" [attr.width]="step || plotWidth" [attr.height]="height" (mouseenter)="hoverIndex = i" />
+</svg>
+
+<div *ngIf="hoverPoint as hp" class="pointer-events-none absolute top-1 z-10 -translate-x-1/2 whitespace-nowrap rounded-lg border border-line bg-surface px-2.5 py-1.5 text-xs shadow-card" [style.left.px]="tooltipLeft">
+    <div class="font-semibold">Season {{hp.season}}</div>
+    <div *ngIf="hp.rank !== null" class="text-muted">
+        Rank <span class="font-medium text-fg">#{{hp.rank}}</span>
+        <ng-container *ngIf="hp.level"> · Level <span class="font-medium text-fg">{{hp.level}}</span></ng-container>
+    </div>
+    <div *ngIf="hp.rank === null" class="text-muted">Not ranked</div>
+</div>

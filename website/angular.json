@@ -57,6 +57,10 @@
               }
             ],
             "styles": [
+              "node_modules/@fontsource-variable/inter/index.css",
+              "node_modules/@fontsource/cinzel/600.css",
+              "node_modules/@fontsource/cinzel/700.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -66,8 +70,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "800kB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -116,6 +120,10 @@
               }
             ],
             "styles": [
+              "node_modules/@fontsource-variable/inter/index.css",
+              "node_modules/@fontsource/cinzel/600.css",
+              "node_modules/@fontsource/cinzel/700.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -126,5 +134,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "261ba142-c710-4140-838d-b1b5111977c8"
   }
 }

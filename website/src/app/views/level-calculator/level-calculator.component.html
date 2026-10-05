@@ -1,113 +1,92 @@
-<h1>Level Calculator</h1>
-<div class="row mt-4">
-    <div class="col-12 col-md-5">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Calculator</h3>
-            </div>
-            <div class="card-body">
-                <label>Current level</label>
-                <input 
-                    style="width: 140px;"
-                    class="form-control"
-                    placeholder="Current level"
-                    type="number"
-                    min="1"
-                    max="59"
-                    [(ngModel)]="currentLevel"
-                    (ngModelChange)="onValueChange()"
-                />
-                <label class="mt-2">Current XP</label>
-                <input 
-                    style="width: 140px;"
-                    class="form-control"
-                    placeholder="Current xp"
-                    type="number"
-                    min="0"
-                    [(ngModel)]="currentXP"
-                    (ngModelChange)="onValueChange()"
-                />
-                <label class="mt-2">Target level</label>
-                <input 
-                    style="width: 140px;"
-                    class="form-control"
-                    placeholder="Target level"
-                    type="number"
-                    min="2"
-                    max="60"
-                    [(ngModel)]="targetLevel"
-                    (ngModelChange)="onValueChange()"
-                />
-                <label class="mt-2">Required XP : {{requiredXP === undefined ? "Error" : requiredXP}}</label>
-                <br>
-                <p>
-                    Dull Aetherite: 100 XP<br>
-                    Shining Aetherite: 1000 XP<br>
-                    Peerless Aetherite: 5000 XP
-                </p>
-                <label>Dull Aetherite</label>
-                <input 
-                    style="width: 140px;"
-                    class="form-control"
-                    placeholder="Dull Aetherite"
-                    type="number"
-                    min="0"
-                    [(ngModel)]="dullAetherite"
-                    (ngModelChange)="onAetheriteValueChange()"
-                />
-                <label class="mt-2">Shining Aetherite</label>
-                <input 
-                    style="width: 140px;"
-                    class="form-control"
-                    placeholder="Shining Aetherite"
-                    type="number"
-                    min="0"
-                    [(ngModel)]="shiningAetherite"
-                    (ngModelChange)="onAetheriteValueChange()"
-                />
-                <label class="mt-2">Peerless Aetherite</label>
-                <input 
-                    style="width: 140px;"
-                    class="form-control"
-                    placeholder="Peerless Aetherite"
-                    type="number"
-                    min="0"
-                    [(ngModel)]="peerlessAetherite"
-                    (ngModelChange)="onAetheriteValueChange()"
-                />
-                <label class="mt-2">Total Aetherite XP : {{AetheriteXP === undefined ? "Error" : AetheriteXP}}</label>
-            </div>
-        </div>
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Level Calculator</h1>
+        <p class="page-subtitle">How much XP you need, and how much Aetherite you have.</p>
     </div>
-    <div class="col-12 col-md-7">
-        <div class="card">
+</div>
+
+<div class="fill grid gap-6 lg:grid-cols-5">
+    <div class="space-y-6 lg:col-span-2">
+        <section class="card">
             <div class="card-header">
-                <h3 class="card-title">Level table</h3>
+                <h2 class="card-title"><i class="fa-solid fa-chart-line text-accent"></i> Calculator</h2>
             </div>
             <div class="card-body">
-                <div class="table-responsive forced-bg" style="max-height: 75vh;">
-                    <table
-                        class="table table-head-fixed table-bordered text-nowrap table-sm table-striped table-hover mb-0">
-                        <thead>
-                            <tr>
-                                <th class="text-right" style="width: 50px;">Level</th>
-                                <th>XP to level</th>
-                                <th>Total XP</th>
-                                <th>Power</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr *ngFor="let item of [].constructor(60); let i = index">
-                                <td class="text-right" style="width: 50px;">{{i + 1}}</td>
-                                <td>{{requiredXpTable[i]}}</td>
-                                <td>{{getTotalXPAtLevel(i+1)}}</td>
-                                <td>{{getPowerAtLevel(i+1)}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="label" for="current-level">Current level</label>
+                        <input id="current-level" class="input" placeholder="Current level" type="number" min="1" max="59" [(ngModel)]="currentLevel" (ngModelChange)="onValueChange()" />
+                    </div>
+                    <div>
+                        <label class="label" for="current-xp">Current XP</label>
+                        <input id="current-xp" class="input" placeholder="Current xp" type="number" min="0" [(ngModel)]="currentXP" (ngModelChange)="onValueChange()" />
+                    </div>
+                    <div>
+                        <label class="label" for="target-level">Target level</label>
+                        <input id="target-level" class="input" placeholder="Target level" type="number" min="2" max="60" [(ngModel)]="targetLevel" (ngModelChange)="onValueChange()" />
+                    </div>
+                </div>
+                <div class="stat mt-4 flex items-center justify-between">
+                    <span class="stat-label">Required XP</span>
+                    <span class="stat-value mt-0 text-accent">{{requiredXP === undefined ? "Error" : (requiredXP | number)}}</span>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <h2 class="card-title">Aetherite</h2>
+            </div>
+            <div class="card-body">
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="label" for="dull">Dull</label>
+                        <input id="dull" class="input" placeholder="Dull Aetherite" type="number" min="0" [(ngModel)]="dullAetherite" (ngModelChange)="onAetheriteValueChange()" />
+                        <span class="mt-1 block text-xs text-muted">100 XP</span>
+                    </div>
+                    <div>
+                        <label class="label" for="shining">Shining</label>
+                        <input id="shining" class="input" placeholder="Shining Aetherite" type="number" min="0" [(ngModel)]="shiningAetherite" (ngModelChange)="onAetheriteValueChange()" />
+                        <span class="mt-1 block text-xs text-muted">1000 XP</span>
+                    </div>
+                    <div>
+                        <label class="label" for="peerless">Peerless</label>
+                        <input id="peerless" class="input" placeholder="Peerless Aetherite" type="number" min="0" [(ngModel)]="peerlessAetherite" (ngModelChange)="onAetheriteValueChange()" />
+                        <span class="mt-1 block text-xs text-muted">5000 XP</span>
+                    </div>
+                </div>
+                <div class="stat mt-4 flex items-center justify-between">
+                    <span class="stat-label">Total Aetherite XP</span>
+                    <span class="stat-value mt-0 text-accent">{{AetheriteXP === undefined ? "Error" : (AetheriteXP | number)}}</span>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <section class="card fill flex flex-col overflow-clip lg:col-span-3">
+        <div class="card-header">
+            <h2 class="card-title">Level table</h2>
+        </div>
+        <div class="table-wrap-flush">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th class="w-16 text-right">Level</th>
+                        <th class="text-right">XP to level</th>
+                        <th class="text-right">Total XP</th>
+                        <th class="text-right">Power</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let item of [].constructor(60); let i = index" [ngClass]="{ 'bg-accent/10': i + 1 >= currentLevel && i + 1 <= targetLevel }">
+                        <td class="text-right font-semibold tabular-nums text-muted">{{i + 1}}</td>
+                        <td class="text-right tabular-nums">{{requiredXpTable[i]}}</td>
+                        <td class="text-right tabular-nums">{{getTotalXPAtLevel(i+1)}}</td>
+                        <td class="text-right tabular-nums">{{getPowerAtLevel(i+1)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>

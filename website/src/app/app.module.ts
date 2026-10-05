@@ -23,6 +23,14 @@ import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.c
 import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 import { FlourishFrameComponent } from './components/flourish-frame/flourish-frame.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { PlayerTagComponent } from './components/player-tag/player-tag.component';
+import { GuildTagComponent } from './components/guild-tag/guild-tag.component';
+import { RankChartComponent } from './components/rank-chart/rank-chart.component';
+import { BarListComponent } from './components/bar-list/bar-list.component';
+import { TrendChartComponent } from './components/trend-chart/trend-chart.component';
+import { HeatmapComponent } from './components/heatmap/heatmap.component';
+import { StatisticsComponent } from './views/statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +53,15 @@ import { FlourishFrameComponent } from './components/flourish-frame/flourish-fra
     TrialDetailComponent,
     PlayersComponent,
     PlayerDetailComponent,
-    FlourishFrameComponent
+    FlourishFrameComponent,
+    PaginationComponent,
+    PlayerTagComponent,
+    GuildTagComponent,
+    RankChartComponent,
+    BarListComponent,
+    TrendChartComponent,
+    HeatmapComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

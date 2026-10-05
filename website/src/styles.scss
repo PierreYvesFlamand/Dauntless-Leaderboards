@@ -1,76 +1,392 @@
-// Scroll bar
-body::-webkit-scrollbar-track,
-body ::-webkit-scrollbar-track {
-    background-color: transparent;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-body::-webkit-scrollbar,
-body ::-webkit-scrollbar {
-    width: 5px;
-}
+// ---------------------------------------------------------------------------
+// Theme tokens (RGB triplets, consumed by tailwind.config.js)
+// AppComponent toggles .dark-mode / .light-mode on <html> and <body> from the theme setting
+// ---------------------------------------------------------------------------
+@layer base {
+  :root,
+  .dark-mode {
+    --c-bg: 11 13 18;
+    --c-surface: 20 23 31;
+    --c-surface-2: 28 32 43;
+    --c-line: 40 46 60;
+    --c-fg: 230 232 238;
+    --c-muted: 139 147 167;
+    --c-accent: 214 182 74;
+    --c-accent-fg: 20 16 4;
+    --c-chart: 168 137 42; // validated for the dark surface (dataviz lightness band)
+    --c-me: 56 189 248;
+    --c-fav: 251 191 36;
+    --c-gold: 234 196 72;
+    --c-silver: 176 186 204;
+    --c-bronze: 205 127 70;
+    color-scheme: dark;
+  }
 
-body::-webkit-scrollbar-thumb,
-body ::-webkit-scrollbar-thumb {
-    background-color: #343a40;
-    border: 0;
-    border-radius: 50px;
-}
+  .light-mode {
+    --c-bg: 244 245 248;
+    --c-surface: 255 255 255;
+    --c-surface-2: 241 243 247;
+    --c-line: 222 226 233;
+    --c-fg: 24 27 35;
+    --c-muted: 98 106 124;
+    --c-accent: 168 132 20;
+    --c-accent-fg: 255 255 255;
+    --c-chart: 168 132 20;
+    --c-me: 2 132 199;
+    --c-fav: 202 138 4;
+    --c-gold: 191 144 0;
+    --c-silver: 120 132 152;
+    --c-bronze: 170 96 40;
+    color-scheme: light;
+  }
 
-body.dark-mode::-webkit-scrollbar-thumb,
-body.dark-mode ::-webkit-scrollbar-thumb {
-    background-color: rgba($color: #ffffff, $alpha: 0.75);
-    border: 0;
-    border-radius: 50px;
-}
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
 
-h1 {
-    font-size: 2rem;
-}
+  body {
+    @apply bg-bg text-fg font-sans antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
 
-p {
+  p {
     word-break: break-word;
+  }
+
+  a {
+    @apply text-accent hover:underline;
+  }
+
+  // Scroll bar
+  // Firefox only: in Chromium, scrollbar-width/color would disable the ::-webkit-scrollbar rules below
+  @supports (-moz-appearance: none) {
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgb(var(--c-muted) / 0.5) transparent;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--c-muted) / 0.5);
+    border-radius: 50px;
+  }
+
+  // Number Input without arrows
+  input[type='number'].no-arrows::-webkit-outer-spin-button,
+  input[type='number'].no-arrows::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'].no-arrows {
+    -moz-appearance: textfield;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Components
+// ---------------------------------------------------------------------------
+@layer components {
+  // Page
+  .page-header {
+    @apply mb-6 flex flex-wrap items-center justify-between gap-3;
+  }
+
+  .page-title {
+    @apply font-display text-2xl font-semibold tracking-wide text-fg sm:text-3xl;
+  }
+
+  .page-subtitle {
+    @apply mt-1 text-sm text-muted;
+  }
+
+  // Card
+  .card {
+    @apply rounded-xl border border-line bg-surface shadow-card;
+  }
+
+  .card-header {
+    @apply flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-3;
+  }
+
+  .card-title {
+    @apply flex items-center gap-2 text-base font-semibold;
+  }
+
+  .card-body {
+    @apply p-4;
+  }
+
+  // Buttons
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent px-3.5 py-2 text-sm font-medium no-underline transition-colors hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-sm {
+    @apply px-2.5 py-1 text-xs;
+  }
+
+  .btn-primary {
+    @apply bg-accent text-accent-fg hover:bg-accent/90;
+  }
+
+  .btn-secondary {
+    @apply border-line bg-surface-2 text-fg hover:border-muted/60;
+  }
+
+  .btn-ghost {
+    @apply text-muted hover:bg-surface-2 hover:text-fg;
+  }
+
+  .btn-icon {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-lg text-muted transition-colors hover:bg-surface-2 hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/60;
+  }
+
+  // Forms
+  .input,
+  .select {
+    @apply block w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-fg placeholder:text-muted/70 transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30;
+  }
+
+  .select {
+    @apply cursor-pointer appearance-none bg-no-repeat pr-9;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%238b93a7'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.17l3.71-3.94a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-position: right 0.6rem center;
+    background-size: 1.1rem;
+  }
+
+  .label {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted;
+  }
+
+  // Toggle switch: <label class="switch"><input type="checkbox"><span></span></label>
+  .switch {
+    @apply relative inline-flex h-6 w-11 shrink-0 cursor-pointer;
+
+    input {
+      @apply sr-only;
+    }
+
+    span {
+      @apply absolute inset-0 rounded-full border border-line bg-surface-2 transition-colors;
+
+      &::before {
+        @apply absolute left-0.5 top-0.5 h-[1.125rem] w-[1.125rem] rounded-full bg-muted transition-transform content-[''];
+      }
+    }
+
+    input:checked + span {
+      @apply border-accent bg-accent;
+
+      &::before {
+        @apply translate-x-5 bg-accent-fg;
+      }
+    }
+
+    input:focus-visible + span {
+      @apply ring-2 ring-accent/50;
+    }
+  }
+
+  // Tables
+  // From lg, a page containing .fill is fitted to the content area (see layout), so its table
+  // shrinks to the space left above the footer and scrolls inside. Other pages scroll normally.
+  // .fill marks every element between the page and the table that must pass that height down
+  // (flex column or single row grid); the table wrapper itself shrinks as a scroll container.
+  main.page > :not(router-outlet) {
+    @apply flex flex-col;
+  }
+
+  @media (min-width: 1024px) {
+    main.page:has(.fill),
+    main.page:has(.fill) > :not(router-outlet) {
+      min-height: 0;
+    }
+
+    // Only the .fill chain and the table may shrink, everything else keeps its height
+    main.page:has(.fill) > * > :not(.fill, .table-wrap, .table-wrap-flush),
+    .fill > :not(.fill, .table-wrap, .table-wrap-flush) {
+      flex-shrink: 0;
+    }
+  }
+
+  .fill {
+    @apply lg:min-h-0;
+
+    &.grid {
+      @apply lg:grid-rows-[minmax(0,1fr)];
+    }
+  }
+
+  // Tables scroll inside their wrapper. --thead-h: sticky header height,
+  // so the vertical scrollbar starts below it.
+  .table-wrap,
+  .table-wrap-flush {
+    --thead-h: 37px;
+    @apply overflow-auto lg:min-h-[10rem];
+    // Paint the header band (and its bottom line) behind the scrollbar gutter too
+    background-image: linear-gradient(
+      rgb(var(--c-surface-2)) calc(var(--thead-h) - 1px),
+      rgb(var(--c-line)) calc(var(--thead-h) - 1px) var(--thead-h),
+      rgb(var(--c-surface)) var(--thead-h)
+    );
+
+    &::-webkit-scrollbar-track {
+      margin-top: var(--thead-h);
+      margin-bottom: 4px;
+    }
+  }
+
+  .table-wrap {
+    @apply rounded-xl border border-line bg-surface shadow-card;
+  }
+
+  .data-table {
+    @apply w-full border-separate border-spacing-0 whitespace-nowrap text-sm;
+
+    th {
+      @apply sticky top-0 z-10 border-b border-line bg-surface-2 px-3 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted;
+    }
+
+    td {
+      @apply border-b border-line/60 px-3 py-2 align-middle;
+    }
+
+    tbody tr:last-child td {
+      @apply border-b-0;
+    }
+
+    tbody tr {
+      @apply transition-colors;
+    }
+
+    tbody tr[role='button'] {
+      @apply cursor-pointer hover:bg-surface-2;
+    }
+
+    .num {
+      @apply text-right tabular-nums;
+    }
+  }
+
+  .th-sort {
+    @apply cursor-pointer select-none hover:text-fg;
+  }
+
+  // Tabs
+  // Bottom line drawn as an inset shadow so the active tab border sits on it without overflowing
+  .tabs {
+    @apply flex shrink-0 gap-1 overflow-x-auto overflow-y-hidden shadow-[inset_0_-1px_0_rgb(var(--c-line))];
+  }
+
+  .tab {
+    @apply inline-flex shrink-0 cursor-pointer items-center gap-1.5 whitespace-nowrap border-b-2 border-transparent px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-fg;
+
+    &.active {
+      @apply border-accent text-fg;
+    }
+
+    img {
+      @apply h-7 w-7;
+    }
+  }
+
+  .tab-count {
+    @apply rounded-full bg-surface-2 px-1.5 text-xs tabular-nums text-muted;
+  }
+
+  // Misc
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-md border border-line bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted;
+  }
+
+  .alert {
+    @apply flex items-start gap-3 rounded-lg border border-line bg-surface-2 px-4 py-3 text-sm text-muted;
+  }
+
+  .spinner {
+    @apply flex h-28 w-full items-center justify-center text-3xl text-muted;
+  }
+
+  .stat {
+    @apply rounded-lg border border-line bg-surface-2 px-3 py-2;
+  }
+
+  .stat-label {
+    @apply text-xs uppercase tracking-wider text-muted;
+  }
+
+  .stat-value {
+    @apply mt-0.5 text-lg font-semibold tabular-nums;
+  }
+
+  .stat-sub {
+    @apply mt-0.5 truncate text-xs text-muted;
+  }
+
+  // Rank pill (gold / silver / bronze for top 3)
+  .rank {
+    @apply inline-flex h-7 min-w-[1.75rem] items-center justify-center rounded-md px-1.5 text-xs font-semibold tabular-nums text-muted;
+  }
+
+  .rank-1 {
+    @apply bg-gold/15 text-gold;
+  }
+
+  .rank-2 {
+    @apply bg-silver/15 text-silver;
+  }
+
+  .rank-3 {
+    @apply bg-bronze/15 text-bronze;
+  }
+
+  // Game icons
+  .ico {
+    @apply inline-block h-8 w-8 shrink-0 object-contain;
+  }
+
+  .ico-sm {
+    @apply inline-block h-5 w-5 shrink-0 object-contain;
+  }
+
+  .behemoth-ico {
+    @apply -my-2 inline-block h-11 w-11 shrink-0 object-contain;
+  }
+
+  .guild-ico {
+    @apply inline-block h-6 w-6 shrink-0 rounded-full object-cover;
+  }
+
+  .time {
+    @apply font-medium tabular-nums;
+  }
+
+  // Highlight the locked ("me") player/guild and favorites
+  .is-me {
+    @apply text-me;
+  }
+
+  .is-fav {
+    @apply text-fav;
+  }
 }
 
 // Invert platform icon color on light mode
 .light-mode .platform-icon {
-    filter: invert(0.667);
-}
-
-.link-color {
-    color: #495057 !important;
-}
-
-.dark-mode {
-    .link-color {
-        color: white !important;
-    }
-}
-
-.light-mode .forced-bg {
-    background-color: white !important;
-}
-
-.dark-mode .forced-bg {
-    background-color: #343a40 !important;
-}
-
-.dark-mode pre {
-    color: white !important;
-}
-
-.dark-mode hr {
-    background-color: white !important;
-}
-
-// Number Input without arrows
-/* Chrome, Safari, Edge, Opera */
-input[type=number].no-arrows::-webkit-outer-spin-button,
-input[type=number].no-arrows::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-input[type=number].no-arrows {
-    -moz-appearance: textfield;
+  filter: invert(0.667);
 }

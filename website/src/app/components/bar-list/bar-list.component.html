@@ -1,0 +1,29 @@
+<ol class="space-y-0.5">
+    <li *ngFor="let item of items; let i = index">
+        <!-- enhancedRouterLink navigates on any mouseup, so only rows with a link get it -->
+        <div *ngIf="item.link; else plainRow" class="bar-row cursor-pointer hover:bg-surface-2" role="link" [title]="item.sub ? item.label + ' · ' + item.sub : item.label" [enhancedRouterLink]="item.link">
+            <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: item, index: i }" />
+        </div>
+        <ng-template #plainRow>
+            <div class="bar-row" [title]="item.sub ? item.label + ' · ' + item.sub : item.label">
+                <ng-container *ngTemplateOutlet="rowContent; context: { $implicit: item, index: i }" />
+            </div>
+        </ng-template>
+    </li>
+</ol>
+
+<ng-template #rowContent let-item let-i="index">
+    <!-- Phones: rank + label on one line, bar full width below; from sm: fixed label column so bars align -->
+    <span class="flex w-full min-w-0 items-center gap-2 sm:shrink-0" [ngClass]="manyIcons ? 'sm:w-80' : 'sm:w-56'">
+        <span *ngIf="ranked" class="w-6 shrink-0 text-right text-xs tabular-nums text-muted">{{i + 1}}</span>
+        <span *ngIf="item.icons?.length" class="flex shrink-0 items-center">
+            <img *ngFor="let icon of item.icons" [src]="icon.src" alt="" class="h-6 w-6 object-contain" [ngClass]="icon.cls || ''" />
+        </span>
+        <span class="truncate text-sm font-medium">{{item.isPlayerName && sharedService.themero ? "Themero" : item.label}}</span>
+    </span>
+    <span class="flex min-w-0 flex-1 basis-full items-center gap-2 sm:basis-auto" [ngClass]="ranked ? 'pl-8 sm:pl-0' : ''">
+        <!-- Longest bar leaves room for its value label -->
+        <span class="h-4 shrink-0 rounded-r bg-chart" [style.width]="'calc((100% - 4.5rem) * ' + ratio(item) + ')'"></span>
+        <span class="whitespace-nowrap text-xs font-semibold tabular-nums">{{item.valueLabel}}</span>
+    </span>
+</ng-template>

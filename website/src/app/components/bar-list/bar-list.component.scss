@@ -1,0 +1,4 @@
+// Wraps label above the bar on phones, side by side from sm
+.bar-row {
+  @apply flex flex-wrap items-center gap-x-3 gap-y-1 rounded-md px-2 py-1.5 transition-colors sm:flex-nowrap;
+}

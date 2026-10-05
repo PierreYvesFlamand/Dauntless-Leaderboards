@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 import { DatabaseService, WEBSITE_ME } from '../../services/database.service';
 
@@ -9,16 +9,18 @@ import { DatabaseService, WEBSITE_ME } from '../../services/database.service';
   standalone: false
 })
 export class HeaderComponent {
-  public theme: string = '';
+  @Output() public toggleSidebar = new EventEmitter<void>();
+
+  public menuOpen: boolean = false;
   public playerId: number = -1;
   public guildId: number = -1;
   public me?: WEBSITE_ME;
 
   constructor(
     public sharedService: SharedService,
-    public databaseService: DatabaseService
+    public databaseService: DatabaseService,
+    private elementRef: ElementRef<HTMLElement>
   ) {
-    this.sharedService.theme$.subscribe(value => this.theme = value);
     this.sharedService.guildId$.subscribe(value => {
       this.guildId = value;
       this.onGuildIdOrPlayerIdUpdate();
@@ -29,7 +31,7 @@ export class HeaderComponent {
     });
   }
 
-  public async onGuildIdOrPlayerIdUpdate() {    
+  public async onGuildIdOrPlayerIdUpdate() {
     this.me = {
       player: {
         id: this.playerId,
@@ -41,5 +43,15 @@ export class HeaderComponent {
         iconFilename: this.databaseService.data.guilds[this.guildId - 1]?.iconFilename || '',
       }
     }
+  }
+
+  @HostListener('document:click', ['$event'])
+  public onDocumentClick(event: MouseEvent) {
+    if (this.menuOpen && !this.elementRef.nativeElement.contains(event.target as Node)) this.menuOpen = false;
+  }
+
+  @HostListener('document:keydown.escape')
+  public onEscape() {
+    this.menuOpen = false;
   }
 }
