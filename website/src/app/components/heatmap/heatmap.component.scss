@@ -1,0 +1,16 @@
+// 2px surface gap between cells
+.heatmap {
+  @apply w-full border-separate;
+  border-spacing: 2px;
+}
+
+.heatmap-cell {
+  @apply h-9 min-w-[3.25rem] rounded px-1 text-center text-xs font-medium tabular-nums text-fg;
+  background-color: rgb(var(--c-chart) / var(--alpha, 0));
+}
+
+// Dark mode: light text loses contrast on the strongest fills, switch to dark ink.
+// Light mode text is already dark and clears contrast at every intensity.
+:host-context(.dark-mode) .heatmap-cell.strong {
+  color: rgb(20 16 4);
+}

@@ -1,0 +1,9 @@
+<span class="inline-flex items-center gap-0.5">
+    <img class="ico" [src]="sharedService.getImgPath(player.weaponId + '.png', 'weapons')" alt="" />
+    <img *ngIf="showSecondary" class="ico" [src]="sharedService.getImgPath(player.secondaryWeaponId + '.png', 'weapons')" alt="" />
+    <img *ngIf="player.roleId" class="ico" [src]="sharedService.getImgPath(player.roleId + '.png', 'omnicells')" alt="" />
+</span>
+<ng-container *ngIf="player.playerName !== undefined">
+    <span class="ml-2 font-medium">{{sharedService.themero ? "Themero" : player.playerName}}</span>
+    <img *ngIf="player.platformId" class="ico-sm platform-icon ml-1.5 opacity-80" [src]="sharedService.getImgPath(player.platformId + '.png', 'platforms')" alt="" />
+</ng-container>

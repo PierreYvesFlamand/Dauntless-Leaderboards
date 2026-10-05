@@ -160,6 +160,27 @@ export class SharedService {
         return '';
     }
 
+    // Names by image id (img/weapons/<id>.png, img/omnicells/<id>.png)
+    public readonly weaponNames: Record<number, string> = {
+        1: 'Hammer', 2: 'Axe', 3: 'Sword', 4: 'Chain Blades', 5: 'War Pike', 6: 'Repeaters', 7: 'Aether Strikers'
+    };
+    public readonly omnicellNames: Record<number, string> = {
+        1: 'Bastion', 2: 'Revenant', 3: 'Discipline', 4: 'Artificer', 5: 'Iceborne', 6: 'Tempest'
+    };
+    public readonly platformNames: Record<number, string> = {
+        1: 'PC', 2: 'PlayStation', 3: 'Xbox', 4: 'Switch'
+    };
+
+    // Guild Score explanation (formula in DatabaseService)
+    public readonly guildScoreTooltip: string = 'Points per season from the final rank (1st = 100, 10th = 50, 50th = 15). '
+        + 'Recent seasons count more: points halve every 3 seasons back. '
+        + 'Score = weighted average over all seasons, 0-100.';
+
+    // Weeks 282 & 283 leaderboards were disabled (Golden Claws exploit)
+    public isDisabledTrialWeek(week: number): boolean {
+        return week === 282 || week === 283;
+    }
+
     // ShowPreAwakening
     private allowedShowPreAwakening = [true, false];
     private showPreAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPreAwakening[0]);

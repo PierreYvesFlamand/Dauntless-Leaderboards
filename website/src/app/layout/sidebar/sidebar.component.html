@@ -1,150 +1,42 @@
-<!-- Every items that redirect inside the app is double to trick auto close on small devices -->
-
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <a class="brand-link user-select-none d-lg-none" routerLink="/" data-widget="pushmenu">
-    <div class="brand-text font-weight-light text-center">
-      {{sharedService.themero ? "Themero" : "Dauntless"}} Leaderboards
+<aside class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-line bg-surface transition-transform duration-200 ease-out lg:translate-x-0" [class.-translate-x-full]="!open" [class.translate-x-0]="open">
+    <!-- Brand -->
+    <div class="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
+        <a routerLink="/" class="flex items-center gap-3 text-fg no-underline hover:no-underline">
+            <img src="img/app_icon.png" alt="" class="h-8 w-8 rounded-lg bg-accent p-1" />
+            <span class="font-display text-[0.95rem] font-bold leading-tight tracking-wide">
+                {{sharedService.themero ? "Themero" : "Dauntless"}}<br>
+                <span class="text-accent">Leaderboards</span>
+            </span>
+        </a>
+        <button class="btn-icon lg:hidden" (click)="close.emit()" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
     </div>
-  </a>
-  <a class="brand-link user-select-none d-none d-lg-block" routerLink="/">
-    <div class="brand-text font-weight-light text-center">
-      {{sharedService.themero ? "Themero" : "Dauntless"}} Leaderboards
-    </div>
-  </a>
 
-  <div class="sidebar">
-    <nav class="mt-4">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/" class="nav-link d-lg-none" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-gauge-high"></i>
-            <p>Dashboard</p>
-          </a>
-          <a routerLink="/" class="nav-link d-none d-lg-block" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-gauge-high"></i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-
-        <li class="nav-header user-select-none">GAUNTLET</li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/seasons" class="nav-link d-lg-none" routerLinkActive="active">
-            <img class="nav-icon mr-2" src="img/gauntlet_icon.png">
-            <p>Seasons</p>
-          </a>
-          <a routerLink="/seasons" class="nav-link d-none d-lg-block" routerLinkActive="active">
-            <img class="nav-icon mr-2" src="img/gauntlet_icon.png">
-            <p>Seasons</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/guilds" class="nav-link d-lg-none" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-users"></i>
-            <p>Guilds</p>
-          </a>
-          <a routerLink="/guilds" class="nav-link d-none d-lg-block" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-users"></i>
-            <p>Guilds</p>
-          </a>
-        </li>
-
-        <li class="nav-header user-select-none">TRIALS</li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/trials" class="nav-link d-lg-none" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <img class="nav-icon mr-2" src="img/trial_icon.png">
-            <p>Trials</p>
-          </a>
-          <a routerLink="/trials" class="nav-link d-none d-lg-block" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <img class="nav-icon mr-2" src="img/trial_icon.png">
-            <p>Trials</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/players" class="nav-link d-lg-none" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-user"></i>
-            <p>Players</p>
-          </a>
-          <a routerLink="/players" class="nav-link d-none d-lg-block" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-user"></i>
-            <p>Players</p>
-          </a>
-        </li>
-
-        <li class="nav-header user-select-none">TOOLS</li>
-
-        <li class="nav-item">
-          <a href="https://dauntless-builder.com/" target="_blank" class="nav-link">
-            <img class="nav-icon mr-2" src="https://dauntless-builder.com/icon.png">
-            <p>Dauntless Builder</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/beta/level-calculator" class="nav-link d-lg-none" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-chart-line"></i>
-            <p>Level Calculator</p>
-          </a>
-          <a routerLink="/level-calculator" class="nav-link d-none d-lg-block" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-chart-line"></i>
-            <p>Level Calculator</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/unseen-translator" class="nav-link d-lg-none" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-language"></i>
-            <p>Unseen Translator</p>
-          </a>
-          <a routerLink="/unseen-translator" class="nav-link d-none d-lg-block" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">
-            <i class="nav-icon mr-2 fa-solid fa-language"></i>
-            <p>Unseen Translator</p>
-          </a>
-        </li>
-
-        <li class="nav-header user-select-none">APPLICATION</li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/about" class="nav-link d-lg-none" routerLinkActive="active">
-            <i class="nav-icon mr-2 fa-solid fa-circle-info"></i>
-            <p>About</p>
-          </a>
-          <a routerLink="/about" class="nav-link d-none d-lg-block" routerLinkActive="active">
-            <i class="nav-icon mr-2 fa-solid fa-circle-info"></i>
-            <p>About</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a data-widget="pushmenu" routerLink="/settings" class="nav-link d-lg-none" routerLinkActive="active">
-            <i class="nav-icon mr-2 fa-solid fa-users"></i>
-            <p>Settings</p>
-          </a>
-          <a routerLink="/settings" class="nav-link d-none d-lg-block" routerLinkActive="active">
-            <i class="nav-icon mr-2 fa-solid fa-gear"></i>
-            <p>Settings</p>
-          </a>
-        </li>
-
-        <li class="nav-header user-select-none">LINKS</li>
-
-        <li class="nav-item">
-          <a href="https://discord.gg/JGTVcqMDfm" target="_blank" class="nav-link">
-            <i class="nav-icon mr-2 fa-brands fa-discord"></i>
-            <p>Discord</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="https://github.com/PierreYvesFlamand/Dauntless-Leaderboards" target="_blank" class="nav-link">
-            <i class="nav-icon mr-2 fa-brands fa-github"></i>
-            <p>Github</p>
-          </a>
-        </li>
-      </ul>
+    <!-- Navigation -->
+    <nav class="flex-1 overflow-y-auto px-3 py-4">
+        <div *ngFor="let group of navGroups; let first = first" [class.mt-6]="!first">
+            <div *ngIf="group.title" class="mb-2 select-none px-3 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted/80">{{group.title}}</div>
+            <ul class="space-y-0.5">
+                <li *ngFor="let item of group.items">
+                    <a *ngIf="item.link" class="nav-link" [routerLink]="item.link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: !!item.exact }">
+                        <ng-container *ngTemplateOutlet="navIcon; context: { $implicit: item }" />
+                        <span>{{item.label}}</span>
+                    </a>
+                    <a *ngIf="item.href" class="nav-link" [href]="item.href" target="_blank" rel="noopener">
+                        <ng-container *ngTemplateOutlet="navIcon; context: { $implicit: item }" />
+                        <span>{{item.label}}</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-[0.65rem] opacity-50"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </nav>
-  </div>
 </aside>
+
+<ng-template #navIcon let-item>
+    <span class="flex h-5 w-5 shrink-0 items-center justify-center">
+        <img *ngIf="item.img" [src]="item.img" alt="" class="h-5 w-5 object-contain" />
+        <i *ngIf="item.icon" [class]="item.icon + ' text-[0.95rem]'"></i>
+    </span>
+</ng-template>

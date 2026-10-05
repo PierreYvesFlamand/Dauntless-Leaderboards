@@ -1,106 +1,91 @@
-<h1>Settings</h1>
-
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title" (click)="onThemeroClick()">General</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <label class="m-0 d-flex justify-content-between align-items-center" for="theme" role="button">
-                        <span class="flex-grow-1"><i class="fa-solid fa-moon mr-2"></i>Enable Dark Mode</span>
-                        <div class="switch">
-                            <input type="checkbox" id="theme" [ngModel]="sharedService.theme === 'dark'" (ngModelChange)="sharedService.updateTheme($event ? 'dark' : 'light')">
-                            <span class="slider round"></span>
-                        </div>
-                    </label>
-                </div>
-                <!-- <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-5 col-lg-8">
-                            <div class="h-100 d-flex align-items-center">
-                                <label class="m-0"><i class="fa-solid fa-language mr-2"></i>Language <span class="badge badge-warning ml-2">Under development</span></label>
-                            </div>
-                        </div>
-                        <div class="col-md-7 col-lg-4 mt-3 mt-md-0">
-                            <select class="form-control" [ngModel]="sharedService.language" (ngModelChange)="sharedService.updateLanguage($event)">
-                                <option value="us">🇺🇸 - English (English)</option>
-                                <option value="fr">🇫🇷 - Français (French)</option>
-                                <option value="de">🇩🇪 - Deutsch (German)</option>
-                                <option value="jp">🇯🇵 - 日本語 (Japanese)</option>
-                                <option value="es">🇪🇸 - Español (Spanish)</option>
-                                <option value="it">🇮🇹 - Italiano (Italian)</option>
-                                <option value="br">🇧🇷 - Português (Portuguese)</option>
-                                <option value="ru">🇷🇺 - русский (Russian)</option>
-                            </select>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Trials</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-5 col-lg-8">
-                            <div class="h-100 d-flex align-items-center">
-                                <label class="m-0"><i class="fa-solid fa-user mr-2"></i>Trial time decimals (1, 2 or 3)</label>
-                            </div>
-                        </div>
-                        <div class="col-md-7 col-lg-4 mt-3 mt-md-0">
-                            <input class="form-control" type="number" min="1" max="3" [ngModel]="sharedService.trialDecimals" (ngModelChange)="sharedService.updateTrialDecimals($event)" />
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="m-0 d-flex justify-content-between align-items-center" for="showPreAwakening" role="button">
-                        <span class="flex-grow-1"><i class="fa-solid fa-gear mr-2"></i>Show/hide Pre Awakening Trials</span>
-                        <div class="switch">
-                            <input type="checkbox" id="showPreAwakening" [ngModel]="sharedService.showPreAwakening === true" (ngModelChange)="sharedService.updateShowPreAwakening($event ? true : false)">
-                            <span class="slider round"></span>
-                        </div>
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="m-0 d-flex justify-content-between align-items-center" for="showPostAwakening" role="button">
-                        <span class="flex-grow-1"><i class="fa-solid fa-gear mr-2"></i>Show/hide Post Awakening Trials</span>
-                        <div class="switch">
-                            <input type="checkbox" id="showPostAwakening" [ngModel]="sharedService.showPostAwakening === true" (ngModelChange)="sharedService.updateShowPostAwakening($event ? true : false)">
-                            <span class="slider round"></span>
-                        </div>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Export</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <a class="btn btn-warning" href="data/allData.json" download="Dauntless Leaderbaords Dataset" target="_blank">Download (expect ~35Mb .json file)</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Refresh</h3>
-            </div>
-            <div class="card-body">
-                <div class="form-group">
-                    <div class="row">
-                        <button class="btn btn-primary" (click)="forceWebsiteRefresh()">Force website refresh</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Settings</h1>
+        <p class="page-subtitle">Stored in your browser only.</p>
     </div>
+</div>
+
+<div class="mx-auto max-w-3xl space-y-6">
+    <section class="card">
+        <div class="card-header">
+            <h2 class="card-title select-none" (click)="onThemeroClick()">General</h2>
+        </div>
+        <div class="divide-y divide-line">
+            <label class="setting-row" for="theme">
+                <span class="setting-icon"><i class="fa-solid fa-moon"></i></span>
+                <span class="flex-1">
+                    <span class="block font-medium">Dark mode</span>
+                    <span class="block text-xs text-muted">Switch between the dark and light theme</span>
+                </span>
+                <span class="switch">
+                    <input type="checkbox" id="theme" [ngModel]="sharedService.theme === 'dark'" (ngModelChange)="sharedService.updateTheme($event ? 'dark' : 'light')">
+                    <span></span>
+                </span>
+            </label>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="card-header">
+            <h2 class="card-title"><img class="h-5 w-5" src="img/trial_icon.png" alt="" /> Trials</h2>
+        </div>
+        <div class="divide-y divide-line">
+            <div class="setting-row">
+                <span class="setting-icon"><i class="fa-solid fa-stopwatch"></i></span>
+                <label class="flex-1" for="trial-decimals">
+                    <span class="block font-medium">Trial time decimals</span>
+                    <span class="block text-xs text-muted">Number of decimals displayed for completion times (1, 2 or 3)</span>
+                </label>
+                <input id="trial-decimals" class="input w-20 text-center" type="number" min="1" max="3" [ngModel]="sharedService.trialDecimals" (ngModelChange)="sharedService.updateTrialDecimals($event)" />
+            </div>
+
+            <label class="setting-row" for="showPreAwakening">
+                <span class="setting-icon"><i class="fa-solid fa-hourglass-start"></i></span>
+                <span class="flex-1">
+                    <span class="block font-medium">Show Pre Awakening Trials</span>
+                    <span class="block text-xs text-muted">Weeks before 282</span>
+                </span>
+                <span class="switch">
+                    <input type="checkbox" id="showPreAwakening" [ngModel]="sharedService.showPreAwakening === true" (ngModelChange)="sharedService.updateShowPreAwakening($event ? true : false)">
+                    <span></span>
+                </span>
+            </label>
+
+            <label class="setting-row" for="showPostAwakening">
+                <span class="setting-icon"><i class="fa-solid fa-hourglass-end"></i></span>
+                <span class="flex-1">
+                    <span class="block font-medium">Show Post Awakening Trials</span>
+                    <span class="block text-xs text-muted">Week 282 and after</span>
+                </span>
+                <span class="switch">
+                    <input type="checkbox" id="showPostAwakening" [ngModel]="sharedService.showPostAwakening === true" (ngModelChange)="sharedService.updateShowPostAwakening($event ? true : false)">
+                    <span></span>
+                </span>
+            </label>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="card-header">
+            <h2 class="card-title">Data</h2>
+        </div>
+        <div class="divide-y divide-line">
+            <div class="setting-row">
+                <span class="setting-icon"><i class="fa-solid fa-download"></i></span>
+                <span class="flex-1">
+                    <span class="block font-medium">Export</span>
+                    <span class="block text-xs text-muted">Download the full dataset (expect ~35Mb .json file)</span>
+                </span>
+                <a class="btn btn-secondary" href="data/allData.json" download="Dauntless Leaderbaords Dataset" target="_blank">Download</a>
+            </div>
+            <div class="setting-row">
+                <span class="setting-icon"><i class="fa-solid fa-rotate"></i></span>
+                <span class="flex-1">
+                    <span class="block font-medium">Refresh</span>
+                    <span class="block text-xs text-muted">Clear the cached data and reload the website</span>
+                </span>
+                <button class="btn btn-primary" (click)="forceWebsiteRefresh()">Force refresh</button>
+            </div>
+        </div>
+    </section>
 </div>

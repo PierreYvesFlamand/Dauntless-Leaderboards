@@ -1,0 +1,164 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Statistics</h1>
+        <p class="page-subtitle">Useful, cool and weird numbers from every Trial and Gauntlet season.</p>
+    </div>
+</div>
+
+<div class="flex gap-8">
+    <!-- Category rail (desktop) -->
+    <nav class="hidden w-56 shrink-0 lg:block" aria-label="Statistics">
+        <div class="sticky top-0 max-h-[calc(100vh-9rem)] space-y-5 overflow-y-auto pb-2">
+            <a routerLink="/statistics" class="stat-nav-link" [class.active]="!definition">
+                <i class="fa-solid fa-table-cells-large w-4 text-center"></i> Overview
+            </a>
+            <div *ngFor="let category of categories">
+                <div class="mb-1.5 px-3 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted/80">{{category.name}}</div>
+                <a *ngFor="let stat of category.stats" class="stat-nav-link" [class.active]="definition?.slug === stat.slug" [routerLink]="['/statistics', stat.slug]" queryParamsHandling="preserve">
+                    <i class="w-4 text-center" [ngClass]="stat.icon"></i> {{stat.title}}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="min-w-0 flex-1">
+        <!-- Jump menu (mobile) -->
+        <select class="select mb-5 lg:hidden" [ngModel]="definition?.slug || ''" (ngModelChange)="onJump($event)" aria-label="Choose a statistic">
+            <option value="">Overview</option>
+            <optgroup *ngFor="let category of categories" [label]="category.name">
+                <option *ngFor="let stat of category.stats" [value]="stat.slug">{{stat.title}}</option>
+            </optgroup>
+        </select>
+
+        <!-- Overview -->
+        <div *ngIf="!definition" class="space-y-8">
+            <section *ngFor="let category of categories">
+                <h2 class="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted">{{category.name}}</h2>
+                <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                    <a *ngFor="let stat of category.stats" class="card group flex items-start gap-3 p-4 text-fg no-underline transition-colors hover:border-accent/60 hover:no-underline" [routerLink]="['/statistics', stat.slug]" queryParamsHandling="preserve">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><i [ngClass]="stat.icon"></i></span>
+                        <span class="min-w-0">
+                            <span class="block font-semibold group-hover:text-accent">{{stat.title}}</span>
+                            <span class="mt-0.5 block text-sm text-muted">{{stat.description}}</span>
+                        </span>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- One statistic -->
+        <ng-container *ngIf="definition">
+            <div class="mb-5 flex flex-wrap items-start justify-between gap-4">
+                <div class="flex min-w-0 items-start gap-3">
+                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-lg text-accent"><i [ngClass]="definition.icon"></i></span>
+                    <div class="min-w-0">
+                        <div class="text-xs font-semibold uppercase tracking-[0.14em] text-accent">{{definition.category}}</div>
+                        <h2 class="text-xl font-semibold">{{definition.title}}</h2>
+                        <p class="text-sm text-muted">{{definition.description}}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button class="btn btn-secondary btn-sm" [disabled]="!previous" (click)="previous && goTo(previous.slug)" [title]="previous ? 'Previous: ' + previous.title + ' (←)' : ''" aria-label="Previous statistic">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <span class="px-2 text-xs tabular-nums text-muted">{{index + 1}} / {{statisticsService.definitions.length}}</span>
+                    <button class="btn btn-secondary btn-sm" [disabled]="!next" (click)="next && goTo(next.slug)" [title]="next ? 'Next: ' + next.title + ' (→)' : ''" aria-label="Next statistic">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div *ngIf="definition.filters.length" class="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-xl border border-line bg-surface px-4 py-3">
+                <div *ngFor="let key of definition.filters" class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-medium uppercase tracking-wider text-muted">{{filterOptions[key].label}}</span>
+                    <div class="segmented" role="radiogroup" [attr.aria-label]="filterOptions[key].label">
+                        <button *ngFor="let option of filterOptions[key].options" role="radio" [attr.aria-checked]="filters[key] === option.value" [class.active]="filters[key] === option.value" (click)="setFilter(key, option.value)">{{option.label}}</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blocks -->
+            <div class="grid gap-5 xl:grid-cols-2">
+                <ng-container *ngFor="let block of blocks; let blockIndex = index">
+                    <!-- KPIs -->
+                    <div *ngIf="block.type === 'kpis'" class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:col-span-2" [ngClass]="block.items.length > 3 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'">
+                        <div *ngFor="let kpi of block.items" class="stat" [ngClass]="{ 'cursor-pointer transition-colors hover:border-accent/60': kpi.link }" [enhancedRouterLink]="kpi.link || ''" [attr.role]="kpi.link ? 'link' : null">
+                            <div class="stat-label">{{kpi.label}}</div>
+                            <div class="stat-value truncate">{{kpi.isPlayerName && sharedService.themero ? "Themero" : kpi.value}}</div>
+                            <div *ngIf="kpi.sub" class="stat-sub">{{kpi.sub}}</div>
+                        </div>
+                    </div>
+
+                    <section *ngIf="block.type !== 'kpis'" class="card min-w-0 overflow-clip" [ngClass]="{ 'xl:col-span-2': isWide(block) }">
+                        <div *ngIf="block.title" class="card-header">
+                            <div class="min-w-0">
+                                <h3 class="card-title">{{block.title}}</h3>
+                                <p *ngIf="block.subtitle" class="mt-0.5 text-xs text-muted">{{block.subtitle}}</p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="block.type === 'bars'" class="p-2">
+                            <dl-bar-list [items]="block.items" [ranked]="!!block.ranked" />
+                            <p *ngIf="!block.items.length" class="p-4 text-center text-sm text-muted">No data for these filters.</p>
+                        </div>
+
+                        <div *ngIf="block.type === 'trend'" class="px-2 pb-2 pt-3">
+                            <dl-trend-chart [points]="block.points" [zeroBased]="block.zeroBased" [unit]="block.unit || ''" />
+                        </div>
+
+                        <div *ngIf="block.type === 'heatmap'" class="p-3">
+                            <dl-heatmap [columns]="block.columns" [rows]="block.rows" />
+                        </div>
+
+                        <div *ngIf="block.type === 'table'" class="stat-table">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th *ngFor="let column of block.columns" [class.text-right]="column.align === 'right'" [class.text-center]="column.align === 'center'" [class.th-sort]="column.sortKey" (click)="column.sortKey && toggleSort(blockIndex, column.sortKey)">
+                                            <span *ngIf="column.sortKey; else plainLabel" class="flex items-center gap-2">
+                                                {{column.label}}
+                                                <i class="fa-solid {{getSortIcon(blockIndex, column.sortKey)}}" [class.text-accent]="getSort(blockIndex)?.key === column.sortKey"></i>
+                                            </span>
+                                            <ng-template #plainLabel>{{column.label}}</ng-template>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of tableRows[blockIndex] || block.rows" [attr.role]="row.link ? 'button' : null" [enhancedRouterLink]="row.link || ''">
+                                        <td *ngFor="let cell of row.cells; let i = index" [class.text-right]="block.columns[i].align === 'right'" [class.text-center]="block.columns[i].align === 'center'" [class.text-muted]="cell.muted" [class.font-semibold]="cell.strong">
+                                            <span class="inline-flex max-w-[16rem] items-center gap-2">
+                                                <img *ngFor="let icon of cell.icons" [src]="icon.src" alt="" class="behemoth-ico" [ngClass]="icon.cls || ''" />
+                                                <span class="truncate">{{cell.isPlayerName && sharedService.themero ? "Themero" : cell.text}}</span>
+                                                <span *ngIf="cell.sub" class="text-xs font-normal text-muted">{{cell.sub}}</span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </ng-container>
+            </div>
+
+            <!-- Bottom navigation -->
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                <a *ngIf="previous; else noPrevious" class="card flex items-center gap-3 p-3 text-fg no-underline hover:border-accent/60 hover:no-underline" [routerLink]="['/statistics', previous.slug]" queryParamsHandling="preserve">
+                    <i class="fa-solid fa-arrow-left text-muted"></i>
+                    <span class="min-w-0">
+                        <span class="block text-xs text-muted">Previous</span>
+                        <span class="block truncate font-medium">{{previous.title}}</span>
+                    </span>
+                </a>
+                <ng-template #noPrevious><span class="hidden sm:block"></span></ng-template>
+                <a *ngIf="next" class="card flex items-center justify-end gap-3 p-3 text-right text-fg no-underline hover:border-accent/60 hover:no-underline" [routerLink]="['/statistics', next.slug]" queryParamsHandling="preserve">
+                    <span class="min-w-0">
+                        <span class="block text-xs text-muted">Next</span>
+                        <span class="block truncate font-medium">{{next.title}}</span>
+                    </span>
+                    <i class="fa-solid fa-arrow-right text-muted"></i>
+                </a>
+            </div>
+        </ng-container>
+    </div>
+</div>

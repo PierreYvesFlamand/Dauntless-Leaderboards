@@ -1,0 +1,24 @@
+<div class="overflow-x-auto">
+    <table class="heatmap">
+        <thead>
+            <tr>
+                <th></th>
+                <th *ngFor="let column of columns" class="px-1 pb-1 text-center text-xs font-medium tabular-nums text-muted">{{column}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of rows">
+                <th class="pr-3 text-left font-normal">
+                    <span class="flex items-center gap-2 whitespace-nowrap text-sm font-medium">
+                        <img *ngIf="row.icon" [src]="row.icon.src" alt="" class="h-6 w-6 object-contain" [ngClass]="row.icon.cls || ''" />
+                        {{row.label}}
+                    </span>
+                </th>
+                <!-- Ink picked by fill strength so the label always clears contrast -->
+                <td *ngFor="let value of row.values; let i = index" class="heatmap-cell" [class.strong]="intensity(value) > 0.75" [style.--alpha]="intensity(value)" [title]="row.label + ' · ' + columns[i] + ': ' + format(value)">
+                    {{format(value)}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

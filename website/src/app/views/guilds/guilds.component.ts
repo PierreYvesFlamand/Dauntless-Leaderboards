@@ -18,6 +18,13 @@ export class GuildsComponent implements AfterViewInit {
     this.applyFilter();
   }
 
+  public sortColumns: { key: string, label: string }[] = [
+    { key: 'nbrTop1', label: 'Top 1s' },
+    { key: 'nbrTop5', label: 'Top 5s' },
+    { key: 'nbrTop100', label: 'Top 100s' },
+    { key: 'totalLevelCleared', label: 'Total levels' }
+  ];
+
   public guilds: WEBSITE_GUILD[] = [];
   public total: number = 0;
   public isLoading: boolean = true;

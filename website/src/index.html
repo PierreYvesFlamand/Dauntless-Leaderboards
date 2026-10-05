@@ -14,6 +14,7 @@
   <meta name="keywords" content="Dauntless, Leaderboards, Trials, Gauntlets">
   <meta name="author" content="Pierre-Yves Flamand">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0d12">
 
   <link rel="icon" href="img/app_icon.png">
 
@@ -27,23 +28,17 @@
     gtag('config', 'G-PX0PCNYXSX');
   </script>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome Icons -->
-  <script src="https://kit.fontawesome.com/87f12781ab.js" crossorigin="anonymous"></script>
-  <!-- Theme style -->
-  <link rel="stylesheet" href="framework/adminlte.min.css">
+  <!-- Apply the saved theme before Angular boots to avoid a flash -->
+  <script>
+    try {
+      var theme = JSON.parse(localStorage.getItem('settings-theme'));
+      document.documentElement.className = theme === 'light' ? 'light-mode' : 'dark-mode';
+    } catch (e) { }
+  </script>
 </head>
 
-<body class="hold-transition layout-navbar-fixed layout-fixed dark-mode">
+<body>
   <dl-root></dl-root>
-
-  <!-- jQuery -->
-  <script src="framework/jquery.min.js"></script>
-  <!-- Bootstrap 4 -->
-  <script src="framework/bootstrap.bundle.min.js"></script>
-  <!-- AdminLTE App -->
-  <script src="framework/adminlte.min.js"></script>
 </body>
 
 </html>

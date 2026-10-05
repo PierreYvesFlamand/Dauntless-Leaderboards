@@ -1,0 +1,15 @@
+.nav-link {
+  @apply relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted no-underline transition-colors hover:bg-surface-2 hover:text-fg hover:no-underline;
+
+  &.active {
+    @apply bg-accent/10 text-fg;
+
+    &::before {
+      @apply absolute -left-3 bottom-1.5 top-1.5 w-1 rounded-r bg-accent content-[''];
+    }
+
+    i {
+      @apply text-accent;
+    }
+  }
+}

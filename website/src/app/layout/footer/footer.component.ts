@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 type Changelog = Array<{
   version: string,
@@ -23,5 +23,10 @@ export class FooterComponent {
   public async loadChangelog() {
     const res = await fetch('data/versions.json');
     this.changelog = await res.json();
+  }
+
+  @HostListener('document:keydown.escape')
+  public onEscape() {
+    this.showChangelog = false;
   }
 }

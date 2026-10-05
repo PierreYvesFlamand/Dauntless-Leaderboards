@@ -14,6 +14,9 @@ export class EnhancedRouterLinkDirective {
 
   @HostListener('mouseup', ['$event'])
   onClick(event: MouseEvent): void {
+    // No link, or right click (context menu)
+    if (!this.linkParams || event.button === 2) return;
+
     if (event.ctrlKey || event.button === 1) {
       const url = this.router.serializeUrl(this.router.createUrlTree([this.linkParams]));
       window.open(url, '_blank');

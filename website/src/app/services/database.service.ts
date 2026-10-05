@@ -84,7 +84,7 @@ type TRIAL_LEADERBOARD = {
     players: TRIAL_LEADERBOARD_PLAYER[]
 }
 
-type TRIAL_LEADERBOARD_PLAYER = {
+export type TRIAL_LEADERBOARD_PLAYER = {
     roleId: number | null
     playerId: number
     weaponId: number
@@ -326,15 +326,18 @@ export class DatabaseService {
             ]
         }, []);
 
-        // Guilds rating
-        const alpha = 1.1; // Rapid decay factor to focus on the last two seasons
-        const inactivityPenalty = 30; // Penalty for recent inactivity
+        // Guild Score (0-100)
+        // Each season gives points from the final rank on a log curve rewarding the top
+        // (1st = 100, 2nd = 85, 5th = 65, 10th = 50, 50th = 15, 100th ≈ 0).
+        // Points halve every SCORE_HALF_LIFE seasons back; the score is the weighted average
+        // over all seasons, a season without ranking counting as 0.
+        const SCORE_HALF_LIFE = 3;
+        const seasonCount = allData.gauntlets.length;
+        const getRankPoints = (rank: number) => 100 * (1 - Math.log(rank) / Math.log(101));
+        const getSeasonWeight = (season: number) => Math.pow(0.5, (seasonCount - season) / SCORE_HALF_LIFE);
 
-        let perfectRawRating = 0;
-        for (let i = 1; i <= allData.gauntlets.length; i++) {
-            const weight = Math.exp(-alpha * (allData.gauntlets.length - i));
-            perfectRawRating += Math.floor(100 * weight);
-        }
+        let totalWeight = 0;
+        for (let season = 1; season <= seasonCount; season++) totalWeight += getSeasonWeight(season);
 
         for (const guild of this.data.guilds) {
             guild.nbrTop1 = guild.guildGauntletStats.filter(gs => gs.rank <= 1).length;
@@ -342,23 +345,12 @@ export class DatabaseService {
             guild.nbrTop20 = guild.guildGauntletStats.filter(gs => gs.rank <= 20).length;
             guild.nbrTop100 = guild.guildGauntletStats.filter(gs => gs.rank <= 100).length;
 
-            let guildRawRating = 0;
-            let recentSeasons = [false, false]; // Track participation in the last two seasons
-
+            let weightedPoints = 0;
             for (const gs of guild.guildGauntletStats) {
-                const weight = Math.exp(-alpha * (allData.gauntlets.length - gs.season));
-                guildRawRating += Math.floor((100 - gs.rank + 1) * weight);
-
-                // Check participation in the last two seasons
-                if (gs.season === allData.gauntlets.length) recentSeasons[0] = true;
-                if (gs.season === allData.gauntlets.length - 1) recentSeasons[1] = true;
+                weightedPoints += Math.max(0, getRankPoints(gs.rank)) * getSeasonWeight(gs.season);
             }
 
-            // Apply penalty if the guild did not participate in one or both of the last two seasons
-            const penalty = recentSeasons.includes(false) ? inactivityPenalty : 0;
-
-            // Final rating calculation, ensuring it doesn't go below zero
-            guild.rating = Math.max(0, (100 / perfectRawRating * guildRawRating) - penalty);
+            guild.rating = weightedPoints / totalWeight;
         }
 
         if (!shouldFetch) {

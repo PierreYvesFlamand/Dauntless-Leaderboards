@@ -1,0 +1,12 @@
+// Label + value on a single line to keep the strip short
+.player-stat {
+  @apply flex min-w-0 items-center justify-between gap-2 px-3.5 py-2.5 lg:flex-auto lg:justify-center;
+
+  .stat-label {
+    @apply whitespace-nowrap;
+  }
+}
+
+.player-stat-value {
+  @apply text-base font-semibold tabular-nums;
+}

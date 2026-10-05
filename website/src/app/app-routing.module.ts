@@ -14,11 +14,14 @@ import { TrialsComponent } from './views/trials/trials.component';
 import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.component';
 import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
+import { StatisticsComponent } from './views/statistics/statistics.component';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent, children: [
       { path: '', component: DashboardComponent },
+      { path: 'statistics', component: StatisticsComponent },
+      { path: 'statistics/:slug', component: StatisticsComponent },
 
       { path: 'seasons', component: SeasonsComponent },
       { path: 'seasons/:id', component: SeasonsComponent },

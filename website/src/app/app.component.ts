@@ -21,8 +21,10 @@ export class AppComponent {
     );
 
     this.sharedService.theme$.subscribe(value => {
-      document.querySelector('body')?.classList.add(`${value === 'dark' ? 'dark' : 'light'}-mode`);
-      document.querySelector('body')?.classList.remove(`${value === 'dark' ? 'light' : 'dark'}-mode`);
+      for (const element of [document.documentElement, document.body]) {
+        element.classList.add(`${value === 'dark' ? 'dark' : 'light'}-mode`);
+        element.classList.remove(`${value === 'dark' ? 'light' : 'dark'}-mode`);
+      }
     });
     this.sharedService.init();
     this.databaseService.loadData();

@@ -1,0 +1,35 @@
+import { Component, Input } from '@angular/core';
+import { STAT_ICON } from '../../services/statistics.service';
+
+export type HEATMAP_ROW = {
+  label: string
+  icon?: STAT_ICON
+  values: (number | null)[] // shares 0-1, null = no data
+}
+
+// Rows x columns of shares, one hue: more is darker
+@Component({
+  selector: 'dl-heatmap',
+  templateUrl: './heatmap.component.html',
+  styleUrl: './heatmap.component.scss',
+  standalone: false
+})
+export class HeatmapComponent {
+  @Input({ required: true }) public columns: string[] = [];
+  @Input({ required: true }) public rows: HEATMAP_ROW[] = [];
+
+  public get max(): number {
+    return Math.max(...this.rows.flatMap(row => row.values.map(value => value || 0)), 0.0001);
+  }
+
+  // 0.06 floor keeps empty-ish cells visible against the surface
+  public intensity(value: number | null): number {
+    return value === null ? 0 : 0.06 + 0.94 * (value / this.max);
+  }
+
+  public format(value: number | null): string {
+    if (value === null) return '–';
+    const percent = value * 100;
+    return percent > 0 && percent < 0.5 ? '<1%' : `${Math.round(percent)}%`;
+  }
+}

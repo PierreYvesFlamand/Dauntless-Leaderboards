@@ -1,79 +1,112 @@
 <ng-container *ngIf="guildData">
-    <div class="d-flex justify-content-between align-items-center">
-        <h1> {{guildData.name}} [{{guildData.tag}}] </h1>
-        <div>
-            <i class="px-1 fa-{{sharedService.hasFavoriteGuild(guildData.id) ? 'solid' : 'regular'}} fa-star text-warning" style="font-size: 1.2rem;" role="button" (click)="sharedService.toggleFavoriteGuild(guildData.id)"></i>
-            <i class="px-1 fa-solid fa-{{guildData.id === sharedService.guildId ? 'lock' : 'lock-open'}} text-info" style="font-size: 1.2rem;" role="button" (click)="sharedService.updateGuildId(guildData.id === sharedService.guildId ? -1 : guildData.id)"></i>
+    <div class="page-header">
+        <div class="flex min-w-0 items-center gap-4">
+            <img *ngIf="guildData.iconFilename" class="h-14 w-14 shrink-0 rounded-xl border border-line object-cover" [src]="sharedService.getImgPath(guildData.iconFilename, 'guilds')" alt="" />
+            <div class="min-w-0">
+                <h1 class="page-title truncate">{{guildData.name}}</h1>
+                <p class="page-subtitle font-semibold tracking-wide">[{{guildData.tag}}]</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-2">
+            <a *ngIf="guildData.discordLink" class="btn btn-secondary" [href]="guildData.discordLink" target="_blank" rel="noopener">
+                <i class="fa-brands fa-discord"></i> Discord
+            </a>
+            <button class="btn-icon border border-line" (click)="sharedService.toggleFavoriteGuild(guildData.id)" [title]="sharedService.hasFavoriteGuild(guildData.id) ? 'Remove from favorites' : 'Add to favorites'">
+                <i class="fa-{{sharedService.hasFavoriteGuild(guildData.id) ? 'solid' : 'regular'}} fa-star text-fav"></i>
+            </button>
+            <button class="btn-icon border border-line" (click)="sharedService.updateGuildId(guildData.id === sharedService.guildId ? -1 : guildData.id)" [title]="guildData.id === sharedService.guildId ? 'Unset as my guild' : 'Set as my guild'">
+                <i class="fa-solid fa-{{guildData.id === sharedService.guildId ? 'lock' : 'lock-open'}} text-me"></i>
+            </button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 order-lg-2 col-xl-3">
-            <div class="d-flex flex-column" style="gap: 0.5rem">
-                <img *ngIf="guildData.iconFilename" class="w-100" [src]="sharedService.getImgPath(guildData.iconFilename, 'guilds')" style="border-radius: .25rem;" />
-                <a *ngIf="guildData.discordLink" class="btn btn-block btn-primary" [href]="guildData.discordLink" target="_blank">
-                    <i class="fa-brands fa-discord mr-2"></i>
-                    Discord
-                </a>
-                <div class="d-none d-lg-block card">
-                    <div class="card-body p-0">
-                        <div class="p-2">
-                            <h6><i>Activity Rating <i class="px-1 fa-solid fa-circle-info" title="Activity Rating is calculated based on rank each seasons with diminishing return the older the season is"></i></i>: <b>{{guildData.rating.toFixed(2)}}</b></h6>
-                            <h6><i>Number of Top 1</i>: <b>{{guildData.nbrTop1}}</b></h6>
-                            <h6><i>Number of Top 5</i>: <b>{{guildData.nbrTop5}}</b></h6>
-                            <h6><i>Number of Top 100</i>: <b>{{guildData.nbrTop100}}</b></h6>
-                            <h6><i>Total levels</i>: <b>{{guildData.totalLevelCleared}}</b></h6>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-sm table-striped table-hover table-bordered mb-0">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center px-0" style="width: 90px">Season</th>
-                                        <th class="text-center px-0" style="width: 90px">Position</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let seasonRank of guildData.guildGauntletStats.reverse()" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
-                                        <td class="text-center px-0" style="width: 90px">{{seasonRank.season}} </td>
-                                        <td class="text-center px-0" style="width: 90px">{{seasonRank.rank}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+    <div class="fill grid gap-6 lg:grid-cols-3">
+        <div class="space-y-6 lg:col-span-2">
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <div class="stat">
+                    <div class="stat-label flex items-center gap-1.5">
+                        Guild Score
+                        <i class="fa-solid fa-circle-info" [title]="sharedService.guildScoreTooltip"></i>
                     </div>
+                    <div class="stat-value text-accent">{{guildData.rating.toFixed(1)}}</div>
+                    <div *ngIf="stats" class="stat-sub">#{{stats.scoreRank}} of {{stats.totalGuilds}} guilds</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Season wins</div>
+                    <div class="stat-value">{{guildData.nbrTop1}}</div>
+                    <div class="stat-sub">Top 1 finishes</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Top 5</div>
+                    <div class="stat-value">{{guildData.nbrTop5}}</div>
+                    <div class="stat-sub">Top 100: {{guildData.nbrTop100}}</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Seasons played</div>
+                    <div class="stat-value">{{seasonHistory.length}}</div>
+                    <div *ngIf="stats" class="stat-sub">S{{stats.firstSeason}} → S{{stats.lastSeason}}</div>
+                </div>
+                <ng-container *ngIf="stats">
+                    <div class="stat">
+                        <div class="stat-label">Best rank</div>
+                        <div class="stat-value">#{{stats.bestRank}}</div>
+                        <div class="stat-sub">{{stats.bestRankCount}} time{{stats.bestRankCount > 1 ? 's' : ''}}</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Average rank</div>
+                        <div class="stat-value">#{{stats.averageRank | number:'1.0-1'}}</div>
+                        <div class="stat-sub">Over ranked seasons</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-label">Top 10 streak</div>
+                        <div class="stat-value">{{stats.longestTop10Streak}}</div>
+                        <div class="stat-sub">Seasons in a row</div>
+                    </div>
+                </ng-container>
+                <div class="stat">
+                    <div class="stat-label">Total levels</div>
+                    <div class="stat-value">{{guildData.totalLevelCleared | number}}</div>
+                    <div class="stat-sub">All seasons</div>
                 </div>
             </div>
-        </div>
-        <div *ngIf="guildData.detailHtml" class="col-12 col-lg-8 order-lg-1 col-xl-9">
-            <div class="mt-2" [innerHTML]="guildData.detailHtml"></div>
-        </div>
-        <div class="col-12 d-lg-none">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="p-2">
-                        <h6><i>Activity Rating <i class="px-1 fa-solid fa-circle-info" title="Activity Rating is calculated based on rank each seasons with diminishing return the older the season is"></i></i>: <b>{{guildData.rating.toFixed(2)}}</b></h6>
-                        <h6><i>Number of Top 1</i>: <b>{{guildData.nbrTop1}}</b></h6>
-                        <h6><i>Number of Top 5</i>: <b>{{guildData.nbrTop5}}</b></h6>
-                        <h6><i>Number of Top 100</i>: <b>{{guildData.nbrTop100}}</b></h6>
-                        <h6><i>Total levels</i>: <b>{{guildData.totalLevelCleared}}</b></h6>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-sm table-striped table-hover table-bordered mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-center px-0" style="width: 90px">Season</th>
-                                    <th class="text-center px-0" style="width: 90px">Position</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let seasonRank of guildData.guildGauntletStats.reverse()" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
-                                    <td class="text-center px-0" style="width: 90px">{{seasonRank.season}} </td>
-                                    <td class="text-center px-0" style="width: 90px">{{seasonRank.rank}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><i class="fa-solid fa-chart-line text-chart"></i> Rank by season</h2>
+                    <span class="text-xs text-muted">Log scale · gaps = not ranked</span>
                 </div>
-            </div>
+                <div class="px-2 pb-2 pt-3">
+                    <dl-rank-chart [points]="chartPoints" />
+                </div>
+            </section>
+
+            <div *ngIf="guildData.detailHtml" class="card card-body guild-detail-html" [innerHTML]="guildData.detailHtml"></div>
         </div>
+
+        <section class="card fill flex flex-col overflow-clip">
+            <div class="card-header">
+                <h2 class="card-title"><img class="h-5 w-5" src="img/gauntlet_icon.png" alt="" /> Season history</h2>
+            </div>
+            <div class="table-wrap-flush">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Season</th>
+                            <th class="text-center">Position</th>
+                            <th class="text-center">Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let seasonRank of seasonHistory" role="button" [enhancedRouterLink]="'/seasons/' + seasonRank.season">
+                            <td class="text-center tabular-nums text-muted">{{seasonRank.season}}</td>
+                            <td class="text-center">
+                                <span class="rank rank-{{seasonRank.rank}}">{{seasonRank.rank}}</span>
+                            </td>
+                            <td class="text-center tabular-nums">{{seasonRank.level ?? '–'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </div>
 </ng-container>
