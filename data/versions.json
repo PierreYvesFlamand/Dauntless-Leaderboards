@@ -1,5 +1,12 @@
 [
     {
+        "version": "5.0.1",
+        "date": "2026/10/05",
+        "changelogItems": [
+            "Fixed Dashboard horizontal scroll on mobile devices"
+        ]
+    },
+    {
         "version": "5.0.0",
         "date": "2026/10/05",
         "changelogItems": [
