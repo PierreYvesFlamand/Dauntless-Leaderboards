@@ -80,7 +80,7 @@ export class RankChartComponent implements AfterViewInit, OnDestroy {
   // Skip season labels when too dense
   public showXLabel(index: number): boolean {
     const every = Math.ceil(24 / Math.max(this.step, 1));
-    return index % every === 0 || index === this.points.length - 1;
+    return index % every === 0;
   }
 
   public get hoverPoint(): RANK_CHART_POINT | null {

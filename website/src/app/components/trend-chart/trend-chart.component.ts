@@ -97,7 +97,7 @@ export class TrendChartComponent implements AfterViewInit, OnDestroy {
 
   public showXLabel(index: number): boolean {
     const every = Math.ceil(56 / Math.max(this.step, 1));
-    return index % every === 0 || index === this.points.length - 1 && every === 1;
+    return index % every === 0;
   }
 
   public get hoverPoint(): TREND_POINT | null {

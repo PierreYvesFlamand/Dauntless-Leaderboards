@@ -5,7 +5,8 @@
 
     <dl-sidebar [open]="sidebarOpen" (close)="sidebarOpen = false" />
 
-    <div class="flex min-h-screen flex-col lg:h-screen lg:pl-64">
+    <!-- overflow-x-clip: never a horizontal page scroll (clip, not hidden, keeps the sticky header working) -->
+    <div class="flex min-h-screen flex-col overflow-x-clip lg:h-screen lg:pl-64">
         <dl-header *ngIf="databaseService.data.loaded" class="shrink-0" (toggleSidebar)="sidebarOpen = !sidebarOpen" />
 
         <div #scrollArea class="flex flex-1 flex-col lg:min-h-0 lg:overflow-y-auto">

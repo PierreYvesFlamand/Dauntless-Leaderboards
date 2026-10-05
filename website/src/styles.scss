@@ -115,8 +115,9 @@
   }
 
   // Card
+  // min-w-0: as a grid/flex item, never grow to its content (wide tables scroll inside instead)
   .card {
-    @apply rounded-xl border border-line bg-surface shadow-card;
+    @apply min-w-0 rounded-xl border border-line bg-surface shadow-card;
   }
 
   .card-header {
@@ -252,7 +253,7 @@
   }
 
   .table-wrap {
-    @apply rounded-xl border border-line bg-surface shadow-card;
+    @apply min-w-0 rounded-xl border border-line bg-surface shadow-card;
   }
 
   .data-table {
