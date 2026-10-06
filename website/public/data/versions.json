@@ -1,5 +1,13 @@
 [
     {
+        "version": "5.1.0",
+        "date": "2026/10/06",
+        "changelogItems": [
+            "Renamed the \"Hall of fame\" statistic to \"Top players\" to avoid confusion with the community's Dauntless Hall of Fame",
+            "Added a link to the Dauntless Hall of Fame Discord on the Top players statistic and the About page"
+        ]
+    },
+    {
         "version": "5.0.1",
         "date": "2026/10/05",
         "changelogItems": [
@@ -11,7 +19,7 @@
         "date": "2026/10/05",
         "changelogItems": [
             "Complete redesign of the website: new look, new navigation and improved dark & light themes",
-            "Added a Statistics page: weapon & omnicell meta, loadouts, group compositions, behemoth records, photo finishes, hall of fame, platforms and Gauntlet history, all with filters",
+            "Added a Statistics page: weapon & omnicell meta, loadouts, group compositions, behemoth records, photo finishes, top players, platforms and Gauntlet history, all with filters",
             "Added stats on guild pages: best & average rank, top 10 streak, ranking among all guilds, rank by season chart and level per season",
             "Added a stats summary on player pages: trials played, wins, best solo rank, main weapon and omnicell",
             "Activity Rating replaced by Guild Score: a fairer formula where every ranked guild gets a score (hover the info icon for details)",

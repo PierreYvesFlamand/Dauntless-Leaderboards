@@ -42,7 +42,8 @@ export class StatisticsComponent implements OnDestroy {
 
       const definition = this.statisticsService.getDefinition(slug);
       if (!definition) {
-        this.router.navigate(['/statistics'], { replaceUrl: true });
+        const renamed = this.statisticsService.getRenamedSlug(slug);
+        this.router.navigate(renamed ? ['/statistics', renamed] : ['/statistics'], { replaceUrl: true, queryParamsHandling: 'preserve' });
         return;
       }
 

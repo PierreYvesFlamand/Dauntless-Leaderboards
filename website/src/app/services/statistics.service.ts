@@ -67,6 +67,8 @@ export type STAT_DEFINITION = {
   icon: string
   filters: STAT_FILTER_KEY[]
   defaults?: Partial<STAT_FILTERS>
+  // Shown under the description, e.g. to point to a related community project
+  seeAlso?: { text: string, label: string, url: string }
 }
 
 const AWAKENING_WEEK = 282;
@@ -87,7 +89,7 @@ export class StatisticsService {
     { slug: 'photo-finishes', category: 'Records', title: 'Photo finishes', description: 'The closest races for #1, and the most one-sided wins.', icon: 'fa-solid fa-flag-checkered', filters: ['era', 'board'] },
     { slug: 'behemoths', category: 'Records', title: 'Behemoth rotation', description: 'How often each behemoth was the weekly Trial.', icon: 'fa-solid fa-dragon', filters: ['era'] },
     // Players
-    { slug: 'hall-of-fame', category: 'Players', title: 'Hall of fame', description: 'Players with the most wins or top finishes.', icon: 'fa-solid fa-crown', filters: ['era', 'board', 'top'], defaults: { top: 1 } },
+    { slug: 'top-players', category: 'Players', title: 'Top players', description: 'Players with the most wins or top finishes.', icon: 'fa-solid fa-crown', filters: ['era', 'board', 'top'], defaults: { top: 1 }, seeAlso: { text: 'Looking for the Dauntless Hall of Fame?', label: 'Join their Discord', url: 'https://discord.gg/snwcPJ4xSF' } },
     { slug: 'platforms', category: 'Players', title: 'Platforms', description: 'PC, PlayStation, Xbox or Switch: who fills the leaderboards.', icon: 'fa-solid fa-gamepad', filters: ['era', 'board', 'top'], defaults: { top: 100 } },
     { slug: 'loyalty', category: 'Players', title: 'One-tricks & all-rounders', description: 'Players who never switched weapon, and those who mastered them all.', icon: 'fa-solid fa-shuffle', filters: ['era', 'board'] },
     { slug: 'newcomers', category: 'Players', title: 'New blood', description: 'Players reaching the leaderboards for the first time, per quarter.', icon: 'fa-solid fa-seedling', filters: ['board', 'top'], defaults: { top: 100 } },
@@ -106,13 +108,18 @@ export class StatisticsService {
     'records': f => this.buildRecords(f),
     'photo-finishes': f => this.buildPhotoFinishes(f),
     'behemoths': f => this.buildBehemoths(f),
-    'hall-of-fame': f => this.buildHallOfFame(f),
+    'top-players': f => this.buildTopPlayers(f),
     'platforms': f => this.buildPlatforms(f),
     'loyalty': f => this.buildLoyalty(f),
     'newcomers': f => this.buildNewcomers(f),
     'gauntlet-champions': () => this.buildGauntletChampions(),
     'level-race': f => this.buildLevelRace(f),
     'guild-veterans': () => this.buildGuildVeterans()
+  };
+
+  // Old slugs still reachable from shared links
+  private renamedSlugs: Record<string, string> = {
+    'hall-of-fame': 'top-players'
   };
 
   // Data never changes once loaded: cache per stat + filters
@@ -125,6 +132,10 @@ export class StatisticsService {
 
   public getDefinition(slug: string | null): STAT_DEFINITION | undefined {
     return this.definitions.find(definition => definition.slug === slug);
+  }
+
+  public getRenamedSlug(slug: string): string | undefined {
+    return this.renamedSlugs[slug];
   }
 
   // Filters of a stat: defaults < stat defaults < query params (only the ones the stat uses)
@@ -508,7 +519,7 @@ export class StatisticsService {
   // -------------------------------------------------------------------------
   // Players
   // -------------------------------------------------------------------------
-  private buildHallOfFame(filters: STAT_FILTERS): STAT_BLOCK[] {
+  private buildTopPlayers(filters: STAT_FILTERS): STAT_BLOCK[] {
     const counts = new Map<number, number>();
     this.forEachPlayer(filters, player => this.increment(counts, player.playerId));
     const sorted = this.sortedEntries(counts);
