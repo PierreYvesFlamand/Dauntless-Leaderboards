@@ -116,6 +116,8 @@
     "time.sec": { "en": "{s} sec", "text": "{s} s", "ai": true },
     "dashboard.hallOfFameText": { "en": "Celebrating the legends of the Dauntless community. Join their Discord!", "text": "Celebrando a las leyendas de la comunidad de Dauntless. ¡Únete a su Discord!", "ai": true },
     "dashboard.join": { "en": "Join", "text": "Unirse", "ai": true },
+    "dashboard.statisticsText": { "en": "Weapon meta, behemoth records, top players, Gauntlet history and more.", "text": "Meta de armas, récords de behemoths, mejores jugadores, historial del Gauntlet y más.", "ai": true },
+    "dashboard.explore": { "en": "Explore", "text": "Explorar", "ai": true },
     "dashboard.subtitle": { "en": "Latest Gauntlet seasons and Trials at a glance.", "text": "Las últimas temporadas del Gauntlet y Trials de un vistazo.", "ai": true },
     "dashboard.lastSeasons": { "en": "Last Gauntlet Seasons", "text": "Últimas temporadas del Gauntlet", "ai": true },
     "dashboard.top1Guild": { "en": "Top 1 Guild", "text": "Gremio top 1", "ai": true },

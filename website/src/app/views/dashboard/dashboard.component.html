@@ -1,11 +1,22 @@
-<a class="card mb-5 flex items-center gap-3 p-4 text-fg no-underline transition-colors hover:border-accent/60 hover:no-underline" href="https://discord.gg/snwcPJ4xSF" target="_blank" rel="noopener">
-    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><i class="fa-solid fa-landmark"></i></span>
-    <span class="min-w-0 flex-1">
-        <span class="block font-semibold">Dauntless Hall of Fame</span>
-        <span class="block text-sm text-muted">{{ 'dashboard.hallOfFameText' | t }}</span>
-    </span>
-    <span class="btn btn-secondary btn-sm shrink-0"><i class="fa-brands fa-discord"></i> <span class="hidden sm:inline">{{ 'dashboard.join' | t }}</span></span>
-</a>
+<!-- Featured: statistics, then the community Hall of Fame (same order on mobile) -->
+<div class="mb-5 grid gap-4 lg:grid-cols-2">
+    <a class="card flex items-center gap-3 p-4 text-fg no-underline transition-colors hover:border-accent/60 hover:no-underline" routerLink="/statistics">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><i class="fa-solid fa-chart-pie"></i></span>
+        <span class="min-w-0 flex-1">
+            <span class="block font-semibold">{{ 'nav.statistics' | t }}</span>
+            <span class="block text-sm text-muted">{{ 'dashboard.statisticsText' | t }}</span>
+        </span>
+        <span class="btn btn-secondary btn-sm shrink-0"><i class="fa-solid fa-arrow-right"></i> <span class="hidden sm:inline">{{ 'dashboard.explore' | t }}</span></span>
+    </a>
+    <a class="card flex items-center gap-3 p-4 text-fg no-underline transition-colors hover:border-accent/60 hover:no-underline" href="https://discord.gg/snwcPJ4xSF" target="_blank" rel="noopener">
+        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><i class="fa-solid fa-landmark"></i></span>
+        <span class="min-w-0 flex-1">
+            <span class="block font-semibold">Dauntless Hall of Fame</span>
+            <span class="block text-sm text-muted">{{ 'dashboard.hallOfFameText' | t }}</span>
+        </span>
+        <span class="btn btn-secondary btn-sm shrink-0"><i class="fa-brands fa-discord"></i> <span class="hidden sm:inline">{{ 'dashboard.join' | t }}</span></span>
+    </a>
+</div>
 
 <div class="page-header">
     <div>
