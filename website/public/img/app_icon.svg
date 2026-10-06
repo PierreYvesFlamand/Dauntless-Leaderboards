@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c202b"/>
+      <stop offset="1" stop-color="#0b0d12"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#d6b64a" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#d6b64a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3dc8a"/>
+      <stop offset="0.55" stop-color="#d6b64a"/>
+      <stop offset="1" stop-color="#a8892a"/>
+    </linearGradient>
+    <linearGradient id="blade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fbf0c8"/>
+      <stop offset="0.5" stop-color="#fbf0c8"/>
+      <stop offset="0.5" stop-color="#d9c27a"/>
+      <stop offset="1" stop-color="#d9c27a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Tile -->
+  <rect width="512" height="512" rx="112" fill="url(#tile)"/>
+  <rect x="6" y="6" width="500" height="500" rx="106" fill="none" stroke="#d6b64a" stroke-opacity="0.25" stroke-width="4"/>
+  <circle cx="256" cy="240" r="230" fill="url(#glow)"/>
+
+  <g transform="translate(256 262) scale(1.14) translate(-256 -248)">
+  <!-- Shield, with swept wing points -->
+  <path d="M112 104 L222 126 L256 98 L290 126 L400 104 L376 152 L376 268 C376 344 324 394 256 430 C188 394 136 344 136 268 L136 152 Z" fill="url(#gold)"/>
+  <path d="M158 148 L229 148 L256 124 L283 148 L354 148 L354 268 C354 330 312 370 256 402 C200 370 158 330 158 268 Z" fill="#0b0d12"/>
+
+  <!-- Sword -->
+  <g stroke="#0b0d12" stroke-width="8" stroke-linejoin="round" paint-order="stroke">
+    <path d="M243 116 L269 116 L269 292 L256 316 L243 292 Z" fill="url(#blade)"/>
+    <rect x="200" y="96" width="112" height="22" rx="11" fill="url(#gold)"/>
+    <rect x="246" y="58" width="20" height="40" rx="6" fill="#a8892a"/>
+    <circle cx="256" cy="52" r="15" fill="url(#gold)"/>
+  </g>
+
+  <!-- Podium -->
+  <g stroke="#0b0d12" stroke-width="8" paint-order="stroke">
+    <rect x="184" y="264" width="44" height="74" rx="6" fill="url(#gold)"/>
+    <rect x="234" y="226" width="44" height="112" rx="6" fill="url(#gold)"/>
+    <rect x="284" y="290" width="44" height="48" rx="6" fill="url(#gold)"/>
+  </g>
+  </g>
+</svg>

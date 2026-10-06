@@ -14,7 +14,7 @@
                 <router-outlet *ngIf="databaseService.data.loaded" />
 
                 <div *ngIf="!databaseService.data.loaded" class="flex min-h-[60vh] flex-col items-center justify-center text-center">
-                    <img src="img/app_icon.png" alt="" class="h-16 w-16 animate-pulse rounded-xl bg-accent p-2" />
+                    <img src="img/app_icon.svg" alt="" class="h-16 w-16 animate-pulse" />
                     <h2 class="mt-5 font-display text-xl font-semibold">Loading…</h2>
                     <p class="mt-1 text-sm text-muted">Fetching and formatting data. Be patient 😊</p>
                 </div>
