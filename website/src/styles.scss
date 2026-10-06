@@ -310,6 +310,19 @@
     @apply rounded-full bg-surface-2 px-1.5 text-xs tabular-nums text-muted;
   }
 
+  // Segmented filter control
+  .segmented {
+    @apply inline-flex flex-wrap rounded-lg border border-line bg-bg p-0.5;
+
+    button {
+      @apply rounded-md px-2.5 py-1 text-xs font-medium text-muted transition-colors hover:text-fg;
+
+      &.active {
+        @apply bg-accent text-accent-fg;
+      }
+    }
+  }
+
   // Misc
   .badge {
     @apply inline-flex items-center gap-1 rounded-md border border-line bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted;

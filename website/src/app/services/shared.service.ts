@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LocalstorageService } from './localstorage.service';
 
+export type ERA = 'all' | 'pre' | 'post';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -202,6 +204,23 @@ export class SharedService {
         this.showPostAwakeningSubject.next(value);
     }
     public get showPostAwakening(): boolean { return this.showPostAwakeningSubject.value; }
+
+    // Era: shortcut over the two Awakening settings (null when both are off)
+    public get era(): ERA | null {
+        if (this.showPreAwakening && this.showPostAwakening) return 'all';
+        if (this.showPreAwakening) return 'pre';
+        if (this.showPostAwakening) return 'post';
+        return null;
+    }
+    updateEra(value: ERA) {
+        this.updateShowPreAwakening(value !== 'post');
+        this.updateShowPostAwakening(value !== 'pre');
+    }
+
+    // Awakening update released on week 282
+    public isPreAwakeningWeek(week: number): boolean {
+        return week < 282;
+    }
 
     // Themero
     private allowedThemero = [true, false];

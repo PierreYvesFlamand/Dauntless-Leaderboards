@@ -9,12 +9,15 @@
 </div>
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <select class="select w-full sm:max-w-xs" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page = 1; applyFilter();" aria-label="Behemoth">
-        <option [ngValue]="0">All behemoths</option>
-        <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
-            {{behemoth.name}}
-        </option>
-    </select>
+    <div class="flex w-full flex-col gap-2 sm:max-w-xs">
+        <select class="select w-full" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page = 1; applyFilter();" aria-label="Behemoth">
+            <option [ngValue]="0">All behemoths</option>
+            <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
+                {{behemoth.name}}
+            </option>
+        </select>
+        <dl-era-selector (eraChange)="filters.page = 1; applyFilter();" />
+    </div>
     <dl-pagination [page]="filters.page" [total]="total" label="trials" (pageChange)="filters.page = $event; applyFilter();" />
 </div>
 

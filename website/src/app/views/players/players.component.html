@@ -6,9 +6,12 @@
 </div>
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <div class="relative w-full sm:max-w-xs">
-        <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
-        <input class="input pl-9" placeholder="Search for a player" [(ngModel)]="filters.textSearch" (ngModelChange)="filters.page = 1; textSearchUpdate.next($event)" aria-label="Search for a player" />
+    <div class="flex w-full flex-col gap-2 sm:max-w-xs">
+        <div class="relative w-full">
+            <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
+            <input class="input pl-9" placeholder="Search for a player" [(ngModel)]="filters.textSearch" (ngModelChange)="filters.page = 1; textSearchUpdate.next($event)" aria-label="Search for a player" />
+        </div>
+        <dl-era-selector (eraChange)="filters.page = 1; applyFilter();" />
     </div>
     <dl-pagination [page]="filters.page" [total]="total" label="players" (pageChange)="filters.page = $event; applyFilter();" />
 </div>

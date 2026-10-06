@@ -31,6 +31,7 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
 import { TrendChartComponent } from './components/trend-chart/trend-chart.component';
 import { HeatmapComponent } from './components/heatmap/heatmap.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
+import { EraSelectorComponent } from './components/era-selector/era-selector.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { StatisticsComponent } from './views/statistics/statistics.component';
     BarListComponent,
     TrendChartComponent,
     HeatmapComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    EraSelectorComponent
   ],
   imports: [
     BrowserModule,

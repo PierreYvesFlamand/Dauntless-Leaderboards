@@ -1,0 +1,6 @@
+<div class="segmented flex-nowrap" role="radiogroup" aria-label="Era">
+    <button *ngFor="let option of options" class="whitespace-nowrap" role="radio" [attr.aria-checked]="sharedService.era === option.value" [class.active]="sharedService.era === option.value" [title]="option.label" (click)="select(option.value)">
+        <span class="sm:hidden">{{option.short}}</span>
+        <span class="hidden sm:inline">{{option.label}}</span>
+    </button>
+</div>
