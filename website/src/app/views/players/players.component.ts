@@ -22,13 +22,16 @@ export class PlayersComponent implements AfterViewInit {
     this.applyFilter();
   }
 
+  public readonly starIcon = '<i class="fa-regular fa-star"></i>';
+
+  // group & label are translation keys
   public sortColumns: { key: string, group: string, label: string }[] = [
-    { key: 'nbrSoloTop1', group: 'Solo', label: 'Top 1s' },
-    { key: 'nbrSoloTop5', group: 'Solo', label: 'Top 5s' },
-    { key: 'nbrSoloTop100', group: 'Solo', label: 'Top 100s' },
-    { key: 'nbrGroupTop1', group: 'Group', label: 'Top 1s' },
-    { key: 'nbrGroupTop5', group: 'Group', label: 'Top 5s' },
-    { key: 'nbrGroupTop100', group: 'Group', label: 'Top 100s' }
+    { key: 'nbrSoloTop1', group: 'common.solo', label: 'players.top1s' },
+    { key: 'nbrSoloTop5', group: 'common.solo', label: 'players.top5s' },
+    { key: 'nbrSoloTop100', group: 'common.solo', label: 'players.top100s' },
+    { key: 'nbrGroupTop1', group: 'common.group', label: 'players.top1s' },
+    { key: 'nbrGroupTop5', group: 'common.group', label: 'players.top5s' },
+    { key: 'nbrGroupTop100', group: 'common.group', label: 'players.top100s' }
   ];
 
   public players: WEBSITE_PLAYER[] = [];
@@ -57,6 +60,7 @@ export class PlayersComponent implements AfterViewInit {
     };
 
     response.data = response.data.filter(r => r.playerNames.map(n => n.name).join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
+    if (this.sharedService.favoritesOnly) response.data = response.data.filter(r => this.sharedService.hasFavoritePlayer(r.id));
 
     response.data.sort((a, b) => {
       let val1, val2;

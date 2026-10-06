@@ -2,13 +2,13 @@
     <!-- Brand -->
     <div class="flex h-16 shrink-0 items-center justify-between gap-2 border-b border-line px-4">
         <a routerLink="/" class="flex items-center gap-3 text-fg no-underline hover:no-underline">
-            <img src="img/app_icon.png" alt="" class="h-8 w-8 rounded-lg bg-accent p-1" />
+            <img src="img/app_icon.svg" alt="" class="h-8 w-8" />
             <span class="font-display text-[0.95rem] font-bold leading-tight tracking-wide">
                 {{sharedService.themero ? "Themero" : "Dauntless"}}<br>
                 <span class="text-accent">Leaderboards</span>
             </span>
         </a>
-        <button class="btn-icon lg:hidden" (click)="close.emit()" aria-label="Close menu">
+        <button class="btn-icon lg:hidden" (click)="close.emit()" [attr.aria-label]="'sidebar.closeMenu' | t">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
@@ -16,16 +16,16 @@
     <!-- Navigation -->
     <nav class="flex-1 overflow-y-auto px-3 py-4">
         <div *ngFor="let group of navGroups; let first = first" [class.mt-6]="!first">
-            <div *ngIf="group.title" class="mb-2 select-none px-3 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted/80">{{group.title}}</div>
+            <div *ngIf="group.title" class="mb-2 select-none px-3 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-muted/80">{{group.title | t}}</div>
             <ul class="space-y-0.5">
                 <li *ngFor="let item of group.items">
                     <a *ngIf="item.link" class="nav-link" [routerLink]="item.link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: !!item.exact }">
                         <ng-container *ngTemplateOutlet="navIcon; context: { $implicit: item }" />
-                        <span>{{item.label}}</span>
+                        <span>{{item.label | t}}</span>
                     </a>
                     <a *ngIf="item.href" class="nav-link" [href]="item.href" target="_blank" rel="noopener">
                         <ng-container *ngTemplateOutlet="navIcon; context: { $implicit: item }" />
-                        <span>{{item.label}}</span>
+                        <span>{{item.label | t}}</span>
                         <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-[0.65rem] opacity-50"></i>
                     </a>
                 </li>

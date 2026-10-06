@@ -1,14 +1,19 @@
 <div class="page-header">
     <div>
-        <h1 class="page-title">Guilds</h1>
-        <p class="page-subtitle">Every guild that ever ranked in the Gauntlet.</p>
+        <h1 class="page-title">{{ 'nav.guilds' | t }}</h1>
+        <p class="page-subtitle">{{ 'guilds.subtitle' | t }}</p>
     </div>
 </div>
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <div class="relative w-full sm:max-w-xs">
-        <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
-        <input class="input pl-9" placeholder="Search for a guild" [ngModel]="''" (ngModelChange)="filters.textSearch = $event; filters.page = 1; applyFilter();" aria-label="Search for a guild" />
+    <div class="flex w-full flex-col gap-2 sm:max-w-xs">
+        <div class="relative w-full">
+            <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
+            <input class="input pl-9" [placeholder]="'guilds.search' | t" [ngModel]="''" (ngModelChange)="filters.textSearch = $event; filters.page = 1; applyFilter();" [attr.aria-label]="'guilds.search' | t" />
+        </div>
+        <div class="flex items-center gap-2">
+            <dl-favorites-toggle (favoritesOnlyChange)="filters.page = 1; applyFilter();" />
+        </div>
     </div>
     <dl-pagination [page]="filters.page" [total]="total" label="guilds" (pageChange)="filters.page = $event; applyFilter();" />
 </div>
@@ -17,17 +22,17 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th>Guild</th>
+                <th>{{ 'common.guild' | t }}</th>
                 <th class="th-sort w-36" (click)="changeFilter('rating')">
                     <span class="flex items-center gap-2">
-                        Guild Score
+                        {{ 'guilds.guildScore' | t }}
                         <i class="fa-solid fa-circle-info normal-case" [title]="sharedService.guildScoreTooltip"></i>
                         <i class="fa-solid {{getArrowIcon('rating')}} ml-auto" [class.text-accent]="filters.orderByField === 'rating'"></i>
                     </span>
                 </th>
                 <th *ngFor="let column of sortColumns" class="th-sort w-28" (click)="changeFilter(column.key)">
                     <span class="flex items-center gap-2">
-                        {{column.label}}
+                        {{column.label | t}}
                         <i class="fa-solid {{getArrowIcon(column.key)}} ml-auto" [class.text-accent]="filters.orderByField === column.key"></i>
                     </span>
                 </th>
@@ -40,11 +45,17 @@
                     <div class="spinner"><i class="fa-solid fa-rotate fa-spin"></i></div>
                 </td>
             </tr>
+            <tr *ngIf="!isLoading && !guilds.length">
+                <td colspan="6" class="py-8 text-center text-sm text-muted">
+                    <span *ngIf="sharedService.favoritesOnly; else noResult" [innerHTML]="'guilds.noFavorite' | t: { icon: starIcon }"></span>
+                    <ng-template #noResult>{{ 'guilds.noResult' | t }}</ng-template>
+                </td>
+            </tr>
             <tr *ngFor="let guild of guilds" [enhancedRouterLink]="'/guilds/' + guild.id" role="button" [class.is-me]="guild.id === sharedService.guildId" [class.is-fav]="sharedService.hasFavoriteGuild(guild.id) && guild.id !== sharedService.guildId">
                 <td>
                     <dl-guild-tag [iconFilename]="guild.iconFilename" [name]="guild.name" [tag]="guild.tag" />
                 </td>
-                <td class="font-semibold tabular-nums">{{guild.rating.toFixed(1)}}</td>
+                <td class="font-semibold tabular-nums">{{guild.rating | lnumber:'1.1-1'}}</td>
                 <td class="tabular-nums">{{guild.nbrTop1}}</td>
                 <td class="tabular-nums">{{guild.nbrTop5}}</td>
                 <td class="tabular-nums">{{guild.nbrTop100}}</td>

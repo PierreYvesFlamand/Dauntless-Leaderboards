@@ -1,4 +1,4 @@
-<svg class="block w-full" [attr.width]="width" [attr.height]="height" [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" aria-label="Trend chart" (mouseleave)="hoverIndex = null">
+<svg class="block w-full" [attr.width]="width" [attr.height]="height" [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" [attr.aria-label]="'components.trendChart.ariaLabel' | t" (mouseleave)="hoverIndex = null">
     <!-- Grid & y axis (solid hairlines) -->
     <g *ngFor="let tick of ticks">
         <line class="stroke-line" [attr.x1]="padding.left" [attr.x2]="width - padding.right" [attr.y1]="y(tick)" [attr.y2]="y(tick)" stroke-width="1" />
@@ -29,6 +29,6 @@
 
 <div *ngIf="hoverPoint as hp" class="pointer-events-none absolute top-1 z-10 -translate-x-1/2 whitespace-nowrap rounded-lg border border-line bg-surface px-2.5 py-1.5 text-xs shadow-card" [style.left.px]="tooltipLeft">
     <div class="font-semibold">{{hp.label}}</div>
-    <div class="text-muted"><span class="font-medium text-fg">{{hp.value | number}}</span> {{unit}}</div>
+    <div class="text-muted" [innerHTML]="valueText(hp)"></div>
     <div *ngIf="hp.tooltip" class="text-muted">{{hp.tooltip}}</div>
 </div>

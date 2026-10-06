@@ -1,23 +1,23 @@
 <div class="page-header">
     <div>
-        <h1 class="page-title">Unseen translator</h1>
-        <p class="page-subtitle">Translate to and from the Unseen alphabet.</p>
+        <h1 class="page-title">{{'nav.unseenTranslator' | t}}</h1>
+        <p class="page-subtitle">{{'unseen.subtitle' | t}}</p>
     </div>
 </div>
 
 <div class="grid gap-6 lg:grid-cols-3">
     <section class="card lg:col-span-2">
         <div class="card-header">
-            <h2 class="card-title"><i class="fa-solid fa-language text-accent"></i> Translator</h2>
+            <h2 class="card-title"><i class="fa-solid fa-language text-accent"></i> {{'unseen.translator' | t}}</h2>
         </div>
         <div class="card-body space-y-6">
             <div class="grid gap-3 md:grid-cols-2">
                 <div>
-                    <label class="label" for="unseen-input">Unseen alphabet</label>
-                    <textarea id="unseen-input" class="input min-h-[6rem]" placeholder="Unseen alphabet text" [(ngModel)]="unseenAlphabetText" (ngModelChange)="onUnseenAlphabetTextChange($event)"></textarea>
+                    <label class="label" for="unseen-input">{{'unseen.unseenAlphabet' | t}}</label>
+                    <textarea id="unseen-input" class="input min-h-[6rem]" [placeholder]="'unseen.unseenAlphabetPlaceholder' | t" [(ngModel)]="unseenAlphabetText" (ngModelChange)="onUnseenAlphabetTextChange($event)"></textarea>
                 </div>
                 <div>
-                    <span class="label">Latin alphabet translation</span>
+                    <span class="label">{{'unseen.latinTranslation' | t}}</span>
                     <pre class="min-h-[6rem] whitespace-pre-wrap break-words rounded-lg border border-dashed border-line bg-surface-2 px-3 py-2 font-sans text-sm">{{unseenAlphabetTextToLatinAlphabet}}</pre>
                 </div>
             </div>
@@ -26,11 +26,11 @@
 
             <div class="grid gap-3 md:grid-cols-2">
                 <div>
-                    <label class="label" for="latin-input">Latin alphabet</label>
-                    <textarea id="latin-input" class="input min-h-[6rem]" placeholder="Latin alphabet text" [(ngModel)]="latinAlphabetText" (ngModelChange)="onLatinAlphabetTextChange($event)"></textarea>
+                    <label class="label" for="latin-input">{{'unseen.latinAlphabet' | t}}</label>
+                    <textarea id="latin-input" class="input min-h-[6rem]" [placeholder]="'unseen.latinAlphabetPlaceholder' | t" [(ngModel)]="latinAlphabetText" (ngModelChange)="onLatinAlphabetTextChange($event)"></textarea>
                 </div>
                 <div>
-                    <span class="label">Unseen alphabet translation</span>
+                    <span class="label">{{'unseen.unseenTranslation' | t}}</span>
                     <pre class="min-h-[6rem] whitespace-pre-wrap break-words rounded-lg border border-dashed border-line bg-surface-2 px-3 py-2 font-sans text-sm">{{latinAlphabetTextToUnseenAlphabet}}</pre>
                 </div>
             </div>
@@ -39,7 +39,7 @@
 
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title">Alphabet</h2>
+            <h2 class="card-title">{{'unseen.alphabet' | t}}</h2>
         </div>
         <div class="card-body">
             <div class="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-4">

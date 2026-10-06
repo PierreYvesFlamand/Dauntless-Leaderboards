@@ -2,19 +2,22 @@
     <div class="flex items-center gap-3">
         <img class="h-10 w-10" src="img/trial_icon.png" alt="" />
         <div>
-            <h1 class="page-title">Trials</h1>
-            <p class="page-subtitle">Weekly Trial records, newest first.</p>
+            <h1 class="page-title">{{'nav.trials' | t}}</h1>
+            <p class="page-subtitle">{{'trials.subtitle' | t}}</p>
         </div>
     </div>
 </div>
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <select class="select w-full sm:max-w-xs" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page = 1; applyFilter();" aria-label="Behemoth">
-        <option [ngValue]="0">All behemoths</option>
-        <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
-            {{behemoth.name}}
-        </option>
-    </select>
+    <div class="flex w-full flex-col gap-2 sm:max-w-xs">
+        <select class="select w-full" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page = 1; applyFilter();" [attr.aria-label]="'trials.behemoth' | t">
+            <option [ngValue]="0">{{'trials.allBehemoths' | t}}</option>
+            <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
+                {{behemoth.name}}
+            </option>
+        </select>
+        <dl-era-selector (eraChange)="filters.page = 1; applyFilter();" />
+    </div>
     <dl-pagination [page]="filters.page" [total]="total" label="trials" (pageChange)="filters.page = $event; applyFilter();" />
 </div>
 
@@ -22,11 +25,11 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th class="w-36">Week</th>
-                <th>Top 1 solo</th>
-                <th>Top 1 group</th>
-                <th class="w-40">From</th>
-                <th class="w-40">To</th>
+                <th class="w-36">{{'common.week' | t}}</th>
+                <th>{{'trials.top1Solo' | t}}</th>
+                <th>{{'trials.top1Group' | t}}</th>
+                <th class="w-40">{{'common.from' | t}}</th>
+                <th class="w-40">{{'common.to' | t}}</th>
             </tr>
         </thead>
 
@@ -41,13 +44,13 @@
                     <span class="flex items-center gap-2">
                         <img class="behemoth-ico" [src]="sharedService.getImgPath(trial.behemothName + '.png', 'behemoths')" alt="" />
                         <span>
-                            <span class="block text-xs text-muted">Week {{trial.week}}</span>
+                            <span class="block text-xs text-muted">{{'trials.weekNumber' | t: { week: trial.week } }}</span>
                             <span class="block max-w-[9rem] truncate font-medium">{{trial.behemothName}}</span>
                         </span>
                     </span>
                 </td>
                 <td [title]="sharedService.convertTrialTime(trial.soloCompletionTime, true)">
-                    <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultSolo" class="badge">DISABLED</span>
+                    <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultSolo" class="badge">{{'common.disabled' | t}}</span>
                     <ng-template #defaultSolo>
                         <span class="flex items-center gap-3">
                             <span class="time w-20">{{sharedService.convertTrialTime(trial.soloCompletionTime, sharedService.trialDecimals)}}</span>
@@ -56,7 +59,7 @@
                     </ng-template>
                 </td>
                 <td [title]="sharedService.convertTrialTime(trial.groupCompletionTime, true)">
-                    <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultGroup" class="badge">DISABLED</span>
+                    <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultGroup" class="badge">{{'common.disabled' | t}}</span>
                     <ng-template #defaultGroup>
                         <span class="flex items-center gap-3">
                             <span class="time w-20">{{sharedService.convertTrialTime(trial.groupCompletionTime, sharedService.trialDecimals)}}</span>
@@ -66,8 +69,8 @@
                         </span>
                     </ng-template>
                 </td>
-                <td class="text-muted">{{trial.startAt | date:'YYYY MMMM d'}}</td>
-                <td class="text-muted">{{trial.week === 307 ? (trial.endAt | date:'MMMM d - hh:mm') : trial.endAt | date:'MMMM d'}}</td>
+                <td class="text-muted">{{trial.startAt | ldate:'longDate'}}</td>
+                <td class="text-muted">{{trial.week === 307 ? (trial.endAt | ldate:'monthDayTime') : trial.endAt | ldate:'monthDay'}}</td>
             </tr>
         </tbody>
     </table>

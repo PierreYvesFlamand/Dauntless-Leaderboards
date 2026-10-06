@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
 
 type NAV_ITEM = {
-  label: string
+  label: string // Translation key
   icon?: string
   img?: string
   link?: string
@@ -11,7 +11,7 @@ type NAV_ITEM = {
 }
 
 type NAV_GROUP = {
-  title?: string
+  title?: string // Translation key
   items: NAV_ITEM[]
 }
 
@@ -28,44 +28,45 @@ export class SidebarComponent {
   public navGroups: NAV_GROUP[] = [
     {
       items: [
-        { label: 'Dashboard', icon: 'fa-solid fa-gauge-high', link: '/', exact: true },
-        { label: 'Statistics', icon: 'fa-solid fa-chart-pie', link: '/statistics' }
+        { label: 'nav.dashboard', icon: 'fa-solid fa-gauge-high', link: '/', exact: true },
+        { label: 'nav.statistics', icon: 'fa-solid fa-chart-pie', link: '/statistics' }
       ]
     },
     {
-      title: 'Gauntlet',
+      title: 'nav.gauntlet',
       items: [
-        { label: 'Seasons', img: 'img/gauntlet_icon.png', link: '/seasons' },
-        { label: 'Guilds', icon: 'fa-solid fa-users', link: '/guilds' }
+        { label: 'nav.seasons', img: 'img/gauntlet_icon.png', link: '/seasons' },
+        { label: 'nav.guilds', icon: 'fa-solid fa-users', link: '/guilds' }
       ]
     },
     {
-      title: 'Trials',
+      title: 'nav.trials',
       items: [
-        { label: 'Trials', img: 'img/trial_icon.png', link: '/trials' },
-        { label: 'Players', icon: 'fa-solid fa-user', link: '/players' }
+        { label: 'nav.trials', img: 'img/trial_icon.png', link: '/trials' },
+        { label: 'nav.players', icon: 'fa-solid fa-user', link: '/players' }
       ]
     },
     {
-      title: 'Tools',
+      title: 'nav.tools',
       items: [
-        { label: 'Dauntless Builder', img: 'https://dauntless-builder.com/icon.png', href: 'https://dauntless-builder.com/' },
-        { label: 'Level Calculator', icon: 'fa-solid fa-chart-line', link: '/level-calculator' },
-        { label: 'Unseen Translator', icon: 'fa-solid fa-language', link: '/unseen-translator' }
+        { label: 'nav.builder', img: 'https://dauntless-builder.com/icon.png', href: 'https://dauntless-builder.com/' },
+        { label: 'nav.levelCalculator', icon: 'fa-solid fa-chart-line', link: '/level-calculator' },
+        { label: 'nav.unseenTranslator', icon: 'fa-solid fa-language', link: '/unseen-translator' }
       ]
     },
     {
-      title: 'Application',
+      title: 'nav.application',
       items: [
-        { label: 'About', icon: 'fa-solid fa-circle-info', link: '/about' },
-        { label: 'Settings', icon: 'fa-solid fa-gear', link: '/settings' }
+        { label: 'nav.about', icon: 'fa-solid fa-circle-info', link: '/about' },
+        { label: 'nav.settings', icon: 'fa-solid fa-gear', link: '/settings' }
       ]
     },
     {
-      title: 'Links',
+      title: 'nav.links',
       items: [
-        { label: 'Discord', icon: 'fa-brands fa-discord', href: 'https://discord.gg/JGTVcqMDfm' },
-        { label: 'Github', icon: 'fa-brands fa-github', href: 'https://github.com/PierreYvesFlamand/Dauntless-Leaderboards' }
+        { label: 'nav.discord', icon: 'fa-brands fa-discord', href: 'https://discord.gg/JGTVcqMDfm' },
+        { label: 'nav.hallOfFame', icon: 'fa-solid fa-landmark', href: 'https://discord.gg/snwcPJ4xSF' },
+        { label: 'nav.github', icon: 'fa-brands fa-github', href: 'https://github.com/PierreYvesFlamand/Dauntless-Leaderboards' }
       ]
     }
   ];

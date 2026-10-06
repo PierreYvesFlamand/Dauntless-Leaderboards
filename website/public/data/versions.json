@@ -1,5 +1,22 @@
 [
     {
+        "version": "5.1.0",
+        "date": "2026/10/06",
+        "changelogItems": [
+            "Renamed the \"Hall of fame\" statistic to \"Top players\" to avoid confusion with the community's Dauntless Hall of Fame",
+            "Added a link to the Dauntless Hall of Fame Discord on the Dashboard, in the menu, on the Top players statistic and on the About page",
+            "Added an era selector (All, Pre-Awakening, Post-Awakening) on the Players, Player and Trials pages, synced with the settings",
+            "Added a Pre-Awakening / Post-Awakening badge on Trial pages",
+            "Your player and guild are now always in your favorites",
+            "Added a Favorites page (top right menu) to see and remove your favorite players and guilds",
+            "Added a \"Favorites only\" filter on the Guilds, Players and Statistics pages (also in the settings)",
+            "New app icon",
+            "The website is now available in English, French, German, Japanese, Spanish, Italian, Brazilian Portuguese and Russian (language picker in the header and in the settings, browser language by default)",
+            "Translations are made with AI for now: want to help? Every language file can be edited without coding (see \"Help translate\" in the language menu)",
+            "Dates and numbers now follow the selected language"
+        ]
+    },
+    {
         "version": "5.0.1",
         "date": "2026/10/05",
         "changelogItems": [
@@ -11,7 +28,7 @@
         "date": "2026/10/05",
         "changelogItems": [
             "Complete redesign of the website: new look, new navigation and improved dark & light themes",
-            "Added a Statistics page: weapon & omnicell meta, loadouts, group compositions, behemoth records, photo finishes, hall of fame, platforms and Gauntlet history, all with filters",
+            "Added a Statistics page: weapon & omnicell meta, loadouts, group compositions, behemoth records, photo finishes, top players, platforms and Gauntlet history, all with filters",
             "Added stats on guild pages: best & average rank, top 10 streak, ranking among all guilds, rank by season chart and level per season",
             "Added a stats summary on player pages: trials played, wins, best solo rank, main weapon and omnicell",
             "Activity Rating replaced by Guild Score: a fairer formula where every ranked guild gets a score (hover the info icon for details)",

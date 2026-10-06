@@ -16,14 +16,15 @@
                         <span *ngIf="!last" class="text-muted/50">/</span>
                     </ng-container>
                 </h1>
-                <p class="page-subtitle">{{playerData.playerTrials.length}} leaderboard entries</p>
+                <p class="page-subtitle">{{'player.entries' | t: { count: playerData.playerTrials.length, entries: (playerData.playerTrials.length | lnumber) } }}</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button class="btn-icon border border-line" (click)="sharedService.toggleFavoritePlayer(playerData.id)" [title]="sharedService.hasFavoritePlayer(playerData.id) ? 'Remove from favorites' : 'Add to favorites'">
+            <dl-era-selector (eraChange)="fetchData(playerData.id)" />
+            <button class="btn-icon border border-line disabled:cursor-not-allowed disabled:opacity-60" [disabled]="playerData.id === sharedService.playerId" (click)="sharedService.toggleFavoritePlayer(playerData.id)" [title]="(playerData.id === sharedService.playerId ? 'player.alwaysFavorite' : sharedService.hasFavoritePlayer(playerData.id) ? 'common.removeFromFavorites' : 'common.addToFavorites') | t">
                 <i class="fa-{{sharedService.hasFavoritePlayer(playerData.id) ? 'solid' : 'regular'}} fa-star text-fav"></i>
             </button>
-            <button class="btn-icon border border-line" (click)="sharedService.updatePlayerId(playerData.id === sharedService.playerId ? -1 : playerData.id)" [title]="playerData.id === sharedService.playerId ? 'Unset as me' : 'Set as me'">
+            <button class="btn-icon border border-line" (click)="sharedService.updatePlayerId(playerData.id === sharedService.playerId ? -1 : playerData.id)" [title]="(playerData.id === sharedService.playerId ? 'player.unsetAsMe' : 'player.setAsMe') | t">
                 <i class="fa-solid fa-{{playerData.id === sharedService.playerId ? 'lock' : 'lock-open'}} text-me"></i>
             </button>
         </div>
@@ -32,59 +33,59 @@
     <!-- Stats strip: one compact row to keep space for the table -->
     <div *ngIf="stats && stats.trialsPlayed" class="card -mt-2 mb-4 grid grid-cols-2 divide-line sm:grid-cols-4 lg:flex lg:divide-x">
         <div class="player-stat">
-            <span class="stat-label">Trials</span>
+            <span class="stat-label">{{'player.statTrials' | t}}</span>
             <span class="player-stat-value">{{stats.trialsPlayed}}</span>
-            <span class="whitespace-nowrap text-xs text-muted" *ngIf="stats.firstWeek">W{{stats.firstWeek}}–{{stats.lastWeek}}</span>
+            <span class="whitespace-nowrap text-xs text-muted" *ngIf="stats.firstWeek">{{'player.weekRange' | t: { first: stats.firstWeek, last: stats.lastWeek || '' } }}</span>
         </div>
         <div class="player-stat">
-            <span class="stat-label">Solo wins</span>
+            <span class="stat-label">{{'player.soloWins' | t}}</span>
             <span class="player-stat-value" [class.text-gold]="stats.soloWins > 0">{{stats.soloWins}}</span>
         </div>
         <div class="player-stat">
-            <span class="stat-label">Solo top 5</span>
+            <span class="stat-label">{{'player.soloTop5' | t}}</span>
             <span class="player-stat-value">{{stats.soloTop5}}</span>
         </div>
         <div class="player-stat">
-            <span class="stat-label">Best solo</span>
+            <span class="stat-label">{{'player.bestSolo' | t}}</span>
             <span class="player-stat-value">{{stats.bestSoloRank ? '#' + stats.bestSoloRank : '–'}}</span>
         </div>
         <div class="player-stat">
-            <span class="stat-label">Group wins</span>
+            <span class="stat-label">{{'player.groupWins' | t}}</span>
             <span class="player-stat-value" [class.text-gold]="stats.groupWins > 0">{{stats.groupWins}}</span>
         </div>
         <div class="player-stat" *ngIf="stats.mainWeapon" [title]="sharedService.weaponNames[stats.mainWeapon.id]">
-            <span class="stat-label">Main</span>
+            <span class="stat-label">{{'player.mainWeapon' | t}}</span>
             <img class="h-6 w-6 object-contain" [src]="sharedService.getImgPath(stats.mainWeapon.id + '.png', 'weapons')" alt="" />
-            <span class="text-xs tabular-nums text-muted">{{stats.mainWeapon.share | percent}}</span>
+            <span class="text-xs tabular-nums text-muted">{{stats.mainWeapon.share | lpercent}}</span>
         </div>
         <div class="player-stat" *ngIf="stats.mainOmnicell" [title]="sharedService.omnicellNames[stats.mainOmnicell.id]">
-            <span class="stat-label">Cell</span>
+            <span class="stat-label">{{'player.mainOmnicell' | t}}</span>
             <img class="h-6 w-6 object-contain" [src]="sharedService.getImgPath(stats.mainOmnicell.id + '.png', 'omnicells')" alt="" />
-            <span class="text-xs tabular-nums text-muted">{{stats.mainOmnicell.share | percent}}</span>
+            <span class="text-xs tabular-nums text-muted">{{stats.mainOmnicell.share | lpercent}}</span>
         </div>
     </div>
 
     <section class="card fill flex flex-col overflow-clip">
         <div class="tabs px-2 pt-1" role="tablist">
-            <button *ngFor="let tab of visibleTabs" class="tab" [class.active]="activeTab === tab.key" (click)="activeTab = tab.key" role="tab" [attr.aria-selected]="activeTab === tab.key" [title]="tab.label || tab.key">
-                <img *ngIf="tab.weaponId" [src]="sharedService.getImgPath(tab.weaponId + '.png', 'weapons')" [alt]="tab.key" />
-                <span *ngIf="tab.label">{{tab.label}}</span>
+            <button *ngFor="let tab of visibleTabs" class="tab" [class.active]="activeTab === tab.key" (click)="activeTab = tab.key" role="tab" [attr.aria-selected]="activeTab === tab.key" [title]="(tab.label || 'weapon.' + tab.weaponId) | t">
+                <img *ngIf="tab.weaponId" [src]="sharedService.getImgPath(tab.weaponId + '.png', 'weapons')" [alt]="('weapon.' + tab.weaponId) | t" />
+                <span *ngIf="tab.label">{{tab.label | t}}</span>
                 <span class="tab-count">{{leaderboards[tab.key].length}}</span>
             </button>
         </div>
 
-        <div *ngIf="!visibleTabs.length" class="p-6 text-center text-sm text-muted">No trial results to show with the current settings.</div>
+        <div *ngIf="!visibleTabs.length" class="p-6 text-center text-sm text-muted">{{'player.noResults' | t}}</div>
 
         <div *ngIf="visibleTabs.length" class="table-wrap-flush">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th class="w-36">Week</th>
-                        <th class="w-16 text-center">Rank</th>
-                        <th class="w-28">Time</th>
-                        <th>{{activeTab === 'group' ? 'Players' : 'Player'}}</th>
-                        <th class="w-40">From</th>
-                        <th class="w-40">To</th>
+                        <th class="w-36">{{'common.week' | t}}</th>
+                        <th class="w-16 text-center">{{'common.rank' | t}}</th>
+                        <th class="w-28">{{'common.time' | t}}</th>
+                        <th>{{(activeTab === 'group' ? 'common.players' : 'common.player') | t}}</th>
+                        <th class="w-40">{{'common.from' | t}}</th>
+                        <th class="w-40">{{'common.to' | t}}</th>
                     </tr>
                 </thead>
 
@@ -107,10 +108,10 @@
                                 </div>
                             </td>
                             <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" class="text-muted">
-                                {{leaderboardItem.startAt | date:'YYYY MMMM d'}}
+                                {{leaderboardItem.startAt | ldate:'longDate'}}
                             </td>
                             <td *ngIf="first" [attr.rowspan]="leaderboardItem.groups.length" class="text-muted">
-                                {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}
+                                {{leaderboardItem.week === 307 ? (leaderboardItem.endAt | ldate:'monthDayTime') : leaderboardItem.endAt | ldate:'monthDay'}}
                             </td>
                         </tr>
                     </ng-container>
@@ -131,8 +132,8 @@
                         <td>
                             <dl-player-tag [player]="leaderboardItem.players[0]" [showSecondary]="leaderboardItem.week >= 282" />
                         </td>
-                        <td class="text-muted">{{leaderboardItem.startAt | date:'YYYY MMMM d'}}</td>
-                        <td class="text-muted">{{leaderboardItem.week === 307 ? (leaderboardItem.endAt | date:'MMMM d - hh:mm') : leaderboardItem.endAt | date:'MMMM d'}}</td>
+                        <td class="text-muted">{{leaderboardItem.startAt | ldate:'longDate'}}</td>
+                        <td class="text-muted">{{leaderboardItem.week === 307 ? (leaderboardItem.endAt | ldate:'monthDayTime') : leaderboardItem.endAt | ldate:'monthDay'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -144,7 +145,7 @@
     <span class="flex items-center gap-2">
         <img class="behemoth-ico" [src]="sharedService.getImgPath(item.behemothName + '.png', 'behemoths')" alt="" />
         <span>
-            <span class="block text-xs text-muted">Week {{item.week}}</span>
+            <span class="block text-xs text-muted">{{'trials.weekNumber' | t: { week: item.week } }}</span>
             <span class="block max-w-[9rem] truncate font-medium">{{item.behemothName}}</span>
         </span>
     </span>

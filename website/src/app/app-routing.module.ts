@@ -15,6 +15,7 @@ import { TrialDetailComponent } from './views/trials/trial-detail/trial-detail.c
 import { PlayersComponent } from './views/players/players.component';
 import { PlayerDetailComponent } from './views/players/player-detail/player-detail.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
+import { FavoritesComponent } from './views/favorites/favorites.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: 'level-calculator', component: LevelCalculatorComponent },
       { path: 'beta/level-calculator', redirectTo: 'level-calculator' },
 
+      { path: 'favorites', component: FavoritesComponent },
       { path: 'about', component: AboutComponent },
       { path: 'settings', component: SettingsComponent },
 

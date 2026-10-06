@@ -1,0 +1,77 @@
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{{'nav.favorites' | t}}</h1>
+        <p class="page-subtitle">{{'favorites.subtitle' | t}}</p>
+    </div>
+</div>
+
+<div class="mx-auto max-w-3xl space-y-6">
+    <label class="card setting-row cursor-pointer" for="favoritesOnly">
+        <span class="setting-icon"><i class="fa-solid fa-filter"></i></span>
+        <span class="flex-1">
+            <span class="block font-medium">{{'favorites.showOnly' | t}}</span>
+            <span class="block text-xs text-muted">{{'favorites.showOnlyDescription' | t}}</span>
+        </span>
+        <span class="switch">
+            <input type="checkbox" id="favoritesOnly" [ngModel]="sharedService.favoritesOnly" (ngModelChange)="sharedService.updateFavoritesOnly($event ? true : false)">
+            <span></span>
+        </span>
+    </label>
+
+    <section class="card overflow-clip">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fa-solid fa-user text-accent"></i> {{'common.players' | t}} <span class="tab-count">{{players.length}}</span></h2>
+        </div>
+        <ul *ngIf="players.length; else noPlayer" class="divide-y divide-line">
+            <li *ngFor="let player of players" class="flex items-center gap-3 px-4 py-2.5" [class.is-me]="player.id === sharedService.playerId">
+                <a class="flex min-w-0 flex-1 flex-wrap items-center gap-x-4 gap-y-1 text-inherit no-underline hover:text-accent hover:no-underline" [routerLink]="'/players/' + player.id">
+                    <span *ngFor="let name of player.playerNames" class="inline-flex items-center gap-1.5 font-medium">
+                        {{sharedService.themero ? "Themero" : name.name}}
+                        <img *ngIf="name.platformId" class="ico-sm platform-icon opacity-80" [src]="sharedService.getImgPath(name.platformId + '.png', 'platforms')" alt="" />
+                    </span>
+                </a>
+                <span *ngIf="player.id === sharedService.playerId; else removePlayer" class="badge text-me" [title]="'favorites.playerLocked' | t">
+                    <i class="fa-solid fa-lock"></i> {{'favorites.me' | t}}
+                </span>
+                <ng-template #removePlayer>
+                    <button class="btn-icon border border-line" (click)="sharedService.removeFavoritePlayers(player.id)" [title]="'common.removeFromFavorites' | t" [attr.aria-label]="'common.removeFromFavorites' | t">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </ng-template>
+            </li>
+        </ul>
+        <ng-template #noPlayer>
+            <p class="px-4 py-6 text-center text-sm text-muted">
+                <span [innerHTML]="'favorites.noPlayer' | t: { icon: starIcon }"></span>
+                <a class="ml-1 whitespace-nowrap" routerLink="/players">{{'favorites.browsePlayers' | t}} <i class="fa-solid fa-arrow-right text-[0.65rem]"></i></a>
+            </p>
+        </ng-template>
+    </section>
+
+    <section class="card overflow-clip">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fa-solid fa-users text-accent"></i> {{'common.guilds' | t}} <span class="tab-count">{{guilds.length}}</span></h2>
+        </div>
+        <ul *ngIf="guilds.length; else noGuild" class="divide-y divide-line">
+            <li *ngFor="let guild of guilds" class="flex items-center gap-3 px-4 py-2.5" [class.is-me]="guild.id === sharedService.guildId">
+                <a class="flex min-w-0 flex-1 items-center text-inherit no-underline hover:text-accent hover:no-underline" [routerLink]="'/guilds/' + guild.id">
+                    <dl-guild-tag [iconFilename]="guild.iconFilename" [name]="guild.name" [tag]="guild.tag" />
+                </a>
+                <span *ngIf="guild.id === sharedService.guildId; else removeGuild" class="badge text-me" [title]="'favorites.guildLocked' | t">
+                    <i class="fa-solid fa-lock"></i> {{'favorites.mine' | t}}
+                </span>
+                <ng-template #removeGuild>
+                    <button class="btn-icon border border-line" (click)="sharedService.removeFavoriteGuilds(guild.id)" [title]="'common.removeFromFavorites' | t" [attr.aria-label]="'common.removeFromFavorites' | t">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </ng-template>
+            </li>
+        </ul>
+        <ng-template #noGuild>
+            <p class="px-4 py-6 text-center text-sm text-muted">
+                <span [innerHTML]="'favorites.noGuild' | t: { icon: starIcon }"></span>
+                <a class="ml-1 whitespace-nowrap" routerLink="/guilds">{{'favorites.browseGuilds' | t}} <i class="fa-solid fa-arrow-right text-[0.65rem]"></i></a>
+            </p>
+        </ng-template>
+    </section>
+</div>

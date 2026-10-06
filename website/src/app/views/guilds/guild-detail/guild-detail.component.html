@@ -11,10 +11,10 @@
             <a *ngIf="guildData.discordLink" class="btn btn-secondary" [href]="guildData.discordLink" target="_blank" rel="noopener">
                 <i class="fa-brands fa-discord"></i> Discord
             </a>
-            <button class="btn-icon border border-line" (click)="sharedService.toggleFavoriteGuild(guildData.id)" [title]="sharedService.hasFavoriteGuild(guildData.id) ? 'Remove from favorites' : 'Add to favorites'">
+            <button class="btn-icon border border-line disabled:cursor-not-allowed disabled:opacity-60" [disabled]="guildData.id === sharedService.guildId" (click)="sharedService.toggleFavoriteGuild(guildData.id)" [title]="(guildData.id === sharedService.guildId ? 'guild.alwaysFavorite' : sharedService.hasFavoriteGuild(guildData.id) ? 'common.removeFromFavorites' : 'common.addToFavorites') | t">
                 <i class="fa-{{sharedService.hasFavoriteGuild(guildData.id) ? 'solid' : 'regular'}} fa-star text-fav"></i>
             </button>
-            <button class="btn-icon border border-line" (click)="sharedService.updateGuildId(guildData.id === sharedService.guildId ? -1 : guildData.id)" [title]="guildData.id === sharedService.guildId ? 'Unset as my guild' : 'Set as my guild'">
+            <button class="btn-icon border border-line" (click)="sharedService.updateGuildId(guildData.id === sharedService.guildId ? -1 : guildData.id)" [title]="(guildData.id === sharedService.guildId ? 'guild.unsetMine' : 'guild.setMine') | t">
                 <i class="fa-solid fa-{{guildData.id === sharedService.guildId ? 'lock' : 'lock-open'}} text-me"></i>
             </button>
         </div>
@@ -25,55 +25,55 @@
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div class="stat">
                     <div class="stat-label flex items-center gap-1.5">
-                        Guild Score
+                        {{ 'guilds.guildScore' | t }}
                         <i class="fa-solid fa-circle-info" [title]="sharedService.guildScoreTooltip"></i>
                     </div>
-                    <div class="stat-value text-accent">{{guildData.rating.toFixed(1)}}</div>
-                    <div *ngIf="stats" class="stat-sub">#{{stats.scoreRank}} of {{stats.totalGuilds}} guilds</div>
+                    <div class="stat-value text-accent">{{guildData.rating | lnumber:'1.1-1'}}</div>
+                    <div *ngIf="stats" class="stat-sub">{{ 'guild.scoreRank' | t: { count: stats.totalGuilds, rank: stats.scoreRank, total: (stats.totalGuilds | lnumber) } }}</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-label">Season wins</div>
+                    <div class="stat-label">{{ 'guild.seasonWins' | t }}</div>
                     <div class="stat-value">{{guildData.nbrTop1}}</div>
-                    <div class="stat-sub">Top 1 finishes</div>
+                    <div class="stat-sub">{{ 'guild.top1Finishes' | t }}</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-label">Top 5</div>
+                    <div class="stat-label">{{ 'guild.top5' | t }}</div>
                     <div class="stat-value">{{guildData.nbrTop5}}</div>
-                    <div class="stat-sub">Top 100: {{guildData.nbrTop100}}</div>
+                    <div class="stat-sub">{{ 'guild.top100' | t: { value: guildData.nbrTop100 } }}</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-label">Seasons played</div>
+                    <div class="stat-label">{{ 'guild.seasonsPlayed' | t }}</div>
                     <div class="stat-value">{{seasonHistory.length}}</div>
-                    <div *ngIf="stats" class="stat-sub">S{{stats.firstSeason}} → S{{stats.lastSeason}}</div>
+                    <div *ngIf="stats" class="stat-sub">{{ 'common.seasonShort' | t: { season: stats.firstSeason } }} → {{ 'common.seasonShort' | t: { season: stats.lastSeason } }}</div>
                 </div>
                 <ng-container *ngIf="stats">
                     <div class="stat">
-                        <div class="stat-label">Best rank</div>
+                        <div class="stat-label">{{ 'guild.bestRank' | t }}</div>
                         <div class="stat-value">#{{stats.bestRank}}</div>
-                        <div class="stat-sub">{{stats.bestRankCount}} time{{stats.bestRankCount > 1 ? 's' : ''}}</div>
+                        <div class="stat-sub">{{ 'guild.times' | t: { count: stats.bestRankCount } }}</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-label">Average rank</div>
-                        <div class="stat-value">#{{stats.averageRank | number:'1.0-1'}}</div>
-                        <div class="stat-sub">Over ranked seasons</div>
+                        <div class="stat-label">{{ 'guild.averageRank' | t }}</div>
+                        <div class="stat-value">#{{stats.averageRank | lnumber:'1.0-1'}}</div>
+                        <div class="stat-sub">{{ 'guild.overRankedSeasons' | t }}</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-label">Top 10 streak</div>
+                        <div class="stat-label">{{ 'guild.top10Streak' | t }}</div>
                         <div class="stat-value">{{stats.longestTop10Streak}}</div>
-                        <div class="stat-sub">Seasons in a row</div>
+                        <div class="stat-sub">{{ 'guild.seasonsInARow' | t }}</div>
                     </div>
                 </ng-container>
                 <div class="stat">
-                    <div class="stat-label">Total levels</div>
-                    <div class="stat-value">{{guildData.totalLevelCleared | number}}</div>
-                    <div class="stat-sub">All seasons</div>
+                    <div class="stat-label">{{ 'guilds.totalLevels' | t }}</div>
+                    <div class="stat-value">{{guildData.totalLevelCleared | lnumber}}</div>
+                    <div class="stat-sub">{{ 'guild.allSeasons' | t }}</div>
                 </div>
             </div>
 
             <section class="card">
                 <div class="card-header">
-                    <h2 class="card-title"><i class="fa-solid fa-chart-line text-chart"></i> Rank by season</h2>
-                    <span class="text-xs text-muted">Log scale · gaps = not ranked</span>
+                    <h2 class="card-title"><i class="fa-solid fa-chart-line text-chart"></i> {{ 'guild.rankBySeason' | t }}</h2>
+                    <span class="text-xs text-muted">{{ 'guild.chartLegend' | t }}</span>
                 </div>
                 <div class="px-2 pb-2 pt-3">
                     <dl-rank-chart [points]="chartPoints" />
@@ -85,15 +85,15 @@
 
         <section class="card fill flex flex-col overflow-clip">
             <div class="card-header">
-                <h2 class="card-title"><img class="h-5 w-5" src="img/gauntlet_icon.png" alt="" /> Season history</h2>
+                <h2 class="card-title"><img class="h-5 w-5" src="img/gauntlet_icon.png" alt="" /> {{ 'guild.seasonHistory' | t }}</h2>
             </div>
             <div class="table-wrap-flush">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th class="text-center">Season</th>
-                            <th class="text-center">Position</th>
-                            <th class="text-center">Level</th>
+                            <th class="text-center">{{ 'common.season' | t }}</th>
+                            <th class="text-center">{{ 'guild.position' | t }}</th>
+                            <th class="text-center">{{ 'common.level' | t }}</th>
                         </tr>
                     </thead>
                     <tbody>

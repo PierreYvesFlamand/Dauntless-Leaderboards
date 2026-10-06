@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslationService } from './services/translation.service';
+import { LocalDatePipe, LocalNumberPipe, LocalPercentPipe, TranslatePipe } from './pipes/i18n.pipes';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { EnhancedRouterLinkDirective } from './directives/enhanced-router-link.directive';
+import { HtmlRouterLinksDirective } from './directives/html-router-links.directive';
 import { LayoutComponent } from './layout/layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -31,11 +34,15 @@ import { BarListComponent } from './components/bar-list/bar-list.component';
 import { TrendChartComponent } from './components/trend-chart/trend-chart.component';
 import { HeatmapComponent } from './components/heatmap/heatmap.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
+import { EraSelectorComponent } from './components/era-selector/era-selector.component';
+import { FavoritesToggleComponent } from './components/favorites-toggle/favorites-toggle.component';
+import { FavoritesComponent } from './views/favorites/favorites.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnhancedRouterLinkDirective,
+    HtmlRouterLinksDirective,
     LayoutComponent,
     FooterComponent,
     HeaderComponent,
@@ -61,14 +68,24 @@ import { StatisticsComponent } from './views/statistics/statistics.component';
     BarListComponent,
     TrendChartComponent,
     HeatmapComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    EraSelectorComponent,
+    FavoritesToggleComponent,
+    FavoritesComponent,
+    TranslatePipe,
+    LocalDatePipe,
+    LocalNumberPipe,
+    LocalPercentPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    // Translations are loaded before the first render
+    { provide: APP_INITIALIZER, useFactory: (translationService: TranslationService) => () => translationService.init(), deps: [TranslationService], multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

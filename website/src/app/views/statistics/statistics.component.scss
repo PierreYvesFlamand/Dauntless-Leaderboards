@@ -10,19 +10,6 @@
   }
 }
 
-// Segmented filter control
-.segmented {
-  @apply inline-flex flex-wrap rounded-lg border border-line bg-bg p-0.5;
-
-  button {
-    @apply rounded-md px-2.5 py-1 text-xs font-medium text-muted transition-colors hover:text-fg;
-
-    &.active {
-      @apply bg-accent text-accent-fg;
-    }
-  }
-}
-
 .stat-table {
   @apply overflow-x-auto;
 }

@@ -7,7 +7,7 @@ type TRIAL_TAB_KEY = 'all' | 'group' | 'hammer' | 'axe' | 'sword' | 'chainblades
 
 type TRIAL_TAB = {
   key: TRIAL_TAB_KEY
-  label?: string
+  label?: string // Translation key, weapon tabs show the weapon name instead
   weaponId?: number
 }
 
@@ -22,8 +22,8 @@ export class TrialDetailComponent {
   public activeTab: TRIAL_TAB_KEY = 'all';
 
   public tabs: TRIAL_TAB[] = [
-    { key: 'all', label: 'Solo' },
-    { key: 'group', label: 'Group' },
+    { key: 'all', label: 'common.solo' },
+    { key: 'group', label: 'common.group' },
     { key: 'hammer', weaponId: 1 },
     { key: 'axe', weaponId: 2 },
     { key: 'sword', weaponId: 3 },

@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy } from '@angular/core';
+import { formatNumber } from '@angular/common';
+import { TranslationService } from '../../services/translation.service';
 
 export type RANK_CHART_POINT = {
   season: number
@@ -30,7 +32,8 @@ export class RankChartComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef<HTMLElement>,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private translationService: TranslationService
   ) { }
 
   ngAfterViewInit(): void {
@@ -95,5 +98,15 @@ export class RankChartComponent implements AfterViewInit, OnDestroy {
   public get tooltipLeft(): number {
     if (this.hoverIndex === null) return 0;
     return Math.min(Math.max(this.x(this.hoverIndex), 70), this.width - 70);
+  }
+
+  // Tooltip texts, values highlighted (HTML)
+  public rankText(rank: number): string {
+    return this.translationService.t('components.rankChart.rank', { rank: `<span class="font-medium text-fg">#${rank}</span>` });
+  }
+
+  public levelText(level: number): string {
+    const value = formatNumber(level, this.translationService.language.locale);
+    return this.translationService.t('components.rankChart.level', { level: `<span class="font-medium text-fg">${value}</span>` });
   }
 }

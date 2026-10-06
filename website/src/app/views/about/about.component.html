@@ -1,47 +1,44 @@
 <div class="page-header">
-    <h1 class="page-title">About</h1>
+    <h1 class="page-title">{{'nav.about' | t}}</h1>
 </div>
 
 <div class="mx-auto max-w-3xl space-y-6">
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title"><i class="fa-solid fa-circle-info text-accent"></i> About</h2>
+            <h2 class="card-title"><i class="fa-solid fa-circle-info text-accent"></i> {{'nav.about' | t}}</h2>
         </div>
         <div class="card-body text-sm leading-relaxed">
             <p>
-                <b>Dauntless Leaderboard</b> is free and display data that are intellectual property of Phoenix
-                Labs.<br>
-                I (polfy) am not responsible if there is an error in the whole dataset and will not handle outside
-                confict about that.<br>
-                If you find an issue and/or want to contribute to correct the dataset, simply join our <a
-                    href="https://discord.gg/JGTVcqMDfm" target="_blank">discord</a> or my private messages are open
-                :)
+                <span [innerHTML]="'about.intro.free' | t: { name: websiteName }"></span><br>
+                {{'about.intro.disclaimer' | t}}<br>
+                <span [innerHTML]="'about.intro.contribute' | t: { discord: discordLink }"></span>
+            </p>
+            <p class="mt-3" [innerHTML]="'about.hallOfFame' | t: { hallOfFame: hallOfFameName, discord: hallOfFameDiscordLink }"></p>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fa-solid fa-shield-halved text-accent"></i> {{'about.privacy.title' | t}}</h2>
+        </div>
+        <div class="card-body text-sm leading-relaxed">
+            <p>
+                {{'about.privacy.analytics' | t}}<br>
+                {{'about.privacy.noDataCollected' | t}}<br>
+                {{'about.privacy.localStorage' | t}}
             </p>
         </div>
     </section>
 
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title"><i class="fa-solid fa-shield-halved text-accent"></i> Privacy</h2>
-        </div>
-        <div class="card-body text-sm leading-relaxed">
-            <p>
-                This website use Google Analytics.<br>
-                This website does not collect any data you're inputing.<br>
-                Settings are stored in your browser local storage.
-            </p>
-        </div>
-    </section>
-
-    <section class="card">
-        <div class="card-header">
-            <h2 class="card-title"><i class="fa-solid fa-heart text-accent"></i> Contributors</h2>
+            <h2 class="card-title"><i class="fa-solid fa-heart text-accent"></i> {{'about.contributors.title' | t}}</h2>
         </div>
         <ul class="divide-y divide-line text-sm">
-            <li class="px-4 py-3"><b>n1ck0 & themero</b> <span class="text-muted">— Base idea of collecting Gauntlet data to create Bar Chart Race</span></li>
-            <li class="px-4 py-3"><b>macvilla</b> <span class="text-muted">— Help formatting and understanding Gauntlet data</span></li>
-            <li class="px-4 py-3"><b>superevilteam</b> <span class="text-muted">— Figured out and share how to get trials data</span></li>
-            <li class="px-4 py-3"><b>thepikeofdestiny</b> <span class="text-muted">— For his all behemoth rotation Google sheet</span></li>
+            <li class="px-4 py-3"><b>n1ck0 & themero</b> <span class="text-muted">— {{'about.contributors.barChartRace' | t}}</span></li>
+            <li class="px-4 py-3"><b>macvilla</b> <span class="text-muted">— {{'about.contributors.gauntletData' | t}}</span></li>
+            <li class="px-4 py-3"><b>superevilteam</b> <span class="text-muted">— {{'about.contributors.trialsData' | t}}</span></li>
+            <li class="px-4 py-3"><b>thepikeofdestiny</b> <span class="text-muted">— {{'about.contributors.rotationSheet' | t}}</span></li>
         </ul>
     </section>
 </div>

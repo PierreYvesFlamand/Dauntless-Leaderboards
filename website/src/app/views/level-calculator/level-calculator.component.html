@@ -1,7 +1,7 @@
 <div class="page-header">
     <div>
-        <h1 class="page-title">Level Calculator</h1>
-        <p class="page-subtitle">How much XP you need, and how much Aetherite you have.</p>
+        <h1 class="page-title">{{'nav.levelCalculator' | t}}</h1>
+        <p class="page-subtitle">{{'levelCalc.subtitle' | t}}</p>
     </div>
 </div>
 
@@ -9,55 +9,55 @@
     <div class="min-w-0 space-y-6 lg:col-span-2">
         <section class="card">
             <div class="card-header">
-                <h2 class="card-title"><i class="fa-solid fa-chart-line text-accent"></i> Calculator</h2>
+                <h2 class="card-title"><i class="fa-solid fa-chart-line text-accent"></i> {{'levelCalc.calculator' | t}}</h2>
             </div>
             <div class="card-body">
                 <div class="grid grid-cols-3 gap-3">
                     <div>
-                        <label class="label" for="current-level">Current level</label>
-                        <input id="current-level" class="input" placeholder="Current level" type="number" min="1" max="59" [(ngModel)]="currentLevel" (ngModelChange)="onValueChange()" />
+                        <label class="label" for="current-level">{{'levelCalc.currentLevel' | t}}</label>
+                        <input id="current-level" class="input" [placeholder]="'levelCalc.currentLevel' | t" type="number" min="1" max="59" [(ngModel)]="currentLevel" (ngModelChange)="onValueChange()" />
                     </div>
                     <div>
-                        <label class="label" for="current-xp">Current XP</label>
-                        <input id="current-xp" class="input" placeholder="Current xp" type="number" min="0" [(ngModel)]="currentXP" (ngModelChange)="onValueChange()" />
+                        <label class="label" for="current-xp">{{'levelCalc.currentXp' | t}}</label>
+                        <input id="current-xp" class="input" [placeholder]="'levelCalc.currentXp' | t" type="number" min="0" [(ngModel)]="currentXP" (ngModelChange)="onValueChange()" />
                     </div>
                     <div>
-                        <label class="label" for="target-level">Target level</label>
-                        <input id="target-level" class="input" placeholder="Target level" type="number" min="2" max="60" [(ngModel)]="targetLevel" (ngModelChange)="onValueChange()" />
+                        <label class="label" for="target-level">{{'levelCalc.targetLevel' | t}}</label>
+                        <input id="target-level" class="input" [placeholder]="'levelCalc.targetLevel' | t" type="number" min="2" max="60" [(ngModel)]="targetLevel" (ngModelChange)="onValueChange()" />
                     </div>
                 </div>
                 <div class="stat mt-4 flex items-center justify-between">
-                    <span class="stat-label">Required XP</span>
-                    <span class="stat-value mt-0 text-accent">{{requiredXP === undefined ? "Error" : (requiredXP | number)}}</span>
+                    <span class="stat-label">{{'levelCalc.requiredXp' | t}}</span>
+                    <span class="stat-value mt-0 text-accent">{{requiredXP === undefined ? ('levelCalc.error' | t) : (requiredXP | lnumber)}}</span>
                 </div>
             </div>
         </section>
 
         <section class="card">
             <div class="card-header">
-                <h2 class="card-title">Aetherite</h2>
+                <h2 class="card-title">{{'levelCalc.aetherite' | t}}</h2>
             </div>
             <div class="card-body">
                 <div class="grid grid-cols-3 gap-3">
                     <div>
-                        <label class="label" for="dull">Dull</label>
-                        <input id="dull" class="input" placeholder="Dull Aetherite" type="number" min="0" [(ngModel)]="dullAetherite" (ngModelChange)="onAetheriteValueChange()" />
-                        <span class="mt-1 block text-xs text-muted">100 XP</span>
+                        <label class="label" for="dull">{{'levelCalc.dull' | t}}</label>
+                        <input id="dull" class="input" [placeholder]="'levelCalc.dullAetherite' | t" type="number" min="0" [(ngModel)]="dullAetherite" (ngModelChange)="onAetheriteValueChange()" />
+                        <span class="mt-1 block text-xs text-muted">{{'levelCalc.xpAmount' | t: { xp: (100 | lnumber) } }}</span>
                     </div>
                     <div>
-                        <label class="label" for="shining">Shining</label>
-                        <input id="shining" class="input" placeholder="Shining Aetherite" type="number" min="0" [(ngModel)]="shiningAetherite" (ngModelChange)="onAetheriteValueChange()" />
-                        <span class="mt-1 block text-xs text-muted">1000 XP</span>
+                        <label class="label" for="shining">{{'levelCalc.shining' | t}}</label>
+                        <input id="shining" class="input" [placeholder]="'levelCalc.shiningAetherite' | t" type="number" min="0" [(ngModel)]="shiningAetherite" (ngModelChange)="onAetheriteValueChange()" />
+                        <span class="mt-1 block text-xs text-muted">{{'levelCalc.xpAmount' | t: { xp: (1000 | lnumber) } }}</span>
                     </div>
                     <div>
-                        <label class="label" for="peerless">Peerless</label>
-                        <input id="peerless" class="input" placeholder="Peerless Aetherite" type="number" min="0" [(ngModel)]="peerlessAetherite" (ngModelChange)="onAetheriteValueChange()" />
-                        <span class="mt-1 block text-xs text-muted">5000 XP</span>
+                        <label class="label" for="peerless">{{'levelCalc.peerless' | t}}</label>
+                        <input id="peerless" class="input" [placeholder]="'levelCalc.peerlessAetherite' | t" type="number" min="0" [(ngModel)]="peerlessAetherite" (ngModelChange)="onAetheriteValueChange()" />
+                        <span class="mt-1 block text-xs text-muted">{{'levelCalc.xpAmount' | t: { xp: (5000 | lnumber) } }}</span>
                     </div>
                 </div>
                 <div class="stat mt-4 flex items-center justify-between">
-                    <span class="stat-label">Total Aetherite XP</span>
-                    <span class="stat-value mt-0 text-accent">{{AetheriteXP === undefined ? "Error" : (AetheriteXP | number)}}</span>
+                    <span class="stat-label">{{'levelCalc.totalAetheriteXp' | t}}</span>
+                    <span class="stat-value mt-0 text-accent">{{AetheriteXP === undefined ? ('levelCalc.error' | t) : (AetheriteXP | lnumber)}}</span>
                 </div>
             </div>
         </section>
@@ -65,16 +65,16 @@
 
     <section class="card fill flex flex-col overflow-clip lg:col-span-3">
         <div class="card-header">
-            <h2 class="card-title">Level table</h2>
+            <h2 class="card-title">{{'levelCalc.levelTable' | t}}</h2>
         </div>
         <div class="table-wrap-flush">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th class="w-16 text-right">Level</th>
-                        <th class="text-right">XP to level</th>
-                        <th class="text-right">Total XP</th>
-                        <th class="text-right">Power</th>
+                        <th class="w-16 text-right">{{'common.level' | t}}</th>
+                        <th class="text-right">{{'levelCalc.xpToLevel' | t}}</th>
+                        <th class="text-right">{{'levelCalc.totalXp' | t}}</th>
+                        <th class="text-right">{{'levelCalc.power' | t}}</th>
                     </tr>
                 </thead>
 

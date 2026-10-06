@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
+import { formatNumber } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { LocalstorageService } from './localstorage.service';
+import { TranslationService } from './translation.service';
+
+export type ERA = 'all' | 'pre' | 'post';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SharedService {
     constructor(
-        private localstorageService: LocalstorageService
+        private localstorageService: LocalstorageService,
+        private translationService: TranslationService
     ) { }
 
     init() {
         this.updateTheme(this.localstorageService.getByKey<string>('theme'));
-        this.updateLanguage(this.localstorageService.getByKey<string>('language'));
+        // Favorites first: setting player/guild id adds it to them
+        this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
+        this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updatePlayerId(this.localstorageService.getByKey<number>('player-id'));
         this.updateGuildId(this.localstorageService.getByKey<number>('guild-id'));
         this.updateTrialDecimals(this.localstorageService.getByKey<number>('trial-decimals'));
-        this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
-        this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
         this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening2'));
+        this.updateFavoritesOnly(this.localstorageService.getByKey<boolean>('favoritesOnly'));
         this.updateThemero(this.localstorageService.getByKey<boolean>('themero'));
     }
 
@@ -34,23 +40,13 @@ export class SharedService {
     }
     public get theme(): string { return this.themeSubject.value; }
 
-    // Language
-    private allowedLanguages = ['us', 'fr', 'de', 'jp', 'es', 'it', 'br', 'ru'];
-    private languageSubject = new BehaviorSubject<string>(this.allowedLanguages[0]);
-    language$ = this.languageSubject.asObservable();
-    updateLanguage(value: string) {
-        if (!this.allowedLanguages.includes(value)) value = this.allowedLanguages[0];
-        this.localstorageService.setByKey('language', value);
-        this.languageSubject.next(value);
-    }
-    public get language(): string { return this.languageSubject.value; }
-
     // Player id
     private playerIdSubject = new BehaviorSubject<number>(-1);
     playerId$ = this.playerIdSubject.asObservable();
     updatePlayerId(value: number) {
         this.localstorageService.setByKey('player-id', value);
         this.playerIdSubject.next(value);
+        if (value > 0 && !this.favoritePlayers.includes(value)) this.addFavoritePlayers(value);
     }
     public get playerId(): number { return this.playerIdSubject.value; }
 
@@ -60,6 +56,7 @@ export class SharedService {
     updateGuildId(value: number) {
         this.localstorageService.setByKey('guild-id', value);
         this.guildIdSubject.next(value);
+        if (value > 0 && !this.favoriteGuilds.includes(value)) this.addFavoriteGuilds(value);
     }
     public get guildId(): number { return this.guildIdSubject.value; }
 
@@ -87,6 +84,8 @@ export class SharedService {
         this.favoriteGuildsSubject.next(newArray);
     }
     removeFavoriteGuilds(value: number) {
+        // Your own guild stays a favorite until unset
+        if (value === this.guildId) return;
         const newArray = this.favoriteGuilds.filter(v => v !== value);
         this.localstorageService.setByKey('fav-guilds', newArray);
         this.favoriteGuildsSubject.next(newArray);
@@ -116,6 +115,8 @@ export class SharedService {
         this.favoritePlayersSubject.next(newArray);
     }
     removeFavoritePlayers(value: number) {
+        // Your own player stays a favorite until unset
+        if (value === this.playerId) return;
         const newArray = this.favoritePlayers.filter(v => v !== value);
         this.localstorageService.setByKey('fav-players', newArray);
         this.favoritePlayersSubject.next(newArray);
@@ -143,27 +144,33 @@ export class SharedService {
         const m = Math.floor(Math.abs(time) / 60000);
         const s = Math.floor((Math.abs(time) - m * 60000) / 1000);
         const ms = Math.abs(time) % 1000;
+        // Seconds + truncated fraction digits, with the decimal separator of the current language
+        const seconds = (fraction: string) => formatNumber(Number(`${s}.${fraction}`), this.translationService.language.locale, `1.${fraction.length}-${fraction.length}`);
 
         if (decimals === true) {
             decimals = 3;
-            if (time >= 60000) return `${m} min ${s}.${String(ms).padStart(decimals, '0')} sec`;
-            if (time > 0) return `${s}.${String(ms).padStart(decimals, '0')} sec`;
-            if (time === 0) return `0.000 sec`;
-            if (time < 0) return `-${s}.${String(ms).padStart(decimals, '0')} sec`;
+            const fraction = String(ms).padStart(decimals, '0');
+            if (time >= 60000) return this.translationService.t('time.minSec', { m, s: seconds(fraction) });
+            if (time > 0) return this.translationService.t('time.sec', { s: seconds(fraction) });
+            if (time === 0) return this.translationService.t('time.sec', { s: seconds('000') });
+            if (time < 0) return this.translationService.t('time.sec', { s: `-${seconds(fraction)}` });
         } else {
-            if (time >= 60000) return `${m} min ${s} sec`;
-            if (time > 0) return `${s}.${String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0')} sec`;
-            if (time === 0) return `0.000 sec`;
-            if (time < 0) return `-${s}.${String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0')} sec`;
+            const fraction = String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0');
+            if (time >= 60000) return this.translationService.t('time.minSec', { m, s });
+            if (time > 0) return this.translationService.t('time.sec', { s: seconds(fraction) });
+            if (time === 0) return this.translationService.t('time.sec', { s: seconds('000') });
+            if (time < 0) return this.translationService.t('time.sec', { s: `-${seconds(fraction)}` });
         }
 
         return '';
     }
 
     // Names by image id (img/weapons/<id>.png, img/omnicells/<id>.png)
-    public readonly weaponNames: Record<number, string> = {
-        1: 'Hammer', 2: 'Axe', 3: 'Sword', 4: 'Chain Blades', 5: 'War Pike', 6: 'Repeaters', 7: 'Aether Strikers'
-    };
+    private readonly weaponIds = [1, 2, 3, 4, 5, 6, 7];
+    // Translated at use time: the language can change at runtime
+    public get weaponNames(): Record<number, string> {
+        return Object.fromEntries(this.weaponIds.map(id => [id, this.translationService.t(`weapon.${id}`)]));
+    }
     public readonly omnicellNames: Record<number, string> = {
         1: 'Bastion', 2: 'Revenant', 3: 'Discipline', 4: 'Artificer', 5: 'Iceborne', 6: 'Tempest'
     };
@@ -171,10 +178,10 @@ export class SharedService {
         1: 'PC', 2: 'PlayStation', 3: 'Xbox', 4: 'Switch'
     };
 
-    // Guild Score explanation (formula in DatabaseService)
-    public readonly guildScoreTooltip: string = 'Points per season from the final rank (1st = 100, 10th = 50, 50th = 15). '
-        + 'Recent seasons count more: points halve every 3 seasons back. '
-        + 'Score = weighted average over all seasons, 0-100.';
+    // Guild Score explanation (formula in DatabaseService), translated at use time
+    public get guildScoreTooltip(): string {
+        return this.translationService.t('shared.guildScoreTooltip');
+    }
 
     // Weeks 282 & 283 leaderboards were disabled (Golden Claws exploit)
     public isDisabledTrialWeek(week: number): boolean {
@@ -202,6 +209,34 @@ export class SharedService {
         this.showPostAwakeningSubject.next(value);
     }
     public get showPostAwakening(): boolean { return this.showPostAwakeningSubject.value; }
+
+    // Era: shortcut over the two Awakening settings (null when both are off)
+    public get era(): ERA | null {
+        if (this.showPreAwakening && this.showPostAwakening) return 'all';
+        if (this.showPreAwakening) return 'pre';
+        if (this.showPostAwakening) return 'post';
+        return null;
+    }
+    updateEra(value: ERA) {
+        this.updateShowPreAwakening(value !== 'post');
+        this.updateShowPostAwakening(value !== 'pre');
+    }
+
+    // Favorites only: restrict guild/player lists and statistics to favorites
+    private allowedFavoritesOnly = [false, true];
+    private favoritesOnlySubject = new BehaviorSubject<boolean>(this.allowedFavoritesOnly[0]);
+    favoritesOnly$ = this.favoritesOnlySubject.asObservable();
+    updateFavoritesOnly(value: boolean) {
+        if (!this.allowedFavoritesOnly.includes(value)) value = this.allowedFavoritesOnly[0];
+        this.localstorageService.setByKey('favoritesOnly', value);
+        this.favoritesOnlySubject.next(value);
+    }
+    public get favoritesOnly(): boolean { return this.favoritesOnlySubject.value; }
+
+    // Awakening update released on week 282
+    public isPreAwakeningWeek(week: number): boolean {
+        return week < 282;
+    }
 
     // Themero
     private allowedThemero = [true, false];

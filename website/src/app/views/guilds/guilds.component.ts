@@ -18,12 +18,15 @@ export class GuildsComponent implements AfterViewInit {
     this.applyFilter();
   }
 
+  // label = translation key
   public sortColumns: { key: string, label: string }[] = [
-    { key: 'nbrTop1', label: 'Top 1s' },
-    { key: 'nbrTop5', label: 'Top 5s' },
-    { key: 'nbrTop100', label: 'Top 100s' },
-    { key: 'totalLevelCleared', label: 'Total levels' }
+    { key: 'nbrTop1', label: 'guilds.top1s' },
+    { key: 'nbrTop5', label: 'guilds.top5s' },
+    { key: 'nbrTop100', label: 'guilds.top100s' },
+    { key: 'totalLevelCleared', label: 'guilds.totalLevels' }
   ];
+
+  public readonly starIcon = '<i class="fa-regular fa-star"></i>';
 
   public guilds: WEBSITE_GUILD[] = [];
   public total: number = 0;
@@ -50,6 +53,7 @@ export class GuildsComponent implements AfterViewInit {
     };
 
     response.data = response.data.filter(r => [r.name.toLowerCase(), r.tag.toLowerCase()].join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
+    if (this.sharedService.favoritesOnly) response.data = response.data.filter(r => this.sharedService.hasFavoriteGuild(r.id));
 
     response.data.sort((a, b) => {
       let val1, val2;

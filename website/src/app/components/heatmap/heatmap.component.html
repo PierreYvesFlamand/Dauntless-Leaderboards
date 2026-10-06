@@ -15,7 +15,7 @@
                     </span>
                 </th>
                 <!-- Ink picked by fill strength so the label always clears contrast -->
-                <td *ngFor="let value of row.values; let i = index" class="heatmap-cell" [class.strong]="intensity(value) > 0.75" [style.--alpha]="intensity(value)" [title]="row.label + ' · ' + columns[i] + ': ' + format(value)">
+                <td *ngFor="let value of row.values; let i = index" class="heatmap-cell" [class.strong]="intensity(value) > 0.75" [style.--alpha]="intensity(value)" [title]="cellTitle(row, i)">
                     {{format(value)}}
                 </td>
             </tr>
