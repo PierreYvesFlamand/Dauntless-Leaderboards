@@ -50,6 +50,7 @@ export class GuildsComponent implements AfterViewInit {
     };
 
     response.data = response.data.filter(r => [r.name.toLowerCase(), r.tag.toLowerCase()].join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
+    if (this.sharedService.favoritesOnly) response.data = response.data.filter(r => this.sharedService.hasFavoriteGuild(r.id));
 
     response.data.sort((a, b) => {
       let val1, val2;

@@ -69,6 +69,8 @@ export type STAT_DEFINITION = {
   defaults?: Partial<STAT_FILTERS>
   // Shown under the description, e.g. to point to a related community project
   seeAlso?: { text: string, label: string, url: string }
+  // Can be restricted to favorite players or guilds ("Favorites only" setting)
+  favorites?: 'players' | 'guilds'
 }
 
 const AWAKENING_WEEK = 282;
@@ -79,24 +81,24 @@ const AWAKENING_WEEK = 282;
 export class StatisticsService {
   public readonly definitions: STAT_DEFINITION[] = [
     // Trials meta
-    { slug: 'weapons', category: 'Trials meta', title: 'Weapon popularity', description: 'Which weapons the best hunters bring to the Trials.', icon: 'fa-solid fa-hammer', filters: ['era', 'board', 'top'] },
-    { slug: 'weapon-trend', category: 'Trials meta', title: 'Weapon meta over time', description: 'Share of each weapon, year by year. Watch the meta shift.', icon: 'fa-solid fa-timeline', filters: ['era', 'board', 'top'] },
-    { slug: 'omnicells', category: 'Trials meta', title: 'Omnicell popularity', description: 'Omnicell picks overall and per year.', icon: 'fa-solid fa-gem', filters: ['era', 'board', 'top'] },
-    { slug: 'loadouts', category: 'Trials meta', title: 'Favorite loadouts', description: 'Most played weapon + omnicell combinations.', icon: 'fa-solid fa-toolbox', filters: ['era', 'board', 'top'] },
-    { slug: 'group-comps', category: 'Trials meta', title: 'Group compositions', description: 'How groups build their team, and who goes full mono-weapon.', icon: 'fa-solid fa-people-group', filters: ['era', 'top'] },
+    { slug: 'weapons', category: 'Trials meta', title: 'Weapon popularity', description: 'Which weapons the best hunters bring to the Trials.', icon: 'fa-solid fa-hammer', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'weapon-trend', category: 'Trials meta', title: 'Weapon meta over time', description: 'Share of each weapon, year by year. Watch the meta shift.', icon: 'fa-solid fa-timeline', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'omnicells', category: 'Trials meta', title: 'Omnicell popularity', description: 'Omnicell picks overall and per year.', icon: 'fa-solid fa-gem', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'loadouts', category: 'Trials meta', title: 'Favorite loadouts', description: 'Most played weapon + omnicell combinations.', icon: 'fa-solid fa-toolbox', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'group-comps', category: 'Trials meta', title: 'Group compositions', description: 'How groups build their team, and who goes full mono-weapon.', icon: 'fa-solid fa-people-group', filters: ['era', 'top'], favorites: 'players' },
     // Records
-    { slug: 'records', category: 'Records', title: 'Behemoth records', description: 'Fastest solo and group time ever for every behemoth.', icon: 'fa-solid fa-stopwatch', filters: ['era'], defaults: { era: 'pre' } },
-    { slug: 'photo-finishes', category: 'Records', title: 'Photo finishes', description: 'The closest races for #1, and the most one-sided wins.', icon: 'fa-solid fa-flag-checkered', filters: ['era', 'board'] },
+    { slug: 'records', category: 'Records', title: 'Behemoth records', description: 'Fastest solo and group time ever for every behemoth.', icon: 'fa-solid fa-stopwatch', filters: ['era'], defaults: { era: 'pre' }, favorites: 'players' },
+    { slug: 'photo-finishes', category: 'Records', title: 'Photo finishes', description: 'The closest races for #1, and the most one-sided wins.', icon: 'fa-solid fa-flag-checkered', filters: ['era', 'board'], favorites: 'players' },
     { slug: 'behemoths', category: 'Records', title: 'Behemoth rotation', description: 'How often each behemoth was the weekly Trial.', icon: 'fa-solid fa-dragon', filters: ['era'] },
     // Players
-    { slug: 'top-players', category: 'Players', title: 'Top players', description: 'Players with the most wins or top finishes.', icon: 'fa-solid fa-crown', filters: ['era', 'board', 'top'], defaults: { top: 1 }, seeAlso: { text: 'Looking for the Dauntless Hall of Fame?', label: 'Join their Discord', url: 'https://discord.gg/snwcPJ4xSF' } },
-    { slug: 'platforms', category: 'Players', title: 'Platforms', description: 'PC, PlayStation, Xbox or Switch: who fills the leaderboards.', icon: 'fa-solid fa-gamepad', filters: ['era', 'board', 'top'], defaults: { top: 100 } },
-    { slug: 'loyalty', category: 'Players', title: 'One-tricks & all-rounders', description: 'Players who never switched weapon, and those who mastered them all.', icon: 'fa-solid fa-shuffle', filters: ['era', 'board'] },
-    { slug: 'newcomers', category: 'Players', title: 'New blood', description: 'Players reaching the leaderboards for the first time, per quarter.', icon: 'fa-solid fa-seedling', filters: ['board', 'top'], defaults: { top: 100 } },
+    { slug: 'top-players', category: 'Players', title: 'Top players', description: 'Players with the most wins or top finishes.', icon: 'fa-solid fa-crown', filters: ['era', 'board', 'top'], defaults: { top: 1 }, seeAlso: { text: 'Looking for the Dauntless Hall of Fame?', label: 'Join their Discord', url: 'https://discord.gg/snwcPJ4xSF' }, favorites: 'players' },
+    { slug: 'platforms', category: 'Players', title: 'Platforms', description: 'PC, PlayStation, Xbox or Switch: who fills the leaderboards.', icon: 'fa-solid fa-gamepad', filters: ['era', 'board', 'top'], defaults: { top: 100 }, favorites: 'players' },
+    { slug: 'loyalty', category: 'Players', title: 'One-tricks & all-rounders', description: 'Players who never switched weapon, and those who mastered them all.', icon: 'fa-solid fa-shuffle', filters: ['era', 'board'], favorites: 'players' },
+    { slug: 'newcomers', category: 'Players', title: 'New blood', description: 'Players reaching the leaderboards for the first time, per quarter.', icon: 'fa-solid fa-seedling', filters: ['board', 'top'], defaults: { top: 100 }, favorites: 'players' },
     // Gauntlet
-    { slug: 'gauntlet-champions', category: 'Gauntlet', title: 'Gauntlet champions', description: 'Every season winner and how close it was.', icon: 'fa-solid fa-trophy', filters: [] },
+    { slug: 'gauntlet-champions', category: 'Gauntlet', title: 'Gauntlet champions', description: 'Every season winner and how close it was.', icon: 'fa-solid fa-trophy', filters: [], favorites: 'guilds' },
     { slug: 'level-race', category: 'Gauntlet', title: 'Level race', description: 'Level reached by a given position, season after season.', icon: 'fa-solid fa-stairs', filters: ['pos'] },
-    { slug: 'guild-veterans', category: 'Gauntlet', title: 'Guild veterans', description: 'Guilds that kept coming back, and new guilds per season.', icon: 'fa-solid fa-shield-halved', filters: [] }
+    { slug: 'guild-veterans', category: 'Gauntlet', title: 'Guild veterans', description: 'Guilds that kept coming back, and new guilds per season.', icon: 'fa-solid fa-shield-halved', filters: [], favorites: 'guilds' }
   ];
 
   private builders: Record<string, (filters: STAT_FILTERS) => STAT_BLOCK[]> = {
@@ -125,6 +127,10 @@ export class StatisticsService {
   // Data never changes once loaded: cache per stat + filters
   private cache = new Map<string, STAT_BLOCK[]>();
 
+  // Favorites the stat being built is restricted to (null = everyone)
+  private favoritePlayers: Set<number> | null = null;
+  private favoriteGuilds: Set<number> | null = null;
+
   constructor(
     private databaseService: DatabaseService,
     private sharedService: SharedService
@@ -150,7 +156,12 @@ export class StatisticsService {
   }
 
   public getBlocks(slug: string, filters: STAT_FILTERS): STAT_BLOCK[] {
-    const key = `${slug}|${JSON.stringify(filters)}|${this.sharedService.trialDecimals}`;
+    const scope = this.sharedService.favoritesOnly ? this.getDefinition(slug)?.favorites : undefined;
+    this.favoritePlayers = scope === 'players' ? new Set(this.sharedService.favoritePlayers) : null;
+    this.favoriteGuilds = scope === 'guilds' ? new Set(this.sharedService.favoriteGuilds) : null;
+    const favorites = this.favoritePlayers || this.favoriteGuilds;
+
+    const key = `${slug}|${JSON.stringify(filters)}|${this.sharedService.trialDecimals}|${favorites ? [...favorites].sort((a, b) => a - b).join(',') : '-'}`;
     if (!this.cache.has(key)) this.cache.set(key, this.builders[slug]?.(filters) || []);
     return this.cache.get(key)!;
   }
@@ -170,11 +181,24 @@ export class StatisticsService {
     return (filters.board === 'solo' ? trial.all : trial.group).filter(run => run.rank <= filters.top);
   }
 
-  // Every player slot of the counted runs
+  private isCountedPlayer(playerId: number): boolean {
+    return !this.favoritePlayers || this.favoritePlayers.has(playerId);
+  }
+
+  private isCountedGuild(guildId: number): boolean {
+    return !this.favoriteGuilds || this.favoriteGuilds.has(guildId);
+  }
+
+  // Run with at least one counted player
+  private isCountedRun(run: { players: TRIAL_LEADERBOARD_PLAYER[] }): boolean {
+    return !this.favoritePlayers || run.players.some(player => this.isCountedPlayer(player.playerId));
+  }
+
+  // Every (counted) player slot of the counted runs
   private forEachPlayer(filters: STAT_FILTERS, callback: (player: TRIAL_LEADERBOARD_PLAYER, trial: WEBSITE_TRIAL) => void) {
     for (const trial of this.trialsFor(filters.era)) {
       for (const run of this.runs(trial, filters)) {
-        for (const player of run.players) callback(player, trial);
+        for (const player of run.players) if (this.isCountedPlayer(player.playerId)) callback(player, trial);
       }
     }
   }
@@ -228,7 +252,8 @@ export class StatisticsService {
   private scope(filters: STAT_FILTERS, withBoard: boolean = true): string {
     const era = { all: 'All eras', pre: 'Pre-Awakening', post: 'Post-Awakening' }[filters.era];
     const runs = filters.top === 1 ? 'Winning' : `Top ${filters.top}`;
-    return withBoard ? `${runs} ${filters.board} runs · ${era}` : era;
+    const favorites = this.favoritePlayers ? ' · Favorites only' : '';
+    return withBoard ? `${runs} ${filters.board} runs · ${era}${favorites}` : `${era}${favorites}`;
   }
 
   // Share of each key per year, as heatmap rows ordered by overall share
@@ -243,6 +268,7 @@ export class StatisticsService {
       if (!perYear.has(year)) perYear.set(year, new Map());
       for (const run of this.runs(trial, filters)) {
         for (const player of run.players) {
+          if (!this.isCountedPlayer(player.playerId)) continue;
           for (const key of getKeys(player, trial)) {
             this.increment(perYear.get(year)!, key);
             this.increment(totals, year);
@@ -371,6 +397,7 @@ export class StatisticsService {
 
     for (const trial of this.trialsFor(filters.era)) {
       for (const run of this.runs(trial, groupFilters)) {
+        if (!this.isCountedRun(run)) continue;
         const weapons = run.players.map(p => p.weaponId).sort((a, b) => a - b);
         this.increment(counts, weapons.join('-'));
         total++;
@@ -415,8 +442,9 @@ export class StatisticsService {
     for (const trial of this.trialsFor(filters.era)) {
       const entry = behemoths.get(trial.behemothName) || { weeks: 0 };
       entry.weeks++;
-      const solo = trial.all[0];
-      const group = trial.group[0];
+      // Boards are sorted by rank: the first counted run is the best one
+      const solo = trial.all.find(run => this.isCountedRun(run));
+      const group = trial.group.find(run => this.isCountedRun(run));
       if (solo && (!entry.solo || solo.completionTime < entry.solo.time)) entry.solo = { time: solo.completionTime, week: trial.week, playerIds: solo.players.map(p => p.playerId) };
       if (group && (!entry.group || group.completionTime < entry.group.time)) entry.group = { time: group.completionTime, week: trial.week, playerIds: group.players.map(p => p.playerId) };
       behemoths.set(trial.behemothName, entry);
@@ -464,7 +492,7 @@ export class StatisticsService {
         const board = filters.board === 'solo' ? trial.all : trial.group;
         return board.length > 1 ? { trial, winner: board[0], margin: board[1].completionTime - board[0].completionTime } : null;
       })
-      .filter((race): race is NonNullable<typeof race> => race !== null)
+      .filter((race): race is NonNullable<typeof race> => race !== null && this.isCountedRun(race.winner))
       .sort((a, b) => a.margin - b.margin);
 
     const toRow = (race: typeof races[number]) => ({
@@ -606,7 +634,7 @@ export class StatisticsService {
       if (!perQuarter.has(quarter)) perQuarter.set(quarter, 0);
       for (const run of this.runs(trial, filters)) {
         for (const player of run.players) {
-          if (seen.has(player.playerId)) continue;
+          if (seen.has(player.playerId) || !this.isCountedPlayer(player.playerId)) continue;
           seen.add(player.playerId);
           this.increment(perQuarter, quarter);
         }
@@ -641,6 +669,10 @@ export class StatisticsService {
 
     const rows = seasons.map(season => {
       const [first, second] = season.gauntletLeaderboard;
+      if (first?.guildId && !this.isCountedGuild(first.guildId)) {
+        reign = { guildId: 0, length: 0 };
+        return null;
+      }
       if (first?.guildId) {
         this.increment(wins, first.guildId);
         reign = reign.guildId === first.guildId ? { guildId: first.guildId, length: reign.length + 1 } : { guildId: first.guildId, length: 1 };
@@ -658,7 +690,7 @@ export class StatisticsService {
           { text: margin, muted: true }
         ]
       };
-    }).reverse();
+    }).filter((row): row is NonNullable<typeof row> => row !== null).reverse();
 
     const sorted = this.sortedEntries(wins);
     return [
@@ -703,7 +735,7 @@ export class StatisticsService {
 
   private buildGuildVeterans(): STAT_BLOCK[] {
     const seasons = this.databaseService.data.gauntlets;
-    const guilds = this.databaseService.data.guilds.filter(g => g.guildGauntletStats.length > 0);
+    const guilds = this.databaseService.data.guilds.filter(g => g.guildGauntletStats.length > 0 && this.isCountedGuild(g.id));
     const veterans = [...guilds].sort((a, b) => b.guildGauntletStats.length - a.guildGauntletStats.length || b.rating - a.rating);
 
     const firstSeason = new Map<number, number>();

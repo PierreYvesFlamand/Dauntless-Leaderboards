@@ -32,7 +32,8 @@ export class StatisticsComponent implements OnDestroy {
     const names = [...new Set(statisticsService.definitions.map(d => d.category))];
     this.categories = names.map(name => ({ name, stats: statisticsService.definitions.filter(d => d.category === name) }));
 
-    this.subscription = combineLatest([this.activatedRoute.paramMap, this.activatedRoute.queryParamMap]).subscribe(([params, query]) => {
+    // Favorites only setting also rebuilds the stat
+    this.subscription = combineLatest([this.activatedRoute.paramMap, this.activatedRoute.queryParamMap, this.sharedService.favoritesOnly$]).subscribe(([params, query]) => {
       const slug = params.get('slug');
       if (!slug) {
         this.definition = undefined;

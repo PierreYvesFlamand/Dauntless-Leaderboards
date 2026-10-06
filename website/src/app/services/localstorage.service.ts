@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 const KEY_PREFIX = 'settings';
-export type LOCALSTORAGE_KEYS = 'theme' | 'language' | 'player-id' | 'guild-id' | 'trial-decimals' | 'fav-guilds' | 'fav-players' | 'showPreAwakening' | 'showPostAwakening2' | 'themero';
+export type LOCALSTORAGE_KEYS = 'theme' | 'language' | 'player-id' | 'guild-id' | 'trial-decimals' | 'fav-guilds' | 'fav-players' | 'showPreAwakening' | 'showPostAwakening2' | 'favoritesOnly' | 'themero';
 
 const defaultSettings = {
     'theme': 'dark',
@@ -13,6 +13,7 @@ const defaultSettings = {
     'fav-players': [],
     'showPreAwakening': true,
     'showPostAwakening2': true,
+    'favoritesOnly': false,
     'themero': false
 }
 

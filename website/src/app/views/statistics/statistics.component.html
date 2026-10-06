@@ -72,13 +72,22 @@
             </div>
 
             <!-- Filters -->
-            <div *ngIf="definition.filters.length" class="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-xl border border-line bg-surface px-4 py-3">
+            <div *ngIf="definition.filters.length || definition.favorites" class="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-xl border border-line bg-surface px-4 py-3">
                 <div *ngFor="let key of definition.filters" class="flex flex-wrap items-center gap-2">
                     <span class="text-xs font-medium uppercase tracking-wider text-muted">{{filterOptions[key].label}}</span>
                     <div class="segmented" role="radiogroup" [attr.aria-label]="filterOptions[key].label">
                         <button *ngFor="let option of filterOptions[key].options" role="radio" [attr.aria-checked]="filters[key] === option.value" [class.active]="filters[key] === option.value" (click)="setFilter(key, option.value)">{{option.label}}</button>
                     </div>
                 </div>
+                <div *ngIf="definition.favorites" class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-medium uppercase tracking-wider text-muted">{{definition.favorites === 'players' ? 'Players' : 'Guilds'}}</span>
+                    <dl-favorites-toggle />
+                </div>
+            </div>
+
+            <div *ngIf="definition.favorites && sharedService.favoritesOnly && !(definition.favorites === 'players' ? sharedService.favoritePlayers : sharedService.favoriteGuilds).length" class="alert mb-5">
+                <i class="fa-regular fa-star mt-0.5"></i>
+                <p>You have no favorite {{definition.favorites === 'players' ? 'player' : 'guild'}} yet. Add some with <i class="fa-regular fa-star"></i> on a {{definition.favorites === 'players' ? 'player' : 'guild'}} page, or turn off the favorites filter.</p>
             </div>
 
             <!-- Blocks -->

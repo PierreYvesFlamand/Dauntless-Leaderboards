@@ -57,6 +57,7 @@ export class PlayersComponent implements AfterViewInit {
     };
 
     response.data = response.data.filter(r => r.playerNames.map(n => n.name).join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
+    if (this.sharedService.favoritesOnly) response.data = response.data.filter(r => this.sharedService.hasFavoritePlayer(r.id));
 
     response.data.sort((a, b) => {
       let val1, val2;

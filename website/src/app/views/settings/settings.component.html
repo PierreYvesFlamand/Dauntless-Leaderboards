@@ -67,6 +67,26 @@
 
     <section class="card">
         <div class="card-header">
+            <h2 class="card-title"><i class="fa-solid fa-star text-fav"></i> Favorites</h2>
+            <a class="btn btn-secondary btn-sm" routerLink="/favorites">Manage <i class="fa-solid fa-arrow-right text-[0.65rem]"></i></a>
+        </div>
+        <div class="divide-y divide-line">
+            <label class="setting-row" for="favoritesOnly">
+                <span class="setting-icon"><i class="fa-solid fa-filter"></i></span>
+                <span class="flex-1">
+                    <span class="block font-medium">Show favorites only</span>
+                    <span class="block text-xs text-muted">Restrict the Guilds, Players and Statistics pages to your favorites</span>
+                </span>
+                <span class="switch">
+                    <input type="checkbox" id="favoritesOnly" [ngModel]="sharedService.favoritesOnly" (ngModelChange)="sharedService.updateFavoritesOnly($event ? true : false)">
+                    <span></span>
+                </span>
+            </label>
+        </div>
+    </section>
+
+    <section class="card">
+        <div class="card-header">
             <h2 class="card-title">Data</h2>
         </div>
         <div class="divide-y divide-line">

@@ -6,12 +6,15 @@
 </div>
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <div class="flex w-full flex-col gap-2 sm:max-w-xs">
+    <div class="flex w-full flex-col gap-2 sm:w-auto">
         <div class="relative w-full">
             <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
             <input class="input pl-9" placeholder="Search for a player" [(ngModel)]="filters.textSearch" (ngModelChange)="filters.page = 1; textSearchUpdate.next($event)" aria-label="Search for a player" />
         </div>
-        <dl-era-selector (eraChange)="filters.page = 1; applyFilter();" />
+        <div class="flex items-center gap-2">
+            <dl-era-selector (eraChange)="filters.page = 1; applyFilter();" />
+            <dl-favorites-toggle (favoritesOnlyChange)="filters.page = 1; applyFilter();" />
+        </div>
     </div>
     <dl-pagination [page]="filters.page" [total]="total" label="players" (pageChange)="filters.page = $event; applyFilter();" />
 </div>
@@ -34,6 +37,12 @@
             <tr *ngIf="isLoading">
                 <td colspan="7">
                     <div class="spinner"><i class="fa-solid fa-rotate fa-spin"></i></div>
+                </td>
+            </tr>
+            <tr *ngIf="!isLoading && !players.length">
+                <td colspan="7" class="py-8 text-center text-sm text-muted">
+                    <ng-container *ngIf="sharedService.favoritesOnly; else noResult">No favorite player found. Add some with <i class="fa-regular fa-star"></i> on a player page.</ng-container>
+                    <ng-template #noResult>No player found.</ng-template>
                 </td>
             </tr>
             <tr *ngFor="let player of players" [enhancedRouterLink]="'/players/' + player.id" role="button" [class.is-me]="player.id === sharedService.playerId" [class.is-fav]="sharedService.hasFavoritePlayer(player.id) && player.id !== sharedService.playerId">

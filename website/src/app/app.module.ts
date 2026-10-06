@@ -32,6 +32,8 @@ import { TrendChartComponent } from './components/trend-chart/trend-chart.compon
 import { HeatmapComponent } from './components/heatmap/heatmap.component';
 import { StatisticsComponent } from './views/statistics/statistics.component';
 import { EraSelectorComponent } from './components/era-selector/era-selector.component';
+import { FavoritesToggleComponent } from './components/favorites-toggle/favorites-toggle.component';
+import { FavoritesComponent } from './views/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { EraSelectorComponent } from './components/era-selector/era-selector.com
     TrendChartComponent,
     HeatmapComponent,
     StatisticsComponent,
-    EraSelectorComponent
+    EraSelectorComponent,
+    FavoritesToggleComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

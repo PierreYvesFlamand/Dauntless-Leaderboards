@@ -15,13 +15,15 @@ export class SharedService {
     init() {
         this.updateTheme(this.localstorageService.getByKey<string>('theme'));
         this.updateLanguage(this.localstorageService.getByKey<string>('language'));
+        // Favorites first: setting player/guild id adds it to them
+        this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
+        this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updatePlayerId(this.localstorageService.getByKey<number>('player-id'));
         this.updateGuildId(this.localstorageService.getByKey<number>('guild-id'));
         this.updateTrialDecimals(this.localstorageService.getByKey<number>('trial-decimals'));
-        this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
-        this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
         this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
         this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening2'));
+        this.updateFavoritesOnly(this.localstorageService.getByKey<boolean>('favoritesOnly'));
         this.updateThemero(this.localstorageService.getByKey<boolean>('themero'));
     }
 
@@ -53,6 +55,7 @@ export class SharedService {
     updatePlayerId(value: number) {
         this.localstorageService.setByKey('player-id', value);
         this.playerIdSubject.next(value);
+        if (value > 0 && !this.favoritePlayers.includes(value)) this.addFavoritePlayers(value);
     }
     public get playerId(): number { return this.playerIdSubject.value; }
 
@@ -62,6 +65,7 @@ export class SharedService {
     updateGuildId(value: number) {
         this.localstorageService.setByKey('guild-id', value);
         this.guildIdSubject.next(value);
+        if (value > 0 && !this.favoriteGuilds.includes(value)) this.addFavoriteGuilds(value);
     }
     public get guildId(): number { return this.guildIdSubject.value; }
 
@@ -89,6 +93,8 @@ export class SharedService {
         this.favoriteGuildsSubject.next(newArray);
     }
     removeFavoriteGuilds(value: number) {
+        // Your own guild stays a favorite until unset
+        if (value === this.guildId) return;
         const newArray = this.favoriteGuilds.filter(v => v !== value);
         this.localstorageService.setByKey('fav-guilds', newArray);
         this.favoriteGuildsSubject.next(newArray);
@@ -118,6 +124,8 @@ export class SharedService {
         this.favoritePlayersSubject.next(newArray);
     }
     removeFavoritePlayers(value: number) {
+        // Your own player stays a favorite until unset
+        if (value === this.playerId) return;
         const newArray = this.favoritePlayers.filter(v => v !== value);
         this.localstorageService.setByKey('fav-players', newArray);
         this.favoritePlayersSubject.next(newArray);
@@ -216,6 +224,17 @@ export class SharedService {
         this.updateShowPreAwakening(value !== 'post');
         this.updateShowPostAwakening(value !== 'pre');
     }
+
+    // Favorites only: restrict guild/player lists and statistics to favorites
+    private allowedFavoritesOnly = [false, true];
+    private favoritesOnlySubject = new BehaviorSubject<boolean>(this.allowedFavoritesOnly[0]);
+    favoritesOnly$ = this.favoritesOnlySubject.asObservable();
+    updateFavoritesOnly(value: boolean) {
+        if (!this.allowedFavoritesOnly.includes(value)) value = this.allowedFavoritesOnly[0];
+        this.localstorageService.setByKey('favoritesOnly', value);
+        this.favoritesOnlySubject.next(value);
+    }
+    public get favoritesOnly(): boolean { return this.favoritesOnlySubject.value; }
 
     // Awakening update released on week 282
     public isPreAwakeningWeek(week: number): boolean {

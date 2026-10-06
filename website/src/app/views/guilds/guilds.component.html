@@ -6,9 +6,14 @@
 </div>
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <div class="relative w-full sm:max-w-xs">
-        <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
-        <input class="input pl-9" placeholder="Search for a guild" [ngModel]="''" (ngModelChange)="filters.textSearch = $event; filters.page = 1; applyFilter();" aria-label="Search for a guild" />
+    <div class="flex w-full flex-col gap-2 sm:max-w-xs">
+        <div class="relative w-full">
+            <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
+            <input class="input pl-9" placeholder="Search for a guild" [ngModel]="''" (ngModelChange)="filters.textSearch = $event; filters.page = 1; applyFilter();" aria-label="Search for a guild" />
+        </div>
+        <div class="flex items-center gap-2">
+            <dl-favorites-toggle (favoritesOnlyChange)="filters.page = 1; applyFilter();" />
+        </div>
     </div>
     <dl-pagination [page]="filters.page" [total]="total" label="guilds" (pageChange)="filters.page = $event; applyFilter();" />
 </div>
@@ -38,6 +43,12 @@
             <tr *ngIf="isLoading">
                 <td colspan="6">
                     <div class="spinner"><i class="fa-solid fa-rotate fa-spin"></i></div>
+                </td>
+            </tr>
+            <tr *ngIf="!isLoading && !guilds.length">
+                <td colspan="6" class="py-8 text-center text-sm text-muted">
+                    <ng-container *ngIf="sharedService.favoritesOnly; else noResult">No favorite guild found. Add some with <i class="fa-regular fa-star"></i> on a guild page.</ng-container>
+                    <ng-template #noResult>No guild found.</ng-template>
                 </td>
             </tr>
             <tr *ngFor="let guild of guilds" [enhancedRouterLink]="'/guilds/' + guild.id" role="button" [class.is-me]="guild.id === sharedService.guildId" [class.is-fav]="sharedService.hasFavoriteGuild(guild.id) && guild.id !== sharedService.guildId">

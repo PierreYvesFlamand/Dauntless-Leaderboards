@@ -33,6 +33,10 @@
                 </a>
 
                 <div *ngIf="(me && me.player.id > 0) || (me && me.guild.id > 0)" class="my-1 border-t border-line"></div>
+                <a routerLink="/favorites" class="menu-item" role="menuitem" (click)="menuOpen = false">
+                    <i class="fa-solid fa-star text-fav"></i> My favorites
+                    <span class="tab-count ml-auto">{{sharedService.favoritePlayers.length + sharedService.favoriteGuilds.length}}</span>
+                </a>
                 <a routerLink="/settings" class="menu-item" role="menuitem" (click)="menuOpen = false">
                     <i class="fa-solid fa-gear"></i> Settings
                 </a>

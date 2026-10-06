@@ -21,7 +21,7 @@
         </div>
         <div class="flex items-center gap-2">
             <dl-era-selector (eraChange)="fetchData(playerData.id)" />
-            <button class="btn-icon border border-line" (click)="sharedService.toggleFavoritePlayer(playerData.id)" [title]="sharedService.hasFavoritePlayer(playerData.id) ? 'Remove from favorites' : 'Add to favorites'">
+            <button class="btn-icon border border-line disabled:cursor-not-allowed disabled:opacity-60" [disabled]="playerData.id === sharedService.playerId" (click)="sharedService.toggleFavoritePlayer(playerData.id)" [title]="playerData.id === sharedService.playerId ? 'Your player is always a favorite' : sharedService.hasFavoritePlayer(playerData.id) ? 'Remove from favorites' : 'Add to favorites'">
                 <i class="fa-{{sharedService.hasFavoritePlayer(playerData.id) ? 'solid' : 'regular'}} fa-star text-fav"></i>
             </button>
             <button class="btn-icon border border-line" (click)="sharedService.updatePlayerId(playerData.id === sharedService.playerId ? -1 : playerData.id)" [title]="playerData.id === sharedService.playerId ? 'Unset as me' : 'Set as me'">
