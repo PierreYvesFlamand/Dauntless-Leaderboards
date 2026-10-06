@@ -65,6 +65,7 @@ export class SidebarComponent {
       title: 'Links',
       items: [
         { label: 'Discord', icon: 'fa-brands fa-discord', href: 'https://discord.gg/JGTVcqMDfm' },
+        { label: 'Hall of Fame', icon: 'fa-solid fa-landmark', href: 'https://discord.gg/snwcPJ4xSF' },
         { label: 'Github', icon: 'fa-brands fa-github', href: 'https://github.com/PierreYvesFlamand/Dauntless-Leaderboards' }
       ]
     }
