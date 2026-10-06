@@ -15,6 +15,8 @@ type Changelog = Array<{
 export class FooterComponent {
   public showChangelog: boolean = false;
   public changelog: Changelog = [];
+  public readonly creditPlayer = '<a href="/players/2" class="font-medium text-fg no-underline hover:text-accent hover:no-underline">Polfyy</a>';
+  public readonly creditGuild = '<a href="/guilds/1" class="font-medium text-fg no-underline hover:text-accent hover:no-underline">ThraxEnjoyers</a>';
 
   constructor() {
     this.loadChangelog();

@@ -2,15 +2,15 @@
     <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent"><i class="fa-solid fa-landmark"></i></span>
     <span class="min-w-0 flex-1">
         <span class="block font-semibold">Dauntless Hall of Fame</span>
-        <span class="block text-sm text-muted">Celebrating the legends of the Dauntless community. Join their Discord!</span>
+        <span class="block text-sm text-muted">{{ 'dashboard.hallOfFameText' | t }}</span>
     </span>
-    <span class="btn btn-secondary btn-sm shrink-0"><i class="fa-brands fa-discord"></i> <span class="hidden sm:inline">Join</span></span>
+    <span class="btn btn-secondary btn-sm shrink-0"><i class="fa-brands fa-discord"></i> <span class="hidden sm:inline">{{ 'dashboard.join' | t }}</span></span>
 </a>
 
 <div class="page-header">
     <div>
-        <h1 class="page-title">Dashboard</h1>
-        <p class="page-subtitle">Latest Gauntlet seasons and Trials at a glance.</p>
+        <h1 class="page-title">{{ 'nav.dashboard' | t }}</h1>
+        <p class="page-subtitle">{{ 'dashboard.subtitle' | t }}</p>
     </div>
 </div>
 
@@ -20,20 +20,20 @@
         <div class="card-header">
             <h2 class="card-title">
                 <img class="h-6 w-6" src="img/gauntlet_icon.png" alt="" />
-                Last Gauntlet Seasons
+                {{ 'dashboard.lastSeasons' | t }}
             </h2>
             <button class="btn btn-secondary btn-sm" [enhancedRouterLink]="'/seasons'">
-                View all <i class="fa-solid fa-arrow-right text-[0.65rem]"></i>
+                {{ 'common.viewAll' | t }} <i class="fa-solid fa-arrow-right text-[0.65rem]"></i>
             </button>
         </div>
         <div class="table-wrap-flush">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th class="w-16 text-center">Season</th>
-                        <th>Top 1 Guild</th>
-                        <th class="w-20 text-center">Level</th>
-                        <th class="w-24 text-center">Time left</th>
+                        <th class="w-16 text-center">{{ 'common.season' | t }}</th>
+                        <th>{{ 'dashboard.top1Guild' | t }}</th>
+                        <th class="w-20 text-center">{{ 'common.level' | t }}</th>
+                        <th class="w-24 text-center">{{ 'seasons.timeLeft' | t }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
                             <dl-guild-tag [iconFilename]="season.gauntletLeaderboard[0].guildIconFilename" [name]="season.gauntletLeaderboard[0].guildName" [tag]="season.gauntletLeaderboard[0].guildTag" />
                         </td>
                         <td class="text-center tabular-nums">{{season.gauntletLeaderboard[0].level}}</td>
-                        <td class="text-center tabular-nums text-muted">{{season.gauntletLeaderboard[0].remainingSec * 1000 | date:'mm:ss'}}</td>
+                        <td class="text-center tabular-nums text-muted">{{season.gauntletLeaderboard[0].remainingSec * 1000 | ldate:'mm:ss'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -55,19 +55,19 @@
         <div class="card-header">
             <h2 class="card-title">
                 <img class="h-6 w-6" src="img/trial_icon.png" alt="" />
-                Last Trials
+                {{ 'dashboard.lastTrials' | t }}
             </h2>
             <button class="btn btn-secondary btn-sm" [enhancedRouterLink]="'/trials'">
-                View all <i class="fa-solid fa-arrow-right text-[0.65rem]"></i>
+                {{ 'common.viewAll' | t }} <i class="fa-solid fa-arrow-right text-[0.65rem]"></i>
             </button>
         </div>
         <div class="table-wrap-flush">
             <table class="data-table">
                 <thead>
                     <tr>
-                        <th class="w-32">Week</th>
-                        <th>Top 1 solo</th>
-                        <th>Top 1 group</th>
+                        <th class="w-32">{{ 'common.week' | t }}</th>
+                        <th>{{ 'dashboard.top1Solo' | t }}</th>
+                        <th>{{ 'dashboard.top1Group' | t }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,11 +79,11 @@
                             </span>
                         </td>
                         <td class="time" [title]="sharedService.convertTrialTime(trial.soloCompletionTime, true)">
-                            <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultSolo" class="badge">DISABLED</span>
+                            <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultSolo" class="badge">{{ 'common.disabled' | t }}</span>
                             <ng-template #defaultSolo>{{sharedService.convertTrialTime(trial.soloCompletionTime, sharedService.trialDecimals)}}</ng-template>
                         </td>
                         <td class="time" [title]="sharedService.convertTrialTime(trial.groupCompletionTime, true)">
-                            <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultGroup" class="badge">DISABLED</span>
+                            <span *ngIf="sharedService.isDisabledTrialWeek(trial.week); else defaultGroup" class="badge">{{ 'common.disabled' | t }}</span>
                             <ng-template #defaultGroup>{{sharedService.convertTrialTime(trial.groupCompletionTime, sharedService.trialDecimals)}}</ng-template>
                         </td>
                     </tr>

@@ -1,4 +1,4 @@
-<svg class="block w-full" [attr.width]="width" [attr.height]="height" [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" aria-label="Rank by season" (mouseleave)="hoverIndex = null">
+<svg class="block w-full" [attr.width]="width" [attr.height]="height" [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" [attr.aria-label]="'components.rankChart.ariaLabel' | t" (mouseleave)="hoverIndex = null">
     <!-- Grid & y axis -->
     <g *ngFor="let tick of yTicks">
         <line class="stroke-line" [attr.x1]="padding.left" [attr.x2]="width - padding.right" [attr.y1]="y(tick)" [attr.y2]="y(tick)" stroke-width="1" />
@@ -7,7 +7,7 @@
 
     <!-- X axis labels -->
     <ng-container *ngFor="let point of points; let i = index">
-        <text *ngIf="showXLabel(i)" class="fill-muted text-[10px] tabular-nums" [attr.x]="x(i)" [attr.y]="height - 8" text-anchor="middle">S{{point.season}}</text>
+        <text *ngIf="showXLabel(i)" class="fill-muted text-[10px] tabular-nums" [attr.x]="x(i)" [attr.y]="height - 8" text-anchor="middle">{{'common.seasonShort' | t: { season: point.season } }}</text>
     </ng-container>
 
     <!-- Crosshair -->
@@ -26,10 +26,10 @@
 </svg>
 
 <div *ngIf="hoverPoint as hp" class="pointer-events-none absolute top-1 z-10 -translate-x-1/2 whitespace-nowrap rounded-lg border border-line bg-surface px-2.5 py-1.5 text-xs shadow-card" [style.left.px]="tooltipLeft">
-    <div class="font-semibold">Season {{hp.season}}</div>
+    <div class="font-semibold">{{'components.rankChart.season' | t: { season: hp.season } }}</div>
     <div *ngIf="hp.rank !== null" class="text-muted">
-        Rank <span class="font-medium text-fg">#{{hp.rank}}</span>
-        <ng-container *ngIf="hp.level"> · Level <span class="font-medium text-fg">{{hp.level}}</span></ng-container>
+        <span [innerHTML]="rankText(hp.rank)"></span>
+        <ng-container *ngIf="hp.level"> · <span [innerHTML]="levelText(hp.level)"></span></ng-container>
     </div>
-    <div *ngIf="hp.rank === null" class="text-muted">Not ranked</div>
+    <div *ngIf="hp.rank === null" class="text-muted">{{'components.rankChart.notRanked' | t}}</div>
 </div>

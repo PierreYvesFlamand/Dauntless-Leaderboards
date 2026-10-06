@@ -10,10 +10,11 @@ import { ERA, SharedService } from '../../services/shared.service';
 export class EraSelectorComponent {
   @Output() public eraChange = new EventEmitter<ERA>();
 
+  // Translation keys
   public options: { value: ERA, label: string, short: string }[] = [
-    { value: 'all', label: 'All', short: 'All' },
-    { value: 'pre', label: 'Pre-Awakening', short: 'Pre' },
-    { value: 'post', label: 'Post-Awakening', short: 'Post' }
+    { value: 'all', label: 'common.all', short: 'common.all' },
+    { value: 'pre', label: 'common.preAwakening', short: 'components.eraSelector.preShort' },
+    { value: 'post', label: 'common.postAwakening', short: 'components.eraSelector.postShort' }
   ];
 
   constructor(

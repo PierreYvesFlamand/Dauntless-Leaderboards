@@ -1,4 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy } from '@angular/core';
+import { formatNumber } from '@angular/common';
+import { TranslationService } from '../../services/translation.service';
 
 export type TREND_POINT = {
   label: string
@@ -31,7 +33,8 @@ export class TrendChartComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private elementRef: ElementRef<HTMLElement>,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private translationService: TranslationService
   ) { }
 
   ngAfterViewInit(): void {
@@ -117,6 +120,14 @@ export class TrendChartComponent implements AfterViewInit, OnDestroy {
   }
 
   public formatTick(value: number): string {
-    return Math.abs(value) >= 10000 ? `${(value / 1000).toLocaleString('en-US')}k` : value.toLocaleString('en-US');
+    const locale = this.translationService.language.locale;
+    if (Math.abs(value) >= 10000) return this.translationService.t('components.trendChart.thousands', { value: formatNumber(value / 1000, locale) });
+    return formatNumber(value, locale);
+  }
+
+  // "1,234 players", value highlighted (HTML)
+  public valueText(point: TREND_POINT): string {
+    const value = `<span class="font-medium text-fg">${formatNumber(point.value, this.translationService.language.locale)}</span>`;
+    return this.translationService.t('components.trendChart.value', { value, unit: this.unit });
   }
 }

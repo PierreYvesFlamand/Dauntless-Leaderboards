@@ -1,21 +1,35 @@
 <div class="page-header">
     <div>
-        <h1 class="page-title">Settings</h1>
-        <p class="page-subtitle">Stored in your browser only.</p>
+        <h1 class="page-title">{{'nav.settings' | t}}</h1>
+        <p class="page-subtitle">{{'settings.subtitle' | t}}</p>
     </div>
 </div>
 
 <div class="mx-auto max-w-3xl space-y-6">
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title select-none" (click)="onThemeroClick()">General</h2>
+            <h2 class="card-title select-none" (click)="onThemeroClick()">{{'settings.general' | t}}</h2>
         </div>
         <div class="divide-y divide-line">
+            <div class="setting-row flex-wrap">
+                <span class="setting-icon"><img class="flag" [src]="'flags/' + translationService.language.flag + '.svg'" alt="" /></span>
+                <span class="min-w-0 flex-1">
+                    <label class="block font-medium" for="language">{{'lang.title' | t}}</label>
+                    <span class="block text-xs text-muted">
+                        <ng-container *ngIf="translationService.shareLabel(translationService.language.code) as shareLabel">{{shareLabel}} · </ng-container>
+                        <a [href]="helpTranslateUrl" target="_blank" rel="noopener">{{'lang.helpTranslate' | t}}</a>
+                    </span>
+                </span>
+                <select id="language" class="select w-full sm:w-64" [ngModel]="translationService.chosenCode || ''" (ngModelChange)="onLanguageChange($event)">
+                    <option value="">{{'lang.auto' | t}} · {{translationService.getLanguage(browserLanguage).name}}</option>
+                    <option *ngFor="let language of languages" [value]="language.code">{{language.name}}{{translationService.shareLabel(language.code) ? ' · ' + translationService.shareLabel(language.code) : ''}}</option>
+                </select>
+            </div>
             <label class="setting-row" for="theme">
                 <span class="setting-icon"><i class="fa-solid fa-moon"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">Dark mode</span>
-                    <span class="block text-xs text-muted">Switch between the dark and light theme</span>
+                    <span class="block font-medium">{{'settings.darkMode.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.darkMode.description' | t}}</span>
                 </span>
                 <span class="switch">
                     <input type="checkbox" id="theme" [ngModel]="sharedService.theme === 'dark'" (ngModelChange)="sharedService.updateTheme($event ? 'dark' : 'light')">
@@ -27,14 +41,14 @@
 
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title"><img class="h-5 w-5" src="img/trial_icon.png" alt="" /> Trials</h2>
+            <h2 class="card-title"><img class="h-5 w-5" src="img/trial_icon.png" alt="" /> {{'nav.trials' | t}}</h2>
         </div>
         <div class="divide-y divide-line">
             <div class="setting-row">
                 <span class="setting-icon"><i class="fa-solid fa-stopwatch"></i></span>
                 <label class="flex-1" for="trial-decimals">
-                    <span class="block font-medium">Trial time decimals</span>
-                    <span class="block text-xs text-muted">Number of decimals displayed for completion times (1, 2 or 3)</span>
+                    <span class="block font-medium">{{'settings.trialDecimals.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.trialDecimals.description' | t}}</span>
                 </label>
                 <input id="trial-decimals" class="input w-20 text-center" type="number" min="1" max="3" [ngModel]="sharedService.trialDecimals" (ngModelChange)="sharedService.updateTrialDecimals($event)" />
             </div>
@@ -42,8 +56,8 @@
             <label class="setting-row" for="showPreAwakening">
                 <span class="setting-icon"><i class="fa-solid fa-hourglass-start"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">Show Pre Awakening Trials</span>
-                    <span class="block text-xs text-muted">Weeks before 282</span>
+                    <span class="block font-medium">{{'settings.showPreAwakening.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.showPreAwakening.description' | t: { week: awakeningWeek } }}</span>
                 </span>
                 <span class="switch">
                     <input type="checkbox" id="showPreAwakening" [ngModel]="sharedService.showPreAwakening === true" (ngModelChange)="sharedService.updateShowPreAwakening($event ? true : false)">
@@ -54,8 +68,8 @@
             <label class="setting-row" for="showPostAwakening">
                 <span class="setting-icon"><i class="fa-solid fa-hourglass-end"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">Show Post Awakening Trials</span>
-                    <span class="block text-xs text-muted">Week 282 and after</span>
+                    <span class="block font-medium">{{'settings.showPostAwakening.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.showPostAwakening.description' | t: { week: awakeningWeek } }}</span>
                 </span>
                 <span class="switch">
                     <input type="checkbox" id="showPostAwakening" [ngModel]="sharedService.showPostAwakening === true" (ngModelChange)="sharedService.updateShowPostAwakening($event ? true : false)">
@@ -67,15 +81,15 @@
 
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title"><i class="fa-solid fa-star text-fav"></i> Favorites</h2>
-            <a class="btn btn-secondary btn-sm" routerLink="/favorites">Manage <i class="fa-solid fa-arrow-right text-[0.65rem]"></i></a>
+            <h2 class="card-title"><i class="fa-solid fa-star text-fav"></i> {{'common.favorites' | t}}</h2>
+            <a class="btn btn-secondary btn-sm" routerLink="/favorites">{{'settings.favorites.manage' | t}} <i class="fa-solid fa-arrow-right text-[0.65rem]"></i></a>
         </div>
         <div class="divide-y divide-line">
             <label class="setting-row" for="favoritesOnly">
                 <span class="setting-icon"><i class="fa-solid fa-filter"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">Show favorites only</span>
-                    <span class="block text-xs text-muted">Restrict the Guilds, Players and Statistics pages to your favorites</span>
+                    <span class="block font-medium">{{'settings.favoritesOnly.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.favoritesOnly.description' | t}}</span>
                 </span>
                 <span class="switch">
                     <input type="checkbox" id="favoritesOnly" [ngModel]="sharedService.favoritesOnly" (ngModelChange)="sharedService.updateFavoritesOnly($event ? true : false)">
@@ -87,24 +101,24 @@
 
     <section class="card">
         <div class="card-header">
-            <h2 class="card-title">Data</h2>
+            <h2 class="card-title">{{'settings.data.title' | t}}</h2>
         </div>
         <div class="divide-y divide-line">
             <div class="setting-row">
                 <span class="setting-icon"><i class="fa-solid fa-download"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">Export</span>
-                    <span class="block text-xs text-muted">Download the full dataset (expect ~35Mb .json file)</span>
+                    <span class="block font-medium">{{'settings.export.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.export.description' | t}}</span>
                 </span>
-                <a class="btn btn-secondary" href="data/allData.json" download="Dauntless Leaderbaords Dataset" target="_blank">Download</a>
+                <a class="btn btn-secondary" href="data/allData.json" [download]="'settings.export.fileName' | t" target="_blank">{{'settings.export.button' | t}}</a>
             </div>
             <div class="setting-row">
                 <span class="setting-icon"><i class="fa-solid fa-rotate"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">Refresh</span>
-                    <span class="block text-xs text-muted">Clear the cached data and reload the website</span>
+                    <span class="block font-medium">{{'settings.refresh.label' | t}}</span>
+                    <span class="block text-xs text-muted">{{'settings.refresh.description' | t}}</span>
                 </span>
-                <button class="btn btn-primary" (click)="forceWebsiteRefresh()">Force refresh</button>
+                <button class="btn btn-primary" (click)="forceWebsiteRefresh()">{{'settings.refresh.button' | t}}</button>
             </div>
         </div>
     </section>

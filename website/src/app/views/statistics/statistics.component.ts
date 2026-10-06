@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest } from 'rxjs';
 import { SharedService } from '../../services/shared.service';
 import { STAT_BLOCK, STAT_DEFAULT_FILTERS, STAT_DEFINITION, STAT_FILTERS, STAT_FILTER_KEY, STAT_FILTER_OPTIONS, STAT_SORT, STAT_TABLE_ROW, StatisticsService } from '../../services/statistics.service';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'dl-statistics',
@@ -17,7 +18,9 @@ export class StatisticsComponent implements OnDestroy {
   // Sorted rows of each table block (same index as blocks), null for other blocks
   public tableRows: (STAT_TABLE_ROW[] | null)[] = [];
   public readonly filterOptions = STAT_FILTER_OPTIONS;
+  // Category names are translation keys
   public readonly categories: { name: string, stats: STAT_DEFINITION[] }[];
+  public readonly starIcon = '<i class="fa-regular fa-star"></i>';
 
   private subscription: Subscription;
   // Chosen sort per table ('slug:blockIndex'), kept while filters change
@@ -27,13 +30,14 @@ export class StatisticsComponent implements OnDestroy {
     public statisticsService: StatisticsService,
     public sharedService: SharedService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translationService: TranslationService
   ) {
     const names = [...new Set(statisticsService.definitions.map(d => d.category))];
     this.categories = names.map(name => ({ name, stats: statisticsService.definitions.filter(d => d.category === name) }));
 
-    // Favorites only setting also rebuilds the stat
-    this.subscription = combineLatest([this.activatedRoute.paramMap, this.activatedRoute.queryParamMap, this.sharedService.favoritesOnly$]).subscribe(([params, query]) => {
+    // Favorites only setting and language also rebuild the stat
+    this.subscription = combineLatest([this.activatedRoute.paramMap, this.activatedRoute.queryParamMap, this.sharedService.favoritesOnly$, this.translationService.language$]).subscribe(([params, query]) => {
       const slug = params.get('slug');
       if (!slug) {
         this.definition = undefined;

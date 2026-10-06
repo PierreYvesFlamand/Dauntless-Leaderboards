@@ -8,6 +8,8 @@ import { DatabaseService, WEBSITE_GUILD, WEBSITE_PLAYER } from '../../services/d
   standalone: false
 })
 export class FavoritesComponent {
+  public readonly starIcon = '<i class="fa-regular fa-star"></i>';
+
   constructor(
     public sharedService: SharedService,
     private databaseService: DatabaseService

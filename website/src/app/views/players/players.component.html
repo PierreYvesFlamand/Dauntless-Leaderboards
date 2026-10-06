@@ -1,7 +1,7 @@
 <div class="page-header">
     <div>
-        <h1 class="page-title">Players</h1>
-        <p class="page-subtitle">Trial podiums per player, solo and group.</p>
+        <h1 class="page-title">{{'nav.players' | t}}</h1>
+        <p class="page-subtitle">{{'players.subtitle' | t}}</p>
     </div>
 </div>
 
@@ -9,7 +9,7 @@
     <div class="flex w-full flex-col gap-2 sm:w-auto">
         <div class="relative w-full">
             <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-muted"></i>
-            <input class="input pl-9" placeholder="Search for a player" [(ngModel)]="filters.textSearch" (ngModelChange)="filters.page = 1; textSearchUpdate.next($event)" aria-label="Search for a player" />
+            <input class="input pl-9" [placeholder]="'players.search' | t" [(ngModel)]="filters.textSearch" (ngModelChange)="filters.page = 1; textSearchUpdate.next($event)" [attr.aria-label]="'players.search' | t" />
         </div>
         <div class="flex items-center gap-2">
             <dl-era-selector (eraChange)="filters.page = 1; applyFilter();" />
@@ -23,10 +23,10 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th>Player</th>
+                <th>{{'common.player' | t}}</th>
                 <th *ngFor="let column of sortColumns" class="th-sort w-28" (click)="changeFilter(column.key)">
                     <span class="flex items-center gap-2">
-                        <span>{{column.group}}<br><span class="text-fg/80">{{column.label}}</span></span>
+                        <span>{{column.group | t}}<br><span class="text-fg/80">{{column.label | t}}</span></span>
                         <i class="fa-solid {{getArrowIcon(column.key)}} ml-auto" [class.text-accent]="filters.orderByField === column.key"></i>
                     </span>
                 </th>
@@ -41,8 +41,8 @@
             </tr>
             <tr *ngIf="!isLoading && !players.length">
                 <td colspan="7" class="py-8 text-center text-sm text-muted">
-                    <ng-container *ngIf="sharedService.favoritesOnly; else noResult">No favorite player found. Add some with <i class="fa-regular fa-star"></i> on a player page.</ng-container>
-                    <ng-template #noResult>No player found.</ng-template>
+                    <span *ngIf="sharedService.favoritesOnly; else noResult" [innerHTML]="'players.noFavorite' | t: { icon: starIcon }"></span>
+                    <ng-template #noResult>{{'players.noResult' | t}}</ng-template>
                 </td>
             </tr>
             <tr *ngFor="let player of players" [enhancedRouterLink]="'/players/' + player.id" role="button" [class.is-me]="player.id === sharedService.playerId" [class.is-fav]="sharedService.hasFavoritePlayer(player.id) && player.id !== sharedService.playerId">

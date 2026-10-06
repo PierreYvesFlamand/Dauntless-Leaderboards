@@ -1,3 +1,3 @@
-<button class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors" [ngClass]="sharedService.favoritesOnly ? 'border-fav/60 bg-fav/10 text-fav' : 'border-line bg-bg text-muted hover:text-fg'" role="switch" [attr.aria-checked]="sharedService.favoritesOnly" [title]="sharedService.favoritesOnly ? 'Showing favorites only' : 'Show favorites only'" (click)="toggle()">
-    <i class="fa-{{sharedService.favoritesOnly ? 'solid' : 'regular'}} fa-star"></i> Favorites
+<button class="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors" [ngClass]="sharedService.favoritesOnly ? 'border-fav/60 bg-fav/10 text-fav' : 'border-line bg-bg text-muted hover:text-fg'" role="switch" [attr.aria-checked]="sharedService.favoritesOnly" [title]="(sharedService.favoritesOnly ? 'components.favoritesToggle.showingOnly' : 'components.favoritesToggle.showOnly') | t" (click)="toggle()">
+    <i class="fa-{{sharedService.favoritesOnly ? 'solid' : 'regular'}} fa-star"></i> {{'common.favorites' | t}}
 </button>

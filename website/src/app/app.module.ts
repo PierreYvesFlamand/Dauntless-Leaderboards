@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TranslationService } from './services/translation.service';
+import { LocalDatePipe, LocalNumberPipe, LocalPercentPipe, TranslatePipe } from './pipes/i18n.pipes';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { EnhancedRouterLinkDirective } from './directives/enhanced-router-link.directive';
+import { HtmlRouterLinksDirective } from './directives/html-router-links.directive';
 import { LayoutComponent } from './layout/layout.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
@@ -39,6 +42,7 @@ import { FavoritesComponent } from './views/favorites/favorites.component';
   declarations: [
     AppComponent,
     EnhancedRouterLinkDirective,
+    HtmlRouterLinksDirective,
     LayoutComponent,
     FooterComponent,
     HeaderComponent,
@@ -67,14 +71,21 @@ import { FavoritesComponent } from './views/favorites/favorites.component';
     StatisticsComponent,
     EraSelectorComponent,
     FavoritesToggleComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    TranslatePipe,
+    LocalDatePipe,
+    LocalNumberPipe,
+    LocalPercentPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    // Translations are loaded before the first render
+    { provide: APP_INITIALIZER, useFactory: (translationService: TranslationService) => () => translationService.init(), deps: [TranslationService], multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'dl-flourish-frame',
@@ -8,9 +10,18 @@ import { DomSanitizer } from '@angular/platform-browser';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FlourishFrameComponent {
-  @Input() public url: string = '';
+  // Sanitized once per url: a new value on every check would reload the iframe
+  public safeUrl?: SafeResourceUrl;
+  @Input() public set url(value: string) {
+    this.safeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(value);
+  }
 
   constructor(
-    public domSanitizer: DomSanitizer
-  ) { }
+    private domSanitizer: DomSanitizer,
+    changeDetectorRef: ChangeDetectorRef,
+    translationService: TranslationService
+  ) {
+    // OnPush: refresh the translated title when the language changes
+    translationService.language$.pipe(takeUntilDestroyed()).subscribe(() => changeDetectorRef.markForCheck());
+  }
 }

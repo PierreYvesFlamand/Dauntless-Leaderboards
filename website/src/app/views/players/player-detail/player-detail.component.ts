@@ -13,10 +13,10 @@ export class PlayerDetailComponent {
   public activeTab: PLAYER_TAB_KEY = 'all';
   public stats?: PLAYER_STATS;
 
-  // typeId = trialLeaderboardItemTypeId
+  // typeId = trialLeaderboardItemTypeId, label = translation key (weapon tabs show the weapon name instead)
   public tabs: { key: PLAYER_TAB_KEY, typeId: number, label?: string, weaponId?: number }[] = [
-    { key: 'all', typeId: 1, label: 'Solo' },
-    { key: 'group', typeId: 2, label: 'Group' },
+    { key: 'all', typeId: 1, label: 'common.solo' },
+    { key: 'group', typeId: 2, label: 'common.group' },
     { key: 'hammer', typeId: 5, weaponId: 1 },
     { key: 'axe', typeId: 4, weaponId: 2 },
     { key: 'sword', typeId: 3, weaponId: 3 },

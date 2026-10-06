@@ -2,21 +2,21 @@
     <div class="flex items-center gap-3">
         <img class="h-10 w-10" src="img/gauntlet_icon.png" alt="" />
         <div>
-            <h1 class="page-title">Season {{seasonData?.gauntletInfo?.season || ''}}</h1>
+            <h1 class="page-title">{{ 'seasons.seasonNumber' | t: { season: seasonData?.gauntletInfo?.season || '' } }}</h1>
             <p class="page-subtitle" *ngIf="seasonData">
-                {{seasonData.gauntletInfo.startAt | date:'YYYY/MM/dd HH:mm'}}
+                {{seasonData.gauntletInfo.startAt | ldate:'mediumDateTime'}}
                 <i class="fa-solid fa-arrow-right mx-1 text-[0.6rem]"></i>
-                {{seasonData.gauntletInfo.endAt | date:'YYYY/MM/dd HH:mm'}}
+                {{seasonData.gauntletInfo.endAt | ldate:'mediumDateTime'}}
             </p>
         </div>
     </div>
     <div class="flex w-full flex-wrap items-center gap-2 sm:w-auto">
-        <select class="select sm:w-44" [ngModel]="selectedSeasonId" (ngModelChange)="onSeasonChange($event)" aria-label="Season">
-            <option *ngFor="let item of (seasonData?.allGauntletsInfo || [])" [ngValue]="item.season">Season {{ item.season }}</option>
+        <select class="select sm:w-44" [ngModel]="selectedSeasonId" (ngModelChange)="onSeasonChange($event)" [attr.aria-label]="'common.season' | t">
+            <option *ngFor="let item of (seasonData?.allGauntletsInfo || [])" [ngValue]="item.season">{{ 'seasons.seasonNumber' | t: { season: item.season } }}</option>
         </select>
         <button *ngIf="seasonData?.gauntletInfo?.flourishId" class="btn btn-primary" (click)="toggleShowChart()">
-            <ng-container *ngIf="!showChart"><i class="fa-solid fa-chart-bar"></i>Bar Chart Race</ng-container>
-            <ng-container *ngIf="showChart"><i class="fa-solid fa-list-ol"></i>Leaderboard</ng-container>
+            <ng-container *ngIf="!showChart"><i class="fa-solid fa-chart-bar"></i>{{ 'seasons.barChartRace' | t }}</ng-container>
+            <ng-container *ngIf="showChart"><i class="fa-solid fa-list-ol"></i>{{ 'seasons.leaderboard' | t }}</ng-container>
         </button>
     </div>
 </div>
@@ -25,10 +25,10 @@
     <table class="data-table">
         <thead>
             <tr>
-                <th class="w-16 text-center">Rank</th>
-                <th>Guild</th>
-                <th class="w-24 text-center">Level</th>
-                <th class="w-28 text-center">Time left</th>
+                <th class="w-16 text-center">{{ 'common.rank' | t }}</th>
+                <th>{{ 'common.guild' | t }}</th>
+                <th class="w-24 text-center">{{ 'common.level' | t }}</th>
+                <th class="w-28 text-center">{{ 'seasons.timeLeft' | t }}</th>
             </tr>
         </thead>
         <tbody>
@@ -45,7 +45,7 @@
                     <dl-guild-tag [iconFilename]="leaderboardItem.guildIconFilename" [name]="leaderboardItem.guildName" [tag]="leaderboardItem.guildTag" />
                 </td>
                 <td class="text-center font-semibold tabular-nums">{{leaderboardItem.level}}</td>
-                <td class="text-center tabular-nums text-muted">{{leaderboardItem.remainingSec * 1000 | date:'mm:ss'}}</td>
+                <td class="text-center tabular-nums text-muted">{{leaderboardItem.remainingSec * 1000 | ldate:'mm:ss'}}</td>
             </tr>
         </tbody>
     </table>

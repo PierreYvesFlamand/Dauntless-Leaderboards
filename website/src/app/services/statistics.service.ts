@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { formatNumber as formatLocaleNumber, formatPercent } from '@angular/common';
 import { DatabaseService, TRIAL_LEADERBOARD_PLAYER, WEBSITE_TRIAL } from './database.service';
 import { SharedService } from './shared.service';
+import { TRANSLATION_PARAMS, TranslationService } from './translation.service';
 
 // ---------------------------------------------------------------------------
 // Filters
@@ -15,11 +17,12 @@ export type STAT_FILTER_KEY = keyof STAT_FILTERS;
 
 export const STAT_DEFAULT_FILTERS: STAT_FILTERS = { era: 'all', board: 'solo', top: 10, pos: 1 };
 
-export const STAT_FILTER_OPTIONS: Record<STAT_FILTER_KEY, { label: string, options: { value: string | number, label: string }[] }> = {
-  era: { label: 'Era', options: [{ value: 'all', label: 'All' }, { value: 'pre', label: 'Pre-Awakening' }, { value: 'post', label: 'Post-Awakening' }] },
-  board: { label: 'Leaderboard', options: [{ value: 'solo', label: 'Solo' }, { value: 'group', label: 'Group' }] },
-  top: { label: 'Counting', options: [{ value: 1, label: 'Top 1' }, { value: 10, label: 'Top 10' }, { value: 100, label: 'Top 100' }] },
-  pos: { label: 'Position', options: [1, 5, 10, 25, 50, 100].map(value => ({ value, label: `#${value}` })) }
+// Labels are translation keys (+ params), translated in the template
+export const STAT_FILTER_OPTIONS: Record<STAT_FILTER_KEY, { label: string, options: { value: string | number, label: string, params?: TRANSLATION_PARAMS }[] }> = {
+  era: { label: 'common.era', options: [{ value: 'all', label: 'common.all' }, { value: 'pre', label: 'common.preAwakening' }, { value: 'post', label: 'common.postAwakening' }] },
+  board: { label: 'stats.filter.board', options: [{ value: 'solo', label: 'common.solo' }, { value: 'group', label: 'common.group' }] },
+  top: { label: 'stats.filter.top', options: [1, 10, 100].map(value => ({ value, label: 'stats.filter.topOption', params: { top: value } })) },
+  pos: { label: 'stats.filter.pos', options: [1, 5, 10, 25, 50, 100].map(value => ({ value, label: 'stats.filter.posOption', params: { pos: value } })) }
 };
 
 // ---------------------------------------------------------------------------
@@ -59,6 +62,7 @@ export type STAT_BLOCK = { title?: string, subtitle?: string, wide?: boolean } &
   | { type: 'table', columns: STAT_TABLE_COLUMN[], rows: STAT_TABLE_ROW[], defaultSort?: STAT_SORT }
 );
 
+// category, title, description and seeAlso text/label are translation keys (translated in the template)
 export type STAT_DEFINITION = {
   slug: string
   category: string
@@ -81,24 +85,24 @@ const AWAKENING_WEEK = 282;
 export class StatisticsService {
   public readonly definitions: STAT_DEFINITION[] = [
     // Trials meta
-    { slug: 'weapons', category: 'Trials meta', title: 'Weapon popularity', description: 'Which weapons the best hunters bring to the Trials.', icon: 'fa-solid fa-hammer', filters: ['era', 'board', 'top'], favorites: 'players' },
-    { slug: 'weapon-trend', category: 'Trials meta', title: 'Weapon meta over time', description: 'Share of each weapon, year by year. Watch the meta shift.', icon: 'fa-solid fa-timeline', filters: ['era', 'board', 'top'], favorites: 'players' },
-    { slug: 'omnicells', category: 'Trials meta', title: 'Omnicell popularity', description: 'Omnicell picks overall and per year.', icon: 'fa-solid fa-gem', filters: ['era', 'board', 'top'], favorites: 'players' },
-    { slug: 'loadouts', category: 'Trials meta', title: 'Favorite loadouts', description: 'Most played weapon + omnicell combinations.', icon: 'fa-solid fa-toolbox', filters: ['era', 'board', 'top'], favorites: 'players' },
-    { slug: 'group-comps', category: 'Trials meta', title: 'Group compositions', description: 'How groups build their team, and who goes full mono-weapon.', icon: 'fa-solid fa-people-group', filters: ['era', 'top'], favorites: 'players' },
+    { slug: 'weapons', category: 'stats.category.trialsMeta', title: 'stats.def.weapons.title', description: 'stats.def.weapons.description', icon: 'fa-solid fa-hammer', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'weapon-trend', category: 'stats.category.trialsMeta', title: 'stats.def.weaponTrend.title', description: 'stats.def.weaponTrend.description', icon: 'fa-solid fa-timeline', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'omnicells', category: 'stats.category.trialsMeta', title: 'stats.def.omnicells.title', description: 'stats.def.omnicells.description', icon: 'fa-solid fa-gem', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'loadouts', category: 'stats.category.trialsMeta', title: 'stats.def.loadouts.title', description: 'stats.def.loadouts.description', icon: 'fa-solid fa-toolbox', filters: ['era', 'board', 'top'], favorites: 'players' },
+    { slug: 'group-comps', category: 'stats.category.trialsMeta', title: 'stats.def.groupComps.title', description: 'stats.def.groupComps.description', icon: 'fa-solid fa-people-group', filters: ['era', 'top'], favorites: 'players' },
     // Records
-    { slug: 'records', category: 'Records', title: 'Behemoth records', description: 'Fastest solo and group time ever for every behemoth.', icon: 'fa-solid fa-stopwatch', filters: ['era'], defaults: { era: 'pre' }, favorites: 'players' },
-    { slug: 'photo-finishes', category: 'Records', title: 'Photo finishes', description: 'The closest races for #1, and the most one-sided wins.', icon: 'fa-solid fa-flag-checkered', filters: ['era', 'board'], favorites: 'players' },
-    { slug: 'behemoths', category: 'Records', title: 'Behemoth rotation', description: 'How often each behemoth was the weekly Trial.', icon: 'fa-solid fa-dragon', filters: ['era'] },
+    { slug: 'records', category: 'stats.category.records', title: 'stats.def.records.title', description: 'stats.def.records.description', icon: 'fa-solid fa-stopwatch', filters: ['era'], defaults: { era: 'pre' }, favorites: 'players' },
+    { slug: 'photo-finishes', category: 'stats.category.records', title: 'stats.def.photoFinishes.title', description: 'stats.def.photoFinishes.description', icon: 'fa-solid fa-flag-checkered', filters: ['era', 'board'], favorites: 'players' },
+    { slug: 'behemoths', category: 'stats.category.records', title: 'stats.def.behemoths.title', description: 'stats.def.behemoths.description', icon: 'fa-solid fa-dragon', filters: ['era'] },
     // Players
-    { slug: 'top-players', category: 'Players', title: 'Top players', description: 'Players with the most wins or top finishes.', icon: 'fa-solid fa-crown', filters: ['era', 'board', 'top'], defaults: { top: 1 }, seeAlso: { text: 'Looking for the Dauntless Hall of Fame?', label: 'Join their Discord', url: 'https://discord.gg/snwcPJ4xSF' }, favorites: 'players' },
-    { slug: 'platforms', category: 'Players', title: 'Platforms', description: 'PC, PlayStation, Xbox or Switch: who fills the leaderboards.', icon: 'fa-solid fa-gamepad', filters: ['era', 'board', 'top'], defaults: { top: 100 }, favorites: 'players' },
-    { slug: 'loyalty', category: 'Players', title: 'One-tricks & all-rounders', description: 'Players who never switched weapon, and those who mastered them all.', icon: 'fa-solid fa-shuffle', filters: ['era', 'board'], favorites: 'players' },
-    { slug: 'newcomers', category: 'Players', title: 'New blood', description: 'Players reaching the leaderboards for the first time, per quarter.', icon: 'fa-solid fa-seedling', filters: ['board', 'top'], defaults: { top: 100 }, favorites: 'players' },
+    { slug: 'top-players', category: 'common.players', title: 'stats.def.topPlayers.title', description: 'stats.def.topPlayers.description', icon: 'fa-solid fa-crown', filters: ['era', 'board', 'top'], defaults: { top: 1 }, seeAlso: { text: 'stats.def.topPlayers.seeAlsoText', label: 'stats.def.topPlayers.seeAlsoLabel', url: 'https://discord.gg/snwcPJ4xSF' }, favorites: 'players' },
+    { slug: 'platforms', category: 'common.players', title: 'stats.def.platforms.title', description: 'stats.def.platforms.description', icon: 'fa-solid fa-gamepad', filters: ['era', 'board', 'top'], defaults: { top: 100 }, favorites: 'players' },
+    { slug: 'loyalty', category: 'common.players', title: 'stats.def.loyalty.title', description: 'stats.def.loyalty.description', icon: 'fa-solid fa-shuffle', filters: ['era', 'board'], favorites: 'players' },
+    { slug: 'newcomers', category: 'common.players', title: 'stats.def.newcomers.title', description: 'stats.def.newcomers.description', icon: 'fa-solid fa-seedling', filters: ['board', 'top'], defaults: { top: 100 }, favorites: 'players' },
     // Gauntlet
-    { slug: 'gauntlet-champions', category: 'Gauntlet', title: 'Gauntlet champions', description: 'Every season winner and how close it was.', icon: 'fa-solid fa-trophy', filters: [], favorites: 'guilds' },
-    { slug: 'level-race', category: 'Gauntlet', title: 'Level race', description: 'Level reached by a given position, season after season.', icon: 'fa-solid fa-stairs', filters: ['pos'] },
-    { slug: 'guild-veterans', category: 'Gauntlet', title: 'Guild veterans', description: 'Guilds that kept coming back, and new guilds per season.', icon: 'fa-solid fa-shield-halved', filters: [], favorites: 'guilds' }
+    { slug: 'gauntlet-champions', category: 'nav.gauntlet', title: 'stats.def.gauntletChampions.title', description: 'stats.def.gauntletChampions.description', icon: 'fa-solid fa-trophy', filters: [], favorites: 'guilds' },
+    { slug: 'level-race', category: 'nav.gauntlet', title: 'stats.def.levelRace.title', description: 'stats.def.levelRace.description', icon: 'fa-solid fa-stairs', filters: ['pos'] },
+    { slug: 'guild-veterans', category: 'nav.gauntlet', title: 'stats.def.guildVeterans.title', description: 'stats.def.guildVeterans.description', icon: 'fa-solid fa-shield-halved', filters: [], favorites: 'guilds' }
   ];
 
   private builders: Record<string, (filters: STAT_FILTERS) => STAT_BLOCK[]> = {
@@ -124,7 +128,7 @@ export class StatisticsService {
     'hall-of-fame': 'top-players'
   };
 
-  // Data never changes once loaded: cache per stat + filters
+  // Data never changes once loaded: cache per stat + filters + language
   private cache = new Map<string, STAT_BLOCK[]>();
 
   // Favorites the stat being built is restricted to (null = everyone)
@@ -133,7 +137,8 @@ export class StatisticsService {
 
   constructor(
     private databaseService: DatabaseService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private translationService: TranslationService
   ) { }
 
   public getDefinition(slug: string | null): STAT_DEFINITION | undefined {
@@ -161,7 +166,7 @@ export class StatisticsService {
     this.favoriteGuilds = scope === 'guilds' ? new Set(this.sharedService.favoriteGuilds) : null;
     const favorites = this.favoritePlayers || this.favoriteGuilds;
 
-    const key = `${slug}|${JSON.stringify(filters)}|${this.sharedService.trialDecimals}|${favorites ? [...favorites].sort((a, b) => a - b).join(',') : '-'}`;
+    const key = `${slug}|${JSON.stringify(filters)}|${this.sharedService.trialDecimals}|${favorites ? [...favorites].sort((a, b) => a - b).join(',') : '-'}|${this.translationService.language.code}`;
     if (!this.cache.has(key)) this.cache.set(key, this.builders[slug]?.(filters) || []);
     return this.cache.get(key)!;
   }
@@ -211,16 +216,25 @@ export class StatisticsService {
     return [...map.entries()].sort((a, b) => b[1] - a[1]);
   }
 
-  private percent(value: number, total: number): string {
-    return total ? `${(value / total * 100).toFixed(1)}%` : '–';
+  private t(key: string, params?: TRANSLATION_PARAMS): string {
+    return this.translationService.t(key, params);
   }
 
-  private formatNumber(value: number): string {
-    return value.toLocaleString('en-US');
+  private percent(value: number, total: number): string {
+    return total ? formatPercent(value / total, this.translationService.language.locale, '1.1-1') : '–';
+  }
+
+  private formatNumber(value: number, digitsInfo?: string): string {
+    return formatLocaleNumber(value, this.translationService.language.locale, digitsInfo);
+  }
+
+  // Counted text with a localized number: "{value} picks" (key_one / key_other)
+  private count(key: string, count: number, params?: TRANSLATION_PARAMS): string {
+    return this.t(key, { ...params, count, value: this.formatNumber(count) });
   }
 
   private time(ms: number): string {
-    return this.sharedService.convertTrialTime(ms, true) || '0.000 sec';
+    return this.sharedService.convertTrialTime(ms, true) || this.t('stats.common.zeroTime');
   }
 
   private icon(folder: 'weapons' | 'omnicells' | 'platforms' | 'behemoths', id: number | string): STAT_ICON {
@@ -228,32 +242,44 @@ export class StatisticsService {
   }
 
   private weaponName(id: number): string {
-    return this.sharedService.weaponNames[id] || `Weapon ${id}`;
+    const key = `weapon.${id}`;
+    const name = this.t(key);
+    return name !== key ? name : this.t('stats.common.weaponFallback', { id });
   }
 
   private omnicellName(id: number): string {
-    return this.sharedService.omnicellNames[id] || `Omnicell ${id}`;
+    return this.sharedService.omnicellNames[id] || this.t('stats.common.omnicellFallback', { id });
+  }
+
+  private platformName(id: number): string {
+    return this.sharedService.platformNames[id] || this.t('stats.common.platformFallback', { id });
   }
 
   private playerName(id: number): string {
     const names = this.databaseService.data.players[id - 1]?.playerNames || [];
-    return [...names].sort((a, b) => a.platformId - b.platformId)[0]?.name || `Player ${id}`;
+    return [...names].sort((a, b) => a.platformId - b.platformId)[0]?.name || this.t('stats.common.playerFallback', { id });
   }
 
   private guildLabel(id: number): string {
     const guild = this.databaseService.data.guilds[id - 1];
-    return guild ? `${guild.name} [${guild.tag}]` : 'Unknown guild';
+    return guild ? `${guild.name} [${guild.tag}]` : this.t('stats.common.unknownGuild');
   }
 
   private year(trial: WEBSITE_TRIAL): number {
     return new Date(trial.startAt).getUTCFullYear();
   }
 
-  private scope(filters: STAT_FILTERS, withBoard: boolean = true): string {
-    const era = { all: 'All eras', pre: 'Pre-Awakening', post: 'Post-Awakening' }[filters.era];
-    const runs = filters.top === 1 ? 'Winning' : `Top ${filters.top}`;
-    const favorites = this.favoritePlayers ? ' · Favorites only' : '';
-    return withBoard ? `${runs} ${filters.board} runs · ${era}${favorites}` : `${era}${favorites}`;
+  // "Top 10 solo runs · All eras · Favorites only"
+  private scope(filters: STAT_FILTERS, withBoard: boolean = true, withEra: boolean = true): string {
+    const parts: string[] = [];
+    if (withBoard) {
+      parts.push(filters.board === 'solo'
+        ? (filters.top === 1 ? this.t('stats.scope.winningSolo') : this.t('stats.scope.topSolo', { top: filters.top }))
+        : (filters.top === 1 ? this.t('stats.scope.winningGroup') : this.t('stats.scope.topGroup', { top: filters.top })));
+    }
+    if (withEra) parts.push(this.t({ all: 'stats.scope.allEras', pre: 'common.preAwakening', post: 'common.postAwakening' }[filters.era]));
+    if (this.favoritePlayers) parts.push(this.t('stats.scope.favoritesOnly'));
+    return parts.join(' · ');
   }
 
   // Share of each key per year, as heatmap rows ordered by overall share
@@ -287,13 +313,14 @@ export class StatisticsService {
     };
   }
 
-  private shareBars(map: Map<number, number>, getItem: (key: number) => { label: string, icons?: STAT_ICON[] }, unit: string): STAT_BAR_ITEM[] {
+  // unitKey: counted text key ("{value} picks", key_one / key_other)
+  private shareBars(map: Map<number, number>, getItem: (key: number) => { label: string, icons?: STAT_ICON[] }, unitKey: string): STAT_BAR_ITEM[] {
     const total = [...map.values()].reduce((sum, count) => sum + count, 0);
     return this.sortedEntries(map).map(([key, count]) => ({
       ...getItem(key),
       value: count,
       valueLabel: this.percent(count, total),
-      sub: `${this.formatNumber(count)} ${unit}`
+      sub: this.count(unitKey, count)
     }));
   }
 
@@ -310,10 +337,10 @@ export class StatisticsService {
 
     const weaponItem = (id: number) => ({ label: this.weaponName(id), icons: [this.icon('weapons', id)] });
     const blocks: STAT_BLOCK[] = [
-      { type: 'bars', title: 'Primary weapon', subtitle: this.scope(filters), items: this.shareBars(primary, weaponItem, 'picks') }
+      { type: 'bars', title: this.t('stats.weapons.primary'), subtitle: this.scope(filters), items: this.shareBars(primary, weaponItem, 'stats.common.picks') }
     ];
     if (secondary.size) {
-      blocks.push({ type: 'bars', title: 'Secondary weapon', subtitle: 'Post-Awakening runs only (two weapons per hunter)', items: this.shareBars(secondary, weaponItem, 'picks') });
+      blocks.push({ type: 'bars', title: this.t('stats.weapons.secondary'), subtitle: this.t('stats.weapons.secondarySubtitle'), items: this.shareBars(secondary, weaponItem, 'stats.common.picks') });
     }
     return blocks;
   }
@@ -327,18 +354,18 @@ export class StatisticsService {
     const deltas = heatmap.rows
       .map(row => ({ label: row.label, delta: (row.values[last] || 0) - (row.values[first] || 0) }))
       .sort((a, b) => b.delta - a.delta);
-    const points = (delta: number) => `${delta > 0 ? '+' : ''}${(delta * 100).toFixed(1)} pts`;
+    const points = (delta: number) => this.t('stats.weaponTrend.points', { value: `${delta > 0 ? '+' : ''}${this.formatNumber(delta * 100, '1.1-1')}` });
     const period = `${heatmap.columns[first]} → ${heatmap.columns[last]}`;
 
     return [
       {
         type: 'kpis', items: [
-          { label: 'Biggest rise', value: deltas[0]?.label || '–', sub: deltas[0] ? `${points(deltas[0].delta)} · ${period}` : undefined },
-          { label: 'Biggest fall', value: deltas[deltas.length - 1]?.label || '–', sub: deltas.length ? `${points(deltas[deltas.length - 1].delta)} · ${period}` : undefined },
-          { label: 'Years covered', value: String(heatmap.columns.length), sub: period }
+          { label: this.t('stats.weaponTrend.biggestRise'), value: deltas[0]?.label || '–', sub: deltas[0] ? `${points(deltas[0].delta)} · ${period}` : undefined },
+          { label: this.t('stats.weaponTrend.biggestFall'), value: deltas[deltas.length - 1]?.label || '–', sub: deltas.length ? `${points(deltas[deltas.length - 1].delta)} · ${period}` : undefined },
+          { label: this.t('stats.weaponTrend.yearsCovered'), value: String(heatmap.columns.length), sub: period }
         ]
       },
-      { type: 'heatmap', wide: true, title: 'Share of picks per year', subtitle: `${this.scope(filters)} · each column sums to 100%`, ...heatmap }
+      { type: 'heatmap', wide: true, title: this.t('stats.weaponTrend.heatmapTitle'), subtitle: this.t('stats.weaponTrend.heatmapSubtitle', { scope: this.scope(filters) }), ...heatmap }
     ];
   }
 
@@ -350,8 +377,8 @@ export class StatisticsService {
     const heatmap = this.heatmapByYear(this.trialsFor(filters.era), filters, player => player.roleId ? [player.roleId] : [], id => ({ label: this.omnicellName(id), icon: this.icon('omnicells', id) }));
 
     return [
-      { type: 'bars', title: 'Omnicell picks', subtitle: this.scope(filters), items: this.shareBars(counts, id => ({ label: this.omnicellName(id), icons: [this.icon('omnicells', id)] }), 'picks') },
-      { type: 'heatmap', title: 'Per year', subtitle: 'Each column sums to 100%', ...heatmap }
+      { type: 'bars', title: this.t('stats.omnicells.picks'), subtitle: this.scope(filters), items: this.shareBars(counts, id => ({ label: this.omnicellName(id), icons: [this.icon('omnicells', id)] }), 'stats.common.picks') },
+      { type: 'heatmap', title: this.t('stats.common.perYear'), subtitle: this.t('stats.common.columnsSum'), ...heatmap }
     ];
   }
 
@@ -372,19 +399,19 @@ export class StatisticsService {
         icons: [...weapons.map(id => this.icon('weapons', id)), ...(omnicell ? [this.icon('omnicells', omnicell)] : [])],
         value: count,
         valueLabel: this.percent(count, total),
-        sub: `${this.formatNumber(count)} picks`
+        sub: this.count('stats.common.picks', count)
       };
     });
 
     return [
       {
         type: 'kpis', items: [
-          { label: 'Distinct loadouts', value: this.formatNumber(counts.size), sub: this.scope(filters) },
-          { label: 'Most played', value: items[0]?.label || '–', sub: items[0] ? `${items[0].valueLabel} of picks` : undefined },
-          { label: 'Top 15 coverage', value: this.percent(items.reduce((sum, item) => sum + item.value, 0), total), sub: 'of all picks' }
+          { label: this.t('stats.loadouts.distinct'), value: this.formatNumber(counts.size), sub: this.scope(filters) },
+          { label: this.t('stats.loadouts.mostPlayed'), value: items[0]?.label || '–', sub: items[0] ? this.t('stats.loadouts.mostPlayedSub', { percent: items[0].valueLabel }) : undefined },
+          { label: this.t('stats.loadouts.top15Coverage'), value: this.percent(items.reduce((sum, item) => sum + item.value, 0), total), sub: this.t('stats.loadouts.ofAllPicks') }
         ]
       },
-      { type: 'bars', wide: true, ranked: true, title: 'Top 15 loadouts', subtitle: 'Weapon (+ secondary after the Awakening) and omnicell', items }
+      { type: 'bars', wide: true, ranked: true, title: this.t('stats.loadouts.top15Title'), subtitle: this.t('stats.loadouts.top15Subtitle'), items }
     ];
   }
 
@@ -415,20 +442,20 @@ export class StatisticsService {
         icons: weapons.map(id => this.icon('weapons', id)),
         value: count,
         valueLabel: this.percent(count, total),
-        sub: `${this.formatNumber(count)} groups`
+        sub: this.count('stats.groupComps.groups', count)
       };
     });
 
     return [
       {
         type: 'kpis', items: [
-          { label: 'Groups counted', value: this.formatNumber(total), sub: this.scope(groupFilters) },
-          { label: 'Distinct compositions', value: this.formatNumber(counts.size), sub: 'Weapon order ignored' },
-          { label: 'Mono-weapon groups', value: this.percent(mono, total), sub: `${this.formatNumber(mono)} groups, all the same weapon` },
-          { label: 'Full groups of 4', value: this.percent(full, total), sub: 'The rest went in 2 or 3' }
+          { label: this.t('stats.groupComps.groupsCounted'), value: this.formatNumber(total), sub: this.scope(groupFilters) },
+          { label: this.t('stats.groupComps.distinct'), value: this.formatNumber(counts.size), sub: this.t('stats.groupComps.orderIgnored') },
+          { label: this.t('stats.groupComps.mono'), value: this.percent(mono, total), sub: this.count('stats.groupComps.monoSub', mono) },
+          { label: this.t('stats.groupComps.full'), value: this.percent(full, total), sub: this.t('stats.groupComps.fullSub') }
         ]
       },
-      { type: 'bars', wide: true, ranked: true, title: 'Most common compositions', items }
+      { type: 'bars', wide: true, ranked: true, title: this.t('stats.groupComps.mostCommon'), items }
     ];
   }
 
@@ -457,9 +484,9 @@ export class StatisticsService {
         sortValues: { solo: entry.solo?.time ?? null, group: entry.group?.time ?? null },
         cells: [
           { text: name, icons: [this.icon('behemoths', name)], strong: true },
-          { text: entry.solo ? this.time(entry.solo.time) : '–', sub: entry.solo ? `W${entry.solo.week}` : undefined },
+          { text: entry.solo ? this.time(entry.solo.time) : '–', sub: entry.solo ? this.t('common.weekShort', { week: entry.solo.week }) : undefined },
           { text: entry.solo ? this.playerName(entry.solo.playerIds[0]) : '–', isPlayerName: !!entry.solo },
-          { text: entry.group ? this.time(entry.group.time) : '–', sub: entry.group ? `W${entry.group.week}` : undefined },
+          { text: entry.group ? this.time(entry.group.time) : '–', sub: entry.group ? this.t('common.weekShort', { week: entry.group.week }) : undefined },
           { text: String(entry.weeks), muted: true }
         ]
       }));
@@ -471,15 +498,15 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Fastest solo record', value: fastestSolo ? this.time(fastestSolo[1].solo!.time) : '–', sub: fastestSolo ? `${fastestSolo[0]} · week ${fastestSolo[1].solo!.week}` : undefined, link: fastestSolo ? `/trials/${fastestSolo[1].solo!.week}` : undefined },
-          { label: 'Fastest group record', value: fastestGroup ? this.time(fastestGroup[1].group!.time) : '–', sub: fastestGroup ? `${fastestGroup[0]} · week ${fastestGroup[1].group!.week}` : undefined, link: fastestGroup ? `/trials/${fastestGroup[1].group!.week}` : undefined },
-          { label: 'Behemoths', value: String(behemoths.size), sub: this.scope(filters, false) }
+          { label: this.t('stats.records.fastestSolo'), value: fastestSolo ? this.time(fastestSolo[1].solo!.time) : '–', sub: fastestSolo ? this.t('stats.records.behemothWeek', { behemoth: fastestSolo[0], week: fastestSolo[1].solo!.week }) : undefined, link: fastestSolo ? `/trials/${fastestSolo[1].solo!.week}` : undefined },
+          { label: this.t('stats.records.fastestGroup'), value: fastestGroup ? this.time(fastestGroup[1].group!.time) : '–', sub: fastestGroup ? this.t('stats.records.behemothWeek', { behemoth: fastestGroup[0], week: fastestGroup[1].group!.week }) : undefined, link: fastestGroup ? `/trials/${fastestGroup[1].group!.week}` : undefined },
+          { label: this.t('stats.records.behemoths'), value: String(behemoths.size), sub: this.scope(filters, false) }
         ]
       },
       {
-        type: 'table', wide: true, title: 'Records per behemoth',
-        subtitle: 'Post-Awakening times include objective bonuses (they can go below zero): compare within one era',
-        columns: [{ label: 'Behemoth' }, { label: 'Solo record', sortKey: 'solo' }, { label: 'Solo holder' }, { label: 'Group record', sortKey: 'group' }, { label: 'Trials', align: 'right' }],
+        type: 'table', wide: true, title: this.t('stats.records.tableTitle'),
+        subtitle: this.t('stats.records.tableSubtitle'),
+        columns: [{ label: this.t('stats.records.behemoth') }, { label: this.t('stats.records.soloRecord'), sortKey: 'solo' }, { label: this.t('stats.records.soloHolder') }, { label: this.t('stats.records.groupRecord'), sortKey: 'group' }, { label: this.t('stats.records.trialsCount'), align: 'right' }],
         rows,
         defaultSort: { key: 'solo', dir: 'asc' }
       }
@@ -498,12 +525,12 @@ export class StatisticsService {
     const toRow = (race: typeof races[number]) => ({
       link: `/trials/${race.trial.week}`,
       cells: [
-        { text: `W${race.trial.week}`, icons: [this.icon('behemoths', race.trial.behemothName)], muted: true },
+        { text: this.t('common.weekShort', { week: race.trial.week }), icons: [this.icon('behemoths', race.trial.behemothName)], muted: true },
         { text: race.winner.players.map(p => p.playerName || this.playerName(p.playerId)).join(', '), isPlayerName: true },
-        { text: race.margin === 0 ? 'Exact tie' : this.time(race.margin), strong: true }
+        { text: race.margin === 0 ? this.t('stats.photoFinishes.exactTie') : this.time(race.margin), strong: true }
       ]
     });
-    const columns: STAT_TABLE_COLUMN[] = [{ label: 'Week' }, { label: filters.board === 'solo' ? 'Winner' : 'Winners' }, { label: 'Margin' }];
+    const columns: STAT_TABLE_COLUMN[] = [{ label: this.t('common.week') }, { label: this.t(filters.board === 'solo' ? 'stats.photoFinishes.winner' : 'stats.photoFinishes.winners') }, { label: this.t('stats.common.margin') }];
     const average = races.reduce((sum, race) => sum + race.margin, 0) / (races.length || 1);
     const closest = races[0];
     const biggest = races[races.length - 1];
@@ -511,13 +538,13 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Closest race', value: closest ? (closest.margin === 0 ? 'Exact tie' : this.time(closest.margin)) : '–', sub: closest ? `Week ${closest.trial.week} · ${closest.trial.behemothName}` : undefined, link: closest ? `/trials/${closest.trial.week}` : undefined },
-          { label: 'Average margin', value: this.time(Math.round(average)), sub: `Between #1 and #2 · ${this.scope(filters, false)}` },
-          { label: 'Biggest margin', value: biggest ? this.time(biggest.margin) : '–', sub: biggest ? `Week ${biggest.trial.week} · ${biggest.trial.behemothName}` : undefined, link: biggest ? `/trials/${biggest.trial.week}` : undefined }
+          { label: this.t('stats.photoFinishes.closest'), value: closest ? (closest.margin === 0 ? this.t('stats.photoFinishes.exactTie') : this.time(closest.margin)) : '–', sub: closest ? this.t('stats.photoFinishes.weekBehemoth', { week: closest.trial.week, behemoth: closest.trial.behemothName }) : undefined, link: closest ? `/trials/${closest.trial.week}` : undefined },
+          { label: this.t('stats.photoFinishes.averageMargin'), value: this.time(Math.round(average)), sub: this.t('stats.photoFinishes.averageSub', { scope: this.scope(filters, false) }) },
+          { label: this.t('stats.photoFinishes.biggestMargin'), value: biggest ? this.time(biggest.margin) : '–', sub: biggest ? this.t('stats.photoFinishes.weekBehemoth', { week: biggest.trial.week, behemoth: biggest.trial.behemothName }) : undefined, link: biggest ? `/trials/${biggest.trial.week}` : undefined }
         ]
       },
-      { type: 'table', title: 'Photo finishes', subtitle: 'Smallest gap between #1 and #2', columns, rows: races.slice(0, 10).map(toRow) },
-      { type: 'table', title: 'Total domination', subtitle: 'Biggest gap between #1 and #2', columns, rows: races.slice(-10).reverse().map(toRow) }
+      { type: 'table', title: this.t('stats.def.photoFinishes.title'), subtitle: this.t('stats.photoFinishes.smallestGap'), columns, rows: races.slice(0, 10).map(toRow) },
+      { type: 'table', title: this.t('stats.photoFinishes.domination'), subtitle: this.t('stats.photoFinishes.biggestGap'), columns, rows: races.slice(-10).reverse().map(toRow) }
     ];
   }
 
@@ -532,14 +559,14 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Different behemoths', value: String(counts.size), sub: `Over ${trials.length} weekly Trials` },
-          { label: 'Most featured', value: sorted[0]?.[0] || '–', sub: sorted[0] ? `${sorted[0][1]} weeks` : undefined },
-          { label: 'Featured only once', value: String(once), sub: once ? sorted.filter(([, count]) => count === 1).map(([name]) => name).slice(0, 3).join(', ') + (once > 3 ? '…' : '') : 'None' }
+          { label: this.t('stats.behemoths.different'), value: String(counts.size), sub: this.t('stats.behemoths.overTrials', { count: trials.length }) },
+          { label: this.t('stats.behemoths.mostFeatured'), value: sorted[0]?.[0] || '–', sub: sorted[0] ? this.t('stats.behemoths.weeks', { count: sorted[0][1] }) : undefined },
+          { label: this.t('stats.behemoths.featuredOnce'), value: String(once), sub: once ? sorted.filter(([, count]) => count === 1).map(([name]) => name).slice(0, 3).join(', ') + (once > 3 ? '…' : '') : this.t('stats.common.none') }
         ]
       },
       {
-        type: 'bars', wide: true, ranked: true, title: 'Weeks as the Trial', subtitle: this.scope(filters, false),
-        items: sorted.map(([name, count]) => ({ label: name, icons: [this.icon('behemoths', name)], value: count, valueLabel: `${count} wk` }))
+        type: 'bars', wide: true, ranked: true, title: this.t('stats.behemoths.barsTitle'), subtitle: this.scope(filters, false),
+        items: sorted.map(([name, count]) => ({ label: name, icons: [this.icon('behemoths', name)], value: count, valueLabel: this.t('stats.behemoths.weeksShort', { count }) }))
       }
     ];
   }
@@ -551,18 +578,20 @@ export class StatisticsService {
     const counts = new Map<number, number>();
     this.forEachPlayer(filters, player => this.increment(counts, player.playerId));
     const sorted = this.sortedEntries(counts);
-    const what = filters.top === 1 ? 'wins' : `top ${filters.top} finishes`;
+    // Wins (top 1) or top N finishes
+    const wins = filters.top === 1;
+    const top = { top: filters.top };
 
     return [
       {
         type: 'kpis', items: [
-          { label: 'Different players', value: this.formatNumber(counts.size), sub: `With at least one of these ${what}` },
-          { label: 'Leader', value: sorted[0] ? this.playerName(sorted[0][0]) : '–', isPlayerName: true, sub: sorted[0] ? `${sorted[0][1]} ${what}` : undefined, link: sorted[0] ? `/players/${sorted[0][0]}` : undefined },
-          { label: 'Top 15 share', value: this.percent(sorted.slice(0, 15).reduce((sum, [, n]) => sum + n, 0), sorted.reduce((sum, [, n]) => sum + n, 0)), sub: `Of all ${what}` }
+          { label: this.t('stats.topPlayers.different'), value: this.formatNumber(counts.size), sub: this.t(wins ? 'stats.topPlayers.differentSubWins' : 'stats.topPlayers.differentSubTop', top) },
+          { label: this.t('stats.topPlayers.leader'), value: sorted[0] ? this.playerName(sorted[0][0]) : '–', isPlayerName: true, sub: sorted[0] ? this.count(wins ? 'stats.topPlayers.leaderWins' : 'stats.topPlayers.leaderTop', sorted[0][1], top) : undefined, link: sorted[0] ? `/players/${sorted[0][0]}` : undefined },
+          { label: this.t('stats.topPlayers.top15Share'), value: this.percent(sorted.slice(0, 15).reduce((sum, [, n]) => sum + n, 0), sorted.reduce((sum, [, n]) => sum + n, 0)), sub: this.t(wins ? 'stats.topPlayers.shareSubWins' : 'stats.topPlayers.shareSubTop', top) }
         ]
       },
       {
-        type: 'bars', wide: true, ranked: true, title: `Most ${what}`, subtitle: this.scope(filters),
+        type: 'bars', wide: true, ranked: true, title: this.t(wins ? 'stats.topPlayers.titleWins' : 'stats.topPlayers.titleTop', top), subtitle: this.scope(filters),
         items: sorted.slice(0, 15).map(([id, count]) => ({ label: this.playerName(id), isPlayerName: true, value: count, valueLabel: this.formatNumber(count), link: `/players/${id}` }))
       }
     ];
@@ -571,17 +600,18 @@ export class StatisticsService {
   private buildPlatforms(filters: STAT_FILTERS): STAT_BLOCK[] {
     const counts = new Map<number, number>();
     this.forEachPlayer(filters, player => this.increment(counts, player.platformId));
-    const platformRow = (id: number) => ({ label: this.sharedService.platformNames[id] || `Platform ${id}`, icon: this.icon('platforms', id) });
+    const platformRow = (id: number) => ({ label: this.platformName(id), icon: this.icon('platforms', id) });
     const heatmap = this.heatmapByYear(this.trialsFor(filters.era), filters, player => [player.platformId], platformRow);
 
     return [
-      { type: 'bars', title: 'Share of runs', subtitle: this.scope(filters), items: this.shareBars(counts, id => ({ label: platformRow(id).label, icons: [platformRow(id).icon] }), 'player slots') },
-      { type: 'heatmap', title: 'Per year', subtitle: 'Each column sums to 100%', ...heatmap }
+      { type: 'bars', title: this.t('stats.platforms.shareTitle'), subtitle: this.scope(filters), items: this.shareBars(counts, id => ({ label: platformRow(id).label, icons: [platformRow(id).icon] }), 'stats.platforms.playerSlots') },
+      { type: 'heatmap', title: this.t('stats.common.perYear'), subtitle: this.t('stats.common.columnsSum'), ...heatmap }
     ];
   }
 
   private buildLoyalty(filters: STAT_FILTERS): STAT_BLOCK[] {
     const MIN_RUNS = 10;
+    const min = { min: MIN_RUNS };
     const perPlayer = new Map<number, Map<number, number>>();
     this.forEachPlayer({ ...filters, top: 100 }, player => {
       if (!perPlayer.has(player.playerId)) perPlayer.set(player.playerId, new Map());
@@ -607,18 +637,18 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Players with 10+ runs', value: this.formatNumber(loyal.length), sub: this.scope({ ...filters, top: 100 }) },
-          { label: 'True one-tricks', value: this.percent(loyal.filter(p => p.weapons.length === 1).length, loyal.length), sub: 'Never touched another weapon' },
-          { label: 'Average weapons used', value: (loyal.reduce((sum, p) => sum + p.weapons.length, 0) / (loyal.length || 1)).toFixed(1), sub: 'Per player with 10+ runs' }
+          { label: this.t('stats.loyalty.playersWithRuns', min), value: this.formatNumber(loyal.length), sub: this.scope({ ...filters, top: 100 }) },
+          { label: this.t('stats.loyalty.trueOneTricks'), value: this.percent(loyal.filter(p => p.weapons.length === 1).length, loyal.length), sub: this.t('stats.loyalty.neverTouched') },
+          { label: this.t('stats.loyalty.averageWeapons'), value: this.formatNumber(loyal.reduce((sum, p) => sum + p.weapons.length, 0) / (loyal.length || 1), '1.1-1'), sub: this.t('stats.loyalty.perPlayer', min) }
         ]
       },
       {
-        type: 'bars', ranked: true, title: 'One-tricks', subtitle: `Only ever played one weapon (${MIN_RUNS}+ runs)`,
-        items: oneTricks.map(p => ({ label: this.playerName(p.id), isPlayerName: true, icons: [this.icon('weapons', p.weapons[0][0])], value: p.runs, valueLabel: `${p.runs} runs`, link: `/players/${p.id}` }))
+        type: 'bars', ranked: true, title: this.t('stats.loyalty.oneTricks'), subtitle: this.t('stats.loyalty.oneTricksSubtitle', min),
+        items: oneTricks.map(p => ({ label: this.playerName(p.id), isPlayerName: true, icons: [this.icon('weapons', p.weapons[0][0])], value: p.runs, valueLabel: this.count('stats.loyalty.runs', p.runs), link: `/players/${p.id}` }))
       },
       {
-        type: 'bars', ranked: true, title: 'All-rounders', subtitle: `Most different weapons (${MIN_RUNS}+ runs)`,
-        items: allRounders.map(p => ({ label: this.playerName(p.id), isPlayerName: true, sub: `${p.runs} runs`, value: p.weapons.length, valueLabel: `${p.weapons.length} weapons`, link: `/players/${p.id}` }))
+        type: 'bars', ranked: true, title: this.t('stats.loyalty.allRounders'), subtitle: this.t('stats.loyalty.allRoundersSubtitle', min),
+        items: allRounders.map(p => ({ label: this.playerName(p.id), isPlayerName: true, sub: this.count('stats.loyalty.runs', p.runs), value: p.weapons.length, valueLabel: this.t('stats.loyalty.weapons', { count: p.weapons.length }), link: `/players/${p.id}` }))
       }
     ];
   }
@@ -630,7 +660,7 @@ export class StatisticsService {
 
     for (const trial of trials) {
       const date = new Date(trial.startAt);
-      const quarter = `${date.getUTCFullYear()} Q${Math.floor(date.getUTCMonth() / 3) + 1}`;
+      const quarter = this.t('stats.newcomers.quarter', { year: date.getUTCFullYear(), quarter: Math.floor(date.getUTCMonth() / 3) + 1 });
       if (!perQuarter.has(quarter)) perQuarter.set(quarter, 0);
       for (const run of this.runs(trial, filters)) {
         for (const player of run.players) {
@@ -649,12 +679,13 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Players ever counted', value: this.formatNumber(seen.size), sub: this.scope(filters).replace(' · All eras', '') },
-          { label: 'Best quarter', value: best?.label || '–', sub: best ? `${this.formatNumber(best.value)} newcomers (launch quarter excluded)` : undefined },
-          { label: 'Last 4 quarters', value: this.formatNumber(lastFour), sub: 'Newcomers' }
+          // Every era counted: no era filter on this stat
+          { label: this.t('stats.newcomers.everCounted'), value: this.formatNumber(seen.size), sub: this.scope(filters, true, false) },
+          { label: this.t('stats.newcomers.bestQuarter'), value: best?.label || '–', sub: best ? this.count('stats.newcomers.bestQuarterSub', best.value) : undefined },
+          { label: this.t('stats.newcomers.lastFour'), value: this.formatNumber(lastFour), sub: this.t('stats.newcomers.newcomers') }
         ]
       },
-      { type: 'trend', wide: true, title: 'First appearance per quarter', subtitle: 'The first quarter counts everyone, as everyone is new at launch', points, zeroBased: true, unit: 'new players' }
+      { type: 'trend', wide: true, title: this.t('stats.newcomers.trendTitle'), subtitle: this.t('stats.newcomers.trendSubtitle'), points, zeroBased: true, unit: this.t('stats.newcomers.unit') }
     ];
   }
 
@@ -679,12 +710,12 @@ export class StatisticsService {
         if (reign.length > longestReign.length) longestReign = { ...reign };
       }
       const margin = !first || !second ? '–'
-        : first.level !== second.level ? `+${first.level - second.level} levels`
-          : `+${first.remainingSec - second.remainingSec}s left`;
+        : first.level !== second.level ? this.t('stats.gauntletChampions.levelsAhead', { count: first.level - second.level })
+          : this.count('stats.gauntletChampions.secondsLeft', first.remainingSec - second.remainingSec);
       return {
         link: `/seasons/${season.gauntletInfo.season}`,
         cells: [
-          { text: `S${season.gauntletInfo.season}`, muted: true },
+          { text: this.t('common.seasonShort', { season: season.gauntletInfo.season }), muted: true },
           { text: first ? `${first.guildName} [${first.guildTag}]` : '–', strong: true },
           { text: first ? String(first.level) : '–' },
           { text: margin, muted: true }
@@ -696,16 +727,16 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Different champions', value: String(wins.size), sub: `Over ${seasons.length} seasons` },
-          { label: 'Most titles', value: sorted[0] ? this.guildLabel(sorted[0][0]) : '–', sub: sorted[0] ? `${sorted[0][1]} seasons won` : undefined, link: sorted[0] ? `/guilds/${sorted[0][0]}` : undefined },
-          { label: 'Longest reign', value: longestReign.guildId ? this.guildLabel(longestReign.guildId) : '–', sub: `${longestReign.length} titles in a row`, link: longestReign.guildId ? `/guilds/${longestReign.guildId}` : undefined }
+          { label: this.t('stats.gauntletChampions.different'), value: String(wins.size), sub: this.t('stats.gauntletChampions.overSeasons', { count: seasons.length }) },
+          { label: this.t('stats.gauntletChampions.mostTitles'), value: sorted[0] ? this.guildLabel(sorted[0][0]) : '–', sub: sorted[0] ? this.t('stats.gauntletChampions.seasonsWon', { count: sorted[0][1] }) : undefined, link: sorted[0] ? `/guilds/${sorted[0][0]}` : undefined },
+          { label: this.t('stats.gauntletChampions.longestReign'), value: longestReign.guildId ? this.guildLabel(longestReign.guildId) : '–', sub: this.t('stats.gauntletChampions.titlesInRow', { count: longestReign.length }), link: longestReign.guildId ? `/guilds/${longestReign.guildId}` : undefined }
         ]
       },
       {
-        type: 'bars', wide: true, ranked: true, title: 'Titles per guild',
-        items: sorted.map(([id, count]) => ({ label: this.guildLabel(id), value: count, valueLabel: `${count} title${count > 1 ? 's' : ''}`, link: `/guilds/${id}` }))
+        type: 'bars', wide: true, ranked: true, title: this.t('stats.gauntletChampions.titlesPerGuild'),
+        items: sorted.map(([id, count]) => ({ label: this.guildLabel(id), value: count, valueLabel: this.t('stats.gauntletChampions.titles', { count }), link: `/guilds/${id}` }))
       },
-      { type: 'table', wide: true, title: 'Season winners', subtitle: 'Margin: levels ahead of #2, or extra time left at the same level', columns: [{ label: 'Season' }, { label: 'Champion' }, { label: 'Level' }, { label: 'Margin' }], rows }
+      { type: 'table', wide: true, title: this.t('stats.gauntletChampions.tableTitle'), subtitle: this.t('stats.gauntletChampions.tableSubtitle'), columns: [{ label: this.t('common.season') }, { label: this.t('stats.gauntletChampions.champion') }, { label: this.t('common.level') }, { label: this.t('stats.common.margin') }], rows }
     ];
   }
 
@@ -713,7 +744,7 @@ export class StatisticsService {
     const points = this.databaseService.data.gauntlets
       .map(season => {
         const entry = season.gauntletLeaderboard.find(item => item.rank === filters.pos);
-        return entry ? { label: `S${season.gauntletInfo.season}`, value: entry.level, tooltip: `${entry.guildName} [${entry.guildTag}]` } : null;
+        return entry ? { label: this.t('common.seasonShort', { season: season.gauntletInfo.season }), value: entry.level, tooltip: `${entry.guildName} [${entry.guildTag}]` } : null;
       })
       .filter((point): point is NonNullable<typeof point> => point !== null);
 
@@ -724,12 +755,12 @@ export class StatisticsService {
     return [
       {
         type: 'kpis', items: [
-          { label: 'Highest', value: highest ? `Level ${highest.value}` : '–', sub: highest ? `${highest.label} · ${highest.tooltip}` : undefined },
-          { label: 'Lowest', value: lowest ? `Level ${lowest.value}` : '–', sub: lowest ? `${lowest.label} · ${lowest.tooltip}` : undefined },
-          { label: 'First → last season', value: `${growth >= 0 ? '+' : ''}${growth} levels`, sub: points.length ? `${points[0].label} → ${points[points.length - 1].label}` : undefined }
+          { label: this.t('stats.levelRace.highest'), value: highest ? this.t('stats.levelRace.levelValue', { level: highest.value }) : '–', sub: highest ? `${highest.label} · ${highest.tooltip}` : undefined },
+          { label: this.t('stats.levelRace.lowest'), value: lowest ? this.t('stats.levelRace.levelValue', { level: lowest.value }) : '–', sub: lowest ? `${lowest.label} · ${lowest.tooltip}` : undefined },
+          { label: this.t('stats.levelRace.firstToLast'), value: this.t('stats.levelRace.growth', { count: growth, value: `${growth >= 0 ? '+' : ''}${growth}` }), sub: points.length ? `${points[0].label} → ${points[points.length - 1].label}` : undefined }
         ]
       },
-      { type: 'trend', wide: true, title: `Level reached by the #${filters.pos} guild`, subtitle: 'Hover a season to see the guild', points, zeroBased: false, unit: 'level' }
+      { type: 'trend', wide: true, title: this.t('stats.levelRace.trendTitle', { pos: filters.pos }), subtitle: this.t('stats.levelRace.trendSubtitle'), points, zeroBased: false, unit: this.t('stats.levelRace.unit') }
     ];
   }
 
@@ -740,22 +771,22 @@ export class StatisticsService {
 
     const firstSeason = new Map<number, number>();
     guilds.forEach(guild => this.increment(firstSeason, Math.min(...guild.guildGauntletStats.map(s => s.season))));
-    const points = seasons.map(season => ({ label: `S${season.gauntletInfo.season}`, value: firstSeason.get(season.gauntletInfo.season) || 0, tooltip: 'guilds ranked for the first time' }));
+    const points = seasons.map(season => ({ label: this.t('common.seasonShort', { season: season.gauntletInfo.season }), value: firstSeason.get(season.gauntletInfo.season) || 0, tooltip: this.t('stats.guildVeterans.trendTooltip') }));
     const everySeason = guilds.filter(g => g.guildGauntletStats.length === seasons.length).length;
 
     return [
       {
         type: 'kpis', items: [
-          { label: 'Guilds ever ranked', value: this.formatNumber(guilds.length), sub: `In the top 100 of ${seasons.length} seasons` },
-          { label: 'Ranked every season', value: String(everySeason), sub: 'The ultimate veterans' },
-          { label: 'One season only', value: this.percent(guilds.filter(g => g.guildGauntletStats.length === 1).length, guilds.length), sub: 'Came, saw, left' }
+          { label: this.t('stats.guildVeterans.everRanked'), value: this.formatNumber(guilds.length), sub: this.t('stats.guildVeterans.everRankedSub', { count: seasons.length }) },
+          { label: this.t('stats.guildVeterans.everySeason'), value: String(everySeason), sub: this.t('stats.guildVeterans.ultimate') },
+          { label: this.t('stats.guildVeterans.oneSeason'), value: this.percent(guilds.filter(g => g.guildGauntletStats.length === 1).length, guilds.length), sub: this.t('stats.guildVeterans.cameSawLeft') }
         ]
       },
       {
-        type: 'bars', ranked: true, title: 'Most seasons ranked',
-        items: veterans.slice(0, 15).map(guild => ({ label: `${guild.name} [${guild.tag}]`, sub: `Best #${Math.min(...guild.guildGauntletStats.map(s => s.rank))}`, value: guild.guildGauntletStats.length, valueLabel: `${guild.guildGauntletStats.length} seasons`, link: `/guilds/${guild.id}` }))
+        type: 'bars', ranked: true, title: this.t('stats.guildVeterans.mostSeasons'),
+        items: veterans.slice(0, 15).map(guild => ({ label: `${guild.name} [${guild.tag}]`, sub: this.t('stats.guildVeterans.bestRank', { rank: Math.min(...guild.guildGauntletStats.map(s => s.rank)) }), value: guild.guildGauntletStats.length, valueLabel: this.t('stats.guildVeterans.seasons', { count: guild.guildGauntletStats.length }), link: `/guilds/${guild.id}` }))
       },
-      { type: 'trend', title: 'New guilds per season', subtitle: 'First time in the top 100 (season 1 counts everyone)', points, zeroBased: true, unit: 'guilds' }
+      { type: 'trend', title: this.t('stats.guildVeterans.trendTitle'), subtitle: this.t('stats.guildVeterans.trendSubtitle'), points, zeroBased: true, unit: this.t('stats.guildVeterans.unit') }
     ];
   }
 }

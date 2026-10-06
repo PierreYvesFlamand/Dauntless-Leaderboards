@@ -1,11 +1,8 @@
 <footer class="border-t border-line">
     <div class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 text-xs text-muted sm:flex-row sm:px-6 lg:px-8">
-        <span>
-            Made by <span class="cursor-pointer font-medium text-fg hover:text-accent" [enhancedRouterLink]="'/players/2'" role="button">Polfyy</span>
-            from <span class="cursor-pointer font-medium text-fg hover:text-accent" [enhancedRouterLink]="'/guilds/1'" role="button">ThraxEnjoyers</span>
-        </span>
+        <span htmlRouterLinks [innerHTML]="'footer.credits' | t: { player: creditPlayer, guild: creditGuild }"></span>
         <button *ngIf="changelog.length" class="badge cursor-pointer hover:text-fg" (click)="showChangelog = true">
-            <i class="fa-solid fa-code-branch"></i> Version {{changelog[0].version}}
+            <i class="fa-solid fa-code-branch"></i> {{'footer.version' | t: { version: changelog[0].version } }}
         </button>
     </div>
 </footer>
@@ -13,8 +10,8 @@
 <div *ngIf="showChangelog" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm" (click)="showChangelog = false">
     <div class="card flex max-h-[85vh] w-full max-w-2xl flex-col" role="dialog" aria-modal="true" aria-labelledby="changelog-title" (click)="$event.stopPropagation()">
         <div class="card-header">
-            <h2 id="changelog-title" class="card-title text-lg"><i class="fa-solid fa-scroll text-accent"></i> Changelog</h2>
-            <button class="btn-icon" (click)="showChangelog = false" aria-label="Close">
+            <h2 id="changelog-title" class="card-title text-lg"><i class="fa-solid fa-scroll text-accent"></i> {{'footer.changelog' | t}}</h2>
+            <button class="btn-icon" (click)="showChangelog = false" [attr.aria-label]="'common.close' | t">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
@@ -23,7 +20,7 @@
                 <li *ngFor="let changelogVersion of changelog; let first = first; let last = last" class="relative pl-5" [class.pb-6]="!last">
                     <span class="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full" [class.bg-accent]="first" [class.bg-line]="!first"></span>
                     <div class="flex flex-wrap items-center gap-2">
-                        <h3 class="font-semibold">Version {{changelogVersion.version}}</h3>
+                        <h3 class="font-semibold">{{'footer.version' | t: { version: changelogVersion.version } }}</h3>
                         <span class="badge">{{changelogVersion.date}}</span>
                     </div>
                     <ul class="mt-2 list-disc space-y-1 pl-4 text-sm text-muted marker:text-line">

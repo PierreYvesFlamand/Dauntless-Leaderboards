@@ -8,16 +8,16 @@
             <img class="h-24 w-24 shrink-0 object-contain drop-shadow-lg sm:h-28 sm:w-28" [src]="sharedService.getImgPath(trial.behemothName + '.png', 'behemoths')" alt="" />
             <div class="text-center sm:text-left">
                 <div class="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-                    <span class="text-xs font-semibold uppercase tracking-[0.18em] text-accent">Trial · Week {{trial.week}}</span>
-                    <span class="badge" [title]="sharedService.isPreAwakeningWeek(trial.week) ? 'Before the Awakening update (week 282)' : 'After the Awakening update (week 282)'">
+                    <span class="text-xs font-semibold uppercase tracking-[0.18em] text-accent">{{'trial.heroLabel' | t: { week: trial.week } }}</span>
+                    <span class="badge" [title]="(sharedService.isPreAwakeningWeek(trial.week) ? 'trial.beforeAwakeningUpdate' : 'trial.afterAwakeningUpdate') | t">
                         <i class="fa-solid {{sharedService.isPreAwakeningWeek(trial.week) ? 'fa-hourglass-start' : 'fa-hourglass-end'}}"></i>
-                        {{sharedService.isPreAwakeningWeek(trial.week) ? 'Pre-Awakening' : 'Post-Awakening'}}
+                        {{(sharedService.isPreAwakeningWeek(trial.week) ? 'common.preAwakening' : 'common.postAwakening') | t}}
                     </span>
                 </div>
                 <h1 class="page-title mt-1">{{trial.behemothName}}</h1>
                 <p class="page-subtitle">
                     <i class="fa-regular fa-calendar mr-1"></i>
-                    From {{trial.startAt | date:'YYYY MMMM d - hh:mm'}} to {{trial.endAt | date:'MMMM d - hh:mm'}}
+                    {{'trial.dateRange' | t: { start: (trial.startAt | ldate:'longDateTime'), end: (trial.endAt | ldate:'monthDayTime') } }}
                 </p>
             </div>
         </div>
@@ -25,20 +25,20 @@
 
     <div *ngIf="sharedService.isDisabledTrialWeek(trial.week); else default" class="alert">
         <i class="fa-solid fa-circle-info mt-0.5"></i>
-        <p>This week's leaderboards have been disabled due to the use of an exploit with the Golden Claws</p>
+        <p>{{'trial.disabledNotice' | t}}</p>
     </div>
 
     <ng-template #default>
         <div *ngIf="trial.week <= 90" class="alert mb-4">
             <i class="fa-solid fa-circle-info mt-0.5"></i>
-            <p>Weapon specific leaderboards wasn't implemented for this week and are extracted from solo leaderboard</p>
+            <p>{{'trial.weaponBoardsNotice' | t}}</p>
         </div>
 
         <section class="card fill flex flex-col overflow-clip">
             <div class="tabs px-2 pt-1" role="tablist">
-                <button *ngFor="let tab of visibleTabs" class="tab" [class.active]="activeTab === tab.key" (click)="activeTab = tab.key" role="tab" [attr.aria-selected]="activeTab === tab.key" [title]="tab.label || tab.key">
-                    <img *ngIf="tab.weaponId" [src]="sharedService.getImgPath(tab.weaponId + '.png', 'weapons')" [alt]="tab.key" />
-                    <span *ngIf="tab.label">{{tab.label}}</span>
+                <button *ngFor="let tab of visibleTabs" class="tab" [class.active]="activeTab === tab.key" (click)="activeTab = tab.key" role="tab" [attr.aria-selected]="activeTab === tab.key" [title]="(tab.label || 'weapon.' + tab.weaponId) | t">
+                    <img *ngIf="tab.weaponId" [src]="sharedService.getImgPath(tab.weaponId + '.png', 'weapons')" [alt]="('weapon.' + tab.weaponId) | t" />
+                    <span *ngIf="tab.label">{{tab.label | t}}</span>
                     <span class="tab-count">{{trial[tab.key].length}}</span>
                 </button>
             </div>
@@ -47,9 +47,9 @@
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th class="w-16 text-center">Rank</th>
-                            <th class="w-28">Time</th>
-                            <th>{{activeTab === 'group' ? 'Players' : 'Player'}}</th>
+                            <th class="w-16 text-center">{{'common.rank' | t}}</th>
+                            <th class="w-28">{{'common.time' | t}}</th>
+                            <th>{{(activeTab === 'group' ? 'common.players' : 'common.player') | t}}</th>
                         </tr>
                     </thead>
 

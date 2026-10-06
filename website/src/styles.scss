@@ -336,6 +336,11 @@
     }
   }
 
+  // Country flag (flag-icons 4:3 svg): <img class="flag" src="flags/fr.svg">
+  .flag {
+    @apply inline-block h-3.5 w-[1.17rem] shrink-0 rounded-[2px] object-cover ring-1 ring-black/10;
+  }
+
   // Misc
   .badge {
     @apply inline-flex items-center gap-1 rounded-md border border-line bg-surface-2 px-2 py-0.5 text-xs font-medium text-muted;

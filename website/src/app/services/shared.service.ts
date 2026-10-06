@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { formatNumber } from '@angular/common';
 import { BehaviorSubject } from 'rxjs';
 import { LocalstorageService } from './localstorage.service';
+import { TranslationService } from './translation.service';
 
 export type ERA = 'all' | 'pre' | 'post';
 
@@ -9,12 +11,12 @@ export type ERA = 'all' | 'pre' | 'post';
 })
 export class SharedService {
     constructor(
-        private localstorageService: LocalstorageService
+        private localstorageService: LocalstorageService,
+        private translationService: TranslationService
     ) { }
 
     init() {
         this.updateTheme(this.localstorageService.getByKey<string>('theme'));
-        this.updateLanguage(this.localstorageService.getByKey<string>('language'));
         // Favorites first: setting player/guild id adds it to them
         this.updateFavoriteGuilds(this.localstorageService.getByKey<number[]>('fav-guilds'));
         this.updateFavoritePlayers(this.localstorageService.getByKey<number[]>('fav-players'));
@@ -37,17 +39,6 @@ export class SharedService {
         this.themeSubject.next(value);
     }
     public get theme(): string { return this.themeSubject.value; }
-
-    // Language
-    private allowedLanguages = ['us', 'fr', 'de', 'jp', 'es', 'it', 'br', 'ru'];
-    private languageSubject = new BehaviorSubject<string>(this.allowedLanguages[0]);
-    language$ = this.languageSubject.asObservable();
-    updateLanguage(value: string) {
-        if (!this.allowedLanguages.includes(value)) value = this.allowedLanguages[0];
-        this.localstorageService.setByKey('language', value);
-        this.languageSubject.next(value);
-    }
-    public get language(): string { return this.languageSubject.value; }
 
     // Player id
     private playerIdSubject = new BehaviorSubject<number>(-1);
@@ -153,27 +144,33 @@ export class SharedService {
         const m = Math.floor(Math.abs(time) / 60000);
         const s = Math.floor((Math.abs(time) - m * 60000) / 1000);
         const ms = Math.abs(time) % 1000;
+        // Seconds + truncated fraction digits, with the decimal separator of the current language
+        const seconds = (fraction: string) => formatNumber(Number(`${s}.${fraction}`), this.translationService.language.locale, `1.${fraction.length}-${fraction.length}`);
 
         if (decimals === true) {
             decimals = 3;
-            if (time >= 60000) return `${m} min ${s}.${String(ms).padStart(decimals, '0')} sec`;
-            if (time > 0) return `${s}.${String(ms).padStart(decimals, '0')} sec`;
-            if (time === 0) return `0.000 sec`;
-            if (time < 0) return `-${s}.${String(ms).padStart(decimals, '0')} sec`;
+            const fraction = String(ms).padStart(decimals, '0');
+            if (time >= 60000) return this.translationService.t('time.minSec', { m, s: seconds(fraction) });
+            if (time > 0) return this.translationService.t('time.sec', { s: seconds(fraction) });
+            if (time === 0) return this.translationService.t('time.sec', { s: seconds('000') });
+            if (time < 0) return this.translationService.t('time.sec', { s: `-${seconds(fraction)}` });
         } else {
-            if (time >= 60000) return `${m} min ${s} sec`;
-            if (time > 0) return `${s}.${String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0')} sec`;
-            if (time === 0) return `0.000 sec`;
-            if (time < 0) return `-${s}.${String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0')} sec`;
+            const fraction = String(Math.floor(ms / (10 ** (3 - decimals)))).padStart(decimals, '0');
+            if (time >= 60000) return this.translationService.t('time.minSec', { m, s });
+            if (time > 0) return this.translationService.t('time.sec', { s: seconds(fraction) });
+            if (time === 0) return this.translationService.t('time.sec', { s: seconds('000') });
+            if (time < 0) return this.translationService.t('time.sec', { s: `-${seconds(fraction)}` });
         }
 
         return '';
     }
 
     // Names by image id (img/weapons/<id>.png, img/omnicells/<id>.png)
-    public readonly weaponNames: Record<number, string> = {
-        1: 'Hammer', 2: 'Axe', 3: 'Sword', 4: 'Chain Blades', 5: 'War Pike', 6: 'Repeaters', 7: 'Aether Strikers'
-    };
+    private readonly weaponIds = [1, 2, 3, 4, 5, 6, 7];
+    // Translated at use time: the language can change at runtime
+    public get weaponNames(): Record<number, string> {
+        return Object.fromEntries(this.weaponIds.map(id => [id, this.translationService.t(`weapon.${id}`)]));
+    }
     public readonly omnicellNames: Record<number, string> = {
         1: 'Bastion', 2: 'Revenant', 3: 'Discipline', 4: 'Artificer', 5: 'Iceborne', 6: 'Tempest'
     };
@@ -181,10 +178,10 @@ export class SharedService {
         1: 'PC', 2: 'PlayStation', 3: 'Xbox', 4: 'Switch'
     };
 
-    // Guild Score explanation (formula in DatabaseService)
-    public readonly guildScoreTooltip: string = 'Points per season from the final rank (1st = 100, 10th = 50, 50th = 15). '
-        + 'Recent seasons count more: points halve every 3 seasons back. '
-        + 'Score = weighted average over all seasons, 0-100.';
+    // Guild Score explanation (formula in DatabaseService), translated at use time
+    public get guildScoreTooltip(): string {
+        return this.translationService.t('shared.guildScoreTooltip');
+    }
 
     // Weeks 282 & 283 leaderboards were disabled (Golden Claws exploit)
     public isDisabledTrialWeek(week: number): boolean {
