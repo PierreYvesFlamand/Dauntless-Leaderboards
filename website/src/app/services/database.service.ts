@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import pako from 'pako'
 
 import { ALL_DATA, BEHEMOTH, DAUNTLESS_GAUNTLET_SEASON, GAUNTLET_SEASON_LEADERBOARD_ITEM, GUILD_DATA } from '../../../../script/src/types/types';
+import { ERA, ERA_IDS, getEra } from './shared.service';
+
+// Shape of the processed data cached in IndexedDB: bump it when that shape changes, so old caches are rebuilt
+const DATA_FORMAT = 2;
 
 export type WEBSITE_GAUNTLET = {
     allGauntletsInfo: GAUNTLET_INFO[]
@@ -95,27 +99,14 @@ export type TRIAL_LEADERBOARD_PLAYER = {
 
 export type WEBSITE_PLAYER = {
     id: number
-    nbrSoloTop1: number
-    nbrSoloTop5: number
-    nbrSoloTop100: number
-    nbrSoloTop1PreAwakening: number
-    nbrSoloTop5PreAwakening: number
-    nbrSoloTop100PreAwakening: number
-    nbrSoloTop1PostAwakening: number
-    nbrSoloTop5PostAwakening: number
-    nbrSoloTop100PostAwakening: number
-    nbrGroupTop1: number
-    nbrGroupTop5: number
-    nbrGroupTop100: number
-    nbrGroupTop1PreAwakening: number
-    nbrGroupTop5PreAwakening: number
-    nbrGroupTop100PreAwakening: number
-    nbrGroupTop1PostAwakening: number
-    nbrGroupTop5PostAwakening: number
-    nbrGroupTop100PostAwakening: number
+    // Top 1/5/100 counts per era
+    eraCounts: Record<ERA, PLAYER_COUNTS>
     playerNames: { name: string, platformId: number }[]
     playerTrials: PLAYER_TRIAL_ITEM[]
 }
+
+export type PLAYER_COUNT_KEY = 'nbrSoloTop1' | 'nbrSoloTop5' | 'nbrSoloTop100' | 'nbrGroupTop1' | 'nbrGroupTop5' | 'nbrGroupTop100';
+export type PLAYER_COUNTS = Record<PLAYER_COUNT_KEY, number>;
 
 export type PLAYER_TRIAL_ITEM = {
     trialLeaderboardItemTypeId: number
@@ -155,6 +146,7 @@ export class DatabaseService {
         players: []
     } as {
         loaded: boolean
+        format?: number
         timestamp: number
         dashboard?: WEBSITE_DASHBOARD
         gauntlets: WEBSITE_GAUNTLET[]
@@ -163,6 +155,18 @@ export class DatabaseService {
         trials: WEBSITE_TRIAL[]
         players: WEBSITE_PLAYER[]
     };
+
+    // Trials only carry the behemoth name
+    public getBehemothId(name: string): number | undefined {
+        return this.data.behemoths.find(b => b.name === name)?.id;
+    }
+
+    private countRank(playerId: number, week: number, board: 'Solo' | 'Group', rank: number) {
+        const counts = this.data.players[playerId - 1].eraCounts[getEra(week)];
+        if (rank <= 1) counts[`nbr${board}Top1`]++;
+        if (rank <= 5) counts[`nbr${board}Top5`]++;
+        if (rank <= 100) counts[`nbr${board}Top100`]++;
+    }
 
     public async loadData() {
         let db: any;
@@ -196,7 +200,7 @@ export class DatabaseService {
                 timestamp = (await res.json()).timestamp;
             } catch (error) { }
 
-            if (cachedData && timestamp < cachedData.timestamp) { cachedData.loaded = false; this.data = cachedData; db.close(); } else { shouldFetch = true; }
+            if (cachedData && cachedData.format === DATA_FORMAT && timestamp < cachedData.timestamp) { cachedData.loaded = false; this.data = cachedData; db.close(); } else { shouldFetch = true; }
         } else { shouldFetch = true; }
 
         const res = await fetch('data/allData.json.compressed');
@@ -371,24 +375,7 @@ export class DatabaseService {
                 ...arr,
                 {
                     id: item.id,
-                    nbrSoloTop1: 0,
-                    nbrSoloTop5: 0,
-                    nbrSoloTop100: 0,
-                    nbrSoloTop1PreAwakening: 0,
-                    nbrSoloTop5PreAwakening: 0,
-                    nbrSoloTop100PreAwakening: 0,
-                    nbrSoloTop1PostAwakening: 0,
-                    nbrSoloTop5PostAwakening: 0,
-                    nbrSoloTop100PostAwakening: 0,
-                    nbrGroupTop1: 0,
-                    nbrGroupTop5: 0,
-                    nbrGroupTop100: 0,
-                    nbrGroupTop1PreAwakening: 0,
-                    nbrGroupTop5PreAwakening: 0,
-                    nbrGroupTop100PreAwakening: 0,
-                    nbrGroupTop1PostAwakening: 0,
-                    nbrGroupTop5PostAwakening: 0,
-                    nbrGroupTop100PostAwakening: 0,
+                    eraCounts: Object.fromEntries(ERA_IDS.map(era => [era, { nbrSoloTop1: 0, nbrSoloTop5: 0, nbrSoloTop100: 0, nbrGroupTop1: 0, nbrGroupTop5: 0, nbrGroupTop100: 0 }])) as Record<ERA, PLAYER_COUNTS>,
                     playerNames: item.names,
                     playerTrials: []
                 }
@@ -442,15 +429,7 @@ export class DatabaseService {
                                     completionTime: item.completionTime,
                                     objectivesCompleted: item.objectivesCompleted,
                                     players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
-                                        if (item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1++;
-                                        if (item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5++;
-                                        if (item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100++;
-                                        if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PreAwakening++;
-                                        if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PreAwakening++;
-                                        if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PreAwakening++;
-                                        if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrSoloTop1PostAwakening++;
-                                        if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrSoloTop5PostAwakening++;
-                                        if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrSoloTop100PostAwakening++;
+                                        this.countRank(player.playerId, trial.info.week, 'Solo', item.rank);
 
                                         this.data.players[player.playerId - 1].playerTrials.push({
                                             trialLeaderboardItemTypeId: 1,
@@ -496,15 +475,7 @@ export class DatabaseService {
                                     completionTime: item.completionTime,
                                     objectivesCompleted: item.objectivesCompleted,
                                     players: item.players.reduce((arr: TRIAL_LEADERBOARD_PLAYER[], player): TRIAL_LEADERBOARD_PLAYER[] => {
-                                        if (item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1++;
-                                        if (item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5++;
-                                        if (item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100++;
-                                        if (trial.info.week < 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PreAwakening++;
-                                        if (trial.info.week < 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PreAwakening++;
-                                        if (trial.info.week < 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PreAwakening++;
-                                        if (trial.info.week >= 282 && item.rank <= 1) this.data.players[player.playerId - 1].nbrGroupTop1PostAwakening++;
-                                        if (trial.info.week >= 282 && item.rank <= 5) this.data.players[player.playerId - 1].nbrGroupTop5PostAwakening++;
-                                        if (trial.info.week >= 282 && item.rank <= 100) this.data.players[player.playerId - 1].nbrGroupTop100PostAwakening++;
+                                        this.countRank(player.playerId, trial.info.week, 'Group', item.rank);
 
                                         this.data.players[player.playerId - 1].playerTrials.push({
                                             trialLeaderboardItemTypeId: 2,
@@ -869,6 +840,7 @@ export class DatabaseService {
         }
 
         // Done
+        this.data.format = DATA_FORMAT;
         this.data.timestamp = new Date().getTime();
         this.data.loaded = true;
 

@@ -36,4 +36,5 @@ You are a frontend developer for the Dauntless Leaderboards website (https://dau
 2. Make the change.
 3. Verify with `npm run build` in `website/` (must compile with no errors). Run `ng serve` only if asked to check visually.
 4. Never run `npm run deploy` (publishes to GitHub Pages) unless explicitly told to.
-5. Report: files changed, what to check in the browser, and anything left undone.
+5. Changelog: user-visible changes go in `website/public/data/versions.json`. If the task says which version, add the entry; otherwise don't guess. Say in your report that it still needs logging, so the user can be asked whether to add it and with which version number.
+6. Report: files changed, what to check in the browser, the changelog status, and anything left undone.

@@ -1,4 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { DatabaseService, WEBSITE_TRIAL } from '../../services/database.service';
 import { SharedService } from '../../services/shared.service';
 import { BEHEMOTH } from '../../../../../script/src/types/types';
@@ -9,15 +11,37 @@ import { BEHEMOTH } from '../../../../../script/src/types/types';
   styleUrls: ['./trials.component.scss'],
   standalone: false
 })
-export class TrialsComponent implements AfterViewInit {
+export class TrialsComponent implements OnInit, OnDestroy {
   constructor(
     public sharedService: SharedService,
-    public databaseService: DatabaseService
+    public databaseService: DatabaseService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
-  ngAfterViewInit(): void {
-    this.applyFilter();
+  private subscription?: Subscription;
+
+  ngOnInit(): void {
     this.loadBehemoths();
+    // Behemoth filter lives in the query params (?behemoth=id): shareable, and set from the dashboard
+    this.subscription = this.activatedRoute.queryParamMap.subscribe(query => {
+      this.filters.behemothId = Number(query.get('behemoth')) || 0;
+      this.filters.page = 1;
+      this.applyFilter();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+  public setBehemoth(behemothId: number) {
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { behemoth: behemothId || null },
+      queryParamsHandling: 'merge',
+      replaceUrl: true
+    });
   }
 
   public behemoths: BEHEMOTH[] = [];
@@ -41,7 +65,7 @@ export class TrialsComponent implements AfterViewInit {
       total: 0
     };
 
-    response.data = response.data.filter(t => (this.sharedService.showPreAwakening && t.week < 282) || (this.sharedService.showPostAwakening && t.week >= 282));
+    response.data = response.data.filter(t => this.sharedService.isWeekShown(t.week));
 
     if (this.filters.behemothId) {
       response.data = response.data.filter(r => r.behemothName === this.behemoths.find(b => b.id == this.filters.behemothId)?.name || '');

@@ -1,29 +1,40 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ERA, SharedService } from '../../services/shared.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ERA, ERAS, ERA_IDS, SharedService } from '../../services/shared.service';
 
-// Pre/Post Awakening filter, stored in the same settings as the Settings page
+// Turns each era on/off (at least one stays on)
+// Without [selected]: stored in the same settings as the Settings page
+// With [selected]: only emits the new selection (e.g. statistics, where eras live in the query params)
 @Component({
   selector: 'dl-era-selector',
   templateUrl: './era-selector.component.html',
   standalone: false
 })
 export class EraSelectorComponent {
-  @Output() public eraChange = new EventEmitter<ERA>();
+  @Input() public selected?: ERA[];
+  @Output() public eraChange = new EventEmitter<ERA[]>();
 
-  // Translation keys
-  public options: { value: ERA, label: string, short: string }[] = [
-    { value: 'all', label: 'common.all', short: 'common.all' },
-    { value: 'pre', label: 'common.preAwakening', short: 'components.eraSelector.preShort' },
-    { value: 'post', label: 'common.postAwakening', short: 'components.eraSelector.postShort' }
-  ];
+  public readonly eras = ERAS;
 
   constructor(
     public sharedService: SharedService
   ) { }
 
-  public select(value: ERA) {
-    if (value === this.sharedService.era) return;
-    this.sharedService.updateEra(value);
-    this.eraChange.emit(value);
+  public get shownEras(): ERA[] {
+    return this.selected || this.sharedService.shownEras;
+  }
+
+  public isShown(era: ERA): boolean {
+    return this.shownEras.includes(era);
+  }
+
+  public isOnlyShown(era: ERA): boolean {
+    return this.shownEras.length === 1 && this.isShown(era);
+  }
+
+  public toggle(era: ERA) {
+    if (this.isOnlyShown(era)) return;
+    const eras = ERA_IDS.filter(id => id === era ? !this.isShown(id) : this.isShown(id));
+    if (!this.selected) this.sharedService.updateShownEras(eras);
+    this.eraChange.emit(eras);
   }
 }

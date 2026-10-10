@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SharedService } from '../../services/shared.service';
+import { ERA, ERAS, SharedService } from '../../services/shared.service';
 import { LANGUAGE_CODE, LANGUAGES, HELP_TRANSLATE_URL, TranslationService } from '../../services/translation.service';
 
 @Component({
@@ -12,8 +12,13 @@ export class SettingsComponent {
   public readonly languages = LANGUAGES;
   public readonly helpTranslateUrl = HELP_TRANSLATE_URL;
   public readonly browserLanguage: LANGUAGE_CODE;
-  // Awakening update released on week 282
-  public readonly awakeningWeek = 282;
+  public readonly eras = ERAS;
+  // Translation keys
+  public readonly showEraLabels: Record<ERA, string> = {
+    'pre-reforged': 'settings.showPreReforged',
+    'reforged': 'settings.showReforged',
+    'awakening': 'settings.showAwakening'
+  };
 
   constructor(
     public sharedService: SharedService,

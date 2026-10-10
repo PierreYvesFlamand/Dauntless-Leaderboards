@@ -10,7 +10,7 @@
 
 <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex w-full flex-col gap-2 sm:max-w-xs">
-        <select class="select w-full" [(ngModel)]="filters.behemothId" (ngModelChange)="filters.page = 1; applyFilter();" [attr.aria-label]="'trials.behemoth' | t">
+        <select class="select w-full" [(ngModel)]="filters.behemothId" (ngModelChange)="setBehemoth($event)" [attr.aria-label]="'trials.behemoth' | t">
             <option [ngValue]="0">{{'trials.allBehemoths' | t}}</option>
             <option *ngFor="let behemoth of behemoths" [ngValue]="behemoth.id">
                 {{behemoth.name}}
@@ -40,7 +40,8 @@
                 </td>
             </tr>
             <tr *ngFor="let trial of trials" class="h-14" [enhancedRouterLink]="'/trials/' + trial.week" role="button">
-                <td [title]="trial.behemothName">
+                <!-- Week cell filters the list on its behemoth instead of opening the trial -->
+                <td class="hover:text-accent" [title]="trial.behemothName" [enhancedRouterLink]="'/trials'" [queryParams]="{ behemoth: databaseService.getBehemothId(trial.behemothName) }">
                     <span class="flex items-center gap-2">
                         <img class="behemoth-ico" [src]="sharedService.getImgPath(trial.behemothName + '.png', 'behemoths')" alt="" />
                         <span>

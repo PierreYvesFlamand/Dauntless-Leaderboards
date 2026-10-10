@@ -83,10 +83,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let trial of dashboardData.lastTrials" class="h-12" [enhancedRouterLink]="'/trials/' + trial.week" role="button">
-                        <td [title]="trial.behemothName">
+                        <!-- Week cell opens the trials list filtered on its behemoth -->
+                        <td class="group" [title]="trial.behemothName" [enhancedRouterLink]="'/trials'" [queryParams]="{ behemoth: databaseService.getBehemothId(trial.behemothName) }">
                             <span class="flex items-center gap-2">
                                 <img class="behemoth-ico" [src]="sharedService.getImgPath(trial.behemothName + '.png', 'behemoths')" alt="" />
-                                <span class="font-semibold tabular-nums text-muted">{{trial.week}}</span>
+                                <span class="font-semibold tabular-nums text-muted group-hover:text-accent">{{trial.week}}</span>
                             </span>
                         </td>
                         <td class="time" [title]="sharedService.convertTrialTime(trial.soloCompletionTime, true)">

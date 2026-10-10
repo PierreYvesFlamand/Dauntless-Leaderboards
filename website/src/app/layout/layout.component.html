@@ -10,7 +10,7 @@
         <dl-header *ngIf="databaseService.data.loaded" class="shrink-0" (toggleSidebar)="sidebarOpen = !sidebarOpen" />
 
         <div #scrollArea class="flex flex-1 flex-col lg:min-h-0 lg:overflow-y-auto">
-            <main class="page mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-6 sm:px-6 lg:min-h-0 lg:px-8 lg:pb-4">
+            <main class="page mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8 lg:pb-4">
                 <router-outlet *ngIf="databaseService.data.loaded" />
 
                 <div *ngIf="!databaseService.data.loaded" class="flex min-h-[60vh] flex-col items-center justify-center text-center">
