@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DatabaseService, WEBSITE_TRIAL } from '../../../services/database.service';
-import { SharedService } from '../../../services/shared.service';
+import { AWAKENING_WEEK, SharedService } from '../../../services/shared.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 type TRIAL_TAB_KEY = 'all' | 'group' | 'hammer' | 'axe' | 'sword' | 'chainblades' | 'pike' | 'repeaters' | 'strikers';
@@ -59,6 +59,6 @@ export class TrialDetailComponent {
   public get visibleTabs(): TRIAL_TAB[] {
     const trial = this.trial;
     if (!trial) return [];
-    return this.tabs.filter(tab => trial[tab.key].length > 0 && (!tab.weaponId || trial.week < 282));
+    return this.tabs.filter(tab => trial[tab.key].length > 0 && (!tab.weaponId || trial.week < AWAKENING_WEEK));
   }
 }

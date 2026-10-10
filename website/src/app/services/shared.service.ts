@@ -4,7 +4,22 @@ import { BehaviorSubject } from 'rxjs';
 import { LocalstorageService } from './localstorage.service';
 import { TranslationService } from './translation.service';
 
-export type ERA = 'all' | 'pre' | 'post';
+export type ERA = 'pre-reforged' | 'reforged' | 'awakening';
+
+// Game eras by trial week: Reforged released on week 73 (2020/12/03), Awakening on week 282
+// label, short and weeks are translation keys
+export const REFORGED_WEEK = 73;
+export const AWAKENING_WEEK = 282;
+export const ERAS: { id: ERA, label: string, short: string, icon: string, from: number, to: number | null, weeks: string }[] = [
+    { id: 'pre-reforged', label: 'common.preReforged', short: 'components.eraSelector.preReforgedShort', icon: 'fa-hourglass-start', from: 1, to: REFORGED_WEEK - 1, weeks: 'common.eraWeeks.before' },
+    { id: 'reforged', label: 'common.reforged', short: 'components.eraSelector.reforgedShort', icon: 'fa-hourglass-half', from: REFORGED_WEEK, to: AWAKENING_WEEK - 1, weeks: 'common.eraWeeks.between' },
+    { id: 'awakening', label: 'common.awakening', short: 'components.eraSelector.awakeningShort', icon: 'fa-hourglass-end', from: AWAKENING_WEEK, to: null, weeks: 'common.eraWeeks.after' }
+];
+export const ERA_IDS = ERAS.map(era => era.id);
+
+export function getEra(week: number): ERA {
+    return [...ERAS].reverse().find(era => week >= era.from)?.id || ERAS[0].id;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -23,8 +38,7 @@ export class SharedService {
         this.updatePlayerId(this.localstorageService.getByKey<number>('player-id'));
         this.updateGuildId(this.localstorageService.getByKey<number>('guild-id'));
         this.updateTrialDecimals(this.localstorageService.getByKey<number>('trial-decimals'));
-        this.updateShowPreAwakening(this.localstorageService.getByKey<boolean>('showPreAwakening'));
-        this.updateShowPostAwakening(this.localstorageService.getByKey<boolean>('showPostAwakening2'));
+        this.updateShownEras(this.localstorageService.getByKey<ERA[]>('shownEras'));
         this.updateFavoritesOnly(this.localstorageService.getByKey<boolean>('favoritesOnly'));
         this.updateThemero(this.localstorageService.getByKey<boolean>('themero'));
     }
@@ -188,38 +202,34 @@ export class SharedService {
         return week === 282 || week === 283;
     }
 
-    // ShowPreAwakening
-    private allowedShowPreAwakening = [true, false];
-    private showPreAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPreAwakening[0]);
-    showPreAwakening$ = this.showPreAwakeningSubject.asObservable();
-    updateShowPreAwakening(value: boolean) {
-        if (!this.allowedShowPreAwakening.includes(value)) value = this.allowedShowPreAwakening[0];
-        this.localstorageService.setByKey('showPreAwakening', value);
-        this.showPreAwakeningSubject.next(value);
+    // Shown eras (Settings switches and era selector), always at least one
+    private shownErasSubject = new BehaviorSubject<ERA[]>(ERA_IDS);
+    shownEras$ = this.shownErasSubject.asObservable();
+    updateShownEras(value: ERA[]) {
+        value = Array.isArray(value) ? ERA_IDS.filter(id => value.includes(id)) : [];
+        if (!value.length) value = ERA_IDS;
+        this.localstorageService.setByKey('shownEras', value);
+        this.shownErasSubject.next(value);
     }
-    public get showPreAwakening(): boolean { return this.showPreAwakeningSubject.value; }
+    public get shownEras(): ERA[] { return this.shownErasSubject.value; }
+    public isEraShown(era: ERA): boolean {
+        return this.shownEras.includes(era);
+    }
+    // The last shown era can't be hidden
+    public isOnlyShownEra(era: ERA): boolean {
+        return this.shownEras.length === 1 && this.isEraShown(era);
+    }
+    public toggleEra(era: ERA) {
+        if (this.isOnlyShownEra(era)) return;
+        this.updateShownEras(this.isEraShown(era) ? this.shownEras.filter(id => id !== era) : [...this.shownEras, era]);
+    }
+    public isWeekShown(week: number): boolean {
+        return this.isEraShown(getEra(week));
+    }
 
-    // ShowPostAwakening
-    private allowedShowPostAwakening = [true, false];
-    private showPostAwakeningSubject = new BehaviorSubject<boolean>(this.allowedShowPostAwakening[0]);
-    showPostAwakening$ = this.showPostAwakeningSubject.asObservable();
-    updateShowPostAwakening(value: boolean) {
-        if (!this.allowedShowPostAwakening.includes(value)) value = this.allowedShowPostAwakening[0];
-        this.localstorageService.setByKey('showPostAwakening2', value);
-        this.showPostAwakeningSubject.next(value);
-    }
-    public get showPostAwakening(): boolean { return this.showPostAwakeningSubject.value; }
-
-    // Era: shortcut over the two Awakening settings (null when both are off)
-    public get era(): ERA | null {
-        if (this.showPreAwakening && this.showPostAwakening) return 'all';
-        if (this.showPreAwakening) return 'pre';
-        if (this.showPostAwakening) return 'post';
-        return null;
-    }
-    updateEra(value: ERA) {
-        this.updateShowPreAwakening(value !== 'post');
-        this.updateShowPostAwakening(value !== 'pre');
+    // Params of an era's weeks window (common.eraWeeks.*): "Weeks before 73", "Weeks 73 to 281", "Week 282 and after"
+    public getEraWeeksParams(era: typeof ERAS[number]) {
+        return { week: era.to ? era.to + 1 : era.from, from: era.from, to: era.to ?? '' };
     }
 
     // Favorites only: restrict guild/player lists and statistics to favorites
@@ -233,9 +243,9 @@ export class SharedService {
     }
     public get favoritesOnly(): boolean { return this.favoritesOnlySubject.value; }
 
-    // Awakening update released on week 282
-    public isPreAwakeningWeek(week: number): boolean {
-        return week < 282;
+    // Era of a trial week, for templates
+    public eraOf(week: number): typeof ERAS[number] {
+        return ERAS.find(era => era.id === getEra(week))!;
     }
 
     // Themero

@@ -53,26 +53,15 @@
                 <input id="trial-decimals" class="input w-20 text-center" type="number" min="1" max="3" [ngModel]="sharedService.trialDecimals" (ngModelChange)="sharedService.updateTrialDecimals($event)" />
             </div>
 
-            <label class="setting-row" for="showPreAwakening">
-                <span class="setting-icon"><i class="fa-solid fa-hourglass-start"></i></span>
+            <!-- The last shown era can't be turned off -->
+            <label *ngFor="let era of eras" class="setting-row" [class.cursor-not-allowed]="sharedService.isOnlyShownEra(era.id)" [for]="'show-' + era.id">
+                <span class="setting-icon"><i class="fa-solid {{era.icon}}"></i></span>
                 <span class="flex-1">
-                    <span class="block font-medium">{{'settings.showPreAwakening.label' | t}}</span>
-                    <span class="block text-xs text-muted">{{'settings.showPreAwakening.description' | t: { week: awakeningWeek } }}</span>
+                    <span class="block font-medium">{{showEraLabels[era.id] | t}}</span>
+                    <span class="block text-xs text-muted">{{era.weeks | t: sharedService.getEraWeeksParams(era)}}</span>
                 </span>
-                <span class="switch">
-                    <input type="checkbox" id="showPreAwakening" [ngModel]="sharedService.showPreAwakening === true" (ngModelChange)="sharedService.updateShowPreAwakening($event ? true : false)">
-                    <span></span>
-                </span>
-            </label>
-
-            <label class="setting-row" for="showPostAwakening">
-                <span class="setting-icon"><i class="fa-solid fa-hourglass-end"></i></span>
-                <span class="flex-1">
-                    <span class="block font-medium">{{'settings.showPostAwakening.label' | t}}</span>
-                    <span class="block text-xs text-muted">{{'settings.showPostAwakening.description' | t: { week: awakeningWeek } }}</span>
-                </span>
-                <span class="switch">
-                    <input type="checkbox" id="showPostAwakening" [ngModel]="sharedService.showPostAwakening === true" (ngModelChange)="sharedService.updateShowPostAwakening($event ? true : false)">
+                <span class="switch" [class.cursor-not-allowed]="sharedService.isOnlyShownEra(era.id)">
+                    <input type="checkbox" [id]="'show-' + era.id" [ngModel]="sharedService.isEraShown(era.id)" [disabled]="sharedService.isOnlyShownEra(era.id)" (ngModelChange)="sharedService.toggleEra(era.id)">
                     <span></span>
                 </span>
             </label>

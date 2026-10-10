@@ -1,25 +1,27 @@
 import { Injectable } from '@angular/core';
 import { formatNumber as formatLocaleNumber, formatPercent } from '@angular/common';
 import { DatabaseService, TRIAL_LEADERBOARD_PLAYER, WEBSITE_TRIAL } from './database.service';
-import { SharedService } from './shared.service';
+import { AWAKENING_WEEK, ERA, ERAS, ERA_IDS, SharedService, getEra } from './shared.service';
 import { TRANSLATION_PARAMS, TranslationService } from './translation.service';
 
 // ---------------------------------------------------------------------------
 // Filters
 // ---------------------------------------------------------------------------
 export type STAT_FILTERS = {
-  era: 'all' | 'pre' | 'post'
+  // Shown eras (at least one), "era=reforged,awakening" in the query params
+  era: ERA[]
   board: 'solo' | 'group'
   top: number
   pos: number
 }
 export type STAT_FILTER_KEY = keyof STAT_FILTERS;
 
-export const STAT_DEFAULT_FILTERS: STAT_FILTERS = { era: 'all', board: 'solo', top: 10, pos: 1 };
+export const STAT_DEFAULT_FILTERS: STAT_FILTERS = { era: ERA_IDS, board: 'solo', top: 10, pos: 1 };
 
 // Labels are translation keys (+ params), translated in the template
 export const STAT_FILTER_OPTIONS: Record<STAT_FILTER_KEY, { label: string, options: { value: string | number, label: string, params?: TRANSLATION_PARAMS }[] }> = {
-  era: { label: 'common.era', options: [{ value: 'all', label: 'common.all' }, { value: 'pre', label: 'common.preAwakening' }, { value: 'post', label: 'common.postAwakening' }] },
+  // Eras are toggles (era selector), not options
+  era: { label: 'common.era', options: [] },
   board: { label: 'stats.filter.board', options: [{ value: 'solo', label: 'common.solo' }, { value: 'group', label: 'common.group' }] },
   top: { label: 'stats.filter.top', options: [1, 10, 100].map(value => ({ value, label: 'stats.filter.topOption', params: { top: value } })) },
   pos: { label: 'stats.filter.pos', options: [1, 5, 10, 25, 50, 100].map(value => ({ value, label: 'stats.filter.posOption', params: { pos: value } })) }
@@ -77,7 +79,8 @@ export type STAT_DEFINITION = {
   favorites?: 'players' | 'guilds'
 }
 
-const AWAKENING_WEEK = 282;
+// Era values of old shared links (before the Reforged era was added)
+const OLD_ERA_VALUES: Record<string, ERA[]> = { all: ERA_IDS, pre: ['pre-reforged', 'reforged'], post: ['awakening'] };
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +94,7 @@ export class StatisticsService {
     { slug: 'loadouts', category: 'stats.category.trialsMeta', title: 'stats.def.loadouts.title', description: 'stats.def.loadouts.description', icon: 'fa-solid fa-toolbox', filters: ['era', 'board', 'top'], favorites: 'players' },
     { slug: 'group-comps', category: 'stats.category.trialsMeta', title: 'stats.def.groupComps.title', description: 'stats.def.groupComps.description', icon: 'fa-solid fa-people-group', filters: ['era', 'top'], favorites: 'players' },
     // Records
-    { slug: 'records', category: 'stats.category.records', title: 'stats.def.records.title', description: 'stats.def.records.description', icon: 'fa-solid fa-stopwatch', filters: ['era'], defaults: { era: 'pre' }, favorites: 'players' },
+    { slug: 'records', category: 'stats.category.records', title: 'stats.def.records.title', description: 'stats.def.records.description', icon: 'fa-solid fa-stopwatch', filters: ['era'], defaults: { era: ['reforged'] }, favorites: 'players' },
     { slug: 'photo-finishes', category: 'stats.category.records', title: 'stats.def.photoFinishes.title', description: 'stats.def.photoFinishes.description', icon: 'fa-solid fa-flag-checkered', filters: ['era', 'board'], favorites: 'players' },
     { slug: 'behemoths', category: 'stats.category.records', title: 'stats.def.behemoths.title', description: 'stats.def.behemoths.description', icon: 'fa-solid fa-dragon', filters: ['era'] },
     // Players
@@ -154,8 +157,14 @@ export class StatisticsService {
     const filters: STAT_FILTERS = { ...STAT_DEFAULT_FILTERS, ...definition.defaults };
     for (const key of definition.filters) {
       const raw = params[key];
+      if (key === 'era') {
+        const eras = raw ? OLD_ERA_VALUES[raw] || raw.split(',') : [];
+        const valid = ERA_IDS.filter(id => eras.includes(id));
+        if (valid.length) filters.era = valid;
+        continue;
+      }
       const option = STAT_FILTER_OPTIONS[key].options.find(o => String(o.value) === raw);
-      if (option) (filters as Record<string, string | number>)[key] = option.value;
+      if (option) (filters as unknown as Record<string, string | number>)[key] = option.value;
     }
     return filters;
   }
@@ -179,7 +188,7 @@ export class StatisticsService {
   }
 
   private inEra(week: number, era: STAT_FILTERS['era']): boolean {
-    return era === 'all' || (era === 'pre' ? week < AWAKENING_WEEK : week >= AWAKENING_WEEK);
+    return era.includes(getEra(week));
   }
 
   private runs(trial: WEBSITE_TRIAL, filters: STAT_FILTERS) {
@@ -277,7 +286,7 @@ export class StatisticsService {
         ? (filters.top === 1 ? this.t('stats.scope.winningSolo') : this.t('stats.scope.topSolo', { top: filters.top }))
         : (filters.top === 1 ? this.t('stats.scope.winningGroup') : this.t('stats.scope.topGroup', { top: filters.top })));
     }
-    if (withEra) parts.push(this.t({ all: 'stats.scope.allEras', pre: 'common.preAwakening', post: 'common.postAwakening' }[filters.era]));
+    if (withEra) parts.push(filters.era.length === ERAS.length ? this.t('stats.scope.allEras') : ERAS.filter(era => filters.era.includes(era.id)).map(era => this.t(era.label)).join(' + '));
     if (this.favoritePlayers) parts.push(this.t('stats.scope.favoritesOnly'));
     return parts.join(' · ');
   }
@@ -656,7 +665,7 @@ export class StatisticsService {
   private buildNewcomers(filters: STAT_FILTERS): STAT_BLOCK[] {
     const seen = new Set<number>();
     const perQuarter = new Map<string, number>();
-    const trials = [...this.trialsFor('all')].reverse(); // oldest first
+    const trials = [...this.trialsFor(ERA_IDS)].reverse(); // oldest first
 
     for (const trial of trials) {
       const date = new Date(trial.startAt);

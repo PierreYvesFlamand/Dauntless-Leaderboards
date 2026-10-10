@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { SharedService } from '../../services/shared.service';
-import { DatabaseService, WEBSITE_PLAYER } from '../../services/database.service';
+import { DatabaseService, PLAYER_COUNT_KEY, WEBSITE_PLAYER } from '../../services/database.service';
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
@@ -61,47 +61,13 @@ export class PlayersComponent implements AfterViewInit {
 
     response.data = response.data.filter(r => r.playerNames.map(n => n.name).join('').toLowerCase().includes(this.filters.textSearch.toLowerCase()));
     if (this.sharedService.favoritesOnly) response.data = response.data.filter(r => this.sharedService.hasFavoritePlayer(r.id));
+    // Only players ranked in the eras shown (top 100 counts every top 1 and top 5 too)
+    response.data = response.data.filter(r => this.getStat(r, 'nbrSoloTop100') + this.getStat(r, 'nbrGroupTop100') > 0);
 
-    response.data.sort((a, b) => {
-      let val1, val2;
-
-      if (this.sharedService.showPreAwakening && !this.sharedService.showPostAwakening) {
-        switch (this.filters.orderByField) {
-          case 'nbrSoloTop1': val1 = a.nbrSoloTop1PreAwakening; val2 = b.nbrSoloTop1PreAwakening; break;
-          case 'nbrSoloTop5': val1 = a.nbrSoloTop5PreAwakening; val2 = b.nbrSoloTop5PreAwakening; break;
-          case 'nbrSoloTop100': val1 = a.nbrSoloTop100PreAwakening; val2 = b.nbrSoloTop100PreAwakening; break;
-          case 'nbrGroupTop1': val1 = a.nbrGroupTop1PreAwakening; val2 = b.nbrGroupTop1PreAwakening; break;
-          case 'nbrGroupTop5': val1 = a.nbrGroupTop5PreAwakening; val2 = b.nbrGroupTop5PreAwakening; break;
-          case 'nbrGroupTop100': val1 = a.nbrGroupTop100PreAwakening; val2 = b.nbrGroupTop100PreAwakening; break;
-          default: val1 = a.nbrSoloTop1PreAwakening; val2 = b.nbrSoloTop1PreAwakening;
-        }
-      }
-      else if (!this.sharedService.showPreAwakening && this.sharedService.showPostAwakening) {
-        switch (this.filters.orderByField) {
-          case 'nbrSoloTop1': val1 = a.nbrSoloTop1PostAwakening; val2 = b.nbrSoloTop1PostAwakening; break;
-          case 'nbrSoloTop5': val1 = a.nbrSoloTop5PostAwakening; val2 = b.nbrSoloTop5PostAwakening; break;
-          case 'nbrSoloTop100': val1 = a.nbrSoloTop100PostAwakening; val2 = b.nbrSoloTop100PostAwakening; break;
-          case 'nbrGroupTop1': val1 = a.nbrGroupTop1PostAwakening; val2 = b.nbrGroupTop1PostAwakening; break;
-          case 'nbrGroupTop5': val1 = a.nbrGroupTop5PostAwakening; val2 = b.nbrGroupTop5PostAwakening; break;
-          case 'nbrGroupTop100': val1 = a.nbrGroupTop100PostAwakening; val2 = b.nbrGroupTop100PostAwakening; break;
-          default: val1 = a.nbrSoloTop1PostAwakening; val2 = b.nbrSoloTop1PostAwakening;
-        }
-      }
-      else {
-        switch (this.filters.orderByField) {
-          case 'nbrSoloTop1': val1 = a.nbrSoloTop1; val2 = b.nbrSoloTop1; break;
-          case 'nbrSoloTop5': val1 = a.nbrSoloTop5; val2 = b.nbrSoloTop5; break;
-          case 'nbrSoloTop100': val1 = a.nbrSoloTop100; val2 = b.nbrSoloTop100; break;
-          case 'nbrGroupTop1': val1 = a.nbrGroupTop1; val2 = b.nbrGroupTop1; break;
-          case 'nbrGroupTop5': val1 = a.nbrGroupTop5; val2 = b.nbrGroupTop5; break;
-          case 'nbrGroupTop100': val1 = a.nbrGroupTop100; val2 = b.nbrGroupTop100; break;
-          default: val1 = a.nbrSoloTop1; val2 = b.nbrSoloTop1;
-        }
-      }
-
-      if (this.filters.orderByDirection === 'ASC' && this.filters.orderByField) return val1 - val2;
-      else return val2 - val1;
-    });
+    // No sort column: default order (Solo top 1s)
+    const key = this.filters.orderByField || 'nbrSoloTop1';
+    const direction = this.filters.orderByDirection === 'ASC' && this.filters.orderByField ? 1 : -1;
+    response.data.sort((a, b) => direction * (this.getStat(a, key) - this.getStat(b, key)));
 
     response.total = response.data.length;
     response.data = response.data.slice(0 + (this.filters.page - 1) * 20, 20 + (this.filters.page - 1) * 20);
@@ -133,13 +99,9 @@ export class PlayersComponent implements AfterViewInit {
     return 'fa-arrow-down-long';
   }
 
-  // Stat shown in the table, depending on the Pre/Post Awakening settings
-  public getStat(player: WEBSITE_PLAYER, key: string): number | '' {
-    const { showPreAwakening, showPostAwakening } = this.sharedService;
-    if (!showPreAwakening && !showPostAwakening) return '';
-
-    const suffix = showPreAwakening && showPostAwakening ? '' : showPreAwakening ? 'PreAwakening' : 'PostAwakening';
-    return player[`${key}${suffix}` as keyof WEBSITE_PLAYER] as number;
+  // Stat shown in the table: sum of the eras shown (era selector / settings)
+  public getStat(player: WEBSITE_PLAYER, key: string): number {
+    return this.sharedService.shownEras.reduce((sum, era) => sum + player.eraCounts[era][key as PLAYER_COUNT_KEY], 0);
   }
 
   public Number: (str: string) => number = str => Number(str);

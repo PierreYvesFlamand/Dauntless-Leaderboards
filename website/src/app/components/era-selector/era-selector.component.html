@@ -1,6 +1,7 @@
-<div class="segmented flex-nowrap" role="radiogroup" [attr.aria-label]="'common.era' | t">
-    <button *ngFor="let option of options" class="whitespace-nowrap" role="radio" [attr.aria-checked]="sharedService.era === option.value" [class.active]="sharedService.era === option.value" [title]="option.label | t" (click)="select(option.value)">
-        <span class="sm:hidden">{{option.short | t}}</span>
-        <span class="hidden sm:inline">{{option.label | t}}</span>
+<!-- gap: active buttons don't touch; the last shown era can't be turned off -->
+<div class="segmented flex-nowrap gap-1" role="group" [attr.aria-label]="'common.era' | t">
+    <button *ngFor="let era of eras" class="whitespace-nowrap disabled:cursor-not-allowed" [attr.aria-pressed]="isShown(era.id)" [class.active]="isShown(era.id)" [disabled]="isOnlyShown(era.id)" [title]="(era.label | t) + ' · ' + (era.weeks | t: sharedService.getEraWeeksParams(era))" (click)="toggle(era.id)">
+        <span class="sm:hidden">{{era.short | t}}</span>
+        <span class="hidden sm:inline">{{era.label | t}}</span>
     </button>
 </div>

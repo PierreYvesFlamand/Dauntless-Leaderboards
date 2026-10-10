@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 
 const KEY_PREFIX = 'settings';
-export type LOCALSTORAGE_KEYS = 'theme' | 'lang' | 'player-id' | 'guild-id' | 'trial-decimals' | 'fav-guilds' | 'fav-players' | 'showPreAwakening' | 'showPostAwakening2' | 'favoritesOnly' | 'themero';
+export type LOCALSTORAGE_KEYS = 'theme' | 'lang' | 'player-id' | 'guild-id' | 'trial-decimals' | 'fav-guilds' | 'fav-players' | 'shownEras' | 'favoritesOnly' | 'themero';
+
+// Replaced by 'shownEras' (Pre-Awakening = Pre-Reforged + Reforged, Post-Awakening = Awakening)
+const OLD_ERA_KEYS = { preAwakening: 'showPreAwakening', postAwakening: 'showPostAwakening2' };
 
 const defaultSettings = {
     'theme': 'dark',
@@ -11,8 +14,7 @@ const defaultSettings = {
     'trial-decimals': 1,
     'fav-guilds': [],
     'fav-players': [],
-    'showPreAwakening': true,
-    'showPostAwakening2': true,
+    'shownEras': ['pre-reforged', 'reforged', 'awakening'],
     'favoritesOnly': false,
     'themero': false
 }
@@ -22,6 +24,7 @@ const defaultSettings = {
 })
 export class LocalstorageService {
     constructor() {
+        this.migrateEraSettings();
         for (const key in defaultSettings) {
             this.getByKey(key as LOCALSTORAGE_KEYS);
         }
@@ -47,5 +50,19 @@ export class LocalstorageService {
 
     public setByKey(key: LOCALSTORAGE_KEYS, value: any) {
         localStorage.setItem(`${KEY_PREFIX}-${key}`, JSON.stringify(value));
+    }
+
+    // Keep the eras chosen with the old Pre/Post Awakening switches
+    private migrateEraSettings() {
+        const pre = localStorage.getItem(`${KEY_PREFIX}-${OLD_ERA_KEYS.preAwakening}`);
+        const post = localStorage.getItem(`${KEY_PREFIX}-${OLD_ERA_KEYS.postAwakening}`);
+        if (pre === null && post === null) return;
+
+        if (localStorage.getItem(`${KEY_PREFIX}-shownEras`) === null) {
+            const eras = [...(pre !== 'false' ? ['pre-reforged', 'reforged'] : []), ...(post !== 'false' ? ['awakening'] : [])];
+            this.setByKey('shownEras', eras.length ? eras : defaultSettings['shownEras']);
+        }
+        localStorage.removeItem(`${KEY_PREFIX}-${OLD_ERA_KEYS.preAwakening}`);
+        localStorage.removeItem(`${KEY_PREFIX}-${OLD_ERA_KEYS.postAwakening}`);
     }
 }

@@ -75,9 +75,13 @@
             <div *ngIf="definition.filters.length || definition.favorites" class="mb-5 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-xl border border-line bg-surface px-4 py-3">
                 <div *ngFor="let key of definition.filters" class="flex flex-wrap items-center gap-2">
                     <span class="text-xs font-medium uppercase tracking-wider text-muted">{{filterOptions[key].label | t}}</span>
-                    <div class="segmented" role="radiogroup" [attr.aria-label]="filterOptions[key].label | t">
-                        <button *ngFor="let option of filterOptions[key].options" role="radio" [attr.aria-checked]="filters[key] === option.value" [class.active]="filters[key] === option.value" (click)="setFilter(key, option.value)">{{option.label | t: option.params}}</button>
-                    </div>
+                    <!-- Eras: same toggles as the Players/Trials pages, but kept in the query params -->
+                    <dl-era-selector *ngIf="key === 'era'; else optionsFilter" [selected]="filters.era" (eraChange)="setFilter('era', $event)" />
+                    <ng-template #optionsFilter>
+                        <div class="segmented" role="radiogroup" [attr.aria-label]="filterOptions[key].label | t">
+                            <button *ngFor="let option of filterOptions[key].options" role="radio" [attr.aria-checked]="filters[key] === option.value" [class.active]="filters[key] === option.value" (click)="setFilter(key, option.value)">{{option.label | t: option.params}}</button>
+                        </div>
+                    </ng-template>
                 </div>
                 <div *ngIf="definition.favorites" class="flex flex-wrap items-center gap-2">
                     <span class="text-xs font-medium uppercase tracking-wider text-muted">{{(definition.favorites === 'players' ? 'common.players' : 'common.guilds') | t}}</span>

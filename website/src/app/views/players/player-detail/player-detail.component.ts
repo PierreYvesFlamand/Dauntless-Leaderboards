@@ -70,7 +70,7 @@ export class PlayerDetailComponent {
     }
     this.playerData = JSON.parse(JSON.stringify(player)) as WEBSITE_PLAYER;
 
-    this.playerData.playerTrials = this.playerData.playerTrials.filter(t => (this.sharedService.showPreAwakening && t.week < 282) || (this.sharedService.showPostAwakening && t.week >= 282));
+    this.playerData.playerTrials = this.playerData.playerTrials.filter(t => this.sharedService.isWeekShown(t.week));
 
     // Open the first leaderboard type (by type id) the player appears in
     this.activeTab = [...this.tabs].sort((a, b) => a.typeId - b.typeId).find(tab => this.getSoloRowsByTypeId(tab.typeId).length)?.key || 'all';

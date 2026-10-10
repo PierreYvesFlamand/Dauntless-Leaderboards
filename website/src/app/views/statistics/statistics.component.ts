@@ -1,7 +1,7 @@
 import { Component, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, combineLatest } from 'rxjs';
-import { SharedService } from '../../services/shared.service';
+import { ERA, SharedService } from '../../services/shared.service';
 import { STAT_BLOCK, STAT_DEFAULT_FILTERS, STAT_DEFINITION, STAT_FILTERS, STAT_FILTER_KEY, STAT_FILTER_OPTIONS, STAT_SORT, STAT_TABLE_ROW, StatisticsService } from '../../services/statistics.service';
 import { TranslationService } from '../../services/translation.service';
 
@@ -78,12 +78,15 @@ export class StatisticsComponent implements OnDestroy {
   }
 
   // Filters live in the query params: shareable, and kept when moving to another stat
-  public setFilter(key: STAT_FILTER_KEY, value: string | number) {
+  // Eras are joined: era=reforged,awakening
+  public setFilter(key: STAT_FILTER_KEY, value: string | number | ERA[]) {
     if (!this.definition) return;
-    const defaultValue = { ...STAT_DEFAULT_FILTERS, ...this.definition.defaults }[key];
+    const toParam = (v: string | number | ERA[]) => Array.isArray(v) ? v.join(',') : v;
+    const param = toParam(value);
+    const defaultParam = toParam({ ...STAT_DEFAULT_FILTERS, ...this.definition.defaults }[key]);
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
-      queryParams: { [key]: value === defaultValue ? null : value },
+      queryParams: { [key]: param === defaultParam ? null : param },
       queryParamsHandling: 'merge',
       replaceUrl: true
     });
