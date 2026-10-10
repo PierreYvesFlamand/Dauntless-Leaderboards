@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "deploy": "ng deploy --cname=dauntless-leaderboards.com",
+    "build": "ng build && node scripts/link-previews.mjs",
+    "deploy": "npm run build && ng deploy --no-build --cname=dauntless-leaderboards.com",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "i18n:sync": "node scripts/i18n-sync.mjs"
